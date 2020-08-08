@@ -1,0 +1,17 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
