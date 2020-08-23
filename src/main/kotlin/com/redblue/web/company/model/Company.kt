@@ -1,9 +1,15 @@
-package com.redblue.web.dm.model
+package com.redblue.web.company.model
 
 import java.util.*
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Table
 
+@Entity
+@Table(name = "COMPANY")
 data class Company(
 
+	@Id
 	val id: String,
 
 	val lawFirmId: String,
@@ -18,6 +24,8 @@ data class Company(
 
 	val companyName: String,
 
+	val companySubName: String,
+
 	val companyUpdatedAt: Date,
 
 	val companyAddress: String,
@@ -30,9 +38,7 @@ data class Company(
 
 	val businessCondition: String,
 
-	val deliveryPlace: String
-	,
-	val companyName2: String,
+	val deliveryPlace: String,
 
 	val etc: String,
 
@@ -46,7 +52,7 @@ data class Company(
 
 	val registerRecordCreateAt: Date,
 
-	val isHeadOfficeTransfer: String,
+	val isHeadOfficeTransfer: Boolean,
 
 	val headOfficeTransferAt: Date,
 
@@ -66,7 +72,7 @@ data class Company(
 
 	val liquidationRegisterAt: Date,
 
-	val isRegisterRecordClosure: String,
+	val isRegisterRecordClosure: Boolean,
 
 	val registerRecordClosureAt: Date,
 
