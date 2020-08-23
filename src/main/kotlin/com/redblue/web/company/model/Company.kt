@@ -46,36 +46,36 @@ data class Company(
 
 	val stockPurchaseOption: String,
 
-	val companyFormationAt: Date,
+	val companyFormationAt: Date? = null,
 
-	val registerRecordCreateReason: String,
+	val registerRecordCreateReason: String? = null,
 
-	val registerRecordCreateAt: Date,
+	val registerRecordCreateAt: Date? = null,
 
-	val isHeadOfficeTransfer: Boolean,
+	val isHeadOfficeTransfer: Boolean? = null,
 
-	val headOfficeTransferAt: Date,
+	val headOfficeTransferAt: Date? = null,
 
-	val headOfficeTransferRegisterAt: Date,
+	val headOfficeTransferRegisterAt: Date? = null,
 
-	val isDisband: Boolean,
+	val isDisband: Boolean? = null,
 
-	val disbandAt: Date,
+	val disbandAt: Date? = null,
 
-	val disbandRegisterAt: Date,
+	val disbandRegisterAt: Date? = null,
 
-	val disbandDeemedAt: Date,
+	val disbandDeemedAt: Date? = null,
 
-	val isLiquidation: Boolean,
+	val isLiquidation: Boolean? = null,
 
-	val liquidationAt: Date,
+	val liquidationAt: Date? = null,
 
-	val liquidationRegisterAt: Date,
+	val liquidationRegisterAt: Date? = null,
 
-	val isRegisterRecordClosure: Boolean,
+	val isRegisterRecordClosure: Boolean? = null,
 
-	val registerRecordClosureAt: Date,
+	val registerRecordClosureAt: Date? = null,
 
-	val settlementAt: Date
+	val settlementAt: Date? = null
 
 )
