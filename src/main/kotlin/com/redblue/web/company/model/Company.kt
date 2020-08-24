@@ -1,16 +1,17 @@
 package com.redblue.web.company.model
 
+import net.bytebuddy.utility.RandomString
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "COMPANY")
+@Table(name = "COMPANIES")
 data class Company(
 
 	@Id
-	val id: String,
+	val id: String = "CM" + RandomString.make(30),
 
 	val lawFirmId: String,
 
