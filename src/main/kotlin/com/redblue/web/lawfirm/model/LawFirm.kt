@@ -1,4 +1,4 @@
-package com.redblue.web.user.model
+package com.redblue.web.lawfirm.model
 
 import java.util.*
 import javax.persistence.Entity
