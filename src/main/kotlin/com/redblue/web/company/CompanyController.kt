@@ -1,6 +1,10 @@
 package com.redblue.web.company
 
+import com.redblue.security.core.annotation.CurrentUser
+import com.redblue.security.core.userdetails.SecurityUser
 import com.redblue.web.company.service.CompanyService
+import com.redblue.web.lawfirm.model.LawFirmUser
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,7 +18,10 @@ class CompanyController(
 ) {
 
 	@GetMapping
-	fun list(model: Model): String {
+	fun list(
+		model: Model,
+		@CurrentUser user: LawFirmUser
+	): String {
 		model.addAttribute("companies", companyService.list())
 		return "/company/list"
 	}

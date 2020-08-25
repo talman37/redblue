@@ -1,5 +1,6 @@
 package com.redblue.web.lawfirm.service
 
+import com.redblue.security.core.userdetails.SecurityUser
 import com.redblue.web.lawfirm.model.LawFirmUser
 import com.redblue.web.lawfirm.repository.LawFirmUserRepository
 import org.springframework.security.core.userdetails.UserDetails
@@ -25,7 +26,7 @@ class LawFirmUserService(
 	}
 
 	override fun loadUserByUsername(username: String): UserDetails {
-		return lawFirmUserRepository.findByEmail(username)?.getAuthorities()
-			?: throw UsernameNotFoundException("Not exist User.")
+		val lawFirmUser = lawFirmUserRepository.findByEmail(username) ?: throw UsernameNotFoundException("Not exist User.")
+		return SecurityUser(lawFirmUser)
 	}
 }
