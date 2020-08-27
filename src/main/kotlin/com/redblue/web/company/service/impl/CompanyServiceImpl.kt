@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class CompanyServiceImpl(
 	private val companyRepository: CompanyRepository
 ): CompanyService {
-	override fun list(): List<Company> {
-		return companyRepository.findAll()
+	override fun list(lawFirmId: String): List<Company> {
+		return companyRepository.findByLawFirmId(lawFirmId)
 	}
 }

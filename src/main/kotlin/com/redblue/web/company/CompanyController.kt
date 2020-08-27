@@ -22,7 +22,7 @@ class CompanyController(
 		model: Model,
 		@CurrentUser user: LawFirmUser
 	): String {
-		model.addAttribute("companies", companyService.list())
+		model.addAttribute("companies", companyService.list(user.lawFirmId))
 		return "/company/list"
 	}
 

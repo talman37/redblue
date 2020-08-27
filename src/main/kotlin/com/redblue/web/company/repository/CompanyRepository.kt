@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CompanyRepository: JpaRepository<Company, String> {
+
+
+	fun findByLawFirmId(lawFirmId: String): List<Company>
+
 }
