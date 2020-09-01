@@ -26,6 +26,11 @@ class CompanyController(
 		return "/company/list"
 	}
 
+	@GetMapping("/add")
+	fun addForm(): String {
+		return "/company/form"
+	}
+
 	@PostMapping
 	fun add() {
 

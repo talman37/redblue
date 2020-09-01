@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<th:block layout:fragment="html_head">
+    <link th:href="@{/static/css/custom.css}" rel="stylesheet"/>
+    <title>법인등록</title>
+</th:block>
+
+<th:block layout:fragment="content_body">
+    <!-- header -->
+    <header class="header">
+        <nav class="navbar">
+            <a class="navbar-brand" href="#"><span class="red">Red</span><span class="blue">Blue</span></a>
+            <ul class="nav px-3">
+                <li class="nav-item text-light">
+                    <strong>홍길동</strong> 법무사님이 로그인 하셨습니다.
+                </li>
+                <li class="nav-item ">
+                    <a class="text-light" href="#">
+                        <i class="fas fa-address-card"></i>
+                        마이페이지
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="text-light" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        로그아웃
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- //header -->
+
+    <!-- container -->
+    <div class="container-fluid">
+        <!-- sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="fas fa-home"></i>
+                            Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <p class="sidebar-heading">법인관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-search"></i>
+                                    법인 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  active" href="#">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    법인 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">상담 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link " href="#">
+                                    <i class="fas fa-comment-alt"></i>
+                                    상담 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="#">
+                                    <i class="fas fa-gavel"></i>
+                                    사건 관리
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">DM 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                    DM 관리
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //sidebar -->
+
+        <!-- contents -->
+        <main role="main" class="main">
+            <div class="page-header">
+                <div>
+                    <h1>법인 등록</h1>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>법인 등록</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">법인등록번호</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label">등기번호</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">등기번호</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">관할 등기소</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="">
+                                    <option selected>전체</option>
+                                    <option value="1">중앙등기국</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button type='button' class="btn btn-dark">검색</button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">법인 구분</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="">
+                                    <option selected>전체</option>
+                                    <option value="1">주식회사</option>
+                                    <option value="2">유한회사</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button type='button' class="btn btn-dark">검색</button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">상호</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            법인 종류 표시
+                                        </div>
+                                    </div>
+                                    <div class="form-control">
+                                        <div class="form-check form-check-inline">
+                                            <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="radio" id=""><i></i>
+                                                    </span>
+                                                <label for="">앞</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="radio" id=""><i></i>
+                                                    </span>
+                                                <label for="">뒤</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">병기상호</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">본점주소</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="" placeholder="우편번호">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <div class="col">
+                                <button type='button' class="btn btn-dark">주소 검색</button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row align-items-center">
+                            <label class="col-sm-2 col-form-label">송달장소
+                                <div class="form-check form-check p-0 mt-1">
+                                    <div class="form-input">
+                                            <span class="input">
+                                                <input type="checkbox" id=""><i></i>
+                                            </span>
+                                        <label for="">본점 주소와 다른 경우</label>
+                                    </div>
+                                </div>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="" placeholder="우편번호">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <div class="col">
+                                <button type='button' class="btn btn-dark">주소 검색</button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">사업자등록번호</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label">업태</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label">업종</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">결산기</label>
+                            <div class="col-sm-2">
+                                <select class="form-control" id="">
+                                    <option selected>전체</option>
+                                    <option value="1">12월</option>
+                                    <option value="2">11월</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 col-form-label">1주의 금액</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label">자본금</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">발행할 주식의 총수</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label">발행주식의 총수</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">임원정보</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <button type="button" class="btn btn-sm btn-dark">확인</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-check form-check-inline">
+                                    <div class="form-input">
+                                            <span class="input">
+                                                <input type="checkbox" id=""><i></i>
+                                            </span>
+                                        <label for="">중복지위 추가</label>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <div class="form-input">
+                                            <span class="input">
+                                                <input type="checkbox" id=""><i></i>
+                                            </span>
+                                        <label for="">대표권 있음</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">직위</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="">
+                                    <option selected>사내이사</option>
+                                    <option value="1">대표이사</option>
+                                    <option value="2">공동대표이사</option>
+                                    <option value="">대표집행임원</option>
+                                    <option value="">사외이사</option>
+                                    <option value="">기타비상무이사</option>
+                                    <option value="">집행임원</option>
+                                    <option value="">감사</option>
+                                    <option value="">감사위원</option>
+                                    <option value="">주주</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 col-form-label">성명</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">주민등록번호</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control">-
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <label class="col-sm-2 col-form-label">주식수</label>
+                            <div class="col-sm-2">
+                                <select class="form-control" id="">
+                                    <option selected>보통주식</option>
+                                    <option value="1">종류주식</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">취임일자</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label">설립일자</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">임기</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-2 col-form-label">임기만료일</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row align-item-center">
+                            <label class="col-sm-2 col-form-label">연락처</label>
+                            <div class="col-sm-2">
+                                <select name="" id="" class="form-control">
+                                    <option value="">공장</option>
+                                    <option value="">직통번호</option>
+                                    <option value="">휴대폰</option>
+                                    <option value="">회사팩스</option>
+                                    <option value="">이메일</option>
+                                    <option value="">유선전화</option>
+                                    <option value="">세금계산서용 이메일</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <label class="col-sm-1 col-form-label">메모<br/>(내선번호)</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" value="">
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-outline-secondary">+</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <button type="button" class="btn btn-dark">저장하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <!-- //contents -->
+
+    </div>
+    <!-- //container -->
+
+
+    <script>
+        $('.input-daterange').datepicker({
+            language: "ko",
+            todayHighlight: true
+        });
+        // $('.input-daterange input').each(function() {
+        //     $(this).datepicker('clearDates');
+        // });
+    </script>
+</th:block>
+</html>
