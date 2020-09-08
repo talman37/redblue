@@ -9,6 +9,10 @@ body {
   font-size: 13px;
   overflow-y: scroll; }
 
+.input-group-text,
+.btn,
+.form-control,
+select,
 label {
   font-size: 13px; }
 
@@ -189,7 +193,8 @@ a {
 * Content
 */
 .sidebar ~ .main {
-  padding-left: 290px; }
+  padding-left: 290px;
+  background-color: #f7f8fd; }
 
 .main {
   padding: 10px 40px 40px; }
@@ -398,6 +403,11 @@ h5 {
       background-color: #fff;
       border-radius: 100%; }
 
+.input-group .input-group-addon .input-group-text {
+  border: 0;
+  font-size: 13px;
+  background-color: transparent; }
+
 /*
  * btn
 */
@@ -414,7 +424,12 @@ h5 {
   margin-bottom: 20px; }
   .search-field .search-area {
     padding: 10px;
-    border: 1px solid #ddd; }
+    border: 1px solid #e9ecef; }
+    .search-field .search-area.search-compact {
+      background-color: #f6f9fc; }
+      .search-field .search-area.search-compact .row {
+        -webkit-box-align: center;
+                align-items: center; }
   .search-field .btn-area {
     padding: 10px;
     text-align: right;
@@ -425,11 +440,9 @@ h5 {
     min-width: 20%;
     -webkit-box-flex: 0;
             flex: 0 1 auto;
-    font-size: 12px;
-    height: 38px; }
+    height: 100%; }
   .search-field .input-group-prepend .input-group-text {
-    background: #fff;
-    font-size: 12px; }
+    background: #fff; }
   .search-field .input-group-addon {
     display: -webkit-box;
     display: flex;
@@ -441,6 +454,12 @@ h5 {
     border-right: 0; }
   .search-field .input-daterange .form-control:last-child {
     border-left: 0; }
+
+.search-status {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between; }
 
 .notification {
   text-align: center;
@@ -454,9 +473,13 @@ h5 {
   color: #ff4016; }
 
 .box-status {
+  position: relative;
   display: -webkit-box;
   display: flex;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: .25rem; }
   .box-status .item {
     border: 1px solid #ddd;
     -webkit-box-flex: 0;
@@ -464,10 +487,15 @@ h5 {
     text-align: center; }
     .box-status .item-header {
       padding: 10px;
-      background-color: #f8f8f8; }
+      background-color: #f6f9fc; }
     .box-status .item-body {
       padding: 10px; }
     .box-status .item:first-child {
       border-right: none; }
+
+.add-item + .add-item {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1); }
 
 /*# sourceMappingURL=maps/custom.css.map */

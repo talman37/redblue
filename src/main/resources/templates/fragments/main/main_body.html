@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body th:fragment="mainBody">
+    <!-- header -->
+    <header class="header">
+        <nav class="navbar">
+            <a class="navbar-brand" href="#"><span class="red">Red</span><span class="blue">Blue</span></a>
+            <ul class="nav px-3">
+                <li class="nav-item text-light">
+                    <strong>홍길동</strong> 법무사님이 로그인 하셨습니다.
+                </li>
+                <li class="nav-item ">
+                    <a class="text-light" href="#">
+                        <i class="fas fa-address-card"></i>
+                        마이페이지
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="text-light" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        로그아웃
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- //header -->
     <div class="wrapper">
         <th:block layout:fragment="content_body"></th:block>
     </div>

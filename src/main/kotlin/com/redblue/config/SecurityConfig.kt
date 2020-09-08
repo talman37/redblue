@@ -32,8 +32,11 @@ class SecurityConfig(
 		http.anonymous()
 			.and()
 			.formLogin()
+			.loginPage("/login")
+			.loginProcessingUrl("/login_process")
 			.and()
 			.authorizeRequests()
+			.antMatchers("/login*").permitAll()
 			.anyRequest().authenticated()
 	}
 

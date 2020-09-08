@@ -36,4 +36,9 @@ class CompanyController(
 
 	}
 
+	@GetMapping("/detail")
+	fun detail(): String {
+		return "/company/detail"
+	}
+
 }

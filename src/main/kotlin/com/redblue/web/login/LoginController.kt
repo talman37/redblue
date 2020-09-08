@@ -10,8 +10,8 @@ class LoginController {
 
 
 	@GetMapping
-	fun loginForm() {
-
+	fun loginForm():String {
+		return "/login/loginForm"
 	}
 
 }
