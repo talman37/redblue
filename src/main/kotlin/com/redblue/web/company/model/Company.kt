@@ -5,6 +5,8 @@ import java.util.*
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
+import javax.persistence.Transient
+import javax.transaction.Transactional
 
 @Entity
 @Table(name = "COMPANIES")
@@ -77,6 +79,12 @@ data class Company(
 
 	val registerRecordClosureAt: Date? = null,
 
-	val settlementAt: Date? = null
+	val settlementAt: Date? = null,
+
+	@Transient
+	var stock: Stock? = null,
+
+	@Transient
+	var executives: List<Executive>? = emptyList()
 
 )

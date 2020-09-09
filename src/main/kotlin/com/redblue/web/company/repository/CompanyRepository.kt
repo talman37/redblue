@@ -4,10 +4,15 @@ import com.redblue.web.company.model.Company
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
-@Repository
-interface CompanyRepository: JpaRepository<Company, String> {
+interface CompanyRepository: CompanyQueryDslRepository, JpaRepository<Company, String> {
 
 
 	fun findByLawFirmId(lawFirmId: String): List<Company>
+
+}
+
+interface CompanyQueryDslRepository {
+
+	fun search(lawFirmId: String, q: String): Company
 
 }

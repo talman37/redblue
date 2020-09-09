@@ -14,7 +14,7 @@ CREATE TABLE LAW_FIRM_USERS
     EMAIL       VARCHAR(100) NOT NULL,
     PASSWORD    VARCHAR(100) NOT NULL,
     NAME        VARCHAR(100) NOT NULL,
-    ROLE       VARCHAR(50) NOT NULL,
+    ROLE        VARCHAR(50)  NOT NULL,
     CREATED_AT  TIMESTAMP    NULL,
     PRIMARY KEY (ID)
 );
@@ -24,9 +24,9 @@ CREATE TABLE COMPANIES
     ID                                  VARCHAR(50)   NOT NULL,
     LAW_FIRM_ID                         VARCHAR(50)   NOT NULL,
     REGISTER_OFFICE                     VARCHAR(45)   NULL COMMENT '등기소',
-    REGISTER_NUMBER                     INTEGER           NULL COMMENT '등기번호',
-    COMPANY_NUMBER1                     INTEGER           NULL COMMENT '법인등록번호1',
-    COMPANY_NUMBER2                     INTEGER           NULL COMMENT '법인등록번호2',
+    REGISTER_NUMBER                     INTEGER       NULL COMMENT '등기번호',
+    COMPANY_NUMBER1                     INTEGER       NULL COMMENT '법인등록번호1',
+    COMPANY_NUMBER2                     INTEGER       NULL COMMENT '법인등록번호2',
     COMPANY_NAME                        VARCHAR(45)   NULL COMMENT '상호',
     COMPANY_SUB_NAME                    VARCHAR(45)   NULL COMMENT '병기상호',
     COMPANY_UPDATED_AT                  TIMESTAMP     NULL COMMENT '상호변경일',
@@ -63,21 +63,21 @@ CREATE TABLE STOCKS
 (
     ID                                               VARCHAR(50) NOT NULL,
     COMPANY_ID                                       VARCHAR(50) NOT NULL,
-    AMOUNT                                           INTEGER         NULL COMMENT '1주의 금액',
+    AMOUNT                                           INTEGER     NULL COMMENT '1주의 금액',
     AMOUNT_UPDATED_AT                                TIMESTAMP   NULL COMMENT '1주의 금액 변경일',
     AMOUNT_UPDATED_REGISTER_AT                       TIMESTAMP   NULL COMMENT '1주의 금액 변경등기일',
-    SCHEDULE_COUNT                                   INTEGER         NULL COMMENT '발행할 주식의 총수',
+    SCHEDULE_COUNT                                   INTEGER     NULL COMMENT '발행할 주식의 총수',
     SCHEDULE_COUNT_UPDATED_AT                        TIMESTAMP   NULL COMMENT '발행할 주식의 총수 변경일',
     SCHEDULE_COUNT_UPDATED_REGISTER_AT               TIMESTAMP   NULL COMMENT '발행할 주식의 총수 변경등기일',
-    ISSUED_COUNT                                     INTEGER         NULL COMMENT '발행주식의 총수',
+    ISSUED_COUNT                                     INTEGER     NULL COMMENT '발행주식의 총수',
     ISSUED_COUNT_UPDATED_AT                          TIMESTAMP   NULL COMMENT '발행주식의 총수 변경일',
     ISSUED_COUNT_UPDATED_REGISTER_AT                 TIMESTAMP   NULL COMMENT '발행주식의 총수 변경 등기일',
-    NORMAL_COUNT                                     INTEGER         NULL COMMENT '보통 주식수',
-    FIRST_COUNT                                      INTEGER         NULL COMMENT '우선 주식수',
-    NO_FACE_VALUE_COUNT                              INTEGER         NULL COMMENT '무액면 주식수',
+    NORMAL_COUNT                                     INTEGER     NULL COMMENT '보통 주식수',
+    FIRST_COUNT                                      INTEGER     NULL COMMENT '우선 주식수',
+    NO_FACE_VALUE_COUNT                              INTEGER     NULL COMMENT '무액면 주식수',
     NO_FACE_VALUE_UPDATED_AT                         TIMESTAMP   NULL COMMENT '무액면 주식의 변경일',
     NO_FACE_VALUE_UPDATED_REGISTER_AT                TIMESTAMP   NULL COMMENT '무액면 주식의 변경 등기일',
-    NO_FACE_VALUE_CAPITAL_AMOUNT                     INTEGER         NULL COMMENT '무액면 주식의 자본전입액',
+    NO_FACE_VALUE_CAPITAL_AMOUNT                     INTEGER     NULL COMMENT '무액면 주식의 자본전입액',
     NO_FACE_VALUE_CAPITAL_AMOUNT_UPDATED_AT          TIMESTAMP   NULL COMMENT '무액면 주식의 자본전입액 변경일',
     NO_FACE_VALUE_CAPITAL_AMOUNT_UPDATED_REGISTER_AT TIMESTAMP   NULL COMMENT '무액면 주식의 자본전입액 변경등기일',
     PRIMARY KEY (ID)
@@ -108,5 +108,18 @@ CREATE TABLE EXECUTIVES
     UPDATED_AT           TIMESTAMP   NULL COMMENT '임원 변경일',
     REGISTER_UPDATED_AT  TIMESTAMP   NULL COMMENT '임원 변경 등기일',
     EXPIRED_AT           TIMESTAMP   NULL COMMENT '임원 만료일',
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE CONSULTS
+(
+    ID         VARCHAR(50)  NOT NULL,
+    COMPANY_ID VARCHAR(50)  NOT NULL,
+    CONSULTANT VARCHAR(100) NOT NULL,
+    CONTENT    VARCHAR(1000) NOT NULL,
+    MEMO       VARCHAR(1000)  NULL,
+    PROGRESS   VARCHAR(20) NOT NULL,
+    CREATED_AT TIMESTAMP    NULL,
+    UPDATED_AT TIMESTAMP    NULL,
     PRIMARY KEY (ID)
 );
