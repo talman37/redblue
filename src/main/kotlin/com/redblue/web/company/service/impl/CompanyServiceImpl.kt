@@ -27,4 +27,25 @@ class CompanyServiceImpl(
 		company.executives = executiveRepository.findByCompanyId(id)
 		return company
 	}
+
+	override fun save(company: Company) {
+		companyRepository.save(company)
+
+		company.stock?.let {
+			val stock = company.stock!!.copy(
+				companyId = company.id
+			)
+			stockRepository.save(stock)
+		}
+
+		if(company.executives.isNotEmpty()) {
+
+			val executives = company.executives
+			executives.forEach {
+				it.companyId = company.id
+			}
+			executiveRepository.saveAll(executives)
+		}
+
+	}
 }

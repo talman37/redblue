@@ -6,7 +6,7 @@ VALUES ('sample-user-id', 'sample-lawfirm-id', 'jhm@mz.co.kr',
         '$2a$10$HkHyiaLtWg98uxAnmweW7uASsdledh6BjtIA51sl4DUh4eUEqVwKe', 'jhm', 'ADMIN', NOW());
 
 INSERT INTO COMPANIES (ID, LAW_FIRM_ID, BASE_COMPANY_ID, REGISTER_OFFICE, REGISTER_NUMBER, COMPANY_NUMBER1,
-                       COMPANY_NUMBER2, COMPANY_NAME, COMPANY_SUB_NAME, COMPANY_UPDATED_AT, COMPANY_REGISTER_UPDATED_AT,
+                       COMPANY_NUMBER2, COMPANY_NAME, DISPLAY_COMPANY_TYPE, COMPANY_SUB_NAME, COMPANY_UPDATED_AT, COMPANY_REGISTER_UPDATED_AT,
                        COMPANY_ADDRESS, COMPANY_ADDRESS_UPDATED_AT, COMPANY_ADDRESS_REGISTER_UPDATED_AT,
                        BUSINESS_TYPE, BUSINESS_CONDITION, DELIVERY_PLACE, ETC,
                        CONVERTIBLE_BOND, STOCK_PURCHASE_OPTION, COMPANY_FORMATION_AT,
@@ -15,7 +15,7 @@ INSERT INTO COMPANIES (ID, LAW_FIRM_ID, BASE_COMPANY_ID, REGISTER_OFFICE, REGIST
                        DISBAND_REGISTER_AT, DISBAND_DEEMED_AT, IS_LIQUIDATION, LIQUIDATION_AT,
                        LIQUIDATION_REGISTER_AT, IS_REGISTER_RECORD_CLOSURE, REGISTER_RECORD_CLOSURE_AT,
                        SETTLEMENT_AT)
-VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285011', '0414297', '온빛전자', '온빛전자1', NULL, NULL,
+VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285011', '0414297', '온빛전자', 'FRONT', '온빛전자1', NULL, NULL,
         '경기도 고양시 일산동구 고봉로620번길 81-17, 가,나동(성석동)', NULL, NULL, 'LED 전광판', '제조,도소매',
         '경기도 고양시 일산동구 고봉로620번길 81-17, 가,나동(성석동)', '본지점 이전/폐지
 자본에 관한 사항

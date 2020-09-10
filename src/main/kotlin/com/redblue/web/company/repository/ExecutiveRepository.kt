@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ExecutiveRepository: JpaRepository<Executive, String> {
 
-	fun findByCompanyId(companyId: String): List<Executive>?
+	fun findByCompanyId(companyId: String): List<Executive>
 
 }

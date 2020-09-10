@@ -43,7 +43,7 @@ class CompanyController(
 	fun add(
 		@RequestBody company: Company
 	) {
-
+		companyService.save(company)
 	}
 
 }

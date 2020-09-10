@@ -12,7 +12,7 @@ data class Stock(
 	@Id
 	val id: String,
 
-	val companyId: String,
+	val companyId: String? = null,
 
 	val amount: Int,
 

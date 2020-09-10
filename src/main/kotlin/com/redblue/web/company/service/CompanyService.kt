@@ -9,4 +9,6 @@ interface CompanyService {
 	fun search(lawFirmId: String, q: String): Company
 
 	fun detail(id: String): Company
+
+	fun save(company: Company)
 }

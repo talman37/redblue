@@ -2,10 +2,7 @@ package com.redblue.web.company.model
 
 import net.bytebuddy.utility.RandomString
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
-import javax.persistence.Transient
+import javax.persistence.*
 import javax.transaction.Transactional
 
 @Entity
@@ -28,6 +25,9 @@ data class Company(
 	val companyNumber2: Int,
 
 	val companyName: String,
+
+	@Enumerated(EnumType.STRING)
+	val displayCompanyType: DisplayCompanyType = DisplayCompanyType.FRONT,
 
 	val companySubName: String,
 
@@ -87,6 +87,11 @@ data class Company(
 	var stock: Stock? = null,
 
 	@Transient
-	var executives: List<Executive>? = emptyList()
+	var executives: List<Executive> = emptyList()
 
-)
+) {
+	enum class DisplayCompanyType{
+		FRONT,
+		BACK
+	}
+}

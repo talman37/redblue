@@ -12,7 +12,7 @@ data class Executive(
 	@Id
 	val id: String,
 
-	val companyId: String,
+	var companyId: String? = null,
 
 	val detail: String,
 
