@@ -17,6 +17,8 @@ data class Company(
 
 	val lawFirmId: String,
 
+	val baseCompanyId: String? = null,
+
 	val registerOffice: String,
 
 	val registerNumber: Int,
