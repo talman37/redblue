@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+    <th:block layout:fragment="content_body">
+        <!-- container -->
+        <div class="container-fluid">
+            <!-- sidebar -->
+            <nav class="sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <!-- <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <i class="fas fa-home"></i>
+                                    Dashboard <span class="sr-only">(current)</span>
+                                </a>
+                            </li> -->
+                        <li class="nav-item">
+                            <p class="sidebar-heading">법인관리</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link " href="#">
+                                        <i class="fas fa-search"></i>
+                                        법인 검색
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="#">
+                                        <i class="fas fa-pencil-alt"></i>
+                                        법인 등록
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <p class="sidebar-heading">상담 관리</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">
+                                        <i class="fas fa-comment-alt"></i>
+                                        상담 관리
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="#">
+                                        <i class="fas fa-gavel"></i>
+                                        사건 관리
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <p class="sidebar-heading">DM 관리</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-envelope-open-text"></i>
+                                        DM 관리
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- //sidebar -->
+
+            <!-- contents -->
+            <main role="main" class="main">
+                <div class="page-header">
+                    <div>
+                        <h1>상담 관리</h1>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>상담 목록</strong>
+                            </div>
+                            <div>
+                                <a href="" class="btn btn-dark btn-sm">등록하기</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="search-field">
+                            <div class="search-area">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group input-daterange mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    상담일자
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                            <div class="input-group-addon">~</div>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <select class="form-control" id="">
+                                                <option selected>전체</option>
+                                                <option value="1">상담자</option>
+                                                <option value="2">법인명</option>
+                                                <option value="3">상담내용</option>
+                                                <option value="3">메모</option>
+                                            </select>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    진행정도
+                                                </div>
+                                            </div>
+                                            <div class="form-control">
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id=""><i></i>
+                                                    </span>
+                                                        <label for="">전체</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id=""><i></i>
+                                                    </span>
+                                                        <label for="">진행중</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id=""><i></i>
+                                                    </span>
+                                                        <label for="">진행완료</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id=""><i></i>
+                                                    </span>
+                                                        <label for="">보류</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id=""><i></i>
+                                                    </span>
+                                                        <label for="">취소</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    구분
+                                                </div>
+                                            </div>
+                                            <div class="form-control">
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="radio" id=""><i></i>
+                                                    </span>
+                                                        <label for="">상호</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="radio" id=""><i></i>
+                                                    </span>
+                                                        <label for="">등기번호</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="radio" id=""><i></i>
+                                                    </span>
+                                                        <label for="">법인등록번호</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-area">
+                                <button type="submit" class="btn btn-sm btn-dark">검색</button>
+                            </div>
+                        </div>
+                        <div class="search-status">
+                            <div>
+                                <p><span>Total : </span><strong>3000</strong>개</p>
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <colgroup>
+                                <col style="width: 50px">
+                                <col>
+                                <col style="width: 150px">
+                                <col>
+                                <col>
+                                <col>
+                                <col style="width: 150px">
+                                <col>
+                            </colgroup>
+                            <thead class="thead-light">
+                            <tr>
+                                <th>No</th>
+                                <th>법인명</th>
+                                <th>상담일시</th>
+                                <th>상담자</th>
+                                <th>상담내용</th>
+                                <th>메모</th>
+                                <th>임기만료일</th>
+                                <th>진행정도</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="">Otto</a></td>
+                                <td>2019-05-05</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>2019-05-05</td>
+                                <td>
+                                    <span class="badge badge-pill badge-danger">취소</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="">Otto</a></td>
+                                <td>2019-05-05</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>2019-05-05</td>
+                                <td>
+                                    <span class="badge badge-pill badge-primary">진행중</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="">Otto</a></td>
+                                <td>2019-05-05</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>2019-05-05</td>
+                                <td>
+                                    <span class="badge badge-pill badge-success">완료</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="">Otto</a></td>
+                                <td>2019-05-05</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ellipsis">
+                                        aaaa...
+                                    </div>
+                                </td>
+                                <td>2019-05-05</td>
+                                <td>
+                                    <span class="badge badge-pill badge-warning">보류</span>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <nav>
+                                    <ul class="pagination pagination-sm">
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item active" aria-current="page">
+                                        <span class="page-link">
+                                            2
+                                            <span class="sr-only">(current)</span>
+                                        </span>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+            <!-- //contents -->
+
+        </div>
+        <!-- //container -->
+    </th:block>
+    <script>
+        $('.input-daterange').datepicker({
+            language: "ko",
+            todayHighlight: true
+        });
+        // $('.input-daterange input').each(function() {
+        //     $(this).datepicker('clearDates');
+        // });
+    </script>
+</html>
