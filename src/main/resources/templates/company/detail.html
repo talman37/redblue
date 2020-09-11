@@ -32,11 +32,13 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="">법인등록번호</label>
-                                <input type="text" class="form-control" id="registerNumber" name= "registerNumber" th:value="${company.companyNumber1} + '-' + ${company.companyNumber2}">
+                                <input type="text" class="form-control" id="companyNumber" name="companyNumber"
+                                       th:value="${company.companyNumber1} + '-' + ${company.companyNumber2}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">등기번호</label>
-                                <input type="text" class="form-control" id="" placeholder="" th:value="${company.registerNumber}">
+                                <input type="text" class="form-control" id="registerNumber" placeholder=""
+                                       th:value="${company.registerNumber}">
                             </div>
                         </div>
                         <div class="row">
@@ -75,7 +77,8 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="">상호</label>
-                                <input type="text" class="form-control" id="companyName" name="companyName" th:value="${company.companyName}">
+                                <input type="text" class="form-control" id="companyName" name="companyName"
+                                       th:value="${company.companyName}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">법인 종류 표시</label>
@@ -83,7 +86,9 @@
                                     <div class="form-check form-check-inline">
                                         <div class="form-input">
                                             <span class="input">
-                                                <input type="radio" id="displayCompanyTypeFront" name="displayCompanyType" value="FRONT" th:field="${company.displayCompanyType}"><i></i>
+                                                <input type="radio" id="displayCompanyTypeFront"
+                                                       name="displayCompanyType" value="FRONT"
+                                                       th:field="${company.displayCompanyType}"><i></i>
                                             </span>
                                             <label for="displayCompanyTypeFront">앞</label>
                                         </div>
@@ -91,7 +96,9 @@
                                     <div class="form-check form-check-inline">
                                         <div class="form-input">
                                             <span class="input">
-                                                <input type="radio" id="displayCompanyTypeBack" name="displayCompanyType" value="BACK" th:field="${company.displayCompanyType}"><i></i>
+                                                <input type="radio" id="displayCompanyTypeBack"
+                                                       name="displayCompanyType" value="BACK"
+                                                       th:field="${company.displayCompanyType}"><i></i>
                                             </span>
                                             <label for="displayCompanyTypeBack">뒤</label>
                                         </div>
@@ -102,7 +109,8 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="">병기 상호</label>
-                                <input type="text" class="form-control" id="" placeholder="" value="">
+                                <input type="text" class="form-control" id="companySubName" name="companySubName"
+                                       placeholder="" th:value="${company.companySubName}">
                             </div>
                         </div>
 
@@ -128,15 +136,17 @@
                             <div class="col-md-8 mb-3">
                                 <label for="">본점주소</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="companyAddress" name="companyAddress"
+                                           th:value="${company.companyAddress}">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary">검색</button>
+                                        <button type='button' class="btn btn-outline-secondary" name="postal_code_search_btn" data-id="companyAddress">검색</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">우편번호</label>
-                                <input type="text" class="form-control" id="" placeholder="" value="">
+                                <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode"
+                                       placeholder="" th:value="${company.companyPostalCode}">
                             </div>
                         </div>
                         <div class="row">
@@ -145,44 +155,48 @@
                                 <span class="form-check form-check-inline p-0">
                                     <div class="form-input">
                                         <span class="input">
-                                            <input type="checkbox" id=""><i></i>
+                                            <input type="checkbox" id="" name="" value=""><i></i>
                                         </span>
                                         <label for="">본점 주소와 다른 경우</label>
                                     </div>
                                 </span>
                                 <div class="input-group">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace" th:value="${company.deliveryPlace}">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary">검색</button>
+                                        <button type='button' class="btn btn-outline-secondary" name="postal_code_search_btn" data-id="deliveryPlace">검색</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">우편번호</label>
-                                <input type="text" class="form-control" id="" placeholder="" value="">
+                                <input type="text" class="form-control" id="deliveryPlacePostalCode"
+                                       name="deliveryPlacePostalCode" placeholder=""
+                                       th:value="${company.deliveryPlacePostalCode}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-5 mb-3">
                                 <label for="">사업자등록번호</label>
-                                <input type="text" class="form-control" id="" placeholder="" value="">
+                                <input type="text" class="form-control" id="businessNumber" name="businessNumber"
+                                       placeholder="" th:value="${company.businessNumber}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">업태</label>
-                                <input type="text" class="form-control" id="" placeholder="" value="">
+                                <input type="text" class="form-control" id="businessCondition" name="businessCondition"
+                                       placeholder="" th:value="${company.businessCondition}">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="">업종</label>
-                                <input type="text" class="form-control" id="" placeholder="" value="">
+                                <input type="text" class="form-control" id="businessType" name="businessType"
+                                       placeholder="" th:value="${company.businessType}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="">결산기</label>
-                                <select class="form-control" id="">
+                                <select class="form-control" id="settlementMonth" name="settlementMonth">
                                     <option selected>전체</option>
-                                    <option value="1">12월</option>
-                                    <option value="2">11월</option>
+                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'" th:selected="${i == company.settlementMonth}"></option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -672,14 +686,40 @@
             </div>
         </main>
     </div>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $('button[name="postal_code_search_btn"]').on('click', function() {
+                var $this = $(this)
+                daum.postcode.load(function(){
+                    new daum.Postcode({
+                        oncomplete: function(data) {
+                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                            if($this.data('id') == 'companyAddress') {
+                                $('#companyAddress').val(data.address);
+                                $('#companyPostalCode').val(data.zonecode);
+                            } else {
+                                $('#deliveryPlace').val(data.address);
+                                $('#deliveryPlacePostalCode').val(data.zonecode);
+                            }
+                        }
+                    }).open();
+                });
+            });
+
+
+        });
+
+        $('.input-daterange').datepicker({
+            language: "ko",
+            todayHighlight: true
+        });
+        // $('.input-daterange input').each(function() {
+        //     $(this).datepicker('clearDates');
+        // });
+    </script>
 </th:block>
-<script>
-    $('.input-daterange').datepicker({
-        language: "ko",
-        todayHighlight: true
-    });
-    // $('.input-daterange input').each(function() {
-    //     $(this).datepicker('clearDates');
-    // });
-</script>
 </html>

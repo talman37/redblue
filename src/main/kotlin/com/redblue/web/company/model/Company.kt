@@ -35,15 +35,21 @@ data class Company(
 
 	val companyAddress: String,
 
+	val companyPostalCode: String,
+
 	val companyAddressUpdatedAt: Date,
 
 	val companyAddressRegisterUpdatedAt: Date,
+
+	val businessNumber: String,
 
 	val businessType: String,
 
 	val businessCondition: String,
 
 	val deliveryPlace: String,
+
+	val deliveryPlacePostalCode: String,
 
 	val etc: String,
 
@@ -81,7 +87,7 @@ data class Company(
 
 	val registerRecordClosureAt: Date? = null,
 
-	val settlementAt: Date? = null,
+	val settlementMonth: Int? = null,
 
 	@Transient
 	var stock: Stock? = null,
