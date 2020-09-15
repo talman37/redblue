@@ -21,6 +21,7 @@ data class LawFirmUser(
 	@Enumerated(EnumType.STRING)
 	var role: Role,
 
+	@Temporal(TemporalType.DATE)
 	val createdAt: Date
 
 ) {

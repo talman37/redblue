@@ -1,9 +1,7 @@
 package com.redblue.web.company.model
 
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "STOCKS")
@@ -14,38 +12,48 @@ data class Stock(
 
 	val companyId: String? = null,
 
-	val amount: Int,
+	val amount: Int? = 0,
 
-	val amountUpdatedAt: Date,
+	@Temporal(TemporalType.DATE)
+	val amountUpdatedAt: Date? = null,
 
-	val amountUpdatedRegisterAt: Date,
+	@Temporal(TemporalType.DATE)
+	val amountUpdatedRegisterAt: Date? = null,
 
-	val scheduleCount: Int,
+	val scheduleCount: Int? = 0,
 
-	val scheduleCountUpdatedAt: Date,
+	@Temporal(TemporalType.DATE)
+	val scheduleCountUpdatedAt: Date? = null,
 
-	val scheduleCountUpdatedRegisterAt: Date,
+	@Temporal(TemporalType.DATE)
+	val scheduleCountUpdatedRegisterAt: Date? = null,
 
-	val issuedCount: Int,
+	val issuedCount: Int? = 0,
 
-	val issuedCountUpdatedAt: Date,
+	@Temporal(TemporalType.DATE)
+	val issuedCountUpdatedAt: Date? = null,
 
-	val issuedCountUpdatedRegisterAt: Date,
+	@Temporal(TemporalType.DATE)
+	val issuedCountUpdatedRegisterAt: Date? = null,
 
-	val normalCount: Int,
+	val normalCount: Int? = 0,
 
-	val firstCount: Int,
+	val firstCount: Int? = 0,
 
-	val noFaceValueCount: Int,
+	val noFaceValueCount: Int? = 0,
 
-	val noFaceValueUpdatedAt: Date,
+	@Temporal(TemporalType.DATE)
+	val noFaceValueUpdatedAt: Date? = null,
 
-	val noFaceValueUpdatedRegisterAt: Date,
+	@Temporal(TemporalType.DATE)
+	val noFaceValueUpdatedRegisterAt: Date? = null,
 
-	val noFaceValueCapitalAmount: Int,
+	val noFaceValueCapitalAmount: Int? = 0,
 
-	val noFaceValueCapitalAmountUpdatedAt: Date,
+	@Temporal(TemporalType.DATE)
+	val noFaceValueCapitalAmountUpdatedAt: Date? = null,
 
-	val noFaceValueCapitalAmountUpdatedRegisterAt: Date
+	@Temporal(TemporalType.DATE)
+	val noFaceValueCapitalAmountUpdatedRegisterAt: Date? = null
 
 )

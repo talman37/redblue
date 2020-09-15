@@ -22,8 +22,10 @@ data class Consult(
 	@Enumerated(EnumType.STRING)
 	val progress: Progress,
 
+	@Temporal(TemporalType.DATE)
 	val createdAt: Date = Date(),
 
+	@Temporal(TemporalType.DATE)
 	val updatedAt: Date? = null
 
 ) {

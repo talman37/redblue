@@ -1,9 +1,7 @@
 package com.redblue.web.company.model
 
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "PURPOSE_DETAILS")
@@ -14,10 +12,12 @@ data class PurposeDetail(
 
 	val companyId: String,
 
-	val detail: String,
+	val detail: String? = null,
 
-	val detailUpdatedAt: Date,
+	@Temporal(TemporalType.DATE)
+	val detailUpdatedAt: Date? = null,
 
-	val detailRegisterUpdatedAt: Date
+	@Temporal(TemporalType.DATE)
+	val detailRegisterUpdatedAt: Date? = null
 
 )

@@ -3,7 +3,6 @@ package com.redblue.web.company.model
 import net.bytebuddy.utility.RandomString
 import java.util.*
 import javax.persistence.*
-import javax.transaction.Transactional
 
 @Entity
 @Table(name = "COMPANIES")
@@ -31,14 +30,17 @@ data class Company(
 
 	val companySubName: String,
 
+	@Temporal(TemporalType.DATE)
 	val companyUpdatedAt: Date,
 
 	val companyAddress: String,
 
 	val companyPostalCode: String,
 
+	@Temporal(TemporalType.DATE)
 	val companyAddressUpdatedAt: Date,
 
+	@Temporal(TemporalType.DATE)
 	val companyAddressRegisterUpdatedAt: Date,
 
 	val businessNumber: String,
@@ -57,34 +59,44 @@ data class Company(
 
 	val stockPurchaseOption: String,
 
+	@Temporal(TemporalType.DATE)
 	val companyFormationAt: Date? = null,
 
 	val registerRecordCreateReason: String? = null,
 
+	@Temporal(TemporalType.DATE)
 	val registerRecordCreateAt: Date? = null,
 
 	val isHeadOfficeTransfer: Boolean? = null,
 
+	@Temporal(TemporalType.DATE)
 	val headOfficeTransferAt: Date? = null,
 
+	@Temporal(TemporalType.DATE)
 	val headOfficeTransferRegisterAt: Date? = null,
 
 	val isDisband: Boolean? = null,
 
+	@Temporal(TemporalType.DATE)
 	val disbandAt: Date? = null,
 
+	@Temporal(TemporalType.DATE)
 	val disbandRegisterAt: Date? = null,
 
+	@Temporal(TemporalType.DATE)
 	val disbandDeemedAt: Date? = null,
 
 	val isLiquidation: Boolean? = null,
 
+	@Temporal(TemporalType.DATE)
 	val liquidationAt: Date? = null,
 
+	@Temporal(TemporalType.DATE)
 	val liquidationRegisterAt: Date? = null,
 
 	val isRegisterRecordClosure: Boolean? = null,
 
+	@Temporal(TemporalType.DATE)
 	val registerRecordClosureAt: Date? = null,
 
 	val settlementMonth: Int? = null,
