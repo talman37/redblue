@@ -44,12 +44,22 @@ VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285
         NULL, NULL, NULL, NULL, 6);
 
 INSERT INTO STOCKS (ID, COMPANY_ID, AMOUNT, AMOUNT_UPDATED_AT, AMOUNT_UPDATED_REGISTER_AT,
-                        SCHEDULE_COUNT, SCHEDULE_COUNT_UPDATED_AT, SCHEDULE_COUNT_UPDATED_REGISTER_AT,
-                        ISSUED_COUNT, ISSUED_COUNT_UPDATED_AT, ISSUED_COUNT_UPDATED_REGISTER_AT,
-                        NORMAL_COUNT, FIRST_COUNT, NO_FACE_VALUE_COUNT, NO_FACE_VALUE_UPDATED_AT,
-                        NO_FACE_VALUE_UPDATED_REGISTER_AT, NO_FACE_VALUE_CAPITAL_AMOUNT,
-                        NO_FACE_VALUE_CAPITAL_AMOUNT_UPDATED_AT,
-                        NO_FACE_VALUE_CAPITAL_AMOUNT_UPDATED_REGISTER_AT)
+                    SCHEDULE_COUNT, SCHEDULE_COUNT_UPDATED_AT, SCHEDULE_COUNT_UPDATED_REGISTER_AT,
+                    ISSUED_COUNT, ISSUED_COUNT_UPDATED_AT, ISSUED_COUNT_UPDATED_REGISTER_AT,
+                    NORMAL_COUNT, FIRST_COUNT, NO_FACE_VALUE_COUNT, NO_FACE_VALUE_UPDATED_AT,
+                    NO_FACE_VALUE_UPDATED_REGISTER_AT, NO_FACE_VALUE_CAPITAL_AMOUNT,
+                    NO_FACE_VALUE_CAPITAL_AMOUNT_UPDATED_AT,
+                    NO_FACE_VALUE_CAPITAL_AMOUNT_UPDATED_REGISTER_AT)
 VALUES ('sample-stock-id-01', 'sample-company-id-01', 5000, '2016-10-20', '2016-10-20', 1000000, '2016-03-15',
         '2016-03-16', 23600, '2019-12-13', '2019-12-19', 23600, 0, NULL, NULL, NULL, NULL, NULL,
         NULL);
+
+
+INSERT INTO EXECUTIVES (ID, COMPANY_ID, DETAIL, TYPE, NAME, REGISTRATION_NUMBER1, REGISTRATION_NUMBER2, ADDRESS,
+                       POSITION, UPDATED_REASON, UPDATED_AT, REGISTER_UPDATED_AT, EXPIRED_AT)
+VALUES ('sample-executive-id-01', 'sample-company-id-01', '공동대표', '이사', '오희택', '810211', '1081221',
+        '경기도 용인시 수지구 성복2로 126, 306동 1902호(성복동, 성동마을엘지빌리지3차)', '사내이사', '중임', '2019-03-15', '2019-03-15', '2022-03-15'),
+       ('sample-executive-id-02', 'sample-company-id-01', null, '감사', '이상수', '780628', '1005513',
+        '서울특별시 도봉구 해등로 168(쌍문동)', '감사', '취임', '2019-03-15', '2019-03-15', '2022-03-15'),
+       ('sample-executive-id-03', 'sample-company-id-01', null, '청산인', '고성원', '840218', '1106221',
+        '울산광역시 중구 평산로 50, 111동 1004호(약사동, 약사아이파크)', '청산인', '취임', '2019-03-15', '2019-03-15', '2022-03-15');

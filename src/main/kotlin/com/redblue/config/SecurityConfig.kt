@@ -29,12 +29,16 @@ class SecurityConfig(
 	}
 
 	override fun configure(http: HttpSecurity) {
-		http.anonymous()
-			.and()
+		http.authorizeRequests()
+				.antMatchers("/resources/**").permitAll()
+				.anyRequest().authenticated()
+				.and()
 			.formLogin()
-			.and()
-			.authorizeRequests()
-			.anyRequest().authenticated()
+				.loginPage("/login")
+				.permitAll()
+				.and()
+			.logout()
+				.permitAll()
 	}
 
 }
