@@ -4,6 +4,7 @@ import com.redblue.web.company.model.Company
 import com.redblue.web.company.repository.CompanyRepository
 import com.redblue.web.company.repository.ExecutiveRepository
 import com.redblue.web.company.repository.StockRepository
+import com.redblue.web.company.repository.StockholderRepository
 import com.redblue.web.company.service.CompanyService
 import org.springframework.stereotype.Service
 
@@ -11,10 +12,15 @@ import org.springframework.stereotype.Service
 class CompanyServiceImpl(
 	private val companyRepository: CompanyRepository,
 	private val stockRepository: StockRepository,
-	private val executiveRepository: ExecutiveRepository
+	private val executiveRepository: ExecutiveRepository,
+	private val stockholderRepository: StockholderRepository
 ): CompanyService {
 	override fun list(lawFirmId: String): List<Company> {
 		return companyRepository.findByLawFirmId(lawFirmId)
+	}
+
+	override fun count(lawFirmId: String): Int {
+		return companyRepository.countBylawFirmId(lawFirmId)
 	}
 
 	override fun search(lawFirmId: String, q: String):Company {
@@ -25,6 +31,7 @@ class CompanyServiceImpl(
 		val company = companyRepository.findById(id).get()
 		company.stock = stockRepository.findByCompanyId(id)
 		company.executives = executiveRepository.findByCompanyId(id)
+		company.stockholders = stockholderRepository.findByCompanyId(id)
 		return company
 	}
 
@@ -48,4 +55,5 @@ class CompanyServiceImpl(
 		}
 
 	}
+
 }

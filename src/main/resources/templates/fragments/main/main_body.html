@@ -7,7 +7,7 @@
             <a class="navbar-brand" href="#"><span class="red">Red</span><span class="blue">Blue</span></a>
             <ul class="nav px-3">
                 <li class="nav-item text-light">
-                    <strong>홍길동</strong> 법무사님이 로그인 하셨습니다.
+                    <strong sec:authentication="name"></strong> 님이 로그인 하셨습니다.
                 </li>
                 <li class="nav-item ">
                     <a class="text-light" href="#">
@@ -16,7 +16,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="text-light" href="#">
+                    <a class="text-light" href="/logout">
                         <i class="fas fa-sign-out-alt"></i>
                         로그아웃
                     </a>

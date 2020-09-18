@@ -28,24 +28,24 @@
                             <p class="sidebar-heading">상담 관리</p>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link " href="#">
+                                    <a class="nav-link " href="/consult">
                                         <i class="fas fa-comment-alt"></i>
                                         상담 관리
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="#">
-                                        <i class="fas fa-gavel"></i>
-                                        사건 관리
-                                    </a>
-                                </li>
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link " href="#">-->
+<!--                                        <i class="fas fa-gavel"></i>-->
+<!--                                        사건 관리-->
+<!--                                    </a>-->
+<!--                                </li>-->
                             </ul>
                         </li>
                         <li class="nav-item">
                             <p class="sidebar-heading">DM 관리</p>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="/dm">
                                         <i class="fas fa-envelope-open-text"></i>
                                         DM 관리
                                     </a>
@@ -77,18 +77,18 @@
                         <div class="box-status">
                             <div class="item">
                                 <div class="item-header">
-                                    <strong>이름</strong>님의 관할 등기소 등록 법인수
+                                    <strong th:text="${name}"></strong>님의 관할 등기소 등록 법인수
                                 </div>
                                 <div class="item-body">
-                                    <span>1000</span>개
+                                    <span th:text="${totalCount}"></span>개
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="item-header">
-                                    <strong>이름</strong>님의 관할 등기소 등록 법인수
+                                    <strong th:text="${name}"></strong>님의 관할 등기소 관리 법인수
                                 </div>
                                 <div class="item-body">
-                                    <span>1000</span>개
+                                    <span th:text="${totalCount}"></span>개
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                         </div>
                         <div class="search-status">
                             <div>
-                                <p><span>법인 숫자 : </span><strong>3000</strong>개</p>
+                                <p><span>법인 숫자 : </span><strong th:text="${#lists.size(companies)}"></strong>개</p>
                                 <p><span>검색 조건 내역 : </span> <span>검색어 나열</span></p>
                             </div>
                             <div>
@@ -173,14 +173,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="">법인명</a></td>
+
+                            <tr th:each="company: ${companies}">
+                                <td><a th:href="'/company/' + ${company.id}" th:target="_blank" th:text="${company.companyName}"></a></td>
                                 <td>
-                                    <div class="ellipsis">
-                                        주소
+                                    <div class="ellipsis" th:text="${company.companyAddress}">
                                     </div>
                                 </td>
-                                <td>0100000000</td>
+                                <td th:text="0100000000"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -224,6 +224,11 @@
         <!-- //container -->
     </th:block>
     <script>
+
+        $(document).ready(function () {
+
+        });
+
         $('.input-daterange').datepicker({
             language: "ko",
             todayHighlight: true

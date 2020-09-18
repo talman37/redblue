@@ -22,6 +22,8 @@ class CompanyController(
 		@CurrentUser user: LawFirmUser
 	): String {
 		model.addAttribute("companies", companyService.list(user.lawFirmId))
+		model.addAttribute("totalCount", companyService.count(user.lawFirmId))
+		model.addAttribute("name", user.name)
 		return "/company/list"
 	}
 

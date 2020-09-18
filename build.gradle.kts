@@ -27,6 +27,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity5")
     implementation ("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

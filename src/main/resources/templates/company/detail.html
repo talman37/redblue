@@ -33,16 +33,19 @@
                             <div class="col-md-6 mb-3">
                                 <label for="">법인등록번호</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1" th:value = "${company.companyNumber1}">
+                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1"
+                                           th:value="${company.companyNumber1}">
                                     <div class="input-group-addon">
                                         <span class="input-group-text">-</span>
                                     </div>
-                                    <input type="text" class="form-control" id="companyNumber2" name="companyNumber2" th:value = "${company.companyNumber2}">
+                                    <input type="text" class="form-control" id="companyNumber2" name="companyNumber2"
+                                           th:value="${company.companyNumber2}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">등기번호</label>
-                                <input type="text" class="form-control" id="registerNumber" placeholder=""
+                                <input type="text" class="form-control" id="registerNumber" name="registerNumber"
+                                       placeholder=""
                                        th:value="${company.registerNumber}">
                             </div>
                         </div>
@@ -64,19 +67,12 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">법인구분</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <select class="form-control" id="">
-                                            <option selected>전체</option>
-                                            <option value="1">주식회사</option>
-                                            <option value="2">유한회사</option>
-                                        </select>
-                                    </div>
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary">검색</button>
-                                    </div>
-                                </div>
+                                <select class="form-control" id="companyDivision" name="companyDivision"
+                                        th:field="*{company.companyDivision}">
+                                    <option th:value="null">전체</option>
+                                    <option th:value="주식회사">주식회사</option>
+                                    <option th:value="유한회사">유한회사</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -144,7 +140,9 @@
                                     <input type="text" class="form-control" id="companyAddress" name="companyAddress"
                                            th:value="${company.companyAddress}">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary" name="postal_code_search_btn" data-id="companyAddress">검색</button>
+                                        <button type='button' class="btn btn-outline-secondary"
+                                                name="postal_code_search_btn" data-id="companyAddress">검색
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -166,9 +164,12 @@
                                     </div>
                                 </span>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace" th:value="${company.deliveryPlace}">
+                                    <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
+                                           th:value="${company.deliveryPlace}">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary" name="postal_code_search_btn" data-id="deliveryPlace">검색</button>
+                                        <button type='button' class="btn btn-outline-secondary"
+                                                name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -201,22 +202,27 @@
                                 <label for="">결산기</label>
                                 <select class="form-control" id="settlementMonth" name="settlementMonth">
                                     <option selected>전체</option>
-                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'" th:selected="${i == company.settlementMonth}"></option>
+                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
+                                            th:selected="${i == company.settlementMonth}"></option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">1주의 금액</label>
-                                <input type="text" class="form-control" id="stock.amount" name="stock.amount" placeholder="" required="" th:value="${company.stock.amount}">
+                                <input type="text" class="form-control" id="stock.amount" name="stock.amount"
+                                       placeholder="" required="" th:value="${company.stock.amount}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="">발행할 주식의 총수</label>
-                                <input type="text" class="form-control" id="stock.scheduleCount" name="stock.scheduleCount" placeholder="" required="" th:value="${company.stock.scheduleCount}">
+                                <input type="text" class="form-control" id="stock.scheduleCount"
+                                       name="stock.scheduleCount" placeholder="" required=""
+                                       th:value="${company.stock.scheduleCount}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">발행주식의 총수</label>
-                                <input type="text" class="form-control" id="stock.issuedCount" name="stock.issuedCount" placeholder="" required="" th:value="${company.stock.issuedCount}">
+                                <input type="text" class="form-control" id="stock.issuedCount" name="stock.issuedCount"
+                                       placeholder="" required="" th:value="${company.stock.issuedCount}">
                             </div>
                         </div>
                         <div class="row">
@@ -237,7 +243,7 @@
                                     </svg>
                                 </i>
                                 <strong>임원</strong>
-                                <strong class="text-primary">3</strong>
+                                <strong class="text-primary" th:text="${#lists.size(company.executives)}"></strong>
                             </h4>
                             <div>
                                 <button type='button' class='btn btn-outline-primary'>
@@ -275,37 +281,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="executive: ${company.executives}">
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <div class="form-input">
                                                 <span class="input">
-                                                    <input type="checkbox" id=""><i></i>
+                                                    <input type="checkbox" th:id="${executive.id}"><i></i>
                                                 </span>
                                         </div>
                                     </div>
                                 </td>
-                                <td>
-                                    대표이사
-                                </td>
-                                <td>
-                                    유혁재
-                                </td>
-                                <td>
-                                    800923-1000000
-                                </td>
-                                <td>
-                                    서울특별시 양천구 33
-                                </td>
+                                <td th:text="${executive.position}"></td>
+                                <td th:text="${executive.name}"></td>
+                                <td th:text="${executive.registrationNumber1} + '-' + ${executive.registrationNumber2}"></td>
+                                <td th:text="${executive.address}"></td>
                                 <td>
                                     2016-03-01 <small>(임기 <span>3</span>년)</small>
                                 </td>
-                                <td>
-                                    2016-03-01
-                                </td>
-                                <td>
-                                    1000
-                                </td>
+                                <td th:text="${executive.expiredAt}"></td>
+                                <td th:text="${executive.stockCount}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -454,54 +448,31 @@
                                 <col/>
                                 <col/>
                                 <col/>
-                                <col/>
-                                <col/>
-                                <col/>
                             </colgroup>
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>직위</th>
                                 <th>성명</th>
                                 <th>주민등록번호</th>
                                 <th>주소</th>
                                 <th>주식수</th>
-                                <th>주식의 종류</th>
-                                <th>비율</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="stockholder: ${company.stockholders}">
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id=""><i></i>
-                                                </span>
+                                                    <span class="input">
+                                                        <input type="checkbox" id=""><i></i>
+                                                    </span>
                                         </div>
                                     </div>
                                 </td>
-                                <td>
-                                    대표이사
-                                </td>
-                                <td>
-                                    유혁재
-                                </td>
-                                <td>
-                                    800923-1000000
-                                </td>
-                                <td>
-                                    서울특별시 양천구 33
-                                </td>
-                                <td>
-                                    1000
-                                </td>
-                                <td>
-                                    보통주식
-                                </td>
-                                <td>
-                                    25%
-                                </td>
+                                <td th:text="${stockholder.name}"></td>
+                                <td th:text="${stockholder.registrationNumber1} + '-' + ${stockholder.registrationNumber2}"></td>
+                                <td th:text="${stockholder.address}"></td>
+                                <td th:text="${stockholder.stockCount}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -698,14 +669,14 @@
 
         $(document).ready(function () {
 
-            $('button[name="postal_code_search_btn"]').on('click', function() {
+            $('button[name="postal_code_search_btn"]').on('click', function () {
                 var $this = $(this)
-                daum.postcode.load(function(){
+                daum.postcode.load(function () {
                     new daum.Postcode({
-                        oncomplete: function(data) {
+                        oncomplete: function (data) {
                             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
                             // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-                            if($this.data('id') == 'companyAddress') {
+                            if ($this.data('id') == 'companyAddress') {
                                 $('#companyAddress').val(data.address);
                                 $('#companyPostalCode').val(data.zonecode);
                             } else {

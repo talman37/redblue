@@ -38,6 +38,7 @@ class SecurityConfig(
 				.permitAll()
 				.and()
 			.logout()
+				.logoutUrl("/logout")
 				.permitAll()
 	}
 

@@ -9,6 +9,8 @@ interface CompanyRepository: CompanyQueryDslRepository, JpaRepository<Company, S
 
 	fun findByLawFirmId(lawFirmId: String): List<Company>
 
+	fun countBylawFirmId(lawFirmId: String): Int
+
 }
 
 interface CompanyQueryDslRepository {

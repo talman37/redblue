@@ -1,5 +1,6 @@
 package com.redblue.web.company.model
 
+import net.bytebuddy.utility.RandomString
 import java.util.*
 import javax.persistence.*
 
@@ -8,7 +9,7 @@ import javax.persistence.*
 data class PurposeDetail(
 
 	@Id
-	val id: String,
+	val id: String = "PD" + RandomString.make(30),
 
 	val companyId: String,
 

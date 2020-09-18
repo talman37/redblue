@@ -18,13 +18,13 @@
                             <p class="sidebar-heading">법인관리</p>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link " href="#">
+                                    <a class="nav-link " href="/company">
                                         <i class="fas fa-search"></i>
                                         법인 검색
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link " href="#">
+                                    <a class="nav-link " href="/company/add">
                                         <i class="fas fa-pencil-alt"></i>
                                         법인 등록
                                     </a>
@@ -35,15 +35,9 @@
                             <p class="sidebar-heading">상담 관리</p>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">
+                                    <a class="nav-link active" href="/consult">
                                         <i class="fas fa-comment-alt"></i>
                                         상담 관리
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="#">
-                                        <i class="fas fa-gavel"></i>
-                                        사건 관리
                                     </a>
                                 </li>
                             </ul>
@@ -52,7 +46,7 @@
                             <p class="sidebar-heading">DM 관리</p>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="/dm">
                                         <i class="fas fa-envelope-open-text"></i>
                                         DM 관리
                                     </a>
@@ -78,7 +72,7 @@
                                 <strong>상담 목록</strong>
                             </div>
                             <div>
-                                <a href="" class="btn btn-dark btn-sm">등록하기</a>
+                                <a href="/consult/add" class="btn btn-dark btn-sm">등록하기</a>
                             </div>
                         </div>
                     </div>
@@ -206,7 +200,7 @@
                         </div>
                         <div class="search-status">
                             <div>
-                                <p><span>Total : </span><strong>3000</strong>개</p>
+                                <p><span>Total : </span><strong th:text="${#lists.size(consults)}"></strong>개</p>
                             </div>
                         </div>
                         <table class="table table-bordered">
@@ -233,87 +227,29 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="consult: ${consults}">
                                 <td>1</td>
-                                <td><a href="">Otto</a></td>
-                                <td>2019-05-05</td>
-                                <td>@mdo</td>
+                                <td><a href="" th:text="${consult.companyName}"></a></td>
+                                <td th:text="${consult.createdAt}"></td>
+                                <td th:text="${consult.consultant}">@mdo</td>
                                 <td>
-                                    <div class="ellipsis">
+                                    <div class="ellipsis" th:text="${consult.content}">
                                         aaaa...
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="ellipsis">
+                                    <div class="ellipsis" th:text="${consult.memo}">
                                         aaaa...
                                     </div>
                                 </td>
                                 <td>2019-05-05</td>
-                                <td>
-                                    <span class="badge badge-pill badge-danger">취소</span>
+                                <td th:switch="${consult.progress}">
+                                    <span th:case="${consult.progress.CANCEL}" class="badge badge-pill badge-danger">취소</span>
+                                    <span th:case="${consult.progress.ONGOING}" class="badge badge-pill badge-primary">진행중</span>
+                                    <span th:case="${consult.progress.COMPLETE}" class="badge badge-pill badge-success">완료</span>
+                                    <span th:case="${consult.progress.HOLD}" class="badge badge-pill badge-warning">보류</span>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="">Otto</a></td>
-                                <td>2019-05-05</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <div class="ellipsis">
-                                        aaaa...
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ellipsis">
-                                        aaaa...
-                                    </div>
-                                </td>
-                                <td>2019-05-05</td>
-                                <td>
-                                    <span class="badge badge-pill badge-primary">진행중</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="">Otto</a></td>
-                                <td>2019-05-05</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <div class="ellipsis">
-                                        aaaa...
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ellipsis">
-                                        aaaa...
-                                    </div>
-                                </td>
-                                <td>2019-05-05</td>
-                                <td>
-                                    <span class="badge badge-pill badge-success">완료</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="">Otto</a></td>
-                                <td>2019-05-05</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <div class="ellipsis">
-                                        aaaa...
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ellipsis">
-                                        aaaa...
-                                    </div>
-                                </td>
-                                <td>2019-05-05</td>
-                                <td>
-                                    <span class="badge badge-pill badge-warning">보류</span>
-                                </td>
-                            </tr>
-
                             </tbody>
                         </table>
                     </div>

@@ -11,7 +11,12 @@ data class Consult(
 	@Id
 	val id: String = "CS" + RandomString.make(30),
 
+	val lawFirmId: String,
+
 	val companyId: String,
+
+	@Transient
+	val companyName: String? = null,
 
 	val consultant: String,
 

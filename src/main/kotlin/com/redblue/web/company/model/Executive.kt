@@ -1,5 +1,6 @@
 package com.redblue.web.company.model
 
+import net.bytebuddy.utility.RandomString
 import java.util.*
 import javax.persistence.*
 
@@ -8,7 +9,7 @@ import javax.persistence.*
 data class Executive(
 
 	@Id
-	val id: String,
+	val id: String = "EC" + RandomString.make(30),
 
 	var companyId: String? = null,
 
@@ -35,6 +36,8 @@ data class Executive(
 	val registerUpdatedAt: Date? = null,
 
 	@Temporal(TemporalType.DATE)
-	val expiredAt: Date? = null
+	val expiredAt: Date? = null,
+
+	val stockCount: Int? = 0
 
 )

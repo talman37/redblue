@@ -15,49 +15,51 @@ data class Company(
 
 	val baseCompanyId: String? = null,
 
-	val registerOffice: String,
+	val registerOffice: String? = null,
 
-	val registerNumber: Int,
+	val registerNumber: Int? = null,
 
-	val companyNumber1: Int,
+	val companyNumber1: Int? = null,
 
-	val companyNumber2: Int,
+	val companyNumber2: Int? = null,
 
-	val companyName: String,
+	val companyName: String? = null,
+
+	val companyDivision: String?,
 
 	@Enumerated(EnumType.STRING)
-	val displayCompanyType: DisplayCompanyType = DisplayCompanyType.FRONT,
+	val displayCompanyType: DisplayCompanyType? = DisplayCompanyType.FRONT,
 
-	val companySubName: String,
-
-	@Temporal(TemporalType.DATE)
-	val companyUpdatedAt: Date,
-
-	val companyAddress: String,
-
-	val companyPostalCode: String,
+	val companySubName: String? = null,
 
 	@Temporal(TemporalType.DATE)
-	val companyAddressUpdatedAt: Date,
+	val companyUpdatedAt: Date? = null,
+
+	val companyAddress: String? = null,
+
+	val companyPostalCode: String? = null,
 
 	@Temporal(TemporalType.DATE)
-	val companyAddressRegisterUpdatedAt: Date,
+	val companyAddressUpdatedAt: Date? = null,
 
-	val businessNumber: String,
+	@Temporal(TemporalType.DATE)
+	val companyAddressRegisterUpdatedAt: Date? = null,
 
-	val businessType: String,
+	val businessNumber: String? = null,
 
-	val businessCondition: String,
+	val businessType: String? = null,
 
-	val deliveryPlace: String,
+	val businessCondition: String? = null,
 
-	val deliveryPlacePostalCode: String,
+	val deliveryPlace: String? = null,
 
-	val etc: String,
+	val deliveryPlacePostalCode: String? = null,
 
-	val convertibleBond: String,
+	val etc: String? = null,
 
-	val stockPurchaseOption: String,
+	val convertibleBond: String? = null,
+
+	val stockPurchaseOption: String? = null,
 
 	@Temporal(TemporalType.DATE)
 	val companyFormationAt: Date? = null,
@@ -105,7 +107,10 @@ data class Company(
 	var stock: Stock? = null,
 
 	@Transient
-	var executives: List<Executive> = emptyList()
+	var executives: List<Executive> = emptyList(),
+
+	@Transient
+	var stockholders: List<Stockholder> = emptyList()
 
 ) {
 	enum class DisplayCompanyType{

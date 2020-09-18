@@ -24,7 +24,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link  active" href="/comapny/add">
+                                <a class="nav-link  active" href="/company/add">
                                     <i class="fas fa-pencil-alt"></i>
                                     법인 등록
                                 </a>
@@ -35,24 +35,24 @@
                         <p class="sidebar-heading">상담 관리</p>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link " href="/consult">
                                     <i class="fas fa-comment-alt"></i>
                                     상담 관리
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="#">
-                                    <i class="fas fa-gavel"></i>
-                                    사건 관리
-                                </a>
-                            </li>
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link " href="#">-->
+<!--                                    <i class="fas fa-gavel"></i>-->
+<!--                                    사건 관리-->
+<!--                                </a>-->
+<!--                            </li>-->
                         </ul>
                     </li>
                     <li class="nav-item">
                         <p class="sidebar-heading">DM 관리</p>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="/dm">
                                     <i class="fas fa-envelope-open-text"></i>
                                     DM 관리
                                 </a>
@@ -89,16 +89,16 @@
                             </div>
                             <label class="col-sm-2 col-form-label">등기번호</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="registerNumber" name="registerNumber" value="">
                             </div>
                         </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">등기번호</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="" value="">
-                            </div>
-                        </div>
+<!--                        <hr/>-->
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-2 col-form-label">등기번호</label>-->
+<!--                            <div class="col-sm-10">-->
+<!--                                <input type="text" class="form-control" id="" value="">-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <hr/>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">관할 등기소</label>
@@ -111,32 +111,23 @@
                                     <option value="1">중앙등기국</option>
                                 </select>
                             </div>
-                            <div class="col">
-                                <button type='button' class="btn btn-dark">검색</button>
-                            </div>
                         </div>
                         <hr/>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">법인 구분</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="" value="">
-                            </div>
-                            <div class="col-sm-4">
-                                <select class="form-control" id="">
-                                    <option selected>전체</option>
-                                    <option value="1">주식회사</option>
-                                    <option value="2">유한회사</option>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="companyDivision" name="companyDivision">
+                                    <option selected value="">선택</option>
+                                    <option value="주식회사">주식회사</option>
+                                    <option value="유한회사">유한회사</option>
                                 </select>
-                            </div>
-                            <div class="col">
-                                <button type='button' class="btn btn-dark">검색</button>
                             </div>
                         </div>
                         <hr/>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">상호</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="companyName" name="companyName" value="">
                             </div>
                             <div class="col-6">
                                 <div class="input-group">
@@ -149,7 +140,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="form-input">
                                                     <span class="input">
-                                                        <input type="radio" id=""><i></i>
+                                                        <input type="radio" id="displayCompanyTypeFront" name="displayCompanyType" value="FRONT"><i></i>
                                                     </span>
                                                 <label for="">앞</label>
                                             </div>
@@ -157,7 +148,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="form-input">
                                                     <span class="input">
-                                                        <input type="radio" id=""><i></i>
+                                                        <input type="radio" id="displayCompanyTypeBack" name="displayCompanyType" value="BACK"><i></i>
                                                     </span>
                                                 <label for="">뒤</label>
                                             </div>
@@ -170,20 +161,20 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">병기상호</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="companySubName" name="companySubName" value="">
                             </div>
                         </div>
                         <hr/>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">본점주소</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="" value="" placeholder="우편번호">
+                                <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode" value="" placeholder="우편번호">
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="companyAddress" name="companyAddress" value="">
                             </div>
                             <div class="col">
-                                <button type='button' class="btn btn-dark">주소 검색</button>
+                                <button type='button' class="btn btn-dark" name="postal_code_search_btn" data-id="companyAddress">주소 검색</button>
                             </div>
                         </div>
                         <hr/>
@@ -199,58 +190,57 @@
                                 </div>
                             </label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="" value="" placeholder="우편번호">
+                                <input type="text" class="form-control" id="deliveryPlacePostalCode" name="deliveryPlacePostalCode" value="" placeholder="우편번호">
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace" value="">
                             </div>
                             <div class="col">
-                                <button type='button' class="btn btn-dark">주소 검색</button>
+                                <button type='button' class="btn btn-dark" name="postal_code_search_btn" data-id="deliveryPlace">주소 검색</button>
                             </div>
                         </div>
                         <hr/>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">사업자등록번호</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="businessNumber" name="businessNumber" value="">
                             </div>
                             <label class="col-sm-2 col-form-label">업태</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="businessCondition" name="businessCondition" value="">
                             </div>
                             <label class="col-sm-2 col-form-label">업종</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="businessType" name="businessType" value="">
                             </div>
                         </div>
                         <hr/>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">결산기</label>
                             <div class="col-sm-2">
-                                <select class="form-control" id="">
+                                <select class="form-control" id="settlementMonth" name="settlementMonth">
                                     <option selected>전체</option>
-                                    <option value="1">12월</option>
-                                    <option value="2">11월</option>
+                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"></option>
                                 </select>
                             </div>
                             <label class="col-sm-2 col-form-label">1주의 금액</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="stock.amount" name="stock.amount" value="">
                             </div>
                             <label class="col-sm-2 col-form-label">자본금</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="capital" value="" readonly>
                             </div>
                         </div>
                         <hr/>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">발행할 주식의 총수</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="stock.scheduleCount" name="stock.scheduleCount">
                             </div>
                             <label class="col-sm-2 col-form-label">발행주식의 총수</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="" value="">
+                                <input type="text" class="form-control" id="stock.issuedCount" name="stock.issuedCount" value="">
                             </div>
                         </div>
                         <hr/>
@@ -387,8 +377,31 @@
     </div>
     <!-- //container -->
 
-
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+        $(document).ready(function () {
+
+            $('button[name="postal_code_search_btn"]').on('click', function() {
+                var $this = $(this)
+                daum.postcode.load(function(){
+                    new daum.Postcode({
+                        oncomplete: function(data) {
+                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                            if($this.data('id') == 'companyAddress') {
+                                $('#companyAddress').val(data.address);
+                                $('#companyPostalCode').val(data.zonecode);
+                            } else {
+                                $('#deliveryPlace').val(data.address);
+                                $('#deliveryPlacePostalCode').val(data.zonecode);
+                            }
+                        }
+                    }).open();
+                });
+            });
+
+
+        });
         $('.input-daterange').datepicker({
             language: "ko",
             todayHighlight: true
