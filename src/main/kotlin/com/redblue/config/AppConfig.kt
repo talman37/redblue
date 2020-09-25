@@ -15,7 +15,7 @@ class AppConfig: WebMvcConfigurer {
 	override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
 		registry.addResourceHandler("/static/**")
 			.addResourceLocations("classpath:/static/")
-			.setCachePeriod(20)
+			.setCachePeriod(0)
 	}
 
 	@Bean
