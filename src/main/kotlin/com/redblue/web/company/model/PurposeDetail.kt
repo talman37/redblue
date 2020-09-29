@@ -16,9 +16,6 @@ data class PurposeDetail(
 	val detail: String? = null,
 
 	@Temporal(TemporalType.DATE)
-	val detailUpdatedAt: Date? = null,
-
-	@Temporal(TemporalType.DATE)
-	val detailRegisterUpdatedAt: Date? = null
+	val detailUpdatedAt: Date? = null
 
 )

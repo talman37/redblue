@@ -18,24 +18,15 @@ data class Stock(
 	@Temporal(TemporalType.DATE)
 	val amountUpdatedAt: Date? = null,
 
-	@Temporal(TemporalType.DATE)
-	val amountUpdatedRegisterAt: Date? = null,
-
 	val scheduleCount: Int? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val scheduleCountUpdatedAt: Date? = null,
 
-	@Temporal(TemporalType.DATE)
-	val scheduleCountUpdatedRegisterAt: Date? = null,
-
 	val issuedCount: Int? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val issuedCountUpdatedAt: Date? = null,
-
-	@Temporal(TemporalType.DATE)
-	val issuedCountUpdatedRegisterAt: Date? = null,
 
 	val normalCount: Int? = 0,
 
@@ -46,15 +37,9 @@ data class Stock(
 	@Temporal(TemporalType.DATE)
 	val noFaceValueUpdatedAt: Date? = null,
 
-	@Temporal(TemporalType.DATE)
-	val noFaceValueUpdatedRegisterAt: Date? = null,
-
 	val noFaceValueCapitalAmount: Int? = 0,
 
 	@Temporal(TemporalType.DATE)
-	val noFaceValueCapitalAmountUpdatedAt: Date? = null,
-
-	@Temporal(TemporalType.DATE)
-	val noFaceValueCapitalAmountUpdatedRegisterAt: Date? = null
+	val noFaceValueCapitalAmountUpdatedAt: Date? = null
 
 )

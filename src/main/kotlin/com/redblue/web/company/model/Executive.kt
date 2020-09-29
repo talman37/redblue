@@ -33,9 +33,6 @@ data class Executive(
 	val updatedAt: Date? = null,
 
 	@Temporal(TemporalType.DATE)
-	val registerUpdatedAt: Date? = null,
-
-	@Temporal(TemporalType.DATE)
 	val expiredAt: Date? = null,
 
 	val stockCount: Int? = 0

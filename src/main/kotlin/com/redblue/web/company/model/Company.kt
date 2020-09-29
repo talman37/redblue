@@ -42,9 +42,6 @@ data class Company(
 	@Temporal(TemporalType.DATE)
 	val companyAddressUpdatedAt: Date? = null,
 
-	@Temporal(TemporalType.DATE)
-	val companyAddressRegisterUpdatedAt: Date? = null,
-
 	val businessNumber: String? = null,
 
 	val businessType: String? = null,
@@ -74,16 +71,10 @@ data class Company(
 	@Temporal(TemporalType.DATE)
 	val headOfficeTransferAt: Date? = null,
 
-	@Temporal(TemporalType.DATE)
-	val headOfficeTransferRegisterAt: Date? = null,
-
 	val isDisband: Boolean? = null,
 
 	@Temporal(TemporalType.DATE)
 	val disbandAt: Date? = null,
-
-	@Temporal(TemporalType.DATE)
-	val disbandRegisterAt: Date? = null,
 
 	@Temporal(TemporalType.DATE)
 	val disbandDeemedAt: Date? = null,
@@ -92,9 +83,6 @@ data class Company(
 
 	@Temporal(TemporalType.DATE)
 	val liquidationAt: Date? = null,
-
-	@Temporal(TemporalType.DATE)
-	val liquidationRegisterAt: Date? = null,
 
 	val isRegisterRecordClosure: Boolean? = null,
 
