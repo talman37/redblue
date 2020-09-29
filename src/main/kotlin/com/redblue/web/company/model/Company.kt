@@ -94,7 +94,7 @@ data class Company(
 	@Transient
 	var stock: Stock? = null,
 
-	@Transient
+	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
 	var executives: List<Executive> = emptyList(),
 
 	@Transient

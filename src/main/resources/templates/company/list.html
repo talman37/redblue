@@ -120,12 +120,18 @@
                             <colgroup>
                                 <col style="width: 250px">
                                 <col>
+                                <col>
+                                <col>
+                                <col>
                                 <col style="width: 150px">
                             </colgroup>
                             <thead class="thead-light">
                             <tr>
                                 <th>법인명</th>
                                 <th>주소</th>
+                                <th>등기소</th>
+                                <th>등기번호</th>
+                                <th>임기만료일</th>
                                 <th>Phone</th>
                             </tr>
                             </thead>
@@ -137,6 +143,9 @@
                                     <div class="ellipsis" th:text="${company.companyAddress}">
                                     </div>
                                 </td>
+                                <td th:text="${company.registerOffice}"></td>
+                                <td th:text="${company.registerNumber}"></td>
+                                <td th:text="2022-01-01"></td>
                                 <td th:text="0100000000"></td>
                             </tr>
                             </tbody>

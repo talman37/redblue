@@ -3,6 +3,7 @@ package com.redblue.web.company
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.security.core.userdetails.SecurityUser
 import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.dto.CompanyListDto
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -21,7 +22,7 @@ class CompanyController(
 		model: Model,
 		@CurrentUser user: LawFirmUser
 	): String {
-		model.addAttribute("companies", companyService.list(user.lawFirmId))
+		model.addAttribute("companies", CompanyListDto.to(companyService.list(user.lawFirmId)))
 		model.addAttribute("totalCount", companyService.count(user.lawFirmId))
 		model.addAttribute("name", user.name)
 		return "/company/list"
