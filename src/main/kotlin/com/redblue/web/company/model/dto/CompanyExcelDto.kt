@@ -1,6 +1,7 @@
 package com.redblue.web.company.model.dto
 
 import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.Executive
 import java.util.*
 
 data class CompanyExcelDto(
@@ -79,7 +80,9 @@ data class CompanyExcelDto(
 
 	val settlementMonth: Int? = null,
 
-	val recommender: String? = null
+	val recommender: String? = null,
+
+	val executives: List<Executive>? = emptyList()
 
 ) {
 	companion object {
@@ -126,7 +129,8 @@ data class CompanyExcelDto(
 						isRegisterRecordClosure = company.isRegisterRecordClosure,
 						registerRecordClosureAt = company.registerRecordClosureAt,
 						settlementMonth = company.settlementMonth,
-						recommender = company.recommender
+						recommender = company.recommender,
+						executives = company.executives
 					)
 				)
 			}

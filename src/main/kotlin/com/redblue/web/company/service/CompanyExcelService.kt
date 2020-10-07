@@ -2,13 +2,11 @@ package com.redblue.web.company.service
 
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.dto.CompanyExcelDto
-import org.apache.poi.ss.usermodel.CellType
+import com.redblue.web.company.model.dto.ExecutiveExcelDto
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
-import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
 
 @Service
@@ -20,28 +18,42 @@ class CompanyExcelService {
 		val out = ByteArrayOutputStream()
 
 		val createHelper = workbook.creationHelper
-		val companySheet = workbook.createSheet("법인")
 
 		val headerFont = workbook.createFont()
 		headerFont.bold = true
 		val headerCellStyle = workbook.createCellStyle()
 		headerCellStyle.setFont(headerFont)
 
+		val dateCellStyle = workbook.createCellStyle()
+		dateCellStyle.dataFormat = createHelper.createDataFormat().getFormat("yyyy-MM-dd")
+
+		//법인
+		val companySheet = workbook.createSheet("법인")
 		val headerRow = companySheet.createRow(0)
 		val companyExcelClass = CompanyExcelDto::class
 		companyExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
+			if(property.name!! == "executives") return@forEachIndexed
 			val cell = headerRow.createCell(i)
-			cell.setCellValue(this.changeCellName(property.name!!))
+			cell.setCellValue(this.changeCompanyCellName(property.name!!))
 			cell.cellStyle = headerCellStyle
 		}
 
-		val dateCellStyle = workbook.createCellStyle()
-		dateCellStyle.dataFormat = createHelper.createDataFormat().getFormat("yyyy-MM-dd")
+		//임원
+		val executiveSheet = workbook.createSheet("임원")
+		val executiveHeaderRow = executiveSheet.createRow(0)
+		val executiveExcelClass = ExecutiveExcelDto::class
+		executiveExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
+			val cell = executiveHeaderRow.createCell(i)
+			cell.setCellValue(this.changeExecutiveCellName(property.name!!))
+			cell.cellStyle = headerCellStyle
+		}
 
 		val companiesExcelDtoList = CompanyExcelDto.toList(companies)
 
 		var rowIndex = 1
 		for (companyExcelDto in companiesExcelDtoList) {
+
+			//법인
 			val row = companySheet.createRow(rowIndex++)
 			row.createCell(0).setCellValue(companyExcelDto.registerOffice)
 			companyExcelDto.registerNumber?.let {
@@ -101,13 +113,48 @@ class CompanyExcelService {
 				row.createCell(36).setCellValue(it.toDouble())
 			} ?: row.createCell(36)
 			row.createCell(37).setCellValue(companyExcelDto.recommender)
+
+			//임원
+			var executiveIndex = 1
+			val executiveExcelDtoList = ExecutiveExcelDto.toList(companyExcelDto.companyName, companyExcelDto.executives)
+			for (executiveExcelDto in executiveExcelDtoList) {
+				val row = executiveSheet.createRow(executiveIndex++)
+				row.createCell(0).setCellValue(executiveExcelDto.companyName)
+				row.createCell(1).setCellValue(executiveExcelDto.detail)
+				row.createCell(2).setCellValue(executiveExcelDto.type)
+				row.createCell(3).setCellValue(executiveExcelDto.name)
+				row.createCell(4).setCellValue(executiveExcelDto.position)
+				row.createCell(5).setCellValue(executiveExcelDto.registrationNumber1)
+				row.createCell(6).setCellValue(executiveExcelDto.registrationNumber2)
+				row.createCell(7).setCellValue(executiveExcelDto.address)
+
+				row.createCell(8).let {
+					it.setCellValue(executiveExcelDto.inauguratedAt)
+					it.cellStyle = dateCellStyle
+				}
+
+				row.createCell(9).setCellValue(executiveExcelDto.updatedReason)
+
+				row.createCell(10).let {
+					it.setCellValue(executiveExcelDto.updatedAt)
+					it.cellStyle = dateCellStyle
+				}
+
+				row.createCell(11).let {
+					it.setCellValue(executiveExcelDto.expiredAt)
+					it.cellStyle = dateCellStyle
+				}
+
+				row.createCell(12).setCellValue(executiveExcelDto.stockCount.toDouble())
+			}
+
 		}
 		workbook.write(out)
 		return ByteArrayInputStream(out.toByteArray())
 
 	}
 
-	private fun changeCellName(name: String): String {
+	private fun changeCompanyCellName(name: String): String {
 		return when(name) {
 			"registerOffice" -> "관할등기소"
 			"registerNumber" -> "등기번호"
@@ -147,6 +194,26 @@ class CompanyExcelService {
 			"registerRecordClosureAt" -> "등기기록폐쇄일"
 			"settlementMonth" -> "결산기일"
 			"recommender" -> "추천인"
+			else -> "NoneTitle"
+		}
+
+	}
+
+	private fun changeExecutiveCellName(name: String): String {
+		return when(name) {
+			"companyName" -> "상호"
+			"detail" -> "임원에관한사항"
+			"type" -> "임원의종류"
+			"name" -> "임원의성명"
+			"position" -> "직위"
+			"registrationNumber1" -> "임원의주민등록번호1"
+			"registrationNumber2" -> "임원의주민등록번호2"
+			"address" -> "임원의주소"
+			"inauguratedAt" -> "취임일자"
+			"updatedReason" -> "임원의변경사유"
+			"updatedAt" -> "임원변경일"
+			"expiredAt" -> "임원만료일"
+			"stockCount" -> "주식수"
 			else -> "NoneTitle"
 		}
 

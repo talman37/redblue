@@ -27,6 +27,9 @@ data class Executive(
 
 	val position: String? = null,
 
+	@Temporal(TemporalType.DATE)
+	val inauguratedAt: Date? = null,
+
 	val updatedReason: String? = null,
 
 	@Temporal(TemporalType.DATE)
