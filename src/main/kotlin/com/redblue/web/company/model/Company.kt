@@ -27,6 +27,12 @@ data class Company(
 
 	val companyDivision: String?,
 
+	val companyManageNumber: String? = null,
+
+	val companyManageState: String? = null,
+
+	val companyState: String? = null,
+
 	@Enumerated(EnumType.STRING)
 	val displayCompanyType: DisplayCompanyType? = DisplayCompanyType.FRONT,
 
@@ -51,6 +57,11 @@ data class Company(
 	val deliveryPlace: String? = null,
 
 	val deliveryPlacePostalCode: String? = null,
+
+	val noticeWay: String? = null,
+
+	@Temporal(TemporalType.DATE)
+	val noticeWayUpdatedAt: Date? = null,
 
 	val etc: String? = null,
 
@@ -90,6 +101,8 @@ data class Company(
 	val registerRecordClosureAt: Date? = null,
 
 	val settlementMonth: Int? = null,
+
+	val recommender: String? = null,
 
 	@Transient
 	var stock: Stock? = null,

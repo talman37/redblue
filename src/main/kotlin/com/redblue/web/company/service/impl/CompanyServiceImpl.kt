@@ -7,6 +7,7 @@ import com.redblue.web.company.repository.StockRepository
 import com.redblue.web.company.repository.StockholderRepository
 import com.redblue.web.company.service.CompanyService
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class CompanyServiceImpl(
@@ -15,8 +16,8 @@ class CompanyServiceImpl(
 	private val executiveRepository: ExecutiveRepository,
 	private val stockholderRepository: StockholderRepository
 ): CompanyService {
-	override fun list(lawFirmId: String): List<Company> {
-		return companyRepository.findByLawFirmId(lawFirmId)
+	override fun list(lawFirmId: String, q: String?): List<Company> {
+		return companyRepository.findByLawFirmId(lawFirmId, q)
 	}
 
 	override fun count(lawFirmId: String): Int {

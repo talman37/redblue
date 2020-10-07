@@ -1,102 +1,104 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
-    <th:block layout:fragment="content_body">
-        <!-- container -->
-        <div class="container-fluid">
-            <!-- sidebar -->
-            <nav class="sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <p class="sidebar-heading">법인관리</p>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="/company">
-                                        <i class="fas fa-search"></i>
-                                        법인 검색
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="/company/add">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        법인 등록
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <p class="sidebar-heading">상담 관리</p>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link " href="/consult">
-                                        <i class="fas fa-comment-alt"></i>
-                                        상담 관리
-                                    </a>
-                                </li>
-<!--                                <li class="nav-item">-->
-<!--                                    <a class="nav-link " href="#">-->
-<!--                                        <i class="fas fa-gavel"></i>-->
-<!--                                        사건 관리-->
-<!--                                    </a>-->
-<!--                                </li>-->
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <p class="sidebar-heading">DM 관리</p>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/dm">
-                                        <i class="fas fa-envelope-open-text"></i>
-                                        DM 관리
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <!-- //sidebar -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<th:block layout:fragment="content_body">
+    <!-- container -->
+    <div class="container-fluid">
+        <!-- sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <p class="sidebar-heading">법인관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/company">
+                                    <i class="fas fa-search"></i>
+                                    법인 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/company/add">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    법인 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">상담 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link " href="/consult">
+                                    <i class="fas fa-comment-alt"></i>
+                                    상담 관리
+                                </a>
+                            </li>
+                            <!--                                <li class="nav-item">-->
+                            <!--                                    <a class="nav-link " href="#">-->
+                            <!--                                        <i class="fas fa-gavel"></i>-->
+                            <!--                                        사건 관리-->
+                            <!--                                    </a>-->
+                            <!--                                </li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">DM 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dm">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                    DM 관리
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //sidebar -->
 
-            <!-- contents -->
-            <main role="main" class="main">
-                <div class="page-header">
-                    <div>
-                        <h1>법인 검색</h1>
+        <!-- contents -->
+        <main role="main" class="main">
+            <div class="page-header">
+                <div>
+                    <h1>법인 검색</h1>
+                </div>
+            </div>
+            <div class="box-status">
+                <div class="item">
+                    <div class="item-header">
+                        <strong th:text="${name}"></strong>님의 관할 등기소 등록 법인수
+                    </div>
+                    <div class="item-body">
+                        <span th:text="${totalCount}"></span>개
                     </div>
                 </div>
-                <div class="box-status">
-                    <div class="item">
-                        <div class="item-header">
-                            <strong th:text="${name}"></strong>님의 관할 등기소 등록 법인수
-                        </div>
-                        <div class="item-body">
-                            <span th:text="${totalCount}"></span>개
-                        </div>
+                <div class="item">
+                    <div class="item-header">
+                        <strong th:text="${name}"></strong>님의 관할 등기소 관리 법인수
                     </div>
-                    <div class="item">
-                        <div class="item-header">
-                            <strong th:text="${name}"></strong>님의 관할 등기소 관리 법인수
-                        </div>
-                        <div class="item-body">
-                            <span th:text="${totalCount}"></span>개
+                    <div class="item-body">
+                        <span th:text="${totalCount}"></span>개
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>법인 검색</strong>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>법인 검색</strong>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card-body">
+                <div class="card-body">
+                    <form id="searchForm" name="searchForm" method="get">
                         <div class="search-field">
                             <div class="search-area search-compact">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="법인 검색 ">
+                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색" th:value="${q}">
                                     </div>
                                     <div class="col">
                                         <div class="input-group input-daterange">
@@ -105,99 +107,110 @@
                                                     임기만료일
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" name="start" >
+                                            <input type="text" class="form-control" id="startDate" name="start" th:value="${startDate}">
                                             <div class="input-group-addon">~</div>
-                                            <input type="text" class="form-control" name="end" >
+                                            <input type="text" class="form-control" id="endDate" name="end" th:value="${endDate}">
                                         </div>
                                     </div>
                                     <div class="col col-md-auto">
-                                        <button type="button" class="btn btn-sm btn-dark">검색</button>
+                                        <button type="button" class="btn btn-sm btn-dark" id="search-btn">검색</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <table class="table table-bordered">
-                            <colgroup>
-                                <col style="width: 250px">
-                                <col>
-                                <col>
-                                <col>
-                                <col>
-                                <col style="width: 150px">
-                            </colgroup>
-                            <thead class="thead-light">
-                            <tr>
-                                <th>법인명</th>
-                                <th>주소</th>
-                                <th>등기소</th>
-                                <th>등기번호</th>
-                                <th>임기만료일</th>
-                                <th>Phone</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    </form>
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col style="width: 250px">
+                            <col>
+                            <col style="width: 150px">
+                            <col>
+                            <col>
+                            <col style="width: 150px">
+                        </colgroup>
+                        <thead class="thead-light">
+                        <tr>
+                            <th>법인명</th>
+                            <th>주소</th>
+                            <th>등기소</th>
+                            <th>등기번호</th>
+                            <th>임기만료일</th>
+                            <th>Phone</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                            <tr th:each="company: ${companies}">
-                                <td><a th:href="'/company/' + ${company.id}" th:target="_blank" th:text="${company.companyName}"></a></td>
-                                <td>
-                                    <div class="ellipsis" th:text="${company.companyAddress}">
-                                    </div>
-                                </td>
-                                <td th:text="${company.registerOffice}"></td>
-                                <td th:text="${company.registerNumber}"></td>
-                                <td th:text="2022-01-01"></td>
-                                <td th:text="0100000000"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <span>Total :  <span class="text-primary">3</span></span>
-                                <nav class="ml-3">
-                                    <ul class="pagination pagination-sm">
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active" aria-current="page">
+                        <tr th:each="company: ${companies}">
+                            <td><a th:href="'/company/' + ${company.id}" th:target="_blank"
+                                   th:text="${company.companyName}"></a></td>
+                            <td>
+                                <div class="ellipsis" th:text="${company.companyAddress}">
+                                </div>
+                            </td>
+                            <td th:text="${company.registerOffice}"></td>
+                            <td th:text="${company.registerNumber}"></td>
+                            <td th:text="${company.expiredAt}"></td>
+                            <td th:text="0100000000"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <span>Total :  <span class="text-primary">3</span></span>
+                            <nav class="ml-3">
+                                <ul class="pagination pagination-sm">
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active" aria-current="page">
                                             <span class="page-link">
                                                 2
                                                 <span class="sr-only">(current)</span>
                                             </span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-dark btn-sm">엑셀 다운</button>
-                                <button type="button" class="btn btn-dark btn-sm">PDF 다운</button>
-                            </div>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
+                            <button type="button" class="btn btn-dark btn-sm">PDF 다운</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-            </main>
-            <!-- //contents -->
+        </main>
+        <!-- //contents -->
 
-        </div>
-        <!-- //container -->
-        <script>
+    </div>
+    <!-- //container -->
+    <script>
 
-            $(document).ready(function () {
+        $(document).ready(function () {
+            $('#search-btn').on('click', function () {
+                $('#searchForm').submit()
             });
-            $('.input-daterange').datepicker({
-                language: "ko",
-                todayHighlight: true
+
+            $('#excel-down-btn').on('click', function () {
+                location.href = '/v1/companies/download/corporations.xlsx'
             });
-            // $('.input-daterange input').each(function() {
-            //     $(this).datepicker('clearDates');
-            // });
-        </script>
-    </th:block>
+
+
+        });
+        $('.input-daterange').datepicker({
+            language: "ko",
+            todayHighlight: true
+        });
+        // $('.input-daterange input').each(function() {
+        //     $(this).datepicker('clearDates');
+        // });
+    </script>
+</th:block>
 </html>

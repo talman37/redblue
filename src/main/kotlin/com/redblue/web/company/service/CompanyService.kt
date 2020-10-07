@@ -4,7 +4,7 @@ import com.redblue.web.company.model.Company
 
 interface CompanyService {
 
-	fun list(lawFirmId: String): List<Company>
+	fun list(lawFirmId: String, q: String?): List<Company>
 
 	fun count(lawFirmId: String): Int
 

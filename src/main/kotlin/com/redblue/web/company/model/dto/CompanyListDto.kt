@@ -23,8 +23,8 @@ data class CompanyListDto(
 
 	companion object {
 
-		fun to(companies: List<Company>): List<CompanyListDto> {
-			val list = mutableListOf<CompanyListDto>()
+		fun to(companies: List<Company>, startDate: Date?, endDate: Date?): List<CompanyListDto> {
+			var list = mutableListOf<CompanyListDto>()
 			for (company in companies) {
 
 				val minExpiredAt = company.executives.map { it.expiredAt }.first()
@@ -39,6 +39,23 @@ data class CompanyListDto(
 					expiredAt = minExpiredAt
 				))
 			}
+
+			startDate?.let{
+				list = list.filter{
+					it.expiredAt?.let {date ->
+						date >= startDate
+					} ?: false
+				}.toMutableList()
+			}
+
+			endDate?.let{
+				list = list.filter{
+					it.expiredAt?.let {date ->
+						date <= endDate
+					} ?: false
+				}.toMutableList()
+			}
+
 			return list
 		}
 

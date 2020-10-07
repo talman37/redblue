@@ -39,6 +39,10 @@ dependencies {
     implementation("com.h2database:h2")
     implementation ("org.flywaydb:flyway-core")
 
+    implementation("org.apache.poi:poi-ooxml:3.16")
+    implementation("org.apache.poi:poi:3.16")
+
+
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

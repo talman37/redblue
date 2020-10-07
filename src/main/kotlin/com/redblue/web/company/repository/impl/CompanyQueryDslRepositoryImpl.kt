@@ -13,6 +13,18 @@ class CompanyQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
 ): CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
 
+	override fun findByLawFirmId(lawFirmId: String, q: String?): List<Company> {
+		val qc = QCompany.company
+		val predicate = BooleanBuilder()
+		val query = jpaQueryFactory.selectFrom(qc)
+		predicate.and(qc.lawFirmId.eq(lawFirmId))
+		q?.let {
+			predicate.or(qc.companyName.like(q)).or(qc.companyNumber1.like(q)).or(qc.companyNumber2.like(q))
+		}
+		query.where(predicate)
+		return query.fetch()
+	}
+
 	override fun search(lawFirmId: String, q: String): Company {
 		val qc = QCompany.company
 		val predicate = BooleanBuilder()

@@ -6,22 +6,24 @@ VALUES ('sample-user-id', 'sample-lawfirm-id', 'jhm@mz.co.kr',
         '$2a$10$HkHyiaLtWg98uxAnmweW7uASsdledh6BjtIA51sl4DUh4eUEqVwKe', 'jhm', 'ADMIN', NOW());
 
 INSERT INTO COMPANIES (ID, LAW_FIRM_ID, BASE_COMPANY_ID, REGISTER_OFFICE, REGISTER_NUMBER, COMPANY_NUMBER1,
-                       COMPANY_NUMBER2, COMPANY_NAME, COMPANY_DIVISION, DISPLAY_COMPANY_TYPE, COMPANY_SUB_NAME,
+                       COMPANY_NUMBER2, COMPANY_NAME, COMPANY_DIVISION, COMPANY_MANAGE_NUMBER, COMPANY_MANAGE_STATE,
+                       COMPANY_STATE, DISPLAY_COMPANY_TYPE, COMPANY_SUB_NAME,
                        COMPANY_UPDATED_AT,
                        COMPANY_ADDRESS, COMPANY_POSTAL_CODE, COMPANY_ADDRESS_UPDATED_AT,
                        BUSINESS_NUMBER, BUSINESS_TYPE, BUSINESS_CONDITION, DELIVERY_PLACE, DELIVERY_PLACE_POSTAL_CODE,
-                       ETC,
+                       NOTICE_WAY, NOTICE_WAY_UPDATED_AT, ETC,
                        CONVERTIBLE_BOND, STOCK_PURCHASE_OPTION, COMPANY_FORMATION_AT,
                        REGISTER_RECORD_CREATE_REASON, REGISTER_RECORD_CREATE_AT, IS_HEAD_OFFICE_TRANSFER,
                        HEAD_OFFICE_TRANSFER_AT, IS_DISBAND, DISBAND_AT,
                        DISBAND_DEEMED_AT, IS_LIQUIDATION, LIQUIDATION_AT,
                        IS_REGISTER_RECORD_CLOSURE, REGISTER_RECORD_CLOSURE_AT,
-                       SETTLEMENT_MONTH)
-VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285011', '0414297', '온빛전자', '유한회사', 'FRONT',
+                       SETTLEMENT_MONTH, RECOMMENDER)
+VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285011', '0414297', '온빛전자', '유한회사', null, null,
+        null, 'FRONT',
         '온빛전자1',
         NULL,
         '경기도 고양시 일산동구 고봉로620번길 81-17, 가,나동(성석동)', '12345', NULL, '2221133333', 'LED 전광판', '제조,도소매',
-        '경기도 고양시 일산동구 고봉로620번길 81-17, 가,나동(성석동)', '12345', '본지점 이전/폐지
+        '경기도 고양시 일산동구 고봉로620번길 81-17, 가,나동(성석동)', '12345', NULL, NULL, '본지점 이전/폐지
 자본에 관한 사항
 합병/조직변경
 분할/분할합병
@@ -41,7 +43,7 @@ VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285
         회사는 임직원에게 상법 제340조의2의 규정에 의한 주식매수선택권을 부여할 수 있다.', '2019-06-13', NULL, NULL, NULL, NULL, NULL, NULL,
         NULL,
         NULL,
-        NULL, NULL, NULL, 6);
+        NULL, NULL, NULL, 6, null);
 
 INSERT INTO STOCKS (ID, COMPANY_ID, AMOUNT, AMOUNT_UPDATED_AT,
                     SCHEDULE_COUNT, SCHEDULE_COUNT_UPDATED_AT,
