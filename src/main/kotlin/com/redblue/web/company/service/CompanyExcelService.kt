@@ -3,6 +3,8 @@ package com.redblue.web.company.service
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.dto.CompanyExcelDto
 import com.redblue.web.company.model.dto.ExecutiveExcelDto
+import com.redblue.web.company.model.dto.StockExcelDto
+import com.redblue.web.company.repository.StockRepository
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream
@@ -10,7 +12,9 @@ import java.io.ByteArrayOutputStream
 import kotlin.reflect.full.primaryConstructor
 
 @Service
-class CompanyExcelService {
+class CompanyExcelService(
+	private val stockRepository: StockRepository
+) {
 
 	fun generate(companies: List<Company>): ByteArrayInputStream {
 
@@ -20,6 +24,7 @@ class CompanyExcelService {
 		val createHelper = workbook.creationHelper
 
 		val headerFont = workbook.createFont()
+		headerFont.fontName = "맑은 고딕"
 		headerFont.bold = true
 		val headerCellStyle = workbook.createCellStyle()
 		headerCellStyle.setFont(headerFont)
@@ -32,9 +37,19 @@ class CompanyExcelService {
 		val headerRow = companySheet.createRow(0)
 		val companyExcelClass = CompanyExcelDto::class
 		companyExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
-			if(property.name!! == "executives") return@forEachIndexed
+			if(property.name!! == "executives" || property.name!! == "id") return@forEachIndexed
 			val cell = headerRow.createCell(i)
 			cell.setCellValue(this.changeCompanyCellName(property.name!!))
+			cell.cellStyle = headerCellStyle
+		}
+
+		//주식
+		val stockSheet = workbook.createSheet("주식")
+		val stockHeaderRow = stockSheet.createRow(0)
+		val stockExcelClass = StockExcelDto::class
+		stockExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
+			val cell = stockHeaderRow.createCell(i)
+			cell.setCellValue(this.changeStockCellName(property.name!!))
 			cell.cellStyle = headerCellStyle
 		}
 
@@ -113,6 +128,42 @@ class CompanyExcelService {
 				row.createCell(36).setCellValue(it.toDouble())
 			} ?: row.createCell(36)
 			row.createCell(37).setCellValue(companyExcelDto.recommender)
+
+			//주식
+			var stockIndex = 1
+			val stock = stockRepository.findByCompanyId(companyExcelDto.id!!)
+			if(stock != null) {
+				val stockExcelDto = StockExcelDto.to(companyExcelDto.companyName!!, stock)
+				val row = stockSheet.createRow(stockIndex++)
+				row.createCell(0).setCellValue(stockExcelDto.companyName)
+				row.createCell(1).setCellValue(stockExcelDto.amount.toDouble())
+				row.createCell(2).let {
+					it.setCellValue(stockExcelDto.amountUpdatedAt)
+					it.cellStyle = dateCellStyle
+				}
+				row.createCell(3).setCellValue(stockExcelDto.scheduleCount.toDouble())
+				row.createCell(4).let {
+					it.setCellValue(stockExcelDto.scheduleCountUpdatedAt)
+					it.cellStyle = dateCellStyle
+				}
+				row.createCell(5).setCellValue(stockExcelDto.issuedCount.toDouble())
+				row.createCell(6).let {
+					it.setCellValue(stockExcelDto.issuedCountUpdatedAt)
+					it.cellStyle = dateCellStyle
+				}
+				row.createCell(7).setCellValue(stockExcelDto.normalCount.toDouble())
+				row.createCell(8).setCellValue(stockExcelDto.firstCount.toDouble())
+				row.createCell(9).setCellValue(stockExcelDto.noFaceValueCount.toDouble())
+				row.createCell(10).let {
+					it.setCellValue(stockExcelDto.noFaceValueUpdatedAt)
+					it.cellStyle = dateCellStyle
+				}
+				row.createCell(11).setCellValue(stockExcelDto.noFaceValueCapitalAmount.toDouble())
+				row.createCell(12).let {
+					it.setCellValue(stockExcelDto.noFaceValueCapitalAmountUpdatedAt)
+					it.cellStyle = dateCellStyle
+				}
+			}
 
 			//임원
 			var executiveIndex = 1
@@ -199,6 +250,25 @@ class CompanyExcelService {
 
 	}
 
+	private fun changeStockCellName(name: String): String {
+		return when(name) {
+			"companyName" -> "상호"
+			"amount" -> "1주의금액"
+			"amountUpdatedAt" -> "1주의금액 변경일"
+			"scheduleCount" -> "발행할주식의 총수"
+			"scheduleCountUpdatedAt" -> "발행할주식의 총수 변경일"
+			"issuedCount" -> "발행주식의총수"
+			"issuedCountUpdatedAt" -> "발핸주식의총수 변경일"
+			"normalCount" -> "보통주식수"
+			"firstCount" -> "우선주식수"
+			"noFaceValueCount" -> "무액면주식수"
+			"noFaceValueUpdatedAt" -> "무액면주식의변경일"
+			"noFaceValueCapitalAmount" -> "무액면주식의자본전입액"
+			"noFaceValueCapitalAmountUpdatedAt" -> "무액면주식의자본전입액변경일"
+			else -> "NoneTitle"
+		}
+	}
+
 	private fun changeExecutiveCellName(name: String): String {
 		return when(name) {
 			"companyName" -> "상호"
@@ -216,7 +286,6 @@ class CompanyExcelService {
 			"stockCount" -> "주식수"
 			else -> "NoneTitle"
 		}
-
 	}
 
 	private fun covertBoolean(value: Boolean?): String {

@@ -64,7 +64,8 @@ class CompanyController(
 		@PathVariable("id") id: String,
 		model: Model
 	): String {
-		model.addAttribute("company", companyService.detail(id))
+		val company = companyService.detail(id)
+		model.addAttribute("company", company.copy(executives = company.executives))
 		return "/company/detail"
 	}
 

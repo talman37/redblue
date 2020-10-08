@@ -108,6 +108,7 @@ data class Company(
 	var stock: Stock? = null,
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
+	@OrderBy("expiredAt")
 	var executives: List<Executive> = emptyList(),
 
 	@Transient

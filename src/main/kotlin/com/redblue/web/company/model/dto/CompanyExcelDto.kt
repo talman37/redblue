@@ -82,7 +82,9 @@ data class CompanyExcelDto(
 
 	val recommender: String? = null,
 
-	val executives: List<Executive>? = emptyList()
+	val executives: List<Executive>? = emptyList(),
+
+	val id: String? = null
 
 ) {
 	companion object {
@@ -130,7 +132,8 @@ data class CompanyExcelDto(
 						registerRecordClosureAt = company.registerRecordClosureAt,
 						settlementMonth = company.settlementMonth,
 						recommender = company.recommender,
-						executives = company.executives
+						executives = company.executives,
+						id = company.id
 					)
 				)
 			}

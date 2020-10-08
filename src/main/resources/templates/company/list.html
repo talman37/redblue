@@ -141,7 +141,7 @@
                         <tbody>
 
                         <tr th:each="company: ${companies}">
-                            <td><a th:href="'/company/' + ${company.id}" th:target="_blank"
+                            <td><a th:href="'/companies/' + ${company.id}" th:target="_blank"
                                    th:text="${company.companyName}"></a></td>
                             <td>
                                 <div class="ellipsis" th:text="${company.companyAddress}">
