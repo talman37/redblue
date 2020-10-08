@@ -21,6 +21,9 @@ data class LawFirmUser(
 	@Enumerated(EnumType.STRING)
 	var role: Role,
 
+	@OneToMany(mappedBy = "id.userId")
+	val lawFirmUserRegisterOffice: List<LawFirmUserRegisterOffice>? = emptyList(),
+
 	@Temporal(TemporalType.DATE)
 	val createdAt: Date
 

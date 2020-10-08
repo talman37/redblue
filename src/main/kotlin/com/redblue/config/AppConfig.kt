@@ -25,6 +25,7 @@ class AppConfig: WebMvcConfigurer {
 
 	override fun addViewControllers(registry: ViewControllerRegistry) {
 		registry.addViewController("/login").setViewName("/login/loginForm");
+		registry.addViewController("/logout").setViewName("/login/loginForm");
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE)
 	}
 }

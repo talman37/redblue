@@ -40,6 +40,8 @@ class SecurityConfig(
 			.logout()
 				.logoutUrl("/logout")
 				.permitAll()
+				.and()
+			.csrf().disable()
 	}
 
 }

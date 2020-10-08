@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 
 @Controller
-@RequestMapping("/companies")
+@RequestMapping("/company")
 class CompanyController(
 	private val companyService: CompanyService
 ) {
@@ -62,21 +62,28 @@ class CompanyController(
 	@GetMapping("/{id}")
 	fun detail(
 		@PathVariable("id") id: String,
-		model: Model
+		model: Model,
+		@CurrentUser user: LawFirmUser
 	): String {
 		val company = companyService.detail(id)
 		model.addAttribute("company", company.copy(executives = company.executives))
+		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		return "/company/detail"
 	}
 
 	@GetMapping("/add")
-	fun addForm(): String {
+	fun addForm(
+		model: Model,
+		@CurrentUser user: LawFirmUser
+	): String {
+		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
+		model.addAttribute("lawFirmId", user.lawFirmId)
 		return "/company/form"
 	}
 
 	@PostMapping("/add")
 	fun add(
-		@RequestBody company: Company
+		company: Company
 	) {
 		companyService.save(company)
 	}

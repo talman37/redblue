@@ -112,7 +112,10 @@ data class Company(
 	var executives: List<Executive> = emptyList(),
 
 	@Transient
-	var stockholders: List<Stockholder> = emptyList()
+	var stockholders: List<Stockholder> = emptyList(),
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
+	val contacts: List<Contact>? = null
 
 ) {
 	enum class DisplayCompanyType{
