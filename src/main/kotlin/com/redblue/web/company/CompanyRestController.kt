@@ -1,16 +1,14 @@
 package com.redblue.web.company
 
 import com.redblue.security.core.annotation.CurrentUser
+import com.redblue.web.company.model.dto.CompanyCreateDto
 import com.redblue.web.company.service.CompanyExcelService
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.text.SimpleDateFormat
 
 @RestController
@@ -27,6 +25,13 @@ class CompanyRestController(
 	): ResponseEntity<String> {
 		val company = companyService.search(user.lawFirmId, q)
 		return ResponseEntity.ok("/company/${company.id}")
+	}
+
+	@PostMapping
+	fun save(
+		@RequestBody dto: CompanyCreateDto
+	) {
+
 	}
 
 	@GetMapping("/download/corporations.xlsx")
