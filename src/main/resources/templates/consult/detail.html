@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+    <th:block layout:fragment="content_body">
+        <!-- container -->
+        <div class="container-fluid">
+            <!-- sidebar -->
+            <nav class="sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <!-- <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <i class="fas fa-home"></i>
+                                    Dashboard <span class="sr-only">(current)</span>
+                                </a>
+                            </li> -->
+                        <li class="nav-item">
+                            <p class="sidebar-heading">법인관리</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/company">
+                                        <i class="fas fa-search"></i>
+                                        법인 검색
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="/company/add">
+                                        <i class="fas fa-pencil-alt"></i>
+                                        법인 등록
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <p class="sidebar-heading">상담 관리</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="/consult">
+                                        <i class="fas fa-comment-alt"></i>
+                                        상담 관리
+                                    </a>
+                                </li>
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link " href="#">-->
+<!--                                        <i class="fas fa-gavel"></i>-->
+<!--                                        사건 관리-->
+<!--                                    </a>-->
+<!--                                </li>-->
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <p class="sidebar-heading">DM 관리</p>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="fas fa-envelope-open-text"></i>
+                                        DM 관리
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- //sidebar -->
+
+            <!-- contents -->
+            <main role="main" class="main">
+                <div class="page-header">
+                    <div>
+                        <h1>상담 상세</h1>
+                    </div>
+                </div>
+                <div class="card">
+
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="">상담자</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">법인담당자</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">상태</label>
+                                    <select class="form-control" id="">
+                                        <option selected>진행중</option>
+                                        <option value="1">진행완료</option>
+                                        <option value="2">보류</option>
+                                        <option value="">취소</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="">상담일시</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">임기만료일</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">메모</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="">상담 내용</label>
+                                    <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-center">
+                            <div>
+                                <button type="submit" class="btn btn-dark">수정</button>
+                                <a href="/consult" class="btn btn-outline-dark">취소</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+            <!-- //contents -->
+
+        </div>
+        <!-- //container -->
+    </th:block>
+<script>
+    $('.input-daterange').datepicker({
+        language: "ko",
+        todayHighlight: true
+    });
+    // $('.input-daterange input').each(function() {
+    //     $(this).datepicker('clearDates');
+    // });
+</script>
+</html>
