@@ -118,8 +118,8 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="list-group" th:each="favoriteOffice: ${favoriteOffices}">
-                                                    <button type="button" class="list-group-item list-group-item-action" th:id="${favoriteOffice.id.registerOfficeId}" name="favoriteOffice" th:value="${favoriteOffice.name}" th:text="${favoriteOffice.name}" data-dismiss="modal"></button>
+                                                <div class="list-group" ">
+                                                    <button type="button" class="list-group-item list-group-item-action" th:each="favoriteOffice: ${favoriteOffices}" th:id="${favoriteOffice.id.registerOfficeId}" name="favoriteOffice" th:value="${favoriteOffice.name}" th:text="${favoriteOffice.name}" data-dismiss="modal"></button>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -357,7 +357,6 @@
                         </div>
                         <table class="table table-bordered mb-3">
                             <colgroup>
-                                <col width="50px" />
                                 <col />
                                 <col />
                                 <col />
@@ -368,9 +367,8 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th></th>
-                                <th>직위</th>
                                 <th>성명</th>
+                                <th>직위</th>
                                 <th>주민등록번호</th>
                                 <th>주소</th>
                                 <th>취임일자</th>
@@ -381,19 +379,10 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div class="form-check form-check-inline">
-                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id=""><i></i>
-                                                </span>
-                                        </div>
-                                    </div>
+                                    유혁재
                                 </td>
                                 <td>
                                     대표이사
-                                </td>
-                                <td>
-                                    유혁재
                                 </td>
                                 <td>
                                     800923-1000000
