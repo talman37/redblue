@@ -7,6 +7,7 @@ import com.redblue.web.company.service.CompanyService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.text.SimpleDateFormat
@@ -30,8 +31,9 @@ class CompanyRestController(
 	@PostMapping
 	fun save(
 		@RequestBody dto: CompanyCreateDto
-	) {
-
+	): ResponseEntity<Void> {
+		val dtos = dto
+		return ResponseEntity(HttpStatus.CREATED)
 	}
 
 	@GetMapping("/download/corporations.xlsx")

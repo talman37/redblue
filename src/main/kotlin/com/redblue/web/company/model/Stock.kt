@@ -32,6 +32,8 @@ data class Stock(
 
 	val firstCount: Int? = 0,
 
+	val capital: Int? = 0,
+
 	val noFaceValueCount: Int? = 0,
 
 	@Temporal(TemporalType.DATE)

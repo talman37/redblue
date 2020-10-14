@@ -30,6 +30,8 @@ data class Executive(
 	@Temporal(TemporalType.DATE)
 	val inauguratedAt: Date? = null,
 
+	val term: Int? = 0,
+
 	val updatedReason: String? = null,
 
 	@Temporal(TemporalType.DATE)

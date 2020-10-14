@@ -13,7 +13,7 @@ import javax.persistence.TemporalType
 
 data class CompanyCreateDto(
 
-	val id: String = "CM" + RandomString.make(30),
+	val id: String? = "CM" + RandomString.make(30),
 
 	val baseCompanyId: String? = null,
 
