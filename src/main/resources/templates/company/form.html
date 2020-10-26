@@ -142,18 +142,12 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">법인구분</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <select class="form-control" id="companyDivision" name="companyDivision">
-                                            <option selected value="">선택</option>
-                                            <option value="주식회사">주식회사</option>
-                                            <option value="유한회사">유한회사</option>
-                                        </select>
-                                    </div>
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary">검색</button>
-                                    </div>
+                                <div class="input-group-prepend">
+                                    <select class="form-control" id="companyDivision" name="companyDivision">
+                                        <option selected value="">선택</option>
+                                        <option value="주식회사">주식회사</option>
+                                        <option value="유한회사">유한회사</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -247,14 +241,6 @@
                         <div class="row">
                             <div class="col-md-8 mb-3">
                                 <label for="">송달장소</label>
-                                <span class="form-check form-check-inline p-0">
-                                    <div class="form-input">
-                                        <span class="input">
-                                            <input type="checkbox" id=""><i></i>
-                                        </span>
-                                        <label for="">본점 주소와 다른 경우</label>
-                                    </div>
-                                </span>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
                                            value="">
@@ -291,7 +277,6 @@
                             <div class="col-md-6 mb-3">
                                 <label for="">결산기</label>
                                 <select class="form-control" id="settlementMonth" name="settlementMonth">
-                                    <option selected>전체</option>
                                     <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
                                             th:text="${i}+'월'"></option>
                                 </select>
@@ -381,7 +366,7 @@
                                     </svg>
                                 </i>
                                 <strong>임원</strong>
-                                <strong class="text-primary">3</strong>
+                                <strong class="text-primary" id="executiveCount"></strong>
                             </h4>
                             <div>
                                 <button type='button' class='btn btn-outline-primary' data-toggle="modal"
@@ -552,7 +537,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 input-daterange">
                                     <label for="">취임일자</label>
                                     <input type="text" class="form-control" id="inauguratedAt" placeholder="" required="">
                                 </div>
@@ -561,13 +546,21 @@
                                     <select class="form-control" id="term">
                                         <option selected value="1">1년</option>
                                         <option value="2">2년</option>
+                                        <option value="3">3년</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3 input-daterange">
                                     <label for="">임기만료일</label>
-                                    <input type="text" class="form-control" id="expiredAt" placeholder="" required="">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="expiredAt" placeholder="" required="">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                    id="expire-calculate-btn">계산하기
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="">임원에 관한 사항</label>
@@ -600,11 +593,11 @@
                 daum.postcode.load(function () {
                     new daum.Postcode({
                         oncomplete: function (data) {
-                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-                            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
                             if ($this.data('id') == 'companyAddress') {
                                 $('#companyAddress').val(data.address);
                                 $('#companyPostalCode').val(data.zonecode);
+                                $('#deliveryPlace').val(data.address);
+                                $('#deliveryPlacePostalCode').val(data.zonecode);
                             } else {
                                 $('#deliveryPlace').val(data.address);
                                 $('#deliveryPlacePostalCode').val(data.zonecode);
@@ -628,10 +621,10 @@
                     dataType: 'json',
                     data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
                     success: function(res) {
-                        alert('success!!!')
+                        location.href = '/company';
                     },
                     error: function(request, status, error) {
-                        alert('FAIL!!!')
+                        alert('법인 등록에 실패하였습니다.')
                     }
                 })
             });
@@ -654,6 +647,12 @@
 
                 $('#capital').val(amount * count);
 
+            });
+
+            $('#expire-calculate-btn').on('click', function(){
+                let expiredAt = new Date($('#inauguratedAt').val());
+                expiredAt.setFullYear(expiredAt.getFullYear() + Number($('#term').val()));
+               $('#expiredAt').val(getFormatDate(expiredAt))
             });
 
             $('#add-executive-btn').on('click', function () {
@@ -680,6 +679,7 @@
                 let detail = $('#detail').val();
 
                 $('#executive-template').tmpl([{index: i, name: name, position: position, registrationNumber1: registrationNumber1, registrationNumber2: registrationNumber2, address: address, inauguratedAt: inauguratedAt, term: term, expiredAt: expiredAt, stockCount: stockCount, detail: detail}]).appendTo($('#executiveGroup'))
+                $('#executiveCount').text(i + 1);
 
             });
 
@@ -694,6 +694,15 @@
         $(document).on("keyup", "input:text[numberOnly]", function () {
             $(this).val($(this).val().replace(/[^0-9]/gi, ""));
         });
+
+        function getFormatDate(date){
+            var year = date.getFullYear();
+            var month = (1 + date.getMonth());
+            month = month >= 10 ? month : '0' + month;
+            var day = date.getDate();
+            day = day >= 10 ? day : '0' + day;
+            return year + '-' + month + '-' + day;
+        }
 
     </script>
 

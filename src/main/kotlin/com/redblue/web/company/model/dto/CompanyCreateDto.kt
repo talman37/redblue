@@ -1,9 +1,6 @@
 package com.redblue.web.company.model.dto
 
-import com.redblue.web.company.model.Company
-import com.redblue.web.company.model.Executive
-import com.redblue.web.company.model.Stock
-import com.redblue.web.company.model.Stockholder
+import com.redblue.web.company.model.*
 import net.bytebuddy.utility.RandomString
 import java.util.*
 import javax.persistence.EnumType
@@ -102,6 +99,96 @@ data class CompanyCreateDto(
 
 	var executives: List<Executive> = emptyList(),
 
-	var stockholders: List<Stockholder> = emptyList()
+	var stockholders: List<Stockholder> = emptyList(),
 
-)
+	var contacts: List<Contact> = emptyList()
+
+) {
+
+	fun of(lawFirmId: String, dto: CompanyCreateDto): Company {
+		val stock = dto.stock?.copy(
+			companyId = dto.id
+		)
+
+		val contacts = mutableListOf<Contact>()
+		dto.contacts.forEach {
+			contacts.add(
+				Contact(
+					id = it.id,
+					companyId = dto.id,
+					type = it.type,
+					value = it.value,
+					memo = it.memo
+				)
+			)
+		}
+
+		val executives = mutableListOf<Executive>()
+		dto.executives.forEach {
+			executives.add(
+				Executive(
+					id = it.id,
+					companyId = dto.id,
+					detail = it.detail,
+					type = it.type,
+					name = it.name,
+					registrationNumber1 = it.registrationNumber1,
+					registrationNumber2 = it.registrationNumber2,
+					address = it.address,
+					position = it.position,
+					inauguratedAt = it.inauguratedAt,
+					term = it.term,
+					updatedReason = it.updatedReason,
+					expiredAt = it.expiredAt,
+					stockCount = it.stockCount
+				)
+			)
+		}
+		return Company(
+			id = dto.id!!,
+			lawFirmId = lawFirmId,
+			registerOffice = dto.registerOffice,
+			registerNumber = dto.registerNumber,
+			companyNumber1 = dto.companyNumber1,
+			companyNumber2 = dto.companyNumber2,
+			companyName = dto.companyName,
+			companyDivision = dto.companyDivision,
+			companyManageNumber = dto.companyManageNumber,
+			companyManageState = dto.companyManageState,
+			companyState = dto.companyState,
+			displayCompanyType = dto.displayCompanyType,
+			companySubName = dto.companySubName,
+			companyAddress = dto.companyAddress,
+			companyPostalCode = dto.companyPostalCode,
+			businessNumber = dto.businessNumber,
+			businessType = dto.businessType,
+			businessCondition = dto.businessCondition,
+			deliveryPlace = dto.deliveryPlace,
+			deliveryPlacePostalCode = dto.deliveryPlacePostalCode,
+			noticeWay = dto.noticeWay,
+			etc = dto.etc,
+			convertibleBond = dto.convertibleBond,
+			stockPurchaseOption = dto.stockPurchaseOption,
+			companyFormationAt = dto.companyFormationAt,
+			registerRecordCreateReason = dto.registerRecordCreateReason,
+			registerRecordCreateAt = dto.registerRecordCreateAt,
+			isHeadOfficeTransfer = dto.isHeadOfficeTransfer,
+			headOfficeTransferAt = dto.headOfficeTransferAt,
+			isDisband = dto.isDisband,
+			disbandDeemedAt = dto.disbandDeemedAt,
+			isLiquidation = dto.isLiquidation,
+			liquidationAt = dto.liquidationAt,
+			isRegisterRecordClosure = dto.isRegisterRecordClosure,
+			settlementMonth = dto.settlementMonth,
+			recommender = dto.recommender,
+			executives = executives,
+			stock = stock,
+			contacts = contacts
+		)
+
+
+
+	}
+
+
+}

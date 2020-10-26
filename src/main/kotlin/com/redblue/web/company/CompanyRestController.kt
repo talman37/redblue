@@ -30,10 +30,11 @@ class CompanyRestController(
 
 	@PostMapping
 	fun save(
-		@RequestBody dto: CompanyCreateDto
+		@RequestBody dto: CompanyCreateDto,
+		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
-		val dtos = dto
-		return ResponseEntity(HttpStatus.CREATED)
+		companyService.save(dto.of(user.lawFirmId, dto))
+		return ResponseEntity(HttpStatus.OK)
 	}
 
 	@GetMapping("/download/corporations.xlsx")

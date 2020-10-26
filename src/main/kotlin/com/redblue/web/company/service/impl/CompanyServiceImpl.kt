@@ -44,16 +44,6 @@ class CompanyServiceImpl(
 			)
 			stockRepository.save(stock)
 		}
-
-		if(company.executives.isNotEmpty()) {
-
-			val executives = company.executives
-			executives.forEach {
-				it.companyId = company.id
-			}
-			executiveRepository.saveAll(executives)
-		}
-
 	}
 
 }
