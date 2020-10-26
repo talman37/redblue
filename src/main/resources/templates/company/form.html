@@ -613,7 +613,6 @@
             });
 
             $('#save-btn').on('click', function () {
-                console.log($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true}))
                 $.ajax({
                     type: 'POST',
                     url: '/v1/companies',

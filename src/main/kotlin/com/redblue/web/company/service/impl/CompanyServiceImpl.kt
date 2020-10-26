@@ -1,12 +1,14 @@
 package com.redblue.web.company.service.impl
 
 import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
 import com.redblue.web.company.repository.CompanyRepository
 import com.redblue.web.company.repository.ExecutiveRepository
 import com.redblue.web.company.repository.StockRepository
 import com.redblue.web.company.repository.StockholderRepository
 import com.redblue.web.company.service.CompanyService
 import org.springframework.stereotype.Service
+import java.lang.Exception
 import java.util.*
 
 @Service
@@ -46,4 +48,30 @@ class CompanyServiceImpl(
 		}
 	}
 
+	override fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto) {
+		val company = companyRepository.findById(id)
+		if(!company.isPresent) {
+			throw Exception("company is not exist.")
+		}
+		val updateCompany = company.get().copy(
+			registerNumber = dto.registerNumber,
+			registerOffice = dto.registerOffice,
+			companyNumber1 = dto.companyNumber1,
+			companyNumber2 = dto.companyNumber2,
+			companyName = dto.companyName,
+			companyDivision = dto.companyDivision,
+			companyManageNumber = dto.companyManageNumber,
+			companyManageState = dto.companyManageState,
+			companyState = dto.companyState,
+			displayCompanyType = dto.displayCompanyType,
+			companySubName = dto.companySubName,
+			recommender = dto.recommender,
+			companyUpdatedAt = if(company.get().companyName != dto.companyName){
+				Date()
+			} else {
+				company.get().companyUpdatedAt
+			}
+		)
+		companyRepository.save(updateCompany)
+	}
 }

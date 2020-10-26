@@ -205,7 +205,7 @@ INSERT INTO COMPANIES (ID, LAW_FIRM_ID, BASE_COMPANY_ID, REGISTER_OFFICE, REGIST
                        HEAD_OFFICE_TRANSFER_AT, IS_DISBAND, DISBAND_AT,
                        DISBAND_DEEMED_AT, IS_LIQUIDATION, LIQUIDATION_AT,
                        IS_REGISTER_RECORD_CLOSURE, REGISTER_RECORD_CLOSURE_AT,
-                       SETTLEMENT_MONTH, RECOMMENDER)
+                       SETTLEMENT_MONTH, RECOMMENDER, CREATED_AT)
 VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285011', '0414297', '온빛전자', '유한회사', null, null,
         null, 'FRONT',
         '온빛전자1',
@@ -231,7 +231,7 @@ VALUES ('sample-company-id-01', 'sample-lawfirm-id', null, '고양', 41429, '285
         회사는 임직원에게 상법 제340조의2의 규정에 의한 주식매수선택권을 부여할 수 있다.', '2019-06-13', NULL, NULL, NULL, NULL, NULL, NULL,
         NULL,
         NULL,
-        NULL, NULL, NULL, 6, null);
+        NULL, NULL, NULL, 6, null, null);
 
 INSERT INTO STOCKS (ID, COMPANY_ID, AMOUNT, AMOUNT_UPDATED_AT,
                     SCHEDULE_COUNT, SCHEDULE_COUNT_UPDATED_AT,

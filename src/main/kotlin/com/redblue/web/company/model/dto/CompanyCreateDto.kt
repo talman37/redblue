@@ -105,17 +105,17 @@ data class CompanyCreateDto(
 
 ) {
 
-	fun of(lawFirmId: String, dto: CompanyCreateDto): Company {
-		val stock = dto.stock?.copy(
-			companyId = dto.id
+	fun of(lawFirmId: String): Company {
+		val stock = this.stock?.copy(
+			companyId = this.id
 		)
 
 		val contacts = mutableListOf<Contact>()
-		dto.contacts.forEach {
+		this.contacts.forEach {
 			contacts.add(
 				Contact(
 					id = it.id,
-					companyId = dto.id,
+					companyId = this.id,
 					type = it.type,
 					value = it.value,
 					memo = it.memo
@@ -124,11 +124,11 @@ data class CompanyCreateDto(
 		}
 
 		val executives = mutableListOf<Executive>()
-		dto.executives.forEach {
+		this.executives.forEach {
 			executives.add(
 				Executive(
 					id = it.id,
-					companyId = dto.id,
+					companyId = this.id,
 					detail = it.detail,
 					type = it.type,
 					name = it.name,
@@ -145,42 +145,42 @@ data class CompanyCreateDto(
 			)
 		}
 		return Company(
-			id = dto.id!!,
+			id = this.id!!,
 			lawFirmId = lawFirmId,
-			registerOffice = dto.registerOffice,
-			registerNumber = dto.registerNumber,
-			companyNumber1 = dto.companyNumber1,
-			companyNumber2 = dto.companyNumber2,
-			companyName = dto.companyName,
-			companyDivision = dto.companyDivision,
-			companyManageNumber = dto.companyManageNumber,
-			companyManageState = dto.companyManageState,
-			companyState = dto.companyState,
-			displayCompanyType = dto.displayCompanyType,
-			companySubName = dto.companySubName,
-			companyAddress = dto.companyAddress,
-			companyPostalCode = dto.companyPostalCode,
-			businessNumber = dto.businessNumber,
-			businessType = dto.businessType,
-			businessCondition = dto.businessCondition,
-			deliveryPlace = dto.deliveryPlace,
-			deliveryPlacePostalCode = dto.deliveryPlacePostalCode,
-			noticeWay = dto.noticeWay,
-			etc = dto.etc,
-			convertibleBond = dto.convertibleBond,
-			stockPurchaseOption = dto.stockPurchaseOption,
-			companyFormationAt = dto.companyFormationAt,
-			registerRecordCreateReason = dto.registerRecordCreateReason,
-			registerRecordCreateAt = dto.registerRecordCreateAt,
-			isHeadOfficeTransfer = dto.isHeadOfficeTransfer,
-			headOfficeTransferAt = dto.headOfficeTransferAt,
-			isDisband = dto.isDisband,
-			disbandDeemedAt = dto.disbandDeemedAt,
-			isLiquidation = dto.isLiquidation,
-			liquidationAt = dto.liquidationAt,
-			isRegisterRecordClosure = dto.isRegisterRecordClosure,
-			settlementMonth = dto.settlementMonth,
-			recommender = dto.recommender,
+			registerOffice = this.registerOffice,
+			registerNumber = this.registerNumber,
+			companyNumber1 = this.companyNumber1,
+			companyNumber2 = this.companyNumber2,
+			companyName = this.companyName,
+			companyDivision = this.companyDivision,
+			companyManageNumber = this.companyManageNumber,
+			companyManageState = this.companyManageState,
+			companyState = this.companyState,
+			displayCompanyType = this.displayCompanyType,
+			companySubName = this.companySubName,
+			companyAddress = this.companyAddress,
+			companyPostalCode = this.companyPostalCode,
+			businessNumber = this.businessNumber,
+			businessType = this.businessType,
+			businessCondition = this.businessCondition,
+			deliveryPlace = this.deliveryPlace,
+			deliveryPlacePostalCode = this.deliveryPlacePostalCode,
+			noticeWay = this.noticeWay,
+			etc = this.etc,
+			convertibleBond = this.convertibleBond,
+			stockPurchaseOption = this.stockPurchaseOption,
+			companyFormationAt = this.companyFormationAt,
+			registerRecordCreateReason = this.registerRecordCreateReason,
+			registerRecordCreateAt = this.registerRecordCreateAt,
+			isHeadOfficeTransfer = this.isHeadOfficeTransfer,
+			headOfficeTransferAt = this.headOfficeTransferAt,
+			isDisband = this.isDisband,
+			disbandDeemedAt = this.disbandDeemedAt,
+			isLiquidation = this.isLiquidation,
+			liquidationAt = this.liquidationAt,
+			isRegisterRecordClosure = this.isRegisterRecordClosure,
+			settlementMonth = this.settlementMonth,
+			recommender = this.recommender,
 			executives = executives,
 			stock = stock,
 			contacts = contacts

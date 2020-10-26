@@ -81,6 +81,28 @@ CREATE TABLE COMPANIES
     REGISTER_RECORD_CLOSURE_AT    DATE          NULL COMMENT '등기기록폐쇄일',
     SETTLEMENT_MONTH              INTEGER       NULL COMMENT '결산기일',
     RECOMMENDER                   VARCHAR(45)   NULL COMMENT '추천인',
+    CREATED_AT                    DATE          NULL COMMENT '법인 생성일',
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE COMPANY_MASTER_HISTORY
+(
+    ID                            VARCHAR(50)   NOT NULL,
+    TYPE                          VARCHAR(50)   NOT NULL COMMENT '이벤트 유형',
+    COMPANY_ID                    VARCHAR(50)   NULL COMMENT '법인 아이디',
+    REGISTER_OFFICE               VARCHAR(45)   NULL COMMENT '등기소',
+    REGISTER_NUMBER               INTEGER       NULL COMMENT '등기번호',
+    COMPANY_NUMBER1               INTEGER       NULL COMMENT '법인등록번호1',
+    COMPANY_NUMBER2               INTEGER       NULL COMMENT '법인등록번호2',
+    COMPANY_NAME                  VARCHAR(45)   NULL COMMENT '상호',
+    COMPANY_DIVISION              VARCHAR(20)   NULL COMMENT '법인 구분',
+    COMPANY_MANAGE_NUMBER         VARCHAR(20)   NULL COMMENT '법인 관리 번호',
+    COMPANY_MANAGE_STATE          VARCHAR(20)   NULL COMMENT '법인 관리 상태',
+    COMPANY_STATE                 VARCHAR(20)   NULL COMMENT '법인 상태',
+    DISPLAY_COMPANY_TYPE          VARCHAR(10)   NULL COMMENT '법인 종류 표시',
+    COMPANY_SUB_NAME              VARCHAR(45)   NULL COMMENT '병기상호',
+    RECOMMENDER                   VARCHAR(45)   NULL COMMENT '추천인',
+    ISSUED_AT                     DATE        NULL COMMENT '이벤트 발생일',
     PRIMARY KEY (ID)
 );
 

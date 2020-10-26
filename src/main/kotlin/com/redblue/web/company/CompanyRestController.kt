@@ -2,6 +2,8 @@ package com.redblue.web.company
 
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.company.model.dto.CompanyCreateDto
+import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
+import com.redblue.web.company.model.dto.CompanySubUpdateDto
 import com.redblue.web.company.service.CompanyExcelService
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.lawfirm.model.LawFirmUser
@@ -33,7 +35,66 @@ class CompanyRestController(
 		@RequestBody dto: CompanyCreateDto,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
-		companyService.save(dto.of(user.lawFirmId, dto))
+		companyService.save(dto.of(user.lawFirmId))
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PatchMapping("/{id}/master")
+	fun updateCompanyMaster(
+		@PathVariable("id") id: String,
+		@RequestBody dto: CompanyMasterUpdateDto,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		companyService.updateCompanyMaster(id, dto)
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PatchMapping("/{id}/sub")
+	fun updateCompanySub(
+		@PathVariable("id") id: String,
+		@RequestBody dtoMaster: CompanySubUpdateDto,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PostMapping("/{id}/contact")
+	fun addContact(
+		@PathVariable("id") id: String,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PostMapping("/{id}/executive")
+	fun addExecutive(
+		@PathVariable("id") id: String,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PostMapping("/{id}/stock-holder")
+	fun addStockHolder(
+		@PathVariable("id") id: String,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PostMapping("/{id}/purpose")
+	fun savePurposeDetail(
+		@PathVariable("id") id: String,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PostMapping("/{id}/consults")
+	fun addConsult(
+		@PathVariable("id") id: String,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
 		return ResponseEntity(HttpStatus.OK)
 	}
 
