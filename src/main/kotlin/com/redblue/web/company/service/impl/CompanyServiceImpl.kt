@@ -1,11 +1,10 @@
 package com.redblue.web.company.service.impl
 
 import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.CompanyMasterHistory
+import com.redblue.web.company.model.IssuedType
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
-import com.redblue.web.company.repository.CompanyRepository
-import com.redblue.web.company.repository.ExecutiveRepository
-import com.redblue.web.company.repository.StockRepository
-import com.redblue.web.company.repository.StockholderRepository
+import com.redblue.web.company.repository.*
 import com.redblue.web.company.service.CompanyService
 import org.springframework.stereotype.Service
 import java.lang.Exception
@@ -16,7 +15,8 @@ class CompanyServiceImpl(
 	private val companyRepository: CompanyRepository,
 	private val stockRepository: StockRepository,
 	private val executiveRepository: ExecutiveRepository,
-	private val stockholderRepository: StockholderRepository
+	private val stockholderRepository: StockholderRepository,
+	private val masterHistoryRepository: CompanyMasterHistoryRepository
 ): CompanyService {
 	override fun list(lawFirmId: String, q: String?): List<Company> {
 		return companyRepository.findByLawFirmId(lawFirmId, q)
@@ -46,6 +46,25 @@ class CompanyServiceImpl(
 			)
 			stockRepository.save(stock)
 		}
+
+		masterHistoryRepository.save(
+			CompanyMasterHistory(
+				type = IssuedType.CREATED,
+				companyId = company.id,
+				registerNumber = company.registerNumber,
+				registerOffice = company.registerOffice,
+				companyNumber1 = company.companyNumber1,
+				companyNumber2 = company.companyNumber2,
+				companyName = company.companyName,
+				companyDivision = company.companyDivision,
+				companyManageNumber = company.companyManageNumber,
+				companyManageState = company.companyManageState,
+				companyState = company.companyState,
+				displayCompanyType = company.displayCompanyType,
+				companySubName = company.companySubName,
+				recommender = company.recommender
+			)
+		)
 	}
 
 	override fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto) {

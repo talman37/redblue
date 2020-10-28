@@ -9,7 +9,7 @@ import javax.persistence.*
 data class CompanyMasterHistory (
 
 	@Id
-	val id: String = "CMMH" + RandomString.make(28),
+	val id: String? = "CMMH" + RandomString.make(28),
 
 	@Enumerated(EnumType.STRING)
 	val type: IssuedType? = null,
@@ -42,6 +42,6 @@ data class CompanyMasterHistory (
 	val recommender: String? = null,
 
 	@Temporal(TemporalType.DATE)
-	val issuedAt: Date? = null
+	val issuedAt: Date? = Date()
 
 )
