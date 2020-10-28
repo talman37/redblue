@@ -92,5 +92,24 @@ class CompanyServiceImpl(
 			}
 		)
 		companyRepository.save(updateCompany)
+
+		masterHistoryRepository.save(
+			CompanyMasterHistory(
+				type = IssuedType.UPDATED,
+				companyId = updateCompany.id,
+				registerNumber = updateCompany.registerNumber,
+				registerOffice = updateCompany.registerOffice,
+				companyNumber1 = updateCompany.companyNumber1,
+				companyNumber2 = updateCompany.companyNumber2,
+				companyName = updateCompany.companyName,
+				companyDivision = updateCompany.companyDivision,
+				companyManageNumber = updateCompany.companyManageNumber,
+				companyManageState = updateCompany.companyManageState,
+				companyState = updateCompany.companyState,
+				displayCompanyType = updateCompany.displayCompanyType,
+				companySubName = updateCompany.companySubName,
+				recommender = updateCompany.recommender
+			)
+		)
 	}
 }
