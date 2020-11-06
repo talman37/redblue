@@ -52,9 +52,10 @@ class CompanyRestController(
 	@PatchMapping("/{id}/sub")
 	fun updateCompanySub(
 		@PathVariable("id") id: String,
-		@RequestBody dtoMaster: CompanySubUpdateDto,
+		@RequestBody dto: CompanySubUpdateDto,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
+		companyService.updateCompanySub(id, dto)
 		return ResponseEntity(HttpStatus.OK)
 	}
 
