@@ -191,102 +191,104 @@
                             </button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label for="">본점주소</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="companyAddress" name="companyAddress"
-                                       th:value="${company.companyAddress}">
-                                <div class="input-group-append">
-                                    <button type='button' class="btn btn-outline-secondary"
-                                            name="postal_code_search_btn" data-id="companyAddress">검색
-                                    </button>
+                    <form id="subForm">
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="">본점주소</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="companyAddress" name="companyAddress"
+                                           th:value="${company.companyAddress}">
+                                    <div class="input-group-append">
+                                        <button type='button' class="btn btn-outline-secondary"
+                                                name="postal_code_search_btn" data-id="companyAddress">검색
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">우편번호</label>
+                                <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode"
+                                       placeholder="" th:value="${company.companyPostalCode}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="">송달장소</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
+                                           th:value="${company.deliveryPlace}">
+                                    <div class="input-group-append">
+                                        <button type='button' class="btn btn-outline-secondary"
+                                                name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">우편번호</label>
+                                <input type="text" class="form-control" id="deliveryPlacePostalCode"
+                                       name="deliveryPlacePostalCode" placeholder=""
+                                       th:value="${company.deliveryPlacePostalCode}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="">사업자등록번호</label>
+                                <input type="text" class="form-control" id="businessNumber" name="businessNumber"
+                                       placeholder="" th:value="${company.businessNumber}">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">업태</label>
+                                <input type="text" class="form-control" id="businessCondition" name="businessCondition"
+                                       placeholder="" th:value="${company.businessCondition}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="">업종</label>
+                                <input type="text" class="form-control" id="businessType" name="businessType"
+                                       placeholder="" th:value="${company.businessType}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">결산기</label>
+                                <select class="form-control" id="settlementMonth" name="settlementMonth">
+                                    <option selected>전체</option>
+                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
+                                            th:selected="${i == company.settlementMonth}"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="">1주의 금액</label>
+                                <input type="text" class="form-control" id="stock.amount" name="stock.amount"
+                                       placeholder="" required="" th:value="${company.stock.amount}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">발행할 주식의 총수</label>
+                                <input type="text" class="form-control" id="stock.scheduleCount"
+                                       name="stock.scheduleCount" placeholder="" required=""
+                                       th:value="${company.stock.scheduleCount}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="">발행주식의 총수</label>
+                                <input type="text" class="form-control" id="stock.issuedCount" name="stock.issuedCount"
+                                       placeholder="" required="" th:value="${company.stock.issuedCount}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">자본금</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control"
+                                           th:value="${company.stock.amount * (company.stock.normalCount + company.stock.firstCount)}">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary">계산하기</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="">우편번호</label>
-                            <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode"
-                                   placeholder="" th:value="${company.companyPostalCode}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label for="">송달장소</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
-                                       th:value="${company.deliveryPlace}">
-                                <div class="input-group-append">
-                                    <button type='button' class="btn btn-outline-secondary"
-                                            name="postal_code_search_btn" data-id="deliveryPlace">검색
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="">우편번호</label>
-                            <input type="text" class="form-control" id="deliveryPlacePostalCode"
-                                   name="deliveryPlacePostalCode" placeholder=""
-                                   th:value="${company.deliveryPlacePostalCode}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 mb-3">
-                            <label for="">사업자등록번호</label>
-                            <input type="text" class="form-control" id="businessNumber" name="businessNumber"
-                                   placeholder="" th:value="${company.businessNumber}">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="">업태</label>
-                            <input type="text" class="form-control" id="businessCondition" name="businessCondition"
-                                   placeholder="" th:value="${company.businessCondition}">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="">업종</label>
-                            <input type="text" class="form-control" id="businessType" name="businessType"
-                                   placeholder="" th:value="${company.businessType}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="">결산기</label>
-                            <select class="form-control" id="settlementMonth" name="settlementMonth">
-                                <option selected>전체</option>
-                                <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
-                                        th:selected="${i == company.settlementMonth}"></option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="">1주의 금액</label>
-                            <input type="text" class="form-control" id="stock.amount" name="stock.amount"
-                                   placeholder="" required="" th:value="${company.stock.amount}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="">발행할 주식의 총수</label>
-                            <input type="text" class="form-control" id="stock.scheduleCount"
-                                   name="stock.scheduleCount" placeholder="" required=""
-                                   th:value="${company.stock.scheduleCount}">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="">발행주식의 총수</label>
-                            <input type="text" class="form-control" id="stock.issuedCount" name="stock.issuedCount"
-                                   placeholder="" required="" th:value="${company.stock.issuedCount}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="">자본금</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control"
-                                       th:value="${company.stock.amount * (company.stock.normalCount + company.stock.firstCount)}">
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-outline-secondary">계산하기</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                     <hr/>
                     <div class="d-flex justify-content-between">
                         <h4 class="mb-3">
@@ -1158,7 +1160,22 @@
                     dataType: 'json',
                     data: JSON.stringify($('#masterForm').serializeJSON({useIntKeysAsArrayIndex: true})),
                     statusCode: {
-                        200: function() {
+                        200: function () {
+                            alert('법인정보 변경에 성공 하였습니다.');
+                        }
+                    }
+                });
+            });
+
+            $('#update_sub_btn').on('click', function () {
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/v1/companies/' + $('#companyId').val() + '/sub',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#subForm').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
                             alert('법인정보 변경에 성공 하였습니다.');
                         }
                     }
@@ -1168,7 +1185,6 @@
 
             $('button[name="favoriteOffice"]').on('click', function (i, v) {
                 $('#registerOffice').val($(this).val());
-
             });
 
         });
