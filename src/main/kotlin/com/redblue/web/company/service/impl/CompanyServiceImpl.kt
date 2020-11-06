@@ -76,7 +76,8 @@ class CompanyServiceImpl(
 				deliveryPlacePostalCode = company.deliveryPlacePostalCode,
 				businessNumber = company.businessNumber,
 				businessType = company.businessType,
-				businessCondition = company.businessCondition
+				businessCondition = company.businessCondition,
+				settlementMonth = company.settlementMonth
 			)
 		)
 
@@ -171,7 +172,8 @@ class CompanyServiceImpl(
 				deliveryPlacePostalCode = updateCompany.deliveryPlacePostalCode,
 				businessNumber = updateCompany.businessNumber,
 				businessType = updateCompany.businessType,
-				businessCondition = updateCompany.businessCondition
+				businessCondition = updateCompany.businessCondition,
+				settlementMonth = updateCompany.settlementMonth
 			)
 		)
 
