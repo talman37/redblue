@@ -4,6 +4,7 @@ import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.dto.CompanyListDto
 import com.redblue.web.company.service.CompanyService
+import com.redblue.web.consult.service.ConsultService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -14,7 +15,8 @@ import java.time.LocalDate
 @Controller
 @RequestMapping("/company")
 class CompanyController(
-	private val companyService: CompanyService
+	private val companyService: CompanyService,
+	private val consultService: ConsultService
 ) {
 
 	@GetMapping
@@ -68,6 +70,7 @@ class CompanyController(
 		val company = companyService.detail(id)
 		model.addAttribute("company", company.copy(executives = company.executives))
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
+		model.addAttribute("consults", consultService.findByCompanyId(id))
 		return "/company/detail"
 	}
 
@@ -79,13 +82,6 @@ class CompanyController(
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		model.addAttribute("lawFirmId", user.lawFirmId)
 		return "/company/form"
-	}
-
-	@PostMapping("/add")
-	fun add(
-		company: Company
-	) {
-		companyService.save(company)
 	}
 
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository
 
 interface ConsultRepository: ConsultQueryDslRepository, JpaRepository<Consult, String> {
 
+	fun findByCompanyId(companyId: String): List<Consult>
+
 }
 
 interface ConsultQueryDslRepository {

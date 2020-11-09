@@ -6,4 +6,6 @@ interface ConsultService {
 
 	fun list(lawFirmId: String): List<Consult>
 
+	fun findByCompanyId(companyId: String): List<Consult>
+
 }

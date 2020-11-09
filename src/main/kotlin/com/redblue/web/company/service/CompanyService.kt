@@ -1,6 +1,7 @@
 package com.redblue.web.company.service
 
 import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.Contact
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
 
@@ -19,5 +20,7 @@ interface CompanyService {
 	fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto)
 
 	fun updateCompanySub(id: String, dto: CompanySubUpdateDto)
+
+	fun saveContact(contact: Contact)
 
 }

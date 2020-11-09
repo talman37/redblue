@@ -27,7 +27,7 @@
                             <strong>법인</strong>
                         </h4>
                         <div>
-                            <button type='button' class='btn btn-outline-secondary' id="update_master_btn">
+                            <button type='button' class='btn btn-outline-primary' id="update_master_btn">
                                 수정
                             </button>
                         </div>
@@ -186,7 +186,7 @@
                             <strong>업장</strong>
                         </h4>
                         <div>
-                            <button type='button' class='btn btn-outline-secondary' id="update_sub_btn">
+                            <button type='button' class='btn btn-outline-primary' id="update_sub_btn">
                                 수정
                             </button>
                         </div>
@@ -966,167 +966,164 @@
                         </h4>
                     </div>
                     <div>
-                        <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea name="purposeDetail" id="purpose_detail" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <hr/>
-                    <!--                    <div class="d-flex align-items-center justify-content-between mb-3">-->
-                    <!--                        <h4>-->
-                    <!--                            <i>-->
-                    <!--                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"-->
-                    <!--                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">-->
-                    <!--                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>-->
-                    <!--                                </svg>-->
-                    <!--                            </i>-->
-                    <!--                            <strong>상담내역</strong>-->
-                    <!--                            <strong class="text-primary">3</strong>-->
-                    <!--                        </h4>-->
-                    <!--                        <div>-->
-                    <!--                            <button type='button' class='btn btn-outline-primary' data-toggle="modal"-->
-                    <!--                                    data-target="#modal-consult-add">-->
-                    <!--                                상담 내역 추가-->
-                    <!--                            </button>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <table class="table table-bordered mb-3">-->
-                    <!--                        <colgroup>-->
-                    <!--                            <col/>-->
-                    <!--                            <col/>-->
-                    <!--                            <col/>-->
-                    <!--                            <col/>-->
-                    <!--                        </colgroup>-->
-                    <!--                        <thead>-->
-                    <!--                        <tr>-->
-                    <!--                            <th>상담자</th>-->
-                    <!--                            <th>상담 일시</th>-->
-                    <!--                            <th>법인 담당자</th>-->
-                    <!--                            <th>상담내용</th>-->
-                    <!--                            <th>사건진행정도</th>-->
-                    <!--                        </tr>-->
-                    <!--                        </thead>-->
-                    <!--                        <tbody>-->
-                    <!--                        <tr>-->
-                    <!--                            <td>-->
-                    <!--                                <button type="button" class="btn btn-link p-0" data-toggle="modal"-->
-                    <!--                                        th:data-target="'#modal-consult-' + ${consult.id}">-->
-                    <!--                                    상담자명-->
-                    <!--                                </button>-->
-                    <!--                            </td>-->
-                    <!--                            <td>-->
-                    <!--                                2020-09-09 12:13:14-->
-                    <!--                            </td>-->
-                    <!--                            <td>-->
-                    <!--                                유혁재-->
-                    <!--                            </td>-->
-                    <!--                            <td>-->
-                    <!--                                상담 내용-->
-                    <!--                            </td>-->
-                    <!--                            <td>-->
-                    <!--                                서울특별시 양천구 33-->
-                    <!--                            </td>-->
-                    <!--                        </tr>-->
-                    <!--                        </tbody>-->
-                    <!--                    </table>-->
-                    <!--                    <div class="modal fade modal-consult" th:each="consult: ${consults}"-->
-                    <!--                         th:id="'modal-consult-' + ${consult.id}">-->
-                    <!--                        <div class="modal-dialog modal-xl">-->
-                    <!--                            <div class="modal-content">-->
-                    <!--                                <div class="modal-header">-->
-                    <!--                                    <h5 class="modal-title">상담 상세</h5>-->
-                    <!--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                    <!--                                        <span aria-hidden="true">&times;</span>-->
-                    <!--                                    </button>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="modal-body">-->
-                    <!--                                    <div class="add-item border p-3 mb-3">-->
-                    <!--                                        <div class="row">-->
-                    <!--                                            <div class="col-md-4 mb-3">-->
-                    <!--                                                <label for="">상담자</label>-->
-                    <!--                                                <input type="text" class="form-control">-->
-                    <!--                                            </div>-->
-                    <!--                                            <div class="col-md-4 mb-3">-->
-                    <!--                                                <label for="">법인담당자</label>-->
-                    <!--                                                <input type="text" class="form-control">-->
-                    <!--                                            </div>-->
-                    <!--                                            <div class="col-md-4 mb-3">-->
-                    <!--                                                <label for="">상태</label>-->
-                    <!--                                                <select class="form-control" id="">-->
-                    <!--                                                    <option selected>진행중</option>-->
-                    <!--                                                    <option value="1">진행완료</option>-->
-                    <!--                                                    <option value="2">보류</option>-->
-                    <!--                                                    <option value="">취소</option>-->
-                    <!--                                                </select>-->
-                    <!--                                            </div>-->
-                    <!--                                        </div>-->
-                    <!--                                        <div class="row">-->
-                    <!--                                            <div class="col-md-12 mb-3">-->
-                    <!--                                                <label for="">상담 내용</label>-->
-                    <!--                                                <textarea name="" id="" cols="30" rows="10"-->
-                    <!--                                                          class="form-control"></textarea>-->
-                    <!--                                            </div>-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="modal-footer">-->
-                    <!--                                    <div class="d-flex justify-content-between">-->
-                    <!--                                        <div>-->
-                    <!--                                            <button type='button' class='btn btn-outline-danger'>삭제</button>-->
-                    <!--                                        </div>-->
-                    <!--                                        <div>-->
-                    <!--                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소-->
-                    <!--                                            </button>-->
-                    <!--                                            <button type='button' class='btn btn-outline-secondary'>수정</button>-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="modal fade modal-consult" id="modal-consult-add">-->
-                    <!--                        <div class="modal-dialog modal-xl">-->
-                    <!--                            <div class="modal-content">-->
-                    <!--                                <div class="modal-header">-->
-                    <!--                                    <h5 class="modal-title">상담 추가</h5>-->
-                    <!--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                    <!--                                        <span aria-hidden="true">&times;</span>-->
-                    <!--                                    </button>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="modal-body">-->
-                    <!--                                    <div class="add-item border p-3 mb-3">-->
-                    <!--                                        <div class="row">-->
-                    <!--                                            <div class="col-md-4 mb-3">-->
-                    <!--                                                <label for="">상담자</label>-->
-                    <!--                                                <input type="text" class="form-control">-->
-                    <!--                                            </div>-->
-                    <!--                                            <div class="col-md-4 mb-3">-->
-                    <!--                                                <label for="">법인담당자</label>-->
-                    <!--                                                <input type="text" class="form-control">-->
-                    <!--                                            </div>-->
-                    <!--                                            <div class="col-md-4 mb-3">-->
-                    <!--                                                <label for="">상태</label>-->
-                    <!--                                                <select class="form-control" id="">-->
-                    <!--                                                    <option selected>진행중</option>-->
-                    <!--                                                    <option value="1">진행완료</option>-->
-                    <!--                                                    <option value="2">보류</option>-->
-                    <!--                                                    <option value="">취소</option>-->
-                    <!--                                                </select>-->
-                    <!--                                            </div>-->
-                    <!--                                        </div>-->
-                    <!--                                        <div class="row">-->
-                    <!--                                            <div class="col-md-12 mb-3">-->
-                    <!--                                                <label for="">상담 내용</label>-->
-                    <!--                                                <textarea name="" id="" cols="30" rows="10"-->
-                    <!--                                                          class="form-control"></textarea>-->
-                    <!--                                            </div>-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                                <div class="modal-footer">-->
-                    <!--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>-->
-                    <!--                                    <button type="button" class="btn btn-primary">추가</button>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4>
+                            <i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                </svg>
+                            </i>
+                            <strong>상담내역</strong>
+                            <strong class="text-primary">3</strong>
+                        </h4>
+                        <div>
+                            <button type='button' class='btn btn-outline-primary' data-toggle="modal"
+                                    data-target="#modal-consult-add">
+                                상담 내역 추가
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table table-bordered mb-3">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>상담자</th>
+                            <th>상담 일시</th>
+                            <th>법인 담당자</th>
+                            <th>상담내용</th>
+                            <th>사건진행정도</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="consult: ${consults}">
+                            <td>
+                                <button type="button" class="btn btn-link p-0" data-toggle="modal" th:text="${consult.consultant}">
+                                </button>
+                            </td>
+                            <td th:text="${consult.createdAt}">
+                            </td>
+                            <td th:text="${consult.consultant}">
+                            </td>
+                            <td th:text="${consult.content}">
+                            </td>
+                            <td th:switch="${consult.progress}">
+                                <span th:case="${consult.progress.CANCEL}" class="badge badge-pill badge-danger">취소</span>
+                                <span th:case="${consult.progress.ONGOING}" class="badge badge-pill badge-primary">진행중</span>
+                                <span th:case="${consult.progress.COMPLETE}" class="badge badge-pill badge-success">완료</span>
+                                <span th:case="${consult.progress.HOLD}" class="badge badge-pill badge-warning">보류</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="modal fade modal-consult">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">상담 상세</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="add-item border p-3 mb-3">
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="">상담자</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="">법인담당자</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="">상태</label>
+                                                <select class="form-control" id="">
+                                                    <option selected>진행중</option>
+                                                    <option value="1">진행완료</option>
+                                                    <option value="2">보류</option>
+                                                    <option value="">취소</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="">상담 내용</label>
+                                                <textarea name="" id="" cols="30" rows="10"
+                                                          class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <button type='button' class='btn btn-outline-danger'>삭제</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
+                                            </button>
+                                            <button type='button' class='btn btn-outline-secondary'>수정</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade modal-consult" id="modal-consult-add">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">상담 추가</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="add-item border p-3 mb-3">
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="">상담자</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="">법인담당자</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="">상태</label>
+                                                <select class="form-control" id="">
+                                                    <option selected>진행중</option>
+                                                    <option value="1">진행완료</option>
+                                                    <option value="2">보류</option>
+                                                    <option value="">취소</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="">상담 내용</label>
+                                                <textarea name="" id="" cols="30" rows="10"
+                                                          class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                                    <button type="button" class="btn btn-primary">추가</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

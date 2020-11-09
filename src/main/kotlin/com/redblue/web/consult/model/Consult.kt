@@ -15,10 +15,10 @@ data class Consult(
 
 	val companyId: String,
 
+	val consultant: String,
+
 	@Transient
 	val companyName: String? = null,
-
-	val consultant: String,
 
 	val content: String,
 

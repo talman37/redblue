@@ -39,6 +39,9 @@ class ConsultQueryDslRepositoryImpl(
 			.innerJoin(qp).on(qc.companyId.eq(qp.id))
 			.orderBy(qc.createdAt.desc())
 
+		predicate.and(qc.lawFirmId.eq(lawFirmId))
+		query.where(predicate)
+
 		return query.fetch()
 	}
 }

@@ -15,6 +15,7 @@ class CompanyServiceImpl(
 	private val stockRepository: StockRepository,
 	private val executiveRepository: ExecutiveRepository,
 	private val stockholderRepository: StockholderRepository,
+	private val contactRepository: ContactRepository,
 	private val masterHistoryRepository: CompanyMasterHistoryRepository,
 	private val subHistoryRepository: CompanySubHistoryRepository,
 	private val stockHistoryRepository: StockHistoryRepository
@@ -206,6 +207,9 @@ class CompanyServiceImpl(
 				issuedCount = updateStock.issuedCount
 			)
 		)
+	}
 
+	override fun saveContact(contact: Contact) {
+		contactRepository.save(contact)
 	}
 }

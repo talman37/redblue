@@ -9,7 +9,12 @@ import org.springframework.stereotype.Service
 class ConsultServiceImpl(
 	private val consultRepository: ConsultRepository
 ) : ConsultService {
+
 	override fun list(lawFirmId: String): List<Consult> {
 		return consultRepository.findByLawFirmId(lawFirmId)
+	}
+
+	override fun findByCompanyId(companyId: String): List<Consult> {
+		return consultRepository.findByCompanyId(companyId)
 	}
 }
