@@ -268,6 +268,7 @@ a {
 
 .main {
     padding: 10px 40px 40px;
+    min-height: calc(100vh - 80px);
 }
 
 
@@ -700,5 +701,219 @@ h5 {
         margin-top: 15px;
         padding-top: 15px;
         border-top: 1px solid rgba(0, 0, 0, .1);
+    }
+}
+
+.box-dm {
+    border: 1px solid #ddd;
+}
+.dm {
+    // width: 21cm;
+    // height: 29.7cm;
+    // margin: 30mm 45mm 30mm 45mm;
+    width: 100%;
+    // min-height: 100%;
+    // min-height: 100vh;
+    font-family:  "BatangChe";
+    // margin: 0 auto;
+    // border: 1px solid red;
+    font-size: 16px;
+    word-break: keep-all;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    // word-wrap: break-word;
+    .td-top {
+        vertical-align: top;
+        height: 1%;
+    }
+    .td-middle {
+        vertical-align: top;
+    }
+    .td-bottom {
+        vertical-align: bottom;
+    }
+    ol,
+    ul,
+    li,
+    p {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    > div {
+        // outline: 1px solid blue;
+    }
+    .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-weight: bold;
+        min-height: 33.33333%;
+        padding: 30px;
+        line-height: 1.4;
+        .sender {
+            text-align: left;
+            margin-bottom: 50px;
+            .name {
+                font-size: 24px;
+            }
+            ul {
+                overflow: hidden;
+            }
+            li {
+                list-style: none;
+                display: inline-block;
+                min-width: 20%;
+            }
+        }
+        .recipient {
+            text-align: right;
+            font-size: 24px;
+            .address,
+            .company {
+                // font-size: 26px;
+            }
+            .name {
+
+            }
+        }
+    }
+    .middle {
+        flex: 1;
+        min-height: 33.33333%;
+        padding: 50px;
+        .content {
+            > ol {
+                counter-reset: list;
+                > li {
+                    font-family: "Gulim";
+                    counter-increment: list;
+                    &:before {
+                        content: counters(list, "") ".";
+                    }
+                    > div {
+                        padding-left: 20px;
+                    }
+                }
+            }
+        }
+        .table,
+        .notice {
+            font-family:  "BatangChe";
+        }
+        .table {
+            .line {
+                position: relative;
+                text-align: center;
+                margin: 20px 0 5px;
+                &:before{
+                    content: '';
+                    position: absolute;
+                    width: 50%;
+                    height: 1px;
+                    left: 25%;
+                    top: 50%;
+                    background-color: #000;
+                }
+                span {
+                    display: inline-block;
+                    position: relative;
+                    z-index: 1;
+                    padding-left: 15px;
+                    letter-spacing: 15px;
+                    background-color: #fff;
+                }
+            }
+            table {
+                width: 100%;
+                table-layout: fixed;
+                border: 1px solid #999;
+            }
+            th,
+            td {
+                color: #000;
+                border-color: #999;
+                text-align: center;
+                border-left: 1px solid #999;
+                padding: 5px 10px;
+            }
+        }
+        .notice {
+            margin-top: 20px;
+            li {
+                position: relative;
+                counter-increment: li;
+                padding-left: 30px;
+                &:before {
+                    content: "(" counters(li, "") ")";
+                    position: absolute;
+                    left: 0;
+                }
+            }
+        }
+    }
+    .bottom {
+        text-align: center;
+        padding: 30px;
+        .name {
+            font-weight: bold;
+            font-size: 22px;
+        }
+        .contact {
+            font-size: 16px;
+        }
+        .desc {
+            margin-top: 15px;
+            font-family: "Gulim";
+            font-size: 14px;
+            text-align: left;
+        }
+    }
+}
+
+// @media print {
+//     .dm {
+//         width: 21cm;
+//         height: 29.7cm;
+//         margin: 30mm 45mm 30mm 45mm;
+//         /* change the margins as you want them to be. */
+//     }
+// }
+
+.page {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 0 auto;
+    // background:#eee;
+    border: 2px red solid;
+
+}
+
+.subpage {
+    border: 2px blue solid;
+    background:#fff;
+    height: 257mm;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    html, body {
+        width: 210mm;
+        height: 297mm;
+    }
+    .page {
+        margin: 0;
+        border: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
     }
 }
