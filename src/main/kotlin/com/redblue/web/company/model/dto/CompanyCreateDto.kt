@@ -101,7 +101,9 @@ data class CompanyCreateDto(
 
 	var stockholders: List<Stockholder> = emptyList(),
 
-	var contacts: List<Contact> = emptyList()
+	var contacts: List<Contact> = emptyList(),
+
+	var purposeDetail: PurposeDetail? = null
 
 ) {
 
@@ -144,6 +146,11 @@ data class CompanyCreateDto(
 				)
 			)
 		}
+
+		val purposeDetail = this.purposeDetail?.copy(
+			companyId = this.id!!
+		)
+
 		return Company(
 			id = this.id!!,
 			lawFirmId = lawFirmId,
@@ -183,7 +190,8 @@ data class CompanyCreateDto(
 			recommender = this.recommender,
 			executives = executives,
 			stock = stock,
-			contacts = contacts
+			contacts = contacts,
+			purposeDetail = purposeDetail
 		)
 
 
