@@ -315,7 +315,7 @@
                         </div>
 
                         <hr/>
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between mb-1">
                             <h4 class="mb-3">
                                 <i>
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
@@ -331,7 +331,7 @@
                         </div>
                         <div class="add-item" id="contactGroup">
                             <div class="row">
-                                <div class="col-md-10 mb-3">
+                                <div class="col-md-9 mb-3">
                                     <label for="">연락처</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -352,6 +352,17 @@
                                     <label for="">메모</label>
                                     <input type="text" class="form-control" name="contacts[0][memo]" placeholder=""
                                            required="">
+                                </div>
+                                <div class="col-md-1 mb-3">
+                                    <label for="">Actions</label>
+                                    <div class="btns">
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-save"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -384,6 +395,7 @@
                                 <col/>
                                 <col/>
                                 <col/>
+                                <col width="100px"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -394,9 +406,120 @@
                                 <th>취임일자</th>
                                 <th>임기만료일</th>
                                 <th>주식수</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody id="executiveGroup">
+                            </tbody>
+                        </table>
+                        <hr/>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h4>
+                                <i>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                    </svg>
+                                </i>
+                                <strong>주주</strong>
+                                <strong class="text-primary">3</strong>
+                            </h4>
+                            <div>
+                                <button type='button' class='btn btn-outline-primary' data-toggle="modal"
+                                        data-target="#modal-stockholder-add">
+                                    주주 추가
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-status">
+                            <div class="item">
+                                <div class="item-header">
+                                    입력된 주식수
+                                </div>
+                                <div class="item-body">
+                                    <span class='text-danger'>4000</span>주
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="item-header">
+                                    발행주식총수
+                                </div>
+                                <div class="item-body">
+                                    <span class='text-danger'>5000</span>주
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered mb-3">
+                            <colgroup>
+                                <col/>
+                                <col/>
+                                <col/>
+                                <col/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>성명</th>
+                                <th>주민등록번호</th>
+                                <th>주소</th>
+                                <th>주식수</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <hr/>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h4>
+                                <i>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                    </svg>
+                                </i>
+                                <strong>목적사항</strong>
+                            </h4>
+                        </div>
+                        <div>
+                            <textarea name="purposeDetail" id="purpose_detail" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <hr/>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h4>
+                                <i>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                    </svg>
+                                </i>
+                                <strong>상담내역</strong>
+                                <strong class="text-primary">3</strong>
+                            </h4>
+                            <div>
+                                <button type='button' class='btn btn-outline-primary' data-toggle="modal"
+                                        data-target="#modal-consult-add">
+                                    상담 내역 추가
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-bordered mb-3">
+                            <colgroup>
+                                <col/>
+                                <col/>
+                                <col/>
+                                <col/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>상담자</th>
+                                <th>상담 일시</th>
+                                <th>법인 담당자</th>
+                                <th>상담내용</th>
+                                <th>사건진행정도</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             </tbody>
                         </table>
                     </form>
@@ -411,6 +534,7 @@
             </div>
         </main>
         <!-- //contents -->
+
 
         <div class="modal fade modal-executive" id="modal-executive-add">
             <div class="modal-dialog modal-xl">
@@ -577,6 +701,125 @@
             </div>
         </div>
 
+        <div class="modal fade modal-stockholder " id="modal-stockholder-add">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-stockholder-label">주주 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add-item border p-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="">성명</label>
+                                    <input type="text" class="form-control" id="" value="">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="">비고</label>
+                                    <div class="mt-1">
+                                        <div class="form-check form-check-inline">
+                                            <div class="form-input">
+                                                                <span class="input">
+                                                                    <input type="checkbox" id=""><i></i>
+                                                                </span>
+                                                <label for="">대표권 있음</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="">주민등록번호</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-addon">
+                                            <span class="input-group-text">-</span>
+                                        </div>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="">주식 수</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <select class="form-control" id="">
+                                                <option selected>보통주식</option>
+                                                <option value="1">종류주식</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="">주소</label>
+                                    <input type="text" class="form-control" id="" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary">추가</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade modal-consult" id="modal-consult-add">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">상담 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add-item border p-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="">상담자</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">법인담당자</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">상태</label>
+                                    <select class="form-control" id="">
+                                        <option selected>진행중</option>
+                                        <option value="1">진행완료</option>
+                                        <option value="2">보류</option>
+                                        <option value="">취소</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="">상담 내용</label>
+                                    <textarea name="" id="" cols="30" rows="10"
+                                              class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary">추가</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
     </div>
     <!-- //container -->
@@ -707,7 +950,7 @@
 
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row">
-            <div class="col-md-10 mb-3">
+            <div class="col-md-9 mb-3">
                 <label for="">연락처</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -727,6 +970,17 @@
             <div class="col-md-2 mb-3">
                 <label for="">메모</label>
                 <input type="text" class="form-control" name="contacts[{{= index}}][memo]" placeholder="" required="">
+            </div>
+            <div class="col-md-1 mb-3">
+                <label for="">Actions</label>
+                <div class="btns">
+                    <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -754,6 +1008,11 @@
             </td>
             <td>
                 {{= stockCount}}
+            </td>
+            <td>
+                <button class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
             </td>
             <input type="hidden" name="executives[{{= index}}][name]" value="{{= name}}"/>
             <input type="hidden" name="executives[{{= index}}][position]" value="{{= position}}"/>

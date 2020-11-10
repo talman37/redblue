@@ -499,6 +499,9 @@ h5 {
   padding-top: 15px;
   border-top: 1px solid rgba(0, 0, 0, 0.1); }
 
+.add-item .btns {
+  white-space: nowrap; }
+
 .box-dm {
   border: 1px solid #ddd; }
 

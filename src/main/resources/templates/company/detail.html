@@ -290,7 +290,7 @@
                         </div>
                     </form>
                     <hr/>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-1">
                         <h4 class="mb-3">
                             <i>
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
@@ -306,7 +306,7 @@
                     </div>
                     <div class="add-item">
                         <div class="row">
-                            <div class="col-md-10 mb-3">
+                            <div class="col-md-9 mb-3">
                                 <label for="">연락처</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -327,6 +327,17 @@
                                 <label for="">메모</label>
                                 <input type="text" class="form-control" name="contacts[0][memo]" placeholder=""
                                        required="">
+                            </div>
+                            <div class="col-md-1 mb-3">
+                                <label for="">Actions</label>
+                                <div class="btns">
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -964,6 +975,11 @@
                             </i>
                             <strong>목적사항</strong>
                         </h4>
+                        <div>
+                            <button type='button' class='btn btn-outline-primary' id="">
+                                수정
+                            </button>
+                        </div>
                     </div>
                     <div>
                         <textarea name="purposeDetail" id="purpose_detail" cols="30" rows="10" class="form-control"></textarea>
@@ -993,6 +1009,8 @@
                             <col/>
                             <col/>
                             <col/>
+                            <col/>
+                            <col width="100px"/>
                         </colgroup>
                         <thead>
                         <tr>
@@ -1001,6 +1019,7 @@
                             <th>법인 담당자</th>
                             <th>상담내용</th>
                             <th>사건진행정도</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -1020,6 +1039,11 @@
                                 <span th:case="${consult.progress.ONGOING}" class="badge badge-pill badge-primary">진행중</span>
                                 <span th:case="${consult.progress.COMPLETE}" class="badge badge-pill badge-success">완료</span>
                                 <span th:case="${consult.progress.HOLD}" class="badge badge-pill badge-warning">보류</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
