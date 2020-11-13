@@ -18,7 +18,8 @@ class CompanyServiceImpl(
 	private val contactRepository: ContactRepository,
 	private val masterHistoryRepository: CompanyMasterHistoryRepository,
 	private val subHistoryRepository: CompanySubHistoryRepository,
-	private val stockHistoryRepository: StockHistoryRepository
+	private val stockHistoryRepository: StockHistoryRepository,
+	private val purposeDetailRepository: PurposeDetailRepository
 ): CompanyService {
 	override fun list(lawFirmId: String, q: String?): List<Company> {
 		return companyRepository.findByLawFirmId(lawFirmId, q)
@@ -47,6 +48,14 @@ class CompanyServiceImpl(
 				companyId = company.id
 			)
 			stockRepository.save(stock)
+		}
+
+		company.purposeDetail?.let {
+			val purposeDetail = company.purposeDetail!!.copy(
+				companyId = company.id,
+				detailUpdatedAt = Date()
+			)
+			purposeDetailRepository.save(purposeDetail)
 		}
 
 		masterHistoryRepository.save(
@@ -92,6 +101,7 @@ class CompanyServiceImpl(
 				issuedCount = company.stock?.issuedCount
 			)
 		)
+
 	}
 
 	override fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto) {
