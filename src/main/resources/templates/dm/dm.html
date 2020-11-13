@@ -5,30 +5,55 @@
     <title>DM</title>
     <style>
         html,
-        body,
-        .dm {
+        body {
             width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
-
+            font-size: 16px;
         }
         @font-face {
             font-family: NanumBarunGothic;
             src: url('../../static/font/NanumBarunGothic.ttf');
+        }
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+            }
+            .dm {
+                margin: 0;
+                border: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
         }
         body {
             font-family: "NanumBarunGothic"
         }
         .dm {
             width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            table-layout: fixed;
             font-size: 16px;
             word-break: keep-all;
+            border-spacing: 0;
         }
 
         .dm .td-top {
             vertical-align: top;
-            height: 1%;
         }
 
         .dm .td-middle {
@@ -38,7 +63,7 @@
         .dm .td-bottom {
             vertical-align: bottom;
         }
-
+        .dm *,
         .dm ol,
         .dm ul,
         .dm li,
@@ -57,7 +82,6 @@
             -webkit-box-pack: justify;
             justify-content: space-between;
             font-weight: bold;
-            min-height: 33.33333%;
             padding: 30px;
             line-height: 1.4;
         }
@@ -68,7 +92,7 @@
         }
 
         .dm .top .sender .name {
-            font-size: 24px;
+            font-size: 20px;
         }
 
         .dm .top .sender ul {
@@ -83,13 +107,10 @@
 
         .dm .top .recipient {
             text-align: right;
-            font-size: 24px;
+            font-size: 20px;
         }
 
         .dm .middle {
-            -webkit-box-flex: 1;
-            flex: 1;
-            min-height: 33.33333%;
             padding: 50px;
         }
 
@@ -99,6 +120,7 @@
 
         .dm .middle .content > ol > li {
             counter-increment: list;
+            margin-top: 5px;
         }
 
         .dm .middle .content > ol > li:before {
@@ -109,8 +131,9 @@
             padding-left: 20px;
         }
 
-        .dm .middle .table,
-        .dm .middle .notice {
+        .dm .middle .content > ol > li > div p {
+            margin-top: 5px;
+            word-break: break-word;
         }
 
         .dm .middle .table .line {
@@ -140,6 +163,7 @@
 
         .dm .middle .table table {
             width: 100%;
+            margin: 20px 0;
             table-layout: fixed;
             border: 1px solid #999;
         }
@@ -161,6 +185,8 @@
             position: relative;
             counter-increment: li;
             padding-left: 30px;
+            margin-top: 5px;
+            word-break: break-word;
         }
 
         .dm .middle .notice li:before {
@@ -187,12 +213,13 @@
             margin-top: 15px;
             font-size: 14px;
             text-align: left;
+            word-break: break-word;
         }
 
     </style>
 </head>
 <body>
-<table class="dm">
+<table class="dm" cellpadding="0">
     <tr>
         <td class="td-top">
             <div class="top">
@@ -249,7 +276,7 @@
                             </div>
                             <div class="table">
                                 <p class="line"><span>아래</span></p>
-                                <table>
+                                <table cellpadding="0">
                                     <thead>
                                     <tr>
                                         <th>직위</th>
