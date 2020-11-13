@@ -42,6 +42,8 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:3.16")
     implementation("org.apache.poi:poi:3.16")
 
+    implementation("org.xhtmlrenderer:flying-saucer-pdf:9.1.20")
+
 
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {

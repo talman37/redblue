@@ -29,8 +29,8 @@ class CompanyServiceImpl(
 		return companyRepository.countBylawFirmId(lawFirmId)
 	}
 
-	override fun search(lawFirmId: String, q: String):Company {
-		return companyRepository.search(lawFirmId, q)
+	override fun findByName(lawFirmId: String, name: String):List<Company> {
+		return companyRepository.findByLawFirmIdAndCompanyName(lawFirmId, name)
 	}
 
 	override fun detail(id: String): Company {
@@ -42,21 +42,6 @@ class CompanyServiceImpl(
 
 	override fun save(company: Company) {
 		companyRepository.save(company)
-
-		company.stock?.let {
-			val stock = company.stock!!.copy(
-				companyId = company.id
-			)
-			stockRepository.save(stock)
-		}
-
-		company.purposeDetail?.let {
-			val purposeDetail = company.purposeDetail!!.copy(
-				companyId = company.id,
-				detailUpdatedAt = Date()
-			)
-			purposeDetailRepository.save(purposeDetail)
-		}
 
 		masterHistoryRepository.save(
 			CompanyMasterHistory(
@@ -76,6 +61,7 @@ class CompanyServiceImpl(
 				recommender = company.recommender
 			)
 		)
+
 		subHistoryRepository.save(
 			CompanySubHistory(
 				type = IssuedType.CREATED,
@@ -91,16 +77,40 @@ class CompanyServiceImpl(
 			)
 		)
 
-		stockHistoryRepository.save(
-			StockHistory(
-				type = IssuedType.CREATED,
-				companyId = company.stock?.companyId,
-				stockId = company.stock?.id,
-				amount = company.stock?.amount,
-				scheduleCount = company.stock?.scheduleCount,
-				issuedCount = company.stock?.issuedCount
+		company.stock?.let {
+			val stock = company.stock!!.copy(
+				companyId = company.id
 			)
-		)
+			stockRepository.save(stock)
+
+			stockHistoryRepository.save(
+				StockHistory(
+					type = IssuedType.CREATED,
+					companyId = company.stock?.companyId,
+					stockId = company.stock?.id,
+					amount = company.stock?.amount,
+					scheduleCount = company.stock?.scheduleCount,
+					issuedCount = company.stock?.issuedCount
+				)
+			)
+		}
+
+		company.contacts?.let { contacts ->
+			contacts.forEach {
+				it.companyId = company.id
+			}
+			contactRepository.saveAll(contacts)
+		}
+
+		company.purposeDetail?.let {
+			val purposeDetail = company.purposeDetail!!.copy(
+				companyId = company.id,
+				detailUpdatedAt = Date()
+			)
+			purposeDetailRepository.save(purposeDetail)
+		}
+
+
 
 	}
 

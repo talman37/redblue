@@ -8,12 +8,6 @@
             <nav class="sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
-                        <!-- <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <i class="fas fa-home"></i>
-                                    Dashboard <span class="sr-only">(current)</span>
-                                </a>
-                            </li> -->
                         <li class="nav-item">
                             <p class="sidebar-heading">법인관리</p>
                             <ul class="nav flex-column">
@@ -98,9 +92,9 @@
                                 <div class="col-md-4 mb-3">
                                     <label for="">법인 검색</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="" name="">
+                                        <input type="text" class="form-control" id="search_value">
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
+                                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="search_btn"
                                                     data-target="#modal-company">
                                                 검색
                                             </button>
@@ -168,6 +162,25 @@
         <!-- //container -->
     </th:block>
 <script>
+    $(document).ready(function () {
+        $('#search-btn').on('click', function () {
+            if($('#search_value').val() == '' || $('#search_value').val() == null) {
+                alert('법인명을 입력해 주세요.');
+                return false;
+            }
+            $.ajax({
+                type: 'GET',
+                url: '/v1/companies?' + $('#search_value').val(),
+                contentType: 'application/json',
+                success: function (res) {
+                    console.log(res);
+                }
+            })
+
+        });
+    };
+
+
     $('.input-daterange').datepicker({
         language: "ko",
         todayHighlight: true

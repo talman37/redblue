@@ -11,7 +11,7 @@ interface CompanyService {
 
 	fun count(lawFirmId: String): Int
 
-	fun search(lawFirmId: String, q: String): Company
+	fun findByName(lawFirmId: String, name: String): List<Company>
 
 	fun detail(id: String): Company
 

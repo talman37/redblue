@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8"/>
     <title>DM</title>
     <style>
         html,
@@ -12,11 +11,17 @@
             height: 100%;
             margin: 0;
             padding: 0;
-        }
 
+        }
+        @font-face {
+            font-family: NanumBarunGothic;
+            src: url('../../static/font/NanumBarunGothic.ttf');
+        }
+        body {
+            font-family: "NanumBarunGothic"
+        }
         .dm {
             width: 100%;
-            font-family: "BatangChe";
             font-size: 16px;
             word-break: keep-all;
         }
@@ -93,7 +98,6 @@
         }
 
         .dm .middle .content > ol > li {
-            font-family: "Gulim";
             counter-increment: list;
         }
 
@@ -107,7 +111,6 @@
 
         .dm .middle .table,
         .dm .middle .notice {
-            font-family: "BatangChe";
         }
 
         .dm .middle .table .line {
@@ -182,7 +185,6 @@
 
         .dm .bottom .desc {
             margin-top: 15px;
-            font-family: "Gulim";
             font-size: 14px;
             text-align: left;
         }

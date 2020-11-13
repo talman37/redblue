@@ -10,7 +10,7 @@ data class Contact(
 	@Id
 	val id: String = "CT" + RandomString.make(30),
 
-	val companyId: String? = null,
+	var companyId: String? = null,
 
 	@Enumerated(EnumType.STRING)
 	val type: Type? = null,

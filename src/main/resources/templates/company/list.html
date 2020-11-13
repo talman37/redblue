@@ -249,7 +249,7 @@
                         </div>
                         <div>
                             <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
-                            <button type="button" class="btn btn-dark btn-sm">PDF 다운</button>
+                            <button type="button" class="btn btn-dark btn-sm" id="pdf-down-btn">PDF 다운</button>
                         </div>
                     </div>
                 </div>
@@ -269,6 +269,10 @@
 
             $('#excel-down-btn').on('click', function () {
                 location.href = '/v1/companies/download/corporations.xlsx'
+            });
+
+            $('#pdf-down-btn').on('click', function () {
+                location.href = '/v1/companies/download/dm.pdf'
             });
 
 

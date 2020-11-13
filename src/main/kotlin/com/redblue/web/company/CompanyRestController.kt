@@ -3,7 +3,9 @@ package com.redblue.web.company
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.company.model.dto.CompanyCreateDto
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
+import com.redblue.web.company.model.dto.CompanySearchResponseDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
+import com.redblue.web.company.service.CompanyDmService
 import com.redblue.web.company.service.CompanyExcelService
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.lawfirm.model.LawFirmUser
@@ -18,16 +20,17 @@ import java.text.SimpleDateFormat
 @RequestMapping("/v1/companies")
 class CompanyRestController(
 	private val companyService: CompanyService,
-	private val companyExcelService: CompanyExcelService
+	private val companyExcelService: CompanyExcelService,
+	private val companyDmService: CompanyDmService
 ) {
 
 	@GetMapping
 	fun search(
-		@RequestParam("q") q: String,
+		@RequestParam("name") name: String,
 		@CurrentUser user: LawFirmUser
-	): ResponseEntity<String> {
-		val company = companyService.search(user.lawFirmId, q)
-		return ResponseEntity.ok("/company/${company.id}")
+	): ResponseEntity<List<CompanySearchResponseDto>> {
+		val companies = companyService.findByName(user.lawFirmId, name)
+		return ResponseEntity.ok(CompanySearchResponseDto.of(companies))
 	}
 
 	@PostMapping
@@ -139,5 +142,48 @@ class CompanyRestController(
 		return ResponseEntity.ok().headers(headers).body(InputStreamResource(resource))
 
 	}
+
+	@GetMapping("/download/dm.pdf")
+	fun downloadDm(
+		@RequestParam(value = "searchValue", required = false) searchValue: String?,
+		@RequestParam(value = "start", required = false) startDate: String?,
+		@RequestParam(value = "end", required = false) endDate: String?,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<InputStreamResource> {
+
+		val searchValue = searchValue?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				searchValue
+			}
+		}
+
+		val start = startDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+			}
+		}
+
+		val end = endDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+			}
+		}
+
+		val companies = companyService.list(user.lawFirmId, searchValue)
+		val resource = companyDmService.generate(companies)
+		val headers = HttpHeaders()
+		headers.add("Content-Disposition", "attachment; filename=dm.pdf")
+
+		return ResponseEntity.ok().headers(headers).body(InputStreamResource(resource))
+
+	}
+
+
 
 }
