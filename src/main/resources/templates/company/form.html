@@ -419,7 +419,7 @@
                                     </svg>
                                 </i>
                                 <strong>주주</strong>
-                                <strong class="text-primary">3</strong>
+                                <strong class="text-primary" id="stockHolderCount"></strong>
                             </h4>
                             <div>
                                 <button type='button' class='btn btn-outline-primary' data-toggle="modal"
@@ -434,7 +434,7 @@
                                     입력된 주식수
                                 </div>
                                 <div class="item-body">
-                                    <span class='text-danger'>0</span>주
+                                    <span class='text-danger' id="input_stock_count">0</span>주
                                 </div>
                             </div>
                             <div class="item">
@@ -442,7 +442,7 @@
                                     발행주식총수
                                 </div>
                                 <div class="item-body">
-                                    <span class='text-danger'>0</span>주
+                                    <span class='text-danger' id="issue_stock_count">0</span>주
                                 </div>
                             </div>
                         </div>
@@ -462,7 +462,7 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="stockHolderGroup">
                             </tbody>
                         </table>
                         <hr/>
@@ -481,45 +481,6 @@
                             <textarea name="purposeDetail.detail" id="purpose_detail" cols="30" rows="10"
                                       class="form-control"></textarea>
                         </div>
-<!--                        <hr/>-->
-<!--                        <div class="d-flex align-items-center justify-content-between mb-3">-->
-<!--                            <h4>-->
-<!--                                <i>-->
-<!--                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"-->
-<!--                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">-->
-<!--                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>-->
-<!--                                    </svg>-->
-<!--                                </i>-->
-<!--                                <strong>상담내역</strong>-->
-<!--                                <strong class="text-primary">3</strong>-->
-<!--                            </h4>-->
-<!--                            <div>-->
-<!--                                <button type='button' class='btn btn-outline-primary' data-toggle="modal"-->
-<!--                                        data-target="#modal-consult-add">-->
-<!--                                    상담 내역 추가-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <table class="table table-bordered mb-3">-->
-<!--                            <colgroup>-->
-<!--                                <col/>-->
-<!--                                <col/>-->
-<!--                                <col/>-->
-<!--                                <col/>-->
-<!--                            </colgroup>-->
-<!--                            <thead>-->
-<!--                            <tr>-->
-<!--                                <th>상담자</th>-->
-<!--                                <th>상담 일시</th>-->
-<!--                                <th>법인 담당자</th>-->
-<!--                                <th>상담내용</th>-->
-<!--                                <th>사건진행정도</th>-->
-<!--                                <th>Actions</th>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                            </tbody>-->
-<!--                        </table>-->
                     </form>
                 </div>
                 <div class="card-footer">
@@ -532,8 +493,6 @@
             </div>
         </main>
         <!-- //contents -->
-
-
         <div class="modal fade modal-executive" id="modal-executive-add">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -726,111 +685,43 @@
                         <div class="add-item border p-3 mb-3">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="">성명</label>
-                                    <input type="text" class="form-control" id="" value="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="">비고</label>
-                                    <div class="mt-1">
-                                        <div class="form-check form-check-inline">
-                                            <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                <label for="">대표권 있음</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <label for="stockHolder_name">성명</label>
+                                    <input type="text" class="form-control" id="stockHolder_name" value="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="">주민등록번호</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="stockHolder_registrationNumber1">
                                         <div class="input-group-addon">
                                             <span class="input-group-text">-</span>
                                         </div>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="stockHolder_registrationNumber2">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="">주식 수</label>
+                                    <label for="stockHolder_stockCount">주식 수</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <select class="form-control" id="">
-                                                <option selected>보통주식</option>
-                                                <option value="1">종류주식</option>
-                                            </select>
-                                        </div>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="stockHolder_stockCount">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="">주소</label>
-                                    <input type="text" class="form-control" id="" value="">
+                                    <label for="stockHolder_address">주소</label>
+                                    <input type="text" class="form-control" id="stockHolder_address" value="">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-primary">추가</button>
+                        <button type="button" class="btn btn-primary" id="add-stockHolder-btn" data-dismiss="modal">추가</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--        <div class="modal fade modal-consult" id="modal-consult-add">-->
-        <!--            <div class="modal-dialog modal-xl">-->
-        <!--                <div class="modal-content">-->
-        <!--                    <div class="modal-header">-->
-        <!--                        <h5 class="modal-title">상담 추가</h5>-->
-        <!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-        <!--                            <span aria-hidden="true">&times;</span>-->
-        <!--                        </button>-->
-        <!--                    </div>-->
-        <!--                    <div class="modal-body">-->
-        <!--                        <div class="add-item border p-3 mb-3">-->
-        <!--                            <div class="row">-->
-        <!--                                <div class="col-md-4 mb-3">-->
-        <!--                                    <label for="">상담자</label>-->
-        <!--                                    <input type="text" class="form-control">-->
-        <!--                                </div>-->
-        <!--                                <div class="col-md-4 mb-3">-->
-        <!--                                    <label for="">법인담당자</label>-->
-        <!--                                    <input type="text" class="form-control">-->
-        <!--                                </div>-->
-        <!--                                <div class="col-md-4 mb-3">-->
-        <!--                                    <label for="">상태</label>-->
-        <!--                                    <select class="form-control" id="">-->
-        <!--                                        <option selected>진행중</option>-->
-        <!--                                        <option value="1">진행완료</option>-->
-        <!--                                        <option value="2">보류</option>-->
-        <!--                                        <option value="">취소</option>-->
-        <!--                                    </select>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                            <div class="row">-->
-        <!--                                <div class="col-md-12 mb-3">-->
-        <!--                                    <label for="">상담 내용</label>-->
-        <!--                                    <textarea name="" id="" cols="30" rows="10"-->
-        <!--                                              class="form-control"></textarea>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="modal-footer">-->
-        <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>-->
-        <!--                        <button type="button" class="btn btn-primary">추가</button>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
-
     </div>
     <!-- //container -->
 
@@ -918,7 +809,7 @@
 
                 let name = $('#name').val();
                 let address = $('#address').val();
-                let position = ""
+                let position = "";
                 $('input:checkbox[name="position"]').each(function () {
                     if (this.checked) {
                         if (position.length > 0) {
@@ -948,7 +839,7 @@
                     expiredAt: expiredAt,
                     stockCount: stockCount,
                     detail: detail
-                }]).appendTo($('#executiveGroup'))
+                }]).appendTo($('#executiveGroup'));
                 $('#executiveCount').text(i + 1);
 
                 $('#name').val('');
@@ -961,6 +852,37 @@
                 $('#expiredAt').val('');
                 $('#stockCount').val('');
                 $('#detail').val('');
+            });
+
+            $('#add-stockHolder-btn').on('click', function () {
+                let i = $('#stockHolderGroup > tr').length;
+
+                let name = $('#stockHolder_name').val();
+                let address = $('#stockHolder_address').val();
+                let registrationNumber1 = $('#stockHolder_registrationNumber1').val();
+                let registrationNumber2 = $('#stockHolder_registrationNumber2').val();
+                let stockCount = $('#stockHolder_stockCount').val();
+
+                $('#stockHolder-template').tmpl([{
+                    index: i,
+                    name: name,
+                    registrationNumber1: registrationNumber1,
+                    registrationNumber2: registrationNumber2,
+                    address: address,
+                    stockCount: stockCount
+                }]).appendTo($('#stockHolderGroup'));
+                $('#stockHolderCount').text(i + 1);
+
+                var inputCount = Number($('#input_stock_count').text()) + Number($('#stockHolder_stockCount').val());
+                var issueCount = Number($('#issue_stock_count').text()) + Number($('#stockHolder_stockCount').val());
+                $('#input_stock_count').text(inputCount);
+                $('#issue_stock_count').text(issueCount);
+
+                $('#stockHolder_name').val('');
+                $('#stockHolder_address').val('');
+                $('#stockHolder_registrationNumber1').val('');
+                $('#stockHolder_registrationNumber2').val('');
+                $('#stockHolder_stockCount').val('');
             });
 
 
@@ -984,15 +906,38 @@
             return year + '-' + month + '-' + day;
         }
 
-        $('button[name="remove_contact_btn"]').on('click', function () {
-            $(this).parent().parent().parent().remove();
+        function remove_contact(i) {
+            $('#contact_row_' + i).remove();
+        }
 
-        });
+        function remove_executive(i) {
+            if(i === 0) {
+                $('#executiveCount').text('');
+            } else {
+                $('#executiveCount').text(i);
+            }
+            $('#executive_tr_' + i).remove();
+        }
+
+        function remove_stockHolder(i, count) {
+            if(i === 0) {
+                $('#stockHolderCount').text('');
+            } else {
+                $('#stockHolderCount').text(i);
+            }
+
+            var inputCount = Number($('#input_stock_count').text()) - Number(count);
+            var issueCount = Number($('#issue_stock_count').text()) - Number(count);
+            $('#input_stock_count').text(inputCount);
+            $('#issue_stock_count').text(issueCount);
+
+            $('#stockHolder_tr_' + i).remove();
+        }
 
     </script>
 
     <script id="contact-template" type="text/x-jQuery-tmpl">
-        <div class="row">
+        <div class="row" id="contact_row_{{= index}}">
             <div class="col-md-9 mb-3">
                 <label for="">연락처</label>
                 <div class="input-group">
@@ -1017,18 +962,16 @@
             <div class="col-md-1 mb-3">
                 <label for="">Actions</label>
                 <div class="btns">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" name="remove_contact_btn">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
             </div>
         </div>
-
-
     </script>
 
     <script id="executive-template" type="text/x-jQuery-tmpl">
-        <tr>
+        <tr id="executive_tr_{{= index}}">
             <td>
                 {{= name}}
             </td>
@@ -1051,7 +994,7 @@
                 {{= stockCount}}
             </td>
             <td>
-                <button class="btn btn-sm btn-outline-secondary">
+                <button type="button" class="btn btn-sm btn-outline-secondary" onClick="remove_executive({{= index}})">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </td>
@@ -1066,8 +1009,34 @@
             <input type="hidden" name="executives[{{= index}}][stockCount]" value="{{= stockCount}}"/>
             <input type="hidden" name="executives[{{= index}}][detail]" value="{{= detail}}"/>
         </tr>
+    </script>
 
-
+    <script id="stockHolder-template" type="text/x-jQuery-tmpl">
+        <tr id="stockHolder_tr_{{= index}}">
+            <td>
+                {{= name}}
+            </td>
+            <td>
+                {{= registrationNumber1}}-{{= registrationNumber2}}
+            </td>
+            <td>
+                {{= address}}
+            </td>
+            <td>
+                {{= stockCount}}
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-outline-secondary" onClick="remove_stockHolder({{= index}}, {{= stockCount}})">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+            <input type="hidden" name="stockholders[{{= index}}][name]" value="{{= name}}"/>
+            <input type="hidden" name="stockholders[{{= index}}][position]" value="{{= position}}"/>
+            <input type="hidden" name="stockholders[{{= index}}][registrationNumber1]" value="{{= registrationNumber1}}"/>
+            <input type="hidden" name="stockholders[{{= index}}][registrationNumber2]" value="{{= registrationNumber2}}"/>
+            <input type="hidden" name="stockholders[{{= index}}][address]" value="{{= address}}"/>
+            <input type="hidden" name="stockholders[{{= index}}][stockCount]" value="{{= stockCount}}"/>
+        </tr>
     </script>
 
 </th:block>
