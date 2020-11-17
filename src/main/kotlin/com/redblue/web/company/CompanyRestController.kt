@@ -10,6 +10,7 @@ import com.redblue.web.company.service.CompanyExcelService
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.core.io.InputStreamResource
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -104,10 +105,11 @@ class CompanyRestController(
 
 	@GetMapping("/download/corporations.xlsx")
 	fun downloadExcel(
-		@RequestParam(value = "searchValue", required = false) searchValue: String?,
+		@RequestParam(value = "q", required = false) searchValue: String?,
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
-		@CurrentUser user: LawFirmUser
+		@CurrentUser user: LawFirmUser,
+		@RequestParam("page", required = false, defaultValue = "1") page: String
 	): ResponseEntity<InputStreamResource> {
 
 		val searchValue = searchValue?.let {
@@ -134,8 +136,10 @@ class CompanyRestController(
 			}
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue)
-		val resource = companyExcelService.generate(companies)
+		val pageSize = 100
+
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, PageRequest.of(Integer.valueOf(page) - 1, pageSize))
+		val resource = companyExcelService.generate(companies.content)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=corporations.xlsx")
 
@@ -145,10 +149,11 @@ class CompanyRestController(
 
 	@GetMapping("/download/dm.pdf")
 	fun downloadDm(
-		@RequestParam(value = "searchValue", required = false) searchValue: String?,
+		@RequestParam(value = "q", required = false) searchValue: String?,
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
-		@CurrentUser user: LawFirmUser
+		@CurrentUser user: LawFirmUser,
+		@RequestParam("page", required = false, defaultValue = "1") page: String
 	): ResponseEntity<InputStreamResource> {
 
 		val searchValue = searchValue?.let {
@@ -175,8 +180,10 @@ class CompanyRestController(
 			}
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue)
-		val resource = companyDmService.generate(companies)
+		val pageSize = 100
+
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, PageRequest.of(Integer.valueOf(page) - 1, pageSize))
+		val resource = companyDmService.generate(companies.content)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=dm.pdf")
 

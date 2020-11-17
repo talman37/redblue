@@ -34,12 +34,6 @@
                                     상담 관리
                                 </a>
                             </li>
-                            <!--                                <li class="nav-item">-->
-                            <!--                                    <a class="nav-link " href="#">-->
-                            <!--                                        <i class="fas fa-gavel"></i>-->
-                            <!--                                        사건 관리-->
-                            <!--                                    </a>-->
-                            <!--                                </li>-->
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -176,7 +170,7 @@
                                             <div class="card-header" id="headingOne">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne">
-                                                        이력 1
+                                                        법인 이력
                                                     </button>
                                                 </h2>
                                             </div>
@@ -191,27 +185,13 @@
                                             <div class="card-header" id="headingTwo">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" >
-                                                        이력 2
+                                                        업장 이력
                                                     </button>
                                                 </h2>
                                             </div>
                                             <div id="collapseTwo" class="collapse" data-parent="#companyHistoryAccordion">
                                                 <div class="card-body">
                                                     이력 내용 2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header" id="headingThree">
-                                                <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" >
-                                                       이력 3
-                                                    </button>
-                                                </h2>
-                                            </div>
-                                            <div id="collapseThree" class="collapse" data-parent="#companyHistoryAccordion">
-                                                <div class="card-body">
-                                                    이력 내용 3
                                                 </div>
                                             </div>
                                         </div>
@@ -227,23 +207,34 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <span>Total :  <span class="text-primary">3</span></span>
+                            <span>Total :  <span class="text-primary" th:text="${totalCount}"></span></span>
                             <nav class="ml-3">
-                                <ul class="pagination pagination-sm">
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                <ul class="pagination pagination-sm" th:each="pageNumber : ${pageNumbers}">
+
+                                    <li class="page-item" th:if="${pageNumber != currentPage}">
+                                        <a class="page-link" href="#" th:text="${pageNumber}"></a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active" aria-current="page">
-                                            <span class="page-link">
-                                                2
-                                                <span class="sr-only">(current)</span>
-                                            </span>
+
+                                    <li class="page-item active" aria-current="page" th:if="${pageNumber == currentPage}">
+                                        <span class="page-link" th:text="${pageNumber}">
+                                            <span class="sr-only">(current)</span>
+                                        </span>
                                     </li>
-                                    <li class="page-item"><a class="임원 page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
-                                    </li>
+
+<!--                                    <li class="page-item disabled">-->
+<!--                                        <span class="page-link"><i class="fas fa-angle-left"></i></span>-->
+<!--                                    </li>-->
+<!--                                    <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--                                    <li class="page-item active" aria-current="page">-->
+<!--                                            <span class="page-link">-->
+<!--                                                2-->
+<!--                                                <span class="sr-only">(current)</span>-->
+<!--                                            </span>-->
+<!--                                    </li>-->
+<!--                                    <li class="page-item"><a class="임원 page-link" href="#">3</a></li>-->
+<!--                                    <li class="page-item">-->
+<!--                                        <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>-->
+<!--                                    </li>-->
                                 </ul>
                             </nav>
                         </div>

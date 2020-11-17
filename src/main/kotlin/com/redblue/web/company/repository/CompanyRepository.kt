@@ -1,6 +1,8 @@
 package com.redblue.web.company.repository
 
 import com.redblue.web.company.model.Company
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -15,7 +17,7 @@ interface CompanyRepository: CompanyQueryDslRepository, JpaRepository<Company, S
 
 interface CompanyQueryDslRepository {
 
-	fun findByLawFirmId(lawFirmId: String, q: String?): List<Company>
+	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company>
 
 	fun search(lawFirmId: String, q: String): Company
 

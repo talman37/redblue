@@ -5,6 +5,8 @@ import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
 import com.redblue.web.company.repository.*
 import com.redblue.web.company.service.CompanyService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.lang.Exception
 import java.util.*
@@ -13,7 +15,6 @@ import java.util.*
 class CompanyServiceImpl(
 	private val companyRepository: CompanyRepository,
 	private val stockRepository: StockRepository,
-	private val executiveRepository: ExecutiveRepository,
 	private val stockholderRepository: StockholderRepository,
 	private val contactRepository: ContactRepository,
 	private val masterHistoryRepository: CompanyMasterHistoryRepository,
@@ -21,8 +22,8 @@ class CompanyServiceImpl(
 	private val stockHistoryRepository: StockHistoryRepository,
 	private val purposeDetailRepository: PurposeDetailRepository
 ): CompanyService {
-	override fun list(lawFirmId: String, q: String?): List<Company> {
-		return companyRepository.findByLawFirmId(lawFirmId, q)
+	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company> {
+		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, pageable)
 	}
 
 	override fun count(lawFirmId: String): Int {

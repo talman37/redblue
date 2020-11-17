@@ -115,6 +115,9 @@ data class Company(
 	var executives: List<Executive> = emptyList(),
 
 	@Transient
+	var expiredAt: Date? = null,
+
+	@Transient
 	var stockholders: List<Stockholder>? = emptyList(),
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")

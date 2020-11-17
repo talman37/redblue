@@ -1,6 +1,7 @@
 package com.redblue.web.company.model.dto
 
 import com.redblue.web.company.model.Company
+import org.springframework.data.domain.Page
 import java.util.*
 
 data class CompanyListDto(
@@ -23,9 +24,9 @@ data class CompanyListDto(
 
 	companion object {
 
-		fun to(companies: List<Company>, startDate: Date?, endDate: Date?): List<CompanyListDto> {
+		fun to(companies: Page<Company>, startDate: Date?, endDate: Date?): List<CompanyListDto> {
 			var list = mutableListOf<CompanyListDto>()
-			for (company in companies) {
+			for (company in companies.content) {
 
 				val minExpiredAt = company.executives.map { it.expiredAt }.first()
 

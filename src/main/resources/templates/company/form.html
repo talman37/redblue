@@ -478,7 +478,7 @@
                             </h4>
                         </div>
                         <div>
-                            <textarea name="purposeDetail.detail" id="purpose_detail" cols="30" rows="10"
+                            <textarea name="purposeDetail[detail]" id="purpose_detail" cols="30" rows="10"
                                       class="form-control"></textarea>
                         </div>
                     </form>
@@ -768,13 +768,12 @@
                     url: '/v1/companies',
                     contentType: 'application/json',
                     dataType: 'json',
-                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
-                    success: function (res) {
-                        location.href = '/company';
-                    },
-                    error: function (request, status, error) {
-                        alert('법인 등록에 실패하였습니다.')
-                    }
+                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true}))
+                }).done(function(){
+                    location.href = '/company';
+                    return;
+                }).fail(function(){
+                    alert('법인 등록에 실패하였습니다.');
                 })
             });
 
