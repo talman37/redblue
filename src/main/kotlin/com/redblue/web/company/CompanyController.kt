@@ -63,6 +63,7 @@ class CompanyController(
 		val companies = companyService.list(user.lawFirmId, searchValue, start, end, PageRequest.of(Integer.valueOf(page) - 1, pageSize))
 
 		model.addAttribute("companies", CompanyListDto.to(companies, start, end))
+		model.addAttribute("companiesPage", companies)
 		model.addAttribute("totalCount", companies.totalElements)
 		model.addAttribute("q", searchValue)
 		model.addAttribute("startDate", startDate)

@@ -13,6 +13,8 @@ data class PurposeDetail(
 
 	val companyId: String,
 
+	@Lob
+	@Column(columnDefinition = "TEXT")
 	val detail: String? = null,
 
 	@Temporal(TemporalType.DATE)
