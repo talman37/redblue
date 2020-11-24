@@ -18,11 +18,11 @@ data class StockHistory(
 	@Enumerated(EnumType.STRING)
 	val type: IssuedType? = null,
 
-	val amount: Int? = 0,
+	val amount: Long? = 0,
 
-	val scheduleCount: Int? = 0,
+	val scheduleCount: Long? = 0,
 
-	val issuedCount: Int? = 0,
+	val issuedCount: Long? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val issuedAt: Date? = Date()

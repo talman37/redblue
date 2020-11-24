@@ -149,9 +149,9 @@ CREATE TABLE STOCK_HISTORY
     COMPANY_ID     VARCHAR(50) NOT NULL COMMENT '법인 아이디',
     STOCK_ID       VARCHAR(50) NOT NULL COMMENT '주식 아이디',
     TYPE           VARCHAR(50) NOT NULL COMMENT '이벤트 유형',
-    AMOUNT         INTEGER     NULL COMMENT '1주의 금액',
-    SCHEDULE_COUNT INTEGER     NULL COMMENT '발행할 주식의 총수',
-    ISSUED_COUNT   INTEGER     NULL COMMENT '발행주식의 총수',
+    AMOUNT         BIGINT     NULL COMMENT '1주의 금액',
+    SCHEDULE_COUNT BIGINT     NULL COMMENT '발행할 주식의 총수',
+    ISSUED_COUNT   BIGINT     NULL COMMENT '발행주식의 총수',
     ISSUED_AT      DATE        NULL COMMENT '이벤트 발생일',
     PRIMARY KEY (ID)
 );

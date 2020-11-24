@@ -13,33 +13,33 @@ data class Stock(
 
 	val companyId: String? = null,
 
-	val amount: Int? = 0,
+	val amount: Long? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val amountUpdatedAt: Date? = null,
 
-	val scheduleCount: Int? = 0,
+	val scheduleCount: Long? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val scheduleCountUpdatedAt: Date? = null,
 
-	val issuedCount: Int? = 0,
+	val issuedCount: Long? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val issuedCountUpdatedAt: Date? = null,
 
-	val normalCount: Int? = 0,
+	val normalCount: Long? = 0,
 
-	val firstCount: Int? = 0,
+	val firstCount: Long? = 0,
 
-	val capital: Int? = 0,
+	val capital: Long? = 0,
 
-	val noFaceValueCount: Int? = 0,
+	val noFaceValueCount: Long? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val noFaceValueUpdatedAt: Date? = null,
 
-	val noFaceValueCapitalAmount: Int? = 0,
+	val noFaceValueCapitalAmount: Long? = 0,
 
 	@Temporal(TemporalType.DATE)
 	val noFaceValueCapitalAmountUpdatedAt: Date? = null
