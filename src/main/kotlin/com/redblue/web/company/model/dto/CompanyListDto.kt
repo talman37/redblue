@@ -18,7 +18,9 @@ data class CompanyListDto(
 
 	val companyAddress: String? = null,
 
-	val expiredAt: Date? = null
+	val expiredAt: Date? = null,
+
+	val contactNumber: String? = "-"
 
 ) {
 
@@ -30,6 +32,18 @@ data class CompanyListDto(
 
 				val minExpiredAt = company.executives.map { it.expiredAt }.first()
 
+				val contact = if(company.contacts!!.isEmpty()) {
+					null
+				} else {
+					company.contacts.first()
+				}
+
+				val number = if(contact == null) {
+					"-"
+				} else {
+					"(${contact.type}) ${contact.value}"
+				}
+
 				list.add(CompanyListDto(
 					id = company.id,
 					lawFirmId = company.lawFirmId,
@@ -37,7 +51,8 @@ data class CompanyListDto(
 					registerNumber = company.registerNumber,
 					companyName = company.companyName,
 					companyAddress = company.companyAddress,
-					expiredAt = minExpiredAt
+					expiredAt = minExpiredAt,
+					contactNumber = number
 				))
 			}
 

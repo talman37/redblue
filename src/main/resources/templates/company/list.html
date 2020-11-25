@@ -146,7 +146,7 @@
                             <td th:text="${company.registerOffice}"></td>
                             <td th:text="${company.registerNumber}"></td>
                             <td th:text="${company.expiredAt}"></td>
-                            <td th:text="0100000000"></td>
+                            <td th:text="${company.contactNumber}"></td>
                             <td>
                                 <button type="button" class="btn btn-link p-0" data-toggle="modal" th:data-target="'#modal-executive-' + ${company.id}">
                                     이력보기
@@ -287,17 +287,7 @@
                                         <li class="page-item" th:if="${not (companiesPage.number + 1 eq pageNo)}">
                                             <a class="page-link" th:href="@{${'/company'}(page=${pageNo})}" th:text="${pageNo}"></a>
                                         </li>
-                                        <li class="page-item" th:if="${companiesPage.number + 10 < companiesPage.totalPages}">
-                                            <a class="page-link" href="#">
-                                                <span data-feather="more-horizontal"></span>
-                                            </a>
-                                        </li>
                                     </th:block>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">
-                                            <span data-feather="more-horizontal"></span>
-                                        </a>
-                                    </li>
                                     <li class="page-item" th:classappend="${companiesPage.number + 1 eq companiesPage.totalPages} ? 'disabled'">
                                         <a class="page-link" th:href="@{/company?page={id}(id=${companiesPage.number + 2})}">
                                             <i class="fas fa-angle-right"></i>
@@ -327,11 +317,19 @@
             });
 
             $('#excel-down-btn').on('click', function () {
-                location.href = '/v1/companies/download/corporations.xlsx'
+                let q = $('#q').val();
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+                let param = '?q='+ q +'&start=' + startDate+ '&end=' + endDate;
+                location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
             $('#pdf-down-btn').on('click', function () {
-                location.href = '/v1/companies/download/dm.pdf'
+                let q = $('#q').val();
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+                let param = '?q='+ q +'&start=' + startDate+ '&end=' + endDate;
+                location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
 
