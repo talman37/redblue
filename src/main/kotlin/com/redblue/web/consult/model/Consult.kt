@@ -20,6 +20,9 @@ data class Consult(
 	@Transient
 	val companyName: String? = null,
 
+	@Transient
+	val expiredAt: Date? = null,
+
 	val content: String,
 
 	val memo: String,
@@ -27,10 +30,10 @@ data class Consult(
 	@Enumerated(EnumType.STRING)
 	val progress: Progress,
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	val createdAt: Date = Date(),
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	val updatedAt: Date? = null
 
 ) {

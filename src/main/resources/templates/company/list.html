@@ -92,7 +92,8 @@
                             <div class="search-area search-compact">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색" th:value="${q}">
+                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색"
+                                               th:value="${q}">
                                     </div>
                                     <div class="col">
                                         <div class="input-group input-daterange">
@@ -101,9 +102,11 @@
                                                     임기만료일
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" id="startDate" name="start" th:value="${startDate}">
+                                            <input type="text" class="form-control" id="startDate" name="start"
+                                                   th:value="${startDate}">
                                             <div class="input-group-addon">~</div>
-                                            <input type="text" class="form-control" id="endDate" name="end" th:value="${endDate}">
+                                            <input type="text" class="form-control" id="endDate" name="end"
+                                                   th:value="${endDate}">
                                         </div>
                                     </div>
                                     <div class="col col-md-auto">
@@ -148,14 +151,16 @@
                             <td th:text="${company.expiredAt}"></td>
                             <td th:text="${company.contactNumber}"></td>
                             <td>
-                                <button type="button" class="btn btn-link p-0" data-toggle="modal" th:data-target="'#modal-executive-' + ${company.id}">
+                                <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                                        th:data-target="'#modal-executive-' + ${company.id}">
                                     이력보기
                                 </button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <div class="modal fade modal-executive" th:each="company: ${companies}" th:id="'modal-executive-' + ${company.id}">
+                    <div class="modal fade modal-executive" th:each="company: ${companies}"
+                         th:id="'modal-executive-' + ${company.id}">
                         <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -169,38 +174,40 @@
                                         <div class="card">
                                             <div class="card-header" id="headingOne">
                                                 <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne">
+                                                    <button class="btn btn-link btn-block text-left" type="button"
+                                                            data-toggle="collapse" data-target="#collapseOne">
                                                         법인 이력
                                                     </button>
                                                 </h2>
                                             </div>
 
-                                            <div id="collapseOne" class="collapse show" data-parent="#companyHistoryAccordion">
+                                            <div id="collapseOne" class="collapse show"
+                                                 data-parent="#companyHistoryAccordion">
                                                 <div class="card-body">
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
-                                                            <tr>
-                                                                <th>유형</th>
-                                                                <th>등기소</th>
-                                                                <th>등기번호</th>
-                                                                <th>법인등록번호</th>
-                                                                <th>상호</th>
-                                                                <th>법인관리상태</th>
-                                                                <th>법인상태</th>
-                                                                <th>변경일</th>
-                                                            </tr>
+                                                        <tr>
+                                                            <th>유형</th>
+                                                            <th>등기소</th>
+                                                            <th>등기번호</th>
+                                                            <th>법인등록번호</th>
+                                                            <th>상호</th>
+                                                            <th>법인관리상태</th>
+                                                            <th>법인상태</th>
+                                                            <th>변경일</th>
+                                                        </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -209,12 +216,15 @@
                                         <div class="card">
                                             <div class="card-header" id="headingTwo">
                                                 <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" >
+                                                    <button class="btn btn-link btn-block text-left collapsed"
+                                                            type="button" data-toggle="collapse"
+                                                            data-target="#collapseTwo">
                                                         업장 이력
                                                     </button>
                                                 </h2>
                                             </div>
-                                            <div id="collapseTwo" class="collapse" data-parent="#companyHistoryAccordion">
+                                            <div id="collapseTwo" class="collapse"
+                                                 data-parent="#companyHistoryAccordion">
                                                 <div class="card-body">
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
@@ -257,44 +267,88 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <span>Total :  <span class="text-primary" th:text="${totalCount}"></span></span>
-<!--                            <nav class="ml-3">-->
-<!--                                <ul class="pagination pagination-sm" th:each="pageNumber : ${pageNumbers}">-->
-<!--                                    <li class="page-item" th:if="${pageNumber != currentPage}">-->
-<!--                                        <a class="page-link" href="#" th:text="${pageNumber}"></a>-->
-<!--                                    </li>-->
+                            <span>Total :  <span class="text-primary" th:text="${companiesPage.totalElements}"></span></span>
+                            <!--                            <nav class="ml-3">-->
+                            <!--                                <ul class="pagination pagination-sm" th:each="pageNumber : ${pageNumbers}">-->
+                            <!--                                    <li class="page-item" th:if="${pageNumber != currentPage}">-->
+                            <!--                                        <a class="page-link" href="#" th:text="${pageNumber}"></a>-->
+                            <!--                                    </li>-->
 
-<!--                                    <li class="page-item active" aria-current="page" th:if="${pageNumber == currentPage}">-->
-<!--                                        <span class="page-link" th:text="${pageNumber}">-->
-<!--                                            <span class="sr-only">(current)</span>-->
-<!--                                        </span>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </nav>-->
-                            <nav class="ml-3" th:if="${companiesPage.totalPages gt 0}">
+                            <!--                                    <li class="page-item active" aria-current="page" th:if="${pageNumber == currentPage}">-->
+                            <!--                                        <span class="page-link" th:text="${pageNumber}">-->
+                            <!--                                            <span class="sr-only">(current)</span>-->
+                            <!--                                        </span>-->
+                            <!--                                    </li>-->
+                            <!--                                </ul>-->
+                            <!--                            </nav>-->
+                            <!--                            <nav class="ml-3" th:if="${companiesPage.totalPages gt 0}">-->
+                            <!--                                <ul class="pagination pagination-sm">-->
+                            <!--                                    <li class="page-item" th:classappend="${companiesPage.number eq 0} ? 'disabled'">-->
+                            <!--                                        <a class="page-link"-->
+                            <!--                                           th:href="@{/company?page={id}(id=${companiesPage.number lt 2 ? 1 : companiesPage.number})}">-->
+                            <!--                                            <i class="fas fa-angle-left"></i>-->
+                            <!--                                        </a>-->
+                            <!--                                    </li>-->
+                            <!--                                    <th:block-->
+                            <!--                                            th:each="pageNo : ${#numbers.sequence( companiesPage.number + 1, companiesPage.totalPages > 10 + companiesPage.number ? companiesPage.number + 10 : companiesPage.totalPages, 1)}">-->
+                            <!--                                        <li class="page-item active" aria-current="page"-->
+                            <!--                                            th:if="${companiesPage.number + 1 eq pageNo}">-->
+                            <!--                                            <span class="page-link" th:text="${pageNo}">-->
+                            <!--                                                <span class="sr-only">(current)</span>-->
+                            <!--                                            </span>-->
+                            <!--                                        </li>-->
+                            <!--                                        <li class="page-item" th:if="${not (companiesPage.number + 1 eq pageNo)}">-->
+                            <!--                                            <a class="page-link" th:href="@{${'/company'}(page=${pageNo})}"-->
+                            <!--                                               th:text="${pageNo}"></a>-->
+                            <!--                                        </li>-->
+                            <!--                                    </th:block>-->
+                            <!--                                    <li class="page-item"-->
+                            <!--                                        th:classappend="${companiesPage.number + 1 eq companiesPage.totalPages} ? 'disabled'">-->
+                            <!--                                        <a class="page-link"-->
+                            <!--                                           th:href="@{/company?page={id}(id=${companiesPage.number + 2})}">-->
+                            <!--                                            <i class="fas fa-angle-right"></i>-->
+                            <!--                                        </a>-->
+                            <!--                                    </li>-->
+                            <!--                                </ul>-->
+                            <!--                            </nav>-->
+
+
+                            <nav class="ml-3" th:with="start=${T(Math).floor(companiesPage.number/10)*10 + 1}, last=(${start + 9 < companiesPage.totalPages ? start + 9 : companiesPage.totalPages})">
+                                <th:block th:with="firstAddr=@{/company(page=1)}, prevAddr=@{/company(page=${companiesPage.number})}, nextAddr=@{/company(page=${companiesPage.number + 2})}, lastAddr=@{/company(page=${companiesPage.totalPages})}"/>
                                 <ul class="pagination pagination-sm">
-                                    <li class="page-item" th:classappend="${companiesPage.number eq 0} ? 'disabled'">
-                                        <a class="page-link" th:href="@{/company?page={id}(id=${companiesPage.number lt 2 ? 1 : companiesPage.number})}">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           th:href="${firstAddr}">
                                             <i class="fas fa-angle-left"></i>
                                         </a>
                                     </li>
-                                    <th:block th:each="pageNo : ${#numbers.sequence( companiesPage.number + 1, companiesPage.totalPages > 10 + companiesPage.number ? companiesPage.number + 10 : companiesPage.totalPages, 1)}">
-                                        <li class="page-item active" aria-current="page" th:if="${companiesPage.number + 1 eq pageNo}">
-                                            <span class="page-link" th:text="${pageNo}">
-                                                <span class="sr-only">(current)</span>
-                                            </span>
-                                        </li>
-                                        <li class="page-item" th:if="${not (companiesPage.number + 1 eq pageNo)}">
-                                            <a class="page-link" th:href="@{${'/company'}(page=${pageNo})}" th:text="${pageNo}"></a>
-                                        </li>
-                                    </th:block>
-                                    <li class="page-item" th:classappend="${companiesPage.number + 1 eq companiesPage.totalPages} ? 'disabled'">
-                                        <a class="page-link" th:href="@{/company?page={id}(id=${companiesPage.number + 2})}">
+
+                                    <li class="page-item" th:class="${companiesPage.first} ? 'disabled'">
+                                        <a class="page-link"
+                                           th:href="${companiesPage.first} ? '#' :${prevAddr}">
+                                            <i class="fas fa-angle-left"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:classappend="${page == companiesPage.number + 1} ? 'active'">
+                                        <a class="page-link" th:href="@{${'/company'}(page=${page})}"
+                                           th:text="${page}"></a>
+                                    </li>
+                                    <li class="page-item" th:class="${companiesPage.last} ? 'disabled'">
+                                        <a class="page-link"
+                                           th:href="${companiesPage.last} ? '#' :${nextAddr}">
+                                            <i class="fas fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           th:href="${lastAddr}">
                                             <i class="fas fa-angle-right"></i>
                                         </a>
                                     </li>
                                 </ul>
                             </nav>
+
                         </div>
                         <div>
                             <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
@@ -320,7 +374,7 @@
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
-                let param = '?q='+ q +'&start=' + startDate+ '&end=' + endDate;
+                let param = '?q=' + q + '&start=' + startDate + '&end=' + endDate;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
@@ -328,7 +382,7 @@
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
-                let param = '?q='+ q +'&start=' + startDate+ '&end=' + endDate;
+                let param = '?q=' + q + '&start=' + startDate + '&end=' + endDate;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 

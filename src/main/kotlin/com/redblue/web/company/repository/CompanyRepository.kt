@@ -4,13 +4,15 @@ import com.redblue.web.company.model.Company
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import java.util.*
 
-interface CompanyRepository: CompanyQueryDslRepository, JpaRepository<Company, String> {
+interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, String> {
 
 	fun countBylawFirmId(lawFirmId: String): Int
 
+	@Query("select c from Company c where c.lawFirmId = :lawFirmId and c.companyName like CONCAT('%',:companyName,'%')")
 	fun findByLawFirmIdAndCompanyName(lawFirmId: String, companyName: String): List<Company>
 
 }

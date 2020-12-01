@@ -27,7 +27,7 @@ class CompanyQueryDslRepositoryImpl(
 		val query = jpaQueryFactory
 			.select(qc)
 			.from(qc)
-			.join(qe).on(qc.id.eq(qe.companyId)).fetchJoin()
+			.leftJoin(qe).on(qc.id.eq(qe.companyId)).fetchJoin()
 		predicate.and(
 			qc.lawFirmId.eq(lawFirmId)
 		)
@@ -45,7 +45,7 @@ class CompanyQueryDslRepositoryImpl(
 		}
 
 		query.where(predicate)
-		val companies = querydsl?.applyPagination(pageable, query)?.fetch()?.distinct()
+		val companies = querydsl?.applyPagination(pageable, query)?.distinct()?.fetch()
 		return PageImpl(companies ?: emptyList(), pageable, query.distinct().fetchCount())
 	}
 

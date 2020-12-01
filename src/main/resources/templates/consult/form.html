@@ -34,12 +34,6 @@
                                         상담 관리
                                     </a>
                                 </li>
-<!--                                <li class="nav-item">-->
-<!--                                    <a class="nav-link " href="#">-->
-<!--                                        <i class="fas fa-gavel"></i>-->
-<!--                                        사건 관리-->
-<!--                                    </a>-->
-<!--                                </li>-->
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -76,11 +70,11 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="">법인담당자</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" th:value="${consultant}" name="consultant" th:readonly="true">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="">상태</label>
-                                    <select class="form-control" id="">
+                                    <select class="form-control" id="progress" name="progress">
                                         <option selected>진행중</option>
                                         <option value="1">진행완료</option>
                                         <option value="2">보류</option>
@@ -185,8 +179,6 @@
         language: "ko",
         todayHighlight: true
     });
-    // $('.input-daterange input').each(function() {
-    //     $(this).datepicker('clearDates');
-    // });
+
 </script>
 </html>

@@ -8,12 +8,6 @@
             <nav class="sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
-                        <!-- <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <i class="fas fa-home"></i>
-                                    Dashboard <span class="sr-only">(current)</span>
-                                </a>
-                            </li> -->
                         <li class="nav-item">
                             <p class="sidebar-heading">법인관리</p>
                             <ul class="nav flex-column">
@@ -165,12 +159,11 @@
                         </div>
                         <div class="search-status">
                             <div>
-                                <p><span>Total : </span><strong th:text="${#lists.size(consults)}"></strong>개</p>
+                                <p><span>Total : </span><strong th:text="${consults.totalElements}"></strong>개</p>
                             </div>
                         </div>
                         <table class="table table-bordered">
                             <colgroup>
-                                <col style="width: 50px">
                                 <col>
                                 <col style="width: 150px">
                                 <col>
@@ -181,7 +174,6 @@
                             </colgroup>
                             <thead class="thead-light">
                             <tr>
-                                <th>No</th>
                                 <th>법인명</th>
                                 <th>상담일시</th>
                                 <th>상담자</th>
@@ -192,20 +184,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="consult: ${consults}">
-                                <td>1</td>
+                            <tr th:each="consult: ${consults.content}">
                                 <td><a href="" th:text="${consult.companyName}"></a></td>
                                 <td th:text="${consult.createdAt}"></td>
                                 <td th:text="${consult.consultant}">@mdo</td>
                                 <td>
-                                    <div class="ellipsis" th:text="${consult.content}">
-                                        aaaa...
-                                    </div>
+                                    <div class="ellipsis" th:text="${consult.content}"></div>
                                 </td>
                                 <td>
-                                    <div class="ellipsis" th:text="${consult.memo}">
-                                        aaaa...
-                                    </div>
+                                    <div class="ellipsis" th:text="${consult.memo}"></div>
                                 </td>
                                 <td>2019-05-05</td>
                                 <td th:switch="${consult.progress}">
@@ -221,24 +208,42 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                                <nav>
+                                <nav th:with="start=${T(Math).floor(consults.number/10)*10 + 1}, last=(${start + 9 < consults.totalPages ? start + 9 : consults.totalPages})">
+                                    <th:block th:with="firstAddr=@{/consult(page=1)}, prevAddr=@{/consult(page=${consults.number})}, nextAddr=@{/consult(page=${consults.number + 2})}, lastAddr=@{/consult(page=${consults.totalPages})}"/>
                                     <ul class="pagination pagination-sm">
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active" aria-current="page">
-                                        <span class="page-link">
-                                            2
-                                            <span class="sr-only">(current)</span>
-                                        </span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
+                                            <a class="page-link"
+                                               th:href="${firstAddr}">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item" th:class="${consults.first} ? 'disabled'">
+                                            <a class="page-link"
+                                               th:href="${consults.first} ? '#' :${prevAddr}">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:classappend="${page == consults.number + 1} ? 'active'">
+                                            <a class="page-link" th:href="@{${'/consult'}(page=${page})}"
+                                               th:text="${page}"></a>
+                                        </li>
+                                        <li class="page-item" th:class="${consults.last} ? 'disabled'">
+                                            <a class="page-link"
+                                               th:href="${consults.last} ? '#' :${nextAddr}">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               th:href="${lastAddr}">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
                                         </li>
                                     </ul>
                                 </nav>
+
                             </div>
                         </div>
                     </div>

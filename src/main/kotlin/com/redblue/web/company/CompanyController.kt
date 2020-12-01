@@ -6,6 +6,7 @@ import com.redblue.web.company.service.CompanyService
 import com.redblue.web.consult.service.ConsultService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,7 +32,7 @@ class CompanyController(
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@CurrentUser user: LawFirmUser,
-		@RequestParam("page", required = false, defaultValue = "1") page: String
+		pageable: Pageable
 	): String {
 
 		val searchValue = searchValue?.let {
@@ -58,9 +59,7 @@ class CompanyController(
 			}
 		}
 
-		val pageSize = 50
-
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, PageRequest.of(Integer.valueOf(page) - 1, pageSize))
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, pageable)
 
 		model.addAttribute("companies", CompanyListDto.to(companies, start, end))
 		model.addAttribute("companiesPage", companies)
@@ -69,15 +68,6 @@ class CompanyController(
 		model.addAttribute("startDate", startDate)
 		model.addAttribute("endDate", endDate)
 		model.addAttribute("name", user.name)
-		model.addAttribute("currentPage", companies.number + 1)
-		val totalPages = companies.totalPages
-		if (totalPages > 0) {
-			val pageNumbers = IntStream.rangeClosed(1, totalPages)
-				.boxed()
-				.collect(Collectors.toList())
-			model.addAttribute("pageNumbers", pageNumbers)
-		}
-
 
 		return "/company/list"
 	}
