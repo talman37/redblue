@@ -1,9 +1,12 @@
 package com.redblue.web.consult.repository.impl
 
 import com.querydsl.core.BooleanBuilder
+import com.querydsl.core.types.ExpressionUtils
 import com.querydsl.core.types.Projections
+import com.querydsl.jpa.JPAExpressions
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.redblue.web.company.model.QCompany
+import com.redblue.web.company.model.QExecutive
 import com.redblue.web.consult.model.Consult
 import com.redblue.web.consult.model.QConsult
 import com.redblue.web.consult.repository.ConsultQueryDslRepository
@@ -21,6 +24,7 @@ class ConsultQueryDslRepositoryImpl(
 	override fun findByLawFirmId(lawFirmId: String, pageable: Pageable): Page<Consult> {
 		val qc = QConsult.consult
 		val qp = QCompany.company
+		val qe = QExecutive.executive
 		val predicate = BooleanBuilder()
 		val query = jpaQueryFactory
 			.select(
@@ -30,6 +34,8 @@ class ConsultQueryDslRepositoryImpl(
 					qc.lawFirmId,
 					qc.companyId,
 					qp.companyName,
+					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
+						.from(qe).where(qe.companyId.eq(qc.companyId)).limit(1), "expiredAt"),
 					qc.consultant,
 					qc.content,
 					qc.memo,

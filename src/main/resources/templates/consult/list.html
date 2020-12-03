@@ -194,7 +194,7 @@
                                 <td>
                                     <div class="ellipsis" th:text="${consult.memo}"></div>
                                 </td>
-                                <td>2019-05-05</td>
+                                <td th:text="${consult.expiredAt}"></td>
                                 <td th:switch="${consult.progress}">
                                     <span th:case="${consult.progress.CANCEL}" class="badge badge-pill badge-danger">취소</span>
                                     <span th:case="${consult.progress.ONGOING}" class="badge badge-pill badge-primary">진행중</span>
