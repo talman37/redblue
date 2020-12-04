@@ -15,13 +15,14 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 class ConsultQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
 ) : ConsultQueryDslRepository, QuerydslRepositorySupport(Consult::class.java) {
 
-	override fun findByLawFirmId(lawFirmId: String, pageable: Pageable): Page<Consult> {
+	override fun findByLawFirmId(lawFirmId: String, searchValue:String?, startDate: Date?, endDate: Date?, progress: List<Consult.Progress>?, pageable: Pageable): Page<Consult> {
 		val qc = QConsult.consult
 		val qp = QCompany.company
 		val qe = QExecutive.executive
@@ -49,6 +50,19 @@ class ConsultQueryDslRepositoryImpl(
 			.orderBy(qc.createdAt.desc())
 
 		predicate.and(qc.lawFirmId.eq(lawFirmId))
+
+		searchValue?.let {
+			predicate.and(qp.companyName.likeIgnoreCase("%$it%"))
+		}
+
+		startDate?.let {
+			predicate.and(qe.expiredAt.between(it, endDate))
+		}
+
+		progress?.let {
+			predicate.and(qc.progress.`in`(it))
+		}
+
 		query.where(predicate)
 		val consults = querydsl?.applyPagination(pageable, query)?.fetch()
 		return PageImpl(consults ?: emptyList(), pageable, query.fetchCount())
