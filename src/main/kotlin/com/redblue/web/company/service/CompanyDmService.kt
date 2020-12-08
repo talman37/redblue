@@ -26,6 +26,10 @@ class CompanyDmService {
 		for (company in companies) {
 			val outputStream = ByteArrayOutputStream()
 			val renderer = ITextRenderer()
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumMyeongjo-Regular.ttf").url.toString(),
+					BaseFont.IDENTITY_H,
+					BaseFont.EMBEDDED
+			)
 			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumBarunGothic.ttf").url.toString(),
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
