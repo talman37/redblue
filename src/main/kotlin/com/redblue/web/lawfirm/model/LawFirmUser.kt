@@ -25,7 +25,10 @@ data class LawFirmUser(
 	val lawFirmUserRegisterOffice: List<LawFirmUserRegisterOffice>? = emptyList(),
 
 	@Temporal(TemporalType.DATE)
-	val createdAt: Date
+	val createdAt: Date,
+
+	@Transient
+	var lawFirm: LawFirm
 
 ) {
 	enum class Role {

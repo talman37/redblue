@@ -1,5 +1,6 @@
 package com.redblue.security.core.userdetails
 
+import com.redblue.web.lawfirm.model.LawFirm
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority

@@ -2,6 +2,7 @@ package com.redblue.web.lawfirm.service
 
 import com.redblue.security.core.userdetails.SecurityUser
 import com.redblue.web.lawfirm.model.LawFirmUser
+import com.redblue.web.lawfirm.repository.LawFirmRepository
 import com.redblue.web.lawfirm.repository.LawFirmUserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service
 @Service
 class LawFirmUserService(
 	private val lawFirmUserRepository: LawFirmUserRepository,
+	private val lawFirmRepository: LawFirmRepository,
 	private val passwordEncoder: PasswordEncoder
 ): UserDetailsService {
 
@@ -27,6 +29,8 @@ class LawFirmUserService(
 
 	override fun loadUserByUsername(username: String): UserDetails {
 		val lawFirmUser = lawFirmUserRepository.findByEmail(username) ?: throw UsernameNotFoundException("Not exist User.")
+		val lawFirm = lawFirmRepository.findById(lawFirmUser.lawFirmId).get()
+		lawFirmUser.lawFirm = lawFirm
 		return SecurityUser(lawFirmUser)
 	}
 }

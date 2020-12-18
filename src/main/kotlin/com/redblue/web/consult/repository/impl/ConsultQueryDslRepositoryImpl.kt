@@ -60,7 +60,9 @@ class ConsultQueryDslRepositoryImpl(
 		}
 
 		progress?.let {
-			predicate.and(qc.progress.`in`(it))
+			if(progress.isNotEmpty()) {
+				predicate.and(qc.progress.`in`(it))
+			}
 		}
 
 		query.where(predicate)

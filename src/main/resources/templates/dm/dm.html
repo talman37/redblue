@@ -294,20 +294,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>대표이사</td>
-                                        <td>최철규</td>
-                                        <td>2018년 08년 08일</td>
-                                    </tr>
-                                    <tr>
-                                        <td>대표이사</td>
-                                        <td>최철규</td>
-                                        <td>2018년 08년 08일</td>
-                                    </tr>
-                                    <tr>
-                                        <td>대표이사</td>
-                                        <td>최철규</td>
-                                        <td>2018년 08년 08일</td>
+                                    <tr th:each="executive: ${executives}">
+                                        <td th:text="${executive.position}"></td>
+                                        <td th:text="${executive.name}"></td>
+                                        <td th:text="${#dates.format(executive.expiredAt, 'yyyy년 MM월 dd일')}">2018년 08년 08일</td>
                                     </tr>
                                     </tbody>
                                 </table>

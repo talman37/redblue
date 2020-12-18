@@ -12,7 +12,17 @@ data class LawFirm(
 
 	val name: String,
 
+	val address: String,
+
+	val postal_code: String,
+
+	val tel: String,
+
+	val fax: String,
+
 	val description: String,
+
+	val etc: String,
 
 	@Temporal(TemporalType.DATE)
 	val createdAt: Date

@@ -6,6 +6,7 @@ import com.lowagie.text.pdf.PdfImportedPage
 import com.lowagie.text.pdf.PdfReader
 import com.lowagie.text.pdf.PdfWriter
 import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.Executive
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
@@ -34,7 +35,7 @@ class CompanyDmService {
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
 			)
-			renderer.setDocumentFromString(this.parseThymeleafTemplate())
+			renderer.setDocumentFromString(this.parseThymeleafTemplate(company.executives))
 			renderer.layout()
 			renderer.createPDF(outputStream)
 			outputStream.close()
@@ -72,7 +73,7 @@ class CompanyDmService {
 		return ByteArrayInputStream(out.toByteArray())
 	}
 
-	private fun parseThymeleafTemplate(): String {
+	private fun parseThymeleafTemplate(executives: List<Executive>): String {
 		val templateResolver = ClassLoaderTemplateResolver()
 		templateResolver.suffix = ".html";
 		templateResolver.templateMode = TemplateMode.HTML;
@@ -82,6 +83,7 @@ class CompanyDmService {
 
 		val context = Context()
 		context.setVariable("to", "Baeldung")
+		context.setVariable("executives", executives)
 		templateEngine.clearTemplateCache()
 		return templateEngine.process("templates/dm/dm", context)
 	}

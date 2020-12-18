@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.redblue"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1.SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -37,7 +37,6 @@ dependencies {
 
     implementation("com.querydsl:querydsl-jpa:4.2.1")
     implementation("com.h2database:h2")
-    implementation ("org.flywaydb:flyway-core")
 
     implementation("org.apache.poi:poi-ooxml:3.16")
     implementation("org.apache.poi:poi:3.16")
