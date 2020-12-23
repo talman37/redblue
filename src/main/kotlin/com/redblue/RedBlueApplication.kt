@@ -14,14 +14,14 @@ class RedBlueApplication
 fun main(args: Array<String>) {
     runApplication<RedBlueApplication>(*args)
 }
-
-@Configuration
-@Profile("local")
-class LocalConfig {
-
-    @Bean(initMethod = "start", destroyMethod = "stop")
-    fun h2Server(): Server {
-        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092")
-    }
-
-}
+//
+//@Configuration
+//@Profile("local")
+//class LocalConfig {
+//
+//    @Bean(initMethod = "start", destroyMethod = "stop")
+//    fun h2Server(): Server {
+//        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092")
+//    }
+//
+//}

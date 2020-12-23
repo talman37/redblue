@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/main_layout">
 <th:block layout:fragment="content_body">
     <!-- container -->
     <div class="container-fluid">
@@ -725,7 +725,6 @@
     </div>
     <!-- //container -->
 
-    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" th:src="@{/static/js/serializejson.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/jquery.tmpl.min.js}"></script>

@@ -21,7 +21,7 @@ data class LawFirmUser(
 	@Enumerated(EnumType.STRING)
 	var role: Role,
 
-	@OneToMany(mappedBy = "id.userId")
+	@OneToMany(mappedBy = "id.userId", fetch = FetchType.EAGER)
 	val lawFirmUserRegisterOffice: List<LawFirmUserRegisterOffice>? = emptyList(),
 
 	@Temporal(TemporalType.DATE)
