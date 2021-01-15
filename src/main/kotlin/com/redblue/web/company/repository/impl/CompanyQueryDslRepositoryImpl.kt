@@ -1,6 +1,9 @@
 package com.redblue.web.company.repository.impl
 
 import com.querydsl.core.BooleanBuilder
+import com.querydsl.core.types.ExpressionUtils
+import com.querydsl.core.types.Projections
+import com.querydsl.jpa.JPAExpressions
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.QCompany
@@ -17,7 +20,7 @@ import kotlin.math.min
 @Repository
 class CompanyQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
-): CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
+) : CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
 
 	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company> {
 		val qc = QCompany.company
@@ -25,7 +28,13 @@ class CompanyQueryDslRepositoryImpl(
 		val predicate = BooleanBuilder()
 
 		val query = jpaQueryFactory
-			.select(qc)
+			.select(
+				Projections.fields(
+					qc,
+					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
+						.from(qe).where(qe.companyId.eq(qc.id)).limit(1), "expiredAt")
+				)
+			)
 			.from(qc)
 			.leftJoin(qe).on(qc.id.eq(qe.companyId)).fetchJoin()
 		predicate.and(
