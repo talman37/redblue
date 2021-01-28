@@ -650,4 +650,11 @@ h5 {
     background: initial;
     page-break-after: always; } }
 
+
+.popup {
+  padding: 20px;
+}
+.popup .control {
+  padding: 10px 0;
+}
 /*# sourceMappingURL=maps/custom.css.map */
