@@ -233,22 +233,22 @@
         <td class="td-top">
             <div class="top">
                 <div class="sender">
-                    <p class="name">법무사이상훈사무소</p>
-                    <p class="address">용인시 기흥구 구갈로 60번길 19, 302호(구갈동, 금강프라자)</p>
+                    <p class="name" th:text="${lawFirm.name}"></p>
+                    <p class="address" th:text="${lawFirm.address}"></p>
                     <ul>
                         <li>
                             <span>TEL :</span>
-                            <strong>(대표) 895-4522</strong>
+                            <strong th:text="|(대표) , ${lawFirm.tel}|"></strong>
                         </li>
                         <li>
                             <span>FAX :</span>
-                            <strong>895-4523</strong>
+                            <strong th:text="${lawFirm.fax}"></strong>
                         </li>
                     </ul>
                     <ul>
                         <li>
                             <span>우)</span>
-                            <strong>16972</strong>
+                            <strong th:text="${lawFirm.postalCode}"></strong>
                         </li>
                         <li>
                             <span>문서번호 :</span>
@@ -279,7 +279,7 @@
                         <li>
                             임기만료안내
                             <div>
-                                <p>안녕하십니까. 기흥구청 앞에 있는 <span>이상훈</span>법무사입니다.</p>
+                                <p>안녕하십니까. <span th:text="${lawFirm.representative}"></span>법무사입니다.</p>
                                 <p><strong>이번에 아래와 같이 귀사의 임원임기가 만료되었음을 안내해 드리오니, 연락주시면 귀사를 직접 방문하여 성심성의껏 업무처리를
                                     도와드리겠습니다.</strong></p>
                             </div>
@@ -297,7 +297,7 @@
                                     <tr th:each="executive: ${executives}">
                                         <td th:text="${executive.position}"></td>
                                         <td th:text="${executive.name}"></td>
-                                        <td th:text="${#dates.format(executive.expiredAt, 'yyyy년 MM월 dd일')}">2018년 08년 08일</td>
+                                        <td th:text="${#dates.format(executive.expiredAt, 'yyyy년 MM월 dd일')}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -326,8 +326,8 @@
         <td class="td-bottom">
             <div class="bottom">
                 <div>
-                    <p class="name">법무사 이상훈 사무소</p>
-                    <p class="contact">문의전화 : (대표)895-4522 팩스:895-4523 [기흥구청 앞]</p>
+                    <p class="name" th:text="${lawFirm.description}"></p>
+                    <p class="contact" th:text="${lawFirm.etc}"></p>
                 </div>
                 <p class="desc">"법인등기 이외에도 귀사의 채권채무문제, 가압류 가처분 및 부동산취득 등 각종 법률문제에 대해서도 문의하시면 정성과 책임을 다해 상담하여 드리겠습니다."
                 </p>

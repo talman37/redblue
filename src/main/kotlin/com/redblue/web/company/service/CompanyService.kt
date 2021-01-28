@@ -2,6 +2,7 @@ package com.redblue.web.company.service
 
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.Contact
+import com.redblue.web.company.model.Executive
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
 import org.springframework.data.domain.Page
@@ -11,6 +12,8 @@ import java.util.*
 interface CompanyService {
 
 	fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company>
+
+	fun findExecutivesByCompanyId(companyId: String): List<Executive>
 
 	fun count(lawFirmId: String): Int
 

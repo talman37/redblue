@@ -29,31 +29,6 @@ data class CompanyListDto(
 		fun to(companies: Page<Company>, startDate: Date?, endDate: Date?): List<CompanyListDto> {
 			var list = mutableListOf<CompanyListDto>()
 			for (company in companies.content) {
-
-//				val minExpiredAt = company.executives.map { it.expiredAt }.first()
-//
-//				val contact = if(company.contacts!!.isEmpty()) {
-//					null
-//				} else {
-//					company.contacts.first()
-//				}
-//
-//				val number = if(contact == null) {
-//					"-"
-//				} else {
-//					"(${contact.type}) ${contact.value}"
-//				}
-//
-//				list.add(CompanyListDto(
-//					id = company.id,
-//					lawFirmId = company.lawFirmId,
-//					registerOffice = company.registerOffice,
-//					registerNumber = company.registerNumber,
-//					companyName = company.companyName,
-//					companyAddress = company.companyAddress,
-//					expiredAt = minExpiredAt,
-//					contactNumber = number
-//				))
 				list.add(CompanyListDto(
 					id = company.id,
 					lawFirmId = company.lawFirmId,

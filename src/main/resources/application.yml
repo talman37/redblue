@@ -41,10 +41,5 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.enable_lazy_load_no_trans: true
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: true
   thymeleaf:
     cache: false

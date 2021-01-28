@@ -14,7 +14,7 @@ data class LawFirm(
 
 	val address: String,
 
-	val postal_code: String,
+	val postalCode: String,
 
 	val tel: String,
 
@@ -25,6 +25,8 @@ data class LawFirm(
 	val etc: String,
 
 	@Temporal(TemporalType.DATE)
-	val createdAt: Date
+	val createdAt: Date,
+
+	val representative: String
 
 )

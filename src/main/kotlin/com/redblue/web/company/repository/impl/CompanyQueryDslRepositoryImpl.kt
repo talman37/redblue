@@ -31,6 +31,14 @@ class CompanyQueryDslRepositoryImpl(
 			.select(
 				Projections.fields(
 					qc,
+					qc.id,
+					qc.lawFirmId,
+					qc.registerOffice,
+					qc.registerNumber,
+					qc.companyName,
+					qc.companyAddress,
+					qc.deliveryPlacePostalCode,
+					qc.deliveryPlace,
 					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
 						.from(qe).where(qe.companyId.eq(qc.id)).limit(1), "expiredAt")
 				)

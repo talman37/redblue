@@ -183,7 +183,7 @@ class CompanyRestController(
 		val pageSize = 100
 
 		val companies = companyService.list(user.lawFirmId, searchValue, start, end, PageRequest.of(Integer.valueOf(page) - 1, pageSize))
-		val resource = companyDmService.generate(companies.content)
+		val resource = companyDmService.generate(companies.content, user)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=dm.pdf")
 

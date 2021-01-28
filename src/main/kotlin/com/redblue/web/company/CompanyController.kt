@@ -79,7 +79,7 @@ class CompanyController(
 		@CurrentUser user: LawFirmUser
 	): String {
 		val company = companyService.detail(id)
-		model.addAttribute("company", company.copy(executives = company.executives))
+		model.addAttribute("company", company)
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		model.addAttribute("consults", consultService.findByCompanyId(id))
 		return "/company/detail"

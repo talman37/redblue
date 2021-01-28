@@ -14,6 +14,7 @@ import java.util.*
 @Service
 class CompanyServiceImpl(
 	private val companyRepository: CompanyRepository,
+	private val executiveRepository: ExecutiveRepository,
 	private val stockRepository: StockRepository,
 	private val stockholderRepository: StockholderRepository,
 	private val contactRepository: ContactRepository,
@@ -26,6 +27,10 @@ class CompanyServiceImpl(
 		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, pageable)
 	}
 
+	override fun findExecutivesByCompanyId(companyId: String): List<Executive> {
+		return executiveRepository.findByCompanyIdOrderByExpiredAt(companyId)
+	}
+
 	override fun count(lawFirmId: String): Int {
 		return companyRepository.countBylawFirmId(lawFirmId)
 	}
@@ -36,6 +41,7 @@ class CompanyServiceImpl(
 
 	override fun detail(id: String): Company {
 		val company = companyRepository.findById(id).get()
+		company.executives = executiveRepository.findByCompanyIdOrderByExpiredAt(id)
 		company.stock = stockRepository.findByCompanyId(id)
 		company.stockholders = stockholderRepository.findByCompanyId(id)
 		return company

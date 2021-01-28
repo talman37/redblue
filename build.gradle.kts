@@ -23,7 +23,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
@@ -42,6 +41,9 @@ dependencies {
     implementation("org.apache.poi:poi:3.16")
 
     implementation("org.xhtmlrenderer:flying-saucer-pdf:9.1.20")
+
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 
     runtimeOnly("mysql:mysql-connector-java")
