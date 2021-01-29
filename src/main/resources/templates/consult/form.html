@@ -1,184 +1,159 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/main_layout">
-    <th:block layout:fragment="content_body">
-        <!-- container -->
-        <div class="container-fluid">
-            <!-- sidebar -->
-            <nav class="sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <p class="sidebar-heading">법인관리</p>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/company">
-                                        <i class="fas fa-search"></i>
-                                        법인 검색
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="/company/add">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        법인 등록
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <p class="sidebar-heading">상담 관리</p>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="/consult">
-                                        <i class="fas fa-comment-alt"></i>
-                                        상담 관리
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <p class="sidebar-heading">DM 관리</p>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <i class="fas fa-envelope-open-text"></i>
-                                        DM 관리
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <!-- //sidebar -->
+<th:block layout:fragment="content_body">
+    <!-- container -->
+    <div class="container-fluid">
+        <!-- sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <p class="sidebar-heading">법인관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/company">
+                                    <i class="fas fa-search"></i>
+                                    법인 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/company/add">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    법인 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">상담 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/consult">
+                                    <i class="fas fa-comment-alt"></i>
+                                    상담 관리
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">DM 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                    DM 관리
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //sidebar -->
 
-            <!-- contents -->
-            <main role="main" class="main">
-                <div class="page-header">
-                    <div>
-                        <h1>상담 등록</h1>
-                    </div>
+        <!-- contents -->
+        <main role="main" class="main">
+            <div class="page-header">
+                <div>
+                    <h1>상담 등록</h1>
                 </div>
-                <div class="card">
+            </div>
+            <div class="card">
 
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="">상담자</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="">법인담당자</label>
-                                    <input type="text" class="form-control" th:value="${consultant}" name="consultant" th:readonly="true">
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="">상태</label>
-                                    <select class="form-control" id="progress" name="progress">
-                                        <option selected>진행중</option>
-                                        <option value="1">진행완료</option>
-                                        <option value="2">보류</option>
-                                        <option value="">취소</option>
-                                    </select>
-                                </div>
+                <div class="card-body">
+                    <form th:id="consult-form" th:name="consult" th:action="@{/consult/add}" method="post">
+                        <input type="hidden" name="lawFirmId" th:value="${lawFirmId}"/>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="consultant">상담자</label>
+                                <input type="text" class="form-control" th:value="${consultant}" id="consultant"
+                                       name="consultant" th:readonly="true">
                             </div>
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="">법인 검색</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="search_value">
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" id="search_btn"
-                                                    data-target="#modal-company">
-                                                검색
-                                            </button>
-                                        </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="companyClerk">법인담당자</label>
+                                <input type="text" class="form-control" id="companyClerk" name="companyClerk">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="progress">상태</label>
+                                <select class="form-control" id="progress" name="progress">
+                                    <option selected value="ONGOING">진행중</option>
+                                    <option value="COMPLETE">진행완료</option>
+                                    <option value="HOLD">보류</option>
+                                    <option value="CANCEL">취소</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="companyName">법인 검색</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="companyName" name="companyName"th:readonly="true">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary" id="search_btn">
+                                            검색
+                                        </button>
                                     </div>
-                                    <div class="modal fade modal-company" id="modal-company">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">법인 검색</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="list-group">
-<!--                                                        <button type="button" class="list-group-item list-group-item-action"-->
-<!--                                                                th:each="favoriteOffice: ${favoriteOffices}"-->
-<!--                                                                th:id="${favoriteOffice.id.registerOfficeId}"-->
-<!--                                                                name="favoriteOffice" th:value="${favoriteOffice.name}"-->
-<!--                                                                th:text="${favoriteOffice.name}"-->
-<!--                                                                data-dismiss="modal"></button>-->
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="">임기만료일</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="">메모</label>
-                                    <input type="text" class="form-control">
+                                    <input type="hidden" id="companyId" name="companyId"/>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="">상담 내용</label>
-                                    <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
-                                </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="expiredAt">임기만료일</label>
+                                <input type="text" class="form-control" id="expiredAt">
                             </div>
-                        </form>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-center">
-                            <div>
-                                <button type="submit" class="btn btn-dark">등록</button>
+                            <div class="col-md-4 mb-3">
+                                <label for="memo">메모</label>
+                                <input type="text" class="form-control" id="memo" name="memo">
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="content">상담 내용</label>
+                                <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <button type="button" id="save_btn" class="btn btn-dark">등록</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-            </main>
-            <!-- //contents -->
+        </main>
+        <!-- //contents -->
 
-        </div>
-        <!-- //container -->
-    </th:block>
-<script>
-    $(document).ready(function () {
-        $('#search-btn').on('click', function () {
-            if($('#search_value').val() == '' || $('#search_value').val() == null) {
-                alert('법인명을 입력해 주세요.');
-                return false;
-            }
-            $.ajax({
-                type: 'GET',
-                url: '/v1/companies?' + $('#search_value').val(),
-                contentType: 'application/json',
-                success: function (res) {
-                    console.log(res);
+    </div>
+    <!-- //container -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#search_btn').on('click', function () {
+                window.open('/company_search', '법인검색', 'width=700px,height=800px,scrollbars=yes');
+            });
+            $('#save_btn').on('click', function () {
+                if($('#companyName').val() == '' || $('#companyName').val() == null) {
+                    alert('법인명을 검색해주세요.');
+                    return false;
                 }
-            })
+
+                if($('#content').val() == '' || $('#content').val() == null) {
+                    alert('상담내용을 입력해주세요.');
+                    return false;
+                }
+                $('#consult-form').submit();
+            });
 
         });
-    };
 
 
-    $('.input-daterange').datepicker({
-        language: "ko",
-        todayHighlight: true
-    });
-
-</script>
+        $('.input-daterange').datepicker({
+            language: "ko",
+            todayHighlight: true
+        });
+    </script>
+</th:block>
 </html>

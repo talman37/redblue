@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <!-- https://fontawesome.com/cheatsheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link th:href="@{/static/css/custom.css}" rel="stylesheet"/>
+
+    <title>RedBlue</title>
+</head>
+<body>
+<div class="popup">
+    <form id="searchForm" name="searchForm" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control" name="name" placeholder="법인명" th:value="${name}">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-sm btn-dark" id="search-btn">검색</button>
+            </div>
+        </div>
+    </form>
+    <div class="control">
+        <strong>Total</strong>
+        <span th:text="${#lists.size(companies)}"></span>
+    </div>
+    <table class="table table-bordered">
+        <colgroup>
+            <col style="width: 200px">
+            <col>
+            <col style="width: 150px">
+            <col style="width: 100px">
+        </colgroup>
+        <thead class="thead-light">
+        <tr>
+            <th>법인명</th>
+            <th>주소</th>
+            <th>임기만료일</th>
+            <th>적용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(companies)}">
+            <td colspan="4" class="text-center">검색 결과가 없습니다.</td>
+        </tr>
+        <tr th:if="${!#lists.isEmpty(companies)}" th:each="company: ${companies}">
+            <td th:text="${company.companyName}"></td>
+            <td th:text="${company.companyAddress}"></td>
+            <td th:text="${#dates.format(company.expiredAt, 'yyyy년 MM월 dd일')}"></td>
+            <td>
+                <button type="button" class="btn btn-dark btn-sm" name="select_btn" th:value="${company.companyName}"
+                        th:attr="data-id=${company.id}, data-expired=${#dates.format(company.expiredAt, 'yyyy-MM-dd')}" th:text="선택">
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $("button[name='select_btn']").on('click', function () {
+            $("#companyId", opener.document).val($(this).data('id'));
+            $("#companyName", opener.document).val($(this).val());
+            $("#expiredAt", opener.document).val($(this).data('expired'));
+            window.close();
+        });
+    });
+</script>
+</body>
+</html>

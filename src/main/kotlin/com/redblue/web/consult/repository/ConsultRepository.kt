@@ -17,4 +17,6 @@ interface ConsultQueryDslRepository {
 
 	fun findByLawFirmId(lawFirmId: String, searchValue:String?, startDate: Date?, endDate: Date?, progress: List<Consult.Progress>?, pageable: Pageable): Page<Consult>
 
+	fun details(id: String): Consult
+
 }

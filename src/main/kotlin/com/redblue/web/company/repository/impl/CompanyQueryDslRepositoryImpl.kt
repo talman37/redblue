@@ -80,4 +80,36 @@ class CompanyQueryDslRepositoryImpl(
 		return query.fetchFirst()
 
 	}
+
+	override fun findByLawFirmIdAndCompanyName(lawFirmId: String, companyName: String): List<Company> {
+		val qc = QCompany.company
+		val qe = QExecutive.executive
+		val predicate = BooleanBuilder()
+
+		val query = jpaQueryFactory
+			.select(
+				Projections.fields(
+					qc,
+					qc.id,
+					qc.lawFirmId,
+					qc.registerOffice,
+					qc.registerNumber,
+					qc.companyName,
+					qc.companyAddress,
+					qc.deliveryPlacePostalCode,
+					qc.deliveryPlace,
+					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
+						.from(qe).where(qe.companyId.eq(qc.id)).limit(1), "expiredAt")
+				)
+			)
+			.from(qc)
+			.leftJoin(qe).on(qc.id.eq(qe.companyId)).fetchJoin()
+		predicate.and(
+			qc.lawFirmId.eq(lawFirmId)
+		)
+		predicate.and(qc.companyName.likeIgnoreCase("%$companyName%"))
+
+		query.where(predicate)
+		return query.distinct().fetch()
+	}
 }

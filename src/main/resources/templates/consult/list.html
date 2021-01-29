@@ -76,7 +76,7 @@
                             <div class="search-area">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" name="q" placeholder="상담검색">
+                                        <input type="text" class="form-control" name="q" placeholder="법인명 / 상담자">
                                     </div>
                                     <div class="col">
                                         <div class="input-group input-daterange">
@@ -153,13 +153,13 @@
                     </div>
                     <table class="table table-bordered">
                         <colgroup>
+                            <col style="width: 200px">
+                            <col style="width: 200px">
+                            <col style="width: 100px">
                             <col>
+                            <col style="width: 100px">
                             <col style="width: 150px">
-                            <col>
-                            <col>
-                            <col>
-                            <col style="width: 150px">
-                            <col>
+                            <col style="width: 100px">
                         </colgroup>
                         <thead class="thead-light">
                         <tr>
@@ -174,8 +174,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="consult: ${consults.content}">
-                            <td><a href="" th:text="${consult.companyName}"></a></td>
-                            <td th:text="${consult.createdAt}"></td>
+                            <td><a th:href="'/consult/' + ${consult.id} + '/edit'" th:text="${consult.companyName}"></a></td>
+                            <td th:text="${#dates.format(consult.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${consult.consultant}">@mdo</td>
                             <td>
                                 <div class="ellipsis" th:text="${consult.content}"></div>

@@ -7,17 +7,15 @@ import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Controller
 @RequestMapping("/consult")
 class ConsultController(
 	private val consultService: ConsultService
 ) {
-
 
 	@GetMapping
 	fun list(
@@ -66,7 +64,37 @@ class ConsultController(
 		@CurrentUser user: LawFirmUser
 	): String {
 		model.addAttribute("consultant", user.name)
+		model.addAttribute("lawFirmId", user.lawFirmId)
 		return "/consult/form"
+	}
+
+	@GetMapping("/{id}/edit")
+	fun detail(
+		@PathVariable("id") id: String,
+		model: Model
+	): String {
+		model.addAttribute("consult", consultService.detail(id))
+		return "/consult/detail"
+	}
+
+	@PostMapping("/add")
+	fun save(
+		@ModelAttribute consult: Consult,
+		@CurrentUser user: LawFirmUser
+	): String {
+		consultService.save(consult)
+		return "redirect:/consult"
+	}
+
+	@PostMapping("/{id}/edit")
+	fun detail(
+		@PathVariable("id") id: String,
+		@ModelAttribute consult: Consult,
+		model: Model
+	): String {
+		consult.updatedAt = Date()
+		consultService.save(consult)
+		return "redirect:/consult"
 	}
 
 }

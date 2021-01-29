@@ -20,4 +20,12 @@ class ConsultServiceImpl(
 	override fun findByCompanyId(companyId: String): List<Consult> {
 		return consultRepository.findByCompanyId(companyId)
 	}
+
+	override fun detail(id: String): Consult {
+		return consultRepository.details(id)
+	}
+
+	override fun save(consult: Consult) {
+		consultRepository.save(consult)
+	}
 }

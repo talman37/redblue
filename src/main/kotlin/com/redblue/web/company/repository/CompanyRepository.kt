@@ -12,14 +12,13 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 	fun countBylawFirmId(lawFirmId: String): Int
 
-	@Query("select c from Company c where c.lawFirmId = :lawFirmId and c.companyName like CONCAT('%',:companyName,'%')")
-	fun findByLawFirmIdAndCompanyName(lawFirmId: String, companyName: String): List<Company>
-
 }
 
 interface CompanyQueryDslRepository {
 
 	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company>
+
+	fun findByLawFirmIdAndCompanyName(lawFirmId: String, companyName: String): List<Company>
 
 	fun search(lawFirmId: String, q: String): Company
 

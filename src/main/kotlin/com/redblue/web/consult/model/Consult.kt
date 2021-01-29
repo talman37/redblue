@@ -17,6 +17,8 @@ data class Consult(
 
 	val consultant: String,
 
+	val companyClerk: String? = null,
+
 	@Transient
 	val companyName: String? = null,
 
@@ -34,7 +36,7 @@ data class Consult(
 	val createdAt: Date = Date(),
 
 	@Temporal(TemporalType.TIMESTAMP)
-	val updatedAt: Date? = null
+	var updatedAt: Date? = null
 
 ) {
 	enum class Progress(val keyword: String) {

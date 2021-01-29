@@ -69,4 +69,37 @@ class ConsultQueryDslRepositoryImpl(
 		val consults = querydsl?.applyPagination(pageable, query)?.fetch()
 		return PageImpl(consults ?: emptyList(), pageable, query.fetchCount())
 	}
+
+	override fun details(id: String): Consult {
+		val qc = QConsult.consult
+		val qp = QCompany.company
+		val qe = QExecutive.executive
+		val predicate = BooleanBuilder()
+		val query = jpaQueryFactory
+			.select(
+				Projections.fields(
+					qc,
+					qc.id,
+					qc.lawFirmId,
+					qc.companyId,
+					qp.companyName,
+					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
+						.from(qe).where(qe.companyId.eq(qc.companyId)).limit(1), "expiredAt"),
+					qc.consultant,
+					qc.content,
+					qc.memo,
+					qc.progress,
+					qc.updatedAt,
+					qc.createdAt
+				)
+			)
+			.from(qc)
+			.innerJoin(qp).on(qc.companyId.eq(qp.id))
+			.orderBy(qc.createdAt.desc())
+
+		predicate.and(qc.id.eq(id))
+		query.where(predicate)
+
+		return query.distinct().fetch().first()
+	}
 }

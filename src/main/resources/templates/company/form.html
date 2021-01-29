@@ -82,9 +82,9 @@
                         </h4>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">법인등록번호</label>
+                                <label for="companyNumber1">법인등록번호</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="companyNumber1">
+                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1">
                                     <div class="input-group-addon">
                                         <span class="input-group-text">-</span>
                                     </div>
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">등기번호</label>
+                                <label for="registerNumber">등기번호</label>
                                 <input type="text" class="form-control" id="registerNumber" name="registerNumber"
                                        value="">
                             </div>
@@ -100,15 +100,15 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="d-flex justify-content-between">
-                                    <label for="">관할등기소</label>
-                                    <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                                    <label for="favorite_office">관할등기소</label>
+                                    <button type="button" class="btn btn-link p-0" data-toggle="modal" id="favorite_office"
                                             data-target="#modal-favorite">☆ 즐겨찾기
                                     </button>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="registerOffice" name="registerOffice">
+                                    <input type="text" class="form-control" id="registerOffice" name="registerOffice" th:readonly="true">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary">검색</button>
+                                        <button type='button' id="office_search_btn" class="btn btn-outline-secondary">검색</button>
                                     </div>
                                 </div>
                                 <div class="modal fade modal-favorite" id="modal-favorite">
@@ -748,6 +748,10 @@
                         }
                     }).open();
                 });
+            });
+
+            $('#office_search_btn').on('click', function () {
+                window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
             });
 
             $('button[name="favoriteOffice"]').on('click', function () {

@@ -11,4 +11,8 @@ interface ConsultService {
 
 	fun findByCompanyId(companyId: String): List<Consult>
 
+	fun detail(id: String): Consult
+
+	fun save(consult: Consult)
+
 }
