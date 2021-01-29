@@ -103,11 +103,11 @@ data class CompanyCreateDto(
 
 	var contacts: List<Contact> = emptyList(),
 
-	var purposeDetail: PurposeDetail? = null
+	var purposeDetail: List<PurposeDetail>? = emptyList()
 
 ) {
 
-	fun of(lawFirmId: String): Company {
+	fun to(lawFirmId: String): Company {
 		val stock = this.stock?.copy(
 			companyId = this.id
 		)
@@ -147,9 +147,17 @@ data class CompanyCreateDto(
 			)
 		}
 
-		val purposeDetail = this.purposeDetail?.copy(
-			companyId = this.id!!
-		)
+		val purposeDetails = mutableListOf<PurposeDetail>()
+		this.purposeDetail?.forEach{
+			purposeDetails.add(
+				PurposeDetail(
+					id = it.id,
+					companyId = this.id!!,
+					ordinal = it.ordinal,
+					detail = it.detail
+				)
+			)
+		}
 
 		return Company(
 			id = this.id!!,

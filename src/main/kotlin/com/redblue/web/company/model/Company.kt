@@ -124,7 +124,7 @@ data class Company(
 	val contacts: List<Contact>? = null,
 
 	@Transient
-	var purposeDetail: PurposeDetail? = null
+	var purposeDetail: List<PurposeDetail>? = emptyList()
 
 ) {
 	enum class DisplayCompanyType{

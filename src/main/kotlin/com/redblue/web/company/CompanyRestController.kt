@@ -39,7 +39,7 @@ class CompanyRestController(
 		@RequestBody dto: CompanyCreateDto,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
-		companyService.save(dto.of(user.lawFirmId))
+		companyService.save(dto.to(user.lawFirmId))
 		return ResponseEntity(HttpStatus.OK)
 	}
 

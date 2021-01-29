@@ -110,11 +110,7 @@ class CompanyServiceImpl(
 		}
 
 		company.purposeDetail?.let {
-			val purposeDetail = company.purposeDetail!!.copy(
-				companyId = company.id,
-				detailUpdatedAt = Date()
-			)
-			purposeDetailRepository.save(purposeDetail)
+			purposeDetailRepository.saveAll(company.purposeDetail!!)
 		}
 
 
