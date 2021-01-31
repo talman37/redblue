@@ -92,14 +92,17 @@
                                 </div>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="registerOffice" name="registerOffice"
+                                           th:readonly="true"
                                            th:value="${company.registerOffice}">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary">검색</button>
+                                        <button type='button' id="office_search_btn" class="btn btn-outline-secondary">
+                                            검색
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">법인구분</label>
+                                <label for="companyDivision">법인구분</label>
                                 <select class="form-control" id="companyDivision" name="companyDivision"
                                         th:field="*{company.companyDivision}">
                                     <option th:value="null">전체</option>
@@ -260,19 +263,21 @@
                             <div class="col-md-6 mb-3">
                                 <label for="">1주의 금액</label>
                                 <input type="text" class="form-control" id="stock.amount" name="stock[amount]"
+                                       numberonly="true"
                                        placeholder="" required="" th:value="${company.stock.amount}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="">발행할 주식의 총수</label>
-                                <input type="text" class="form-control" id="stock.scheduleCount"
+                                <input type="text" class="form-control" id="stock.scheduleCount" numberonly="true"
                                        name="stock[scheduleCount]" placeholder="" required=""
                                        th:value="${company.stock.scheduleCount}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">발행주식의 총수</label>
                                 <input type="text" class="form-control" id="stock.issuedCount" name="stock[issuedCount]"
+                                       numberonly="true"
                                        placeholder="" required="" th:value="${company.stock.issuedCount}">
                             </div>
                         </div>
@@ -280,7 +285,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="">자본금</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control"
+                                    <input type="text" class="form-control" numberonly="true"
                                            th:value="${company.stock.amount * (company.stock.normalCount + company.stock.firstCount)}">
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-outline-secondary">계산하기</button>
@@ -355,20 +360,27 @@
                         </h4>
                         <div>
                             <button type='button' class='btn btn-outline-primary' data-toggle="modal"
-                                    data-target="#modal-executive-add">
+                                    id="add-executive-btn">
                                 임원 추가
+                            </button>
+                            <button type='button' class='btn btn-outline-success' data-toggle="modal"
+                                    id="save-executive-btn">
+                                저장
                             </button>
                         </div>
                     </div>
                     <table class="table table-bordered mb-3">
                         <colgroup>
+                            <col style="width: 100px"/>
                             <col/>
+                            <col style="width: 210px"/>
                             <col/>
+                            <col style="width: 130px"/>
+                            <col style="width: 130px"/>
+                            <col style="width: 130px"/>
+                            <col style="width: 130px"/>
                             <col/>
-                            <col/>
-                            <col/>
-                            <col/>
-                            <col/>
+                            <col style="width: 100px"/>
                         </colgroup>
                         <thead>
                         <tr>
@@ -377,380 +389,108 @@
                             <th>주민등록번호</th>
                             <th>주소</th>
                             <th>취임일자</th>
+                            <th>임기</th>
                             <th>임기만료일</th>
                             <th>주식수</th>
+                            <th>임원에관한사항</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr th:each="executive: ${company.executives}">
-                            <td>
-                                <button type="button" class="btn btn-link p-0" th:text="${executive.name}"
-                                        data-toggle="modal" th:data-target="'#modal-executive-' + ${executive.id}">
-                                </button>
-                            </td>
-                            <td th:text="${executive.position}"></td>
-                            <td th:text="${executive.registrationNumber1} + '-' + ${executive.registrationNumber2}"></td>
-                            <td th:text="${executive.address}"></td>
-                            <td>
-                                2016-03-01 <small>(임기 <span>3</span>년)</small>
-                            </td>
-                            <td th:text="${executive.expiredAt}"></td>
-                            <td th:text="${executive.stockCount}"></td>
-                        </tr>
-                        </tbody>
+                        <form id="executive_form">
+                            <tbody id="executiveGroup">
+                            <th:block th:each="executive, index: ${company.executives}">
+                                <tr th:id="'executive_tr_'+${index.index}">
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="'executives['+${index.index}+'][name]'"
+                                               th:value="${executive.name}">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '사내이사')}"
+                                               value="사내이사"><i>사내이사</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '대표이사')}"
+                                               value="대표이사"><i>대표이사</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '공동대표이사')}"
+                                               value="공동대표이사"><i>공동대표이사</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '대표집행임원')}"
+                                               value="대표집행임원"><i>대표집행임원</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '사외이사')}"
+                                               value="사외이사"><i>사외이사</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '기타비상무이사')}"
+                                               value="기타비상무이사"><i>기타비상무이사</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '집행임원')}"
+                                               value="집행임원"><i>집행임원</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '감사')}"
+                                               value="감사"><i>감사</i>
+                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
+                                               th:checked="${#strings.contains(executive.position, '감사위원')}"
+                                               value="감사위원"><i>감사위원</i>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                   th:name="'executives['+${index.index}+'][registrationNumber1]'"
+                                                   th:value="${executive.registrationNumber1}">
+                                            <div class="input-group-addon">
+                                                <span class="input-group-text">-</span>
+                                            </div>
+                                            <input type="text" class="form-control"
+                                                   th:name="'executives['+${index.index}+'][registrationNumber2]'"
+                                                   th:value="${executive.registrationNumber2}">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="'executives['+${index.index}+'][address]'"
+                                               th:value="${executive.address}">
+                                    </td>
+                                    <td class="input-daterange">
+                                        <input type="text" class="form-control"
+                                               th:name="'executives['+${index.index}+'][inauguratedAt]'"
+                                               th:value="${executive.inauguratedAt}">
+                                    </td>
+                                    <td>
+                                        <select class="form-control" th:name="'executives['+${index.index}+'][term]'">
+                                            <option value="0" th:selected="${executive.term == 0}">직접입력</option>
+                                            <option value="1" th:selected="${executive.term == 1}">1년</option>
+                                            <option value="2" th:selected="${executive.term == 2}">2년</option>
+                                            <option value="3" th:selected="${executive.term == 3}">3년</option>
+                                        </select>
+                                    </td>
+                                    <td class="input-daterange">
+                                        <input type="text" class="form-control"
+                                               th:name="'executives['+${index.index}+'][expiredAt]'"
+                                               th:value="${executive.expiredAt}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="'executives['+${index.index}+'][stockCount]'"
+                                               th:value="${executive.stockCount}">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="'executives['+${index.index}+'][detail]'"
+                                               th:value="${executive.detail}">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                th:onclick="'remove_executive('+${index.index}+')'">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </form>
                     </table>
-                    <div class="modal fade modal-executive" th:each="executive: ${company.executives}"
-                         th:id="'modal-executive-' + ${executive.id}">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">임원 상세</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="add-item border p-3 mb-3">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">성명</label>
-                                                <input type="text" class="form-control" id="name" value="">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주소</label>
-                                                <input type="text" class="form-control" id="address" placeholder=""
-                                                       value="">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 mb-3">
-                                                <label for="">직위</label>
-                                                <div class="mt-1">
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position1" name="position"
-                                                           value="사내이사"><i></i>
-                                                </span>
-                                                            <label for="">사내이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position2" name="position"
-                                                           value="대표이사"><i></i>
-                                                </span>
-                                                            <label for="">대표이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position3" name="position"
-                                                           value="공동대표이사"><i></i>
-                                                </span>
-                                                            <label for="">공동대표이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position4" name="position"
-                                                           value="대표집행임원"><i></i>
-                                                </span>
-                                                            <label for="">대표집행임원</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position5" name="position"
-                                                           value="사외이사"><i></i>
-                                                </span>
-                                                            <label for="">사외이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position6" name="position"
-                                                           value="기타비상무이사"><i></i>
-                                                </span>
-                                                            <label for="">기타비상무이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position7" name="position"
-                                                           value="집행임원"><i></i>
-                                                </span>
-                                                            <label for="">집행임원</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position8" name="position"
-                                                           value="감사"><i></i>
-                                                </span>
-                                                            <label for="">감사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                <span class="input">
-                                                    <input type="checkbox" id="position9" name="position"
-                                                           value="감사위원"><i></i>
-                                                </span>
-                                                            <label for="">감사위원</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주민등록번호</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="registrationNumber1"
-                                                           numberonly="true">
-                                                    <div class="input-group-addon">
-                                                        <span class="input-group-text">-</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="registrationNumber2"
-                                                           numberonly="true">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주식 수</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <select class="form-control" id="">
-                                                            <option selected>보통주식</option>
-                                                            <option value="1">종류주식</option>
-                                                        </select>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="stockCount"
-                                                           numberonly="true">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3 input-daterange">
-                                                <label for="">취임일자</label>
-                                                <input type="text" class="form-control" id="inauguratedAt"
-                                                       placeholder="" required="">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">임기</label>
-                                                <select class="form-control" id="term">
-                                                    <option selected value="1">1년</option>
-                                                    <option value="2">2년</option>
-                                                    <option value="3">3년</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">임기만료일</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="expiredAt"
-                                                           placeholder="" required="">
-                                                    <div class="input-group-append">
-                                                        <button type="button" class="btn btn-outline-secondary"
-                                                                id="expire-calculate-btn">계산하기
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="d-flex justify-content-between w-100">
-                                        <div>
-                                            <button type='button' class='btn btn-outline-danger'>삭제</button>
-                                        </div>
-                                        <div>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
-                                            </button>
-                                            <button type='button' class='btn btn-outline-secondary'>수정</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade modal-executive" id="modal-executive-add">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">임원 추가</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="add-item border p-3 mb-3">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">성명</label>
-                                                <input type="text" class="form-control" id="" value="">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">비고</label>
-                                                <div class="mt-1">
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">대표권 있음</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 mb-3">
-                                                <label for="">직위</label>
-                                                <div class="mt-1">
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">사내이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">대표이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">공동대표이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">대표집행임원</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">사외이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">기타비상무이사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">집행임원</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">감사</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">감사위원</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주민등록번호</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                    <div class="input-group-addon">
-                                                        <span class="input-group-text">-</span>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주식 수</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <select class="form-control" id="">
-                                                            <option selected>보통주식</option>
-                                                            <option value="1">종류주식</option>
-                                                        </select>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">취임일자</label>
-                                                <input type="text" class="form-control" id="" placeholder=""
-                                                       required="">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">임기</label>
-                                                <select class="form-control" id="">
-                                                    <option selected>1년</option>
-                                                    <option value="1">2년</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">임기만료일</label>
-                                                <input type="text" class="form-control" id="" placeholder=""
-                                                       required="">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">설립일자</label>
-                                                <input type="text" class="form-control" id="" placeholder=""
-                                                       required="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                    <button type="button" class="btn btn-primary">추가</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <hr/>
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h4>
@@ -764,8 +504,7 @@
                             <strong class="text-primary">3</strong>
                         </h4>
                         <div>
-                            <button type='button' class='btn btn-outline-primary' data-toggle="modal"
-                                    data-target="#modal-stockholder-add">
+                            <button type='button' class='btn btn-outline-primary' id="add-stockHolder-btn">
                                 주주 추가
                             </button>
                         </div>
@@ -776,7 +515,7 @@
                                 입력된 주식수
                             </div>
                             <div class="item-body">
-                                <span class='text-danger'>4000</span>주
+                                <span class='text-danger' th:text="${company.stock.scheduleCount + company.stock.issuedCount}"></span>주
                             </div>
                         </div>
                         <div class="item">
@@ -784,7 +523,7 @@
                                 발행주식총수
                             </div>
                             <div class="item-body">
-                                <span class='text-danger'>5000</span>주
+                                <span class='text-danger' th:text="${company.stock.issuedCount}"></span>주
                             </div>
                         </div>
                     </div>
@@ -794,6 +533,7 @@
                             <col/>
                             <col/>
                             <col/>
+                            <col style="width: 100px"/>
                         </colgroup>
                         <thead>
                         <tr>
@@ -801,169 +541,52 @@
                             <th>주민등록번호</th>
                             <th>주소</th>
                             <th>주식수</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr th:each="stockholder: ${company.stockholders}">
-                            <td>
-                                <button type="button" class="btn btn-link p-0" th:text="${stockholder.name}"
-                                        data-toggle="modal" th:data-target="'#modal-stockholder-' + ${stockholder.id}">
-                                </button>
-                            </td>
-                            <td th:text="${stockholder.registrationNumber1} + '-' + ${stockholder.registrationNumber2}"></td>
-                            <td th:text="${stockholder.address}"></td>
-                            <td th:text="${stockholder.stockCount}"></td>
-                        </tr>
-                        </tbody>
+                        <form id="stockHolder_form">
+                            <tbody id="stockHolderGroup">
+                            <th:block th:each="stockholder, index: ${company.stockholders}">
+                                <tr th:id="'stockholder_tr_'+${index.index}">
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="'stockholder['+${index.index}+'][name]'"
+                                               th:value="${stockholder.name}"/>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                   th:name="'stockholder['+${index.index}+'][registrationNumber1]'"
+                                                   th:value="${stockholder.registrationNumber1}"/>
+                                            <div class="input-group-addon">
+                                                <span class="input-group-text">-</span>
+                                            </div>
+                                            <input type="text" class="form-control"
+                                                   th:name="'stockholder['+${index.index}+'][registrationNumber2]'"
+                                                   th:value="${stockholder.registrationNumber2}"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="'stockholder['+${index.index}+'][address]'"
+                                               th:value="${stockholder.address}"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="'stockholder['+${index.index}+'][stockCount]'"
+                                               th:value="${stockholder.stockCount}"/>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                th:onclick="'remove_stockHolder('+${index.index}+')'">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </form>
                     </table>
-                    <div class="modal fade modal-stockholder " th:each="stockholder: ${company.stockholders}"
-                         th:id="'modal-stockholder-' + ${stockholder.id}">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">주주 상세</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="add-item border p-3 mb-3">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">성명</label>
-                                                <input type="text" class="form-control" id="" value="">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">비고</label>
-                                                <div class="mt-1">
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">대표권 있음</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주민등록번호</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                    <div class="input-group-addon">
-                                                        <span class="input-group-text">-</span>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주식 수</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <select class="form-control" id="">
-                                                            <option selected>보통주식</option>
-                                                            <option value="1">종류주식</option>
-                                                        </select>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 mb-3">
-                                                <label for="">주소</label>
-                                                <input type="text" class="form-control" id="" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="d-flex justify-content-between w-100">
-                                        <div>
-                                            <button type='button' class='btn btn-outline-danger'>삭제</button>
-                                        </div>
-                                        <div>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
-                                            </button>
-                                            <button type='button' class='btn btn-outline-secondary'>수정</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade modal-stockholder " id="modal-stockholder-add">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modal-stockholder-label">주주 추가</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="add-item border p-3 mb-3">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">성명</label>
-                                                <input type="text" class="form-control" id="" value="">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">비고</label>
-                                                <div class="mt-1">
-                                                    <div class="form-check form-check-inline">
-                                                        <div class="form-input">
-                                                                <span class="input">
-                                                                    <input type="checkbox" id=""><i></i>
-                                                                </span>
-                                                            <label for="">대표권 있음</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주민등록번호</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                    <div class="input-group-addon">
-                                                        <span class="input-group-text">-</span>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="">주식 수</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <select class="form-control" id="">
-                                                            <option selected>보통주식</option>
-                                                            <option value="1">종류주식</option>
-                                                        </select>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 mb-3">
-                                                <label for="">주소</label>
-                                                <input type="text" class="form-control" id="" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                    <button type="button" class="btn btn-primary">추가</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <hr/>
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h4>
@@ -976,14 +599,38 @@
                             <strong>목적사항</strong>
                         </h4>
                         <div>
-                            <button type='button' class='btn btn-outline-primary' id="">
-                                수정
+                            <button type='button' class='btn btn-outline-primary' id="add-purpose-btn">
+                                목적사항 추가
+                            </button>
+                            <button type='button' class='btn btn-outline-success' id="save-purpose-btn">
+                                저장
                             </button>
                         </div>
                     </div>
-                    <div>
-                        <textarea name="purposeDetail" id="purpose_detail" cols="30" rows="10" class="form-control"></textarea>
-                    </div>
+                    <form id="purposeDetail_form">
+                        <div id="purposeGroup">
+                            <th:block th:each="purpose, index: ${company.purposeDetail}">
+                                <div class="row" th:id="'purpose_row_'+${index.index}">
+                                    <div class="col-md-11 mb-3">
+                                        <input type="text" class="form-control"
+                                               th:name="'purposeDetail['+${index.index}+'][detail]'"
+                                               id="purpose_detail"/>
+                                        <input type="hidden" class="form-control"
+                                               th:name="'purposeDetail['+${index.index}+'][ordinal]'"/>
+                                    </div>
+                                    <div class="col-md-1 mb-3">
+                                        <div class="btns">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                    th:onclick="'remove_purpose('+${index.index}+')'"
+                                                    name="remove_purpose_btn">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </form>
                     <hr/>
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h4>
@@ -1025,7 +672,8 @@
                         <tbody>
                         <tr th:each="consult: ${consults}">
                             <td>
-                                <button type="button" class="btn btn-link p-0" data-toggle="modal" th:text="${consult.consultant}">
+                                <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                                        th:text="${consult.consultant}">
                                 </button>
                             </td>
                             <td th:text="${consult.createdAt}">
@@ -1035,10 +683,14 @@
                             <td th:text="${consult.content}">
                             </td>
                             <td th:switch="${consult.progress}">
-                                <span th:case="${consult.progress.CANCEL}" class="badge badge-pill badge-danger">취소</span>
-                                <span th:case="${consult.progress.ONGOING}" class="badge badge-pill badge-primary">진행중</span>
-                                <span th:case="${consult.progress.COMPLETE}" class="badge badge-pill badge-success">완료</span>
-                                <span th:case="${consult.progress.HOLD}" class="badge badge-pill badge-warning">보류</span>
+                                <span th:case="${consult.progress.CANCEL}"
+                                      class="badge badge-pill badge-danger">취소</span>
+                                <span th:case="${consult.progress.ONGOING}"
+                                      class="badge badge-pill badge-primary">진행중</span>
+                                <span th:case="${consult.progress.COMPLETE}"
+                                      class="badge badge-pill badge-success">완료</span>
+                                <span th:case="${consult.progress.HOLD}"
+                                      class="badge badge-pill badge-warning">보류</span>
                             </td>
                             <td>
                                 <button class="btn btn-sm btn-outline-secondary">
@@ -1154,6 +806,7 @@
     </div>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" th:src="@{/static/js/serializejson.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery.tmpl.min.js}"></script>
     <script>
         $(document).ready(function () {
             $('button[name="postal_code_search_btn"]').on('click', function () {
@@ -1203,12 +856,110 @@
                 });
             });
 
+            $('#save-executive-btn').on('click', function () {
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/v1/companies/' + $('#companyId').val() + '/executives',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#executive_form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
+                            alert('법인정보 변경에 성공 하였습니다.');
+                        }
+                    }
+                });
+            });
+
+            $('#save-stockHolder-btn').on('click', function () {
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/v1/companies/' + $('#companyId').val() + '/stock_holders',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#stockHolder_form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
+                            alert('법인정보 변경에 성공 하였습니다.');
+                        }
+                    }
+                });
+            });
+
+            $('#save-purpose-btn').on('click', function () {
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/v1/companies/' + $('#companyId').val() + '/purpose_details',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#purposeDetail_form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
+                            alert('법인정보 변경에 성공 하였습니다.');
+                        }
+                    }
+                });
+            });
+
 
             $('button[name="favoriteOffice"]').on('click', function (i, v) {
                 $('#registerOffice').val($(this).val());
             });
 
+            $('#office_search_btn').on('click', function () {
+                window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
+            });
+
+            $('#add-contact-btn').on('click', function () {
+                var i = $('#contactGroup > div').length
+                $('#contact-template').tmpl([{index: i}]).appendTo($('#contactGroup'))
+            });
+
+            $('#add-executive-btn').on('click', function () {
+                let i = $('#executiveGroup > tr').length
+                $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
+            });
+
+            $('#add-stockHolder-btn').on('click', function () {
+                let i = $('#stockHolderGroup > tr').length;
+                $('#stockHolder-template').tmpl([{index: i}]).appendTo($('#stockHolderGroup'))
+            });
+
+            $('#add-purpose-btn').on('click', function () {
+                var i = $('#purposeGroup > div').length
+                $('#purpose-template').tmpl([{index: i}]).appendTo($('#purposeGroup'))
+            });
+
         });
+
+        function remove_contact(i) {
+            $('#contact_row_' + i).remove();
+        }
+
+        function remove_executive(i) {
+            if (i === 0) {
+                return false;
+            }
+            $('#executive_tr_' + i).remove();
+        }
+
+        function remove_stockHolder(i) {
+            if (i === 0) {
+                $('#stockHolderCount').text('');
+            } else {
+                $('#stockHolderCount').text(i);
+            }
+            var count = $('input[name="stockholders[' + i + '][stockCount]"]').val();
+            if (count === '') {
+                count = 0;
+            }
+            var inputCount = Number($('#input_stock_count').text()) - Number(count);
+            var issueCount = Number($('#issue_stock_count').text()) - Number(count);
+            $('#input_stock_count').text(inputCount);
+            $('#issue_stock_count').text(issueCount);
+
+            $('#stockHolder_tr_' + i).remove();
+        }
 
         function getFormatDate(date) {
             var year = date.getFullYear();
@@ -1218,6 +969,162 @@
             day = day >= 10 ? day : '0' + day;
             return year + '-' + month + '-' + day;
         }
+
+    </script>
+    <script id="contact-template" type="text/x-jQuery-tmpl">
+        <div class="row" id="contact_row_{{= index}}">
+            <div class="col-md-9 mb-3">
+                <label for="">연락처</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <select name="contacts[{{= index}}][type]" class="form-control">
+                            <option value="FACTORY">공장</option>
+                            <option value="DIRECT_PHONE">직통번호</option>
+                            <option value="MOBILE">휴대폰</option>
+                            <option value="FAX">회사팩스</option>
+                            <option value="EMAIL">이메일</option>
+                            <option value="PHONE">유선전화</option>
+                            <option value="TAX_EMAIL">세금계산서용 이메일</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control" name="contacts[{{= index}}][value]">
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <label for="">메모</label>
+                <input type="text" class="form-control" name="contacts[{{= index}}][memo]" placeholder="">
+            </div>
+            <div class="col-md-1 mb-3">
+                <label for="">Actions</label>
+                <div class="btns">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </script>
+    <script id="executive-template" type="text/x-jQuery-tmpl">
+        <tr id="executive_tr_{{= index}}">
+            <td>
+                <input type="text" class="form-control" name="executives[{{= index}}][name]" style="width: 100%;">
+            </td>
+            <td>
+                <input type="checkbox" name="executives[{{= index}}][position]"
+                       value="사내이사"><i>사내이사</i>
+                <input type="checkbox" name="executives[{{= index}}][position]"
+                       value="대표이사"><i>대표이사</i>
+                <input type="checkbox" name="executives[{{= index}}][position]" value="공동대표이사"><i>공동대표이사</i>
+                <input type="checkbox" name="executives[{{= index}}][position]" value="대표집행임원"><i>대표집행임원</i>
+                <input type="checkbox" name="executives[{{= index}}][position]"
+                       value="사외이사"><i>사외이사</i>
+                <input type="checkbox" name="executives[{{= index}}][position]"
+                       value="기타비상무이사"><i>기타비상무이사</i>
+                <input type="checkbox" name="executives[{{= index}}][position]"
+                       value="집행임원"><i>집행임원</i>
+                <input type="checkbox" name="executives[{{= index}}][position]"
+                       value="감사"><i>감사</i>
+                <input type="checkbox" name="executives[{{= index}}][position]"
+                       value="감사위원"><i>감사위원</i>
+            </td>
+            <td>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           name="executives[{{= index}}][registrationNumber1]">
+                    <div class="input-group-addon">
+                        <span class="input-group-text">-</span>
+                    </div>
+                    <input type="text" class="form-control"
+                           name="executives[{{= index}}][registrationNumber2]">
+                </div>
+            </td>
+            <td>
+                <input type="text" class="form-control" name="executives[{{= index}}][address]" style="width: 100%;">
+            </td>
+            <td class="input-daterange">
+                <input type="text" class="form-control" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;">
+                <input type="hidden" name="executives[{{= index}}][term]">
+            </td>
+            <td>
+                <select class="form-control" name="executives[{{= index}}][term]">
+                    <option selected value="0">직접입력</option>
+                    <option value="1">1년</option>
+                    <option value="2">2년</option>
+                    <option value="3">3년</option>
+                </select>
+            </td>
+            <td class="input-daterange">
+                <input type="text" class="form-control" name="executives[{{= index}}][expiredAt]" style="width: 100%;">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="executives[{{= index}}][detail]" style="width: 100%;">
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        onClick="remove_executive({{= index}})">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
+
+
+
+    </script>
+    <script id="stockHolder-template" type="text/x-jQuery-tmpl">
+        <tr id="stockHolder_tr_{{= index}}">
+            <td>
+                <input type="text" class="form-control" name="stockholders[{{= index}}][name]" value="" />
+            </td>
+            <td>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="stockholders[{{= index}}][registrationNumber1]" value=""/>
+                    <div class="input-group-addon">
+                        <span class="input-group-text">-</span>
+                    </div>
+                    <input type="text" class="form-control" name="stockholders[{{= index}}][registrationNumber2]" value="" />
+                </div>
+            </td>
+            <td>
+                <input type="text" class="form-control" name="stockholders[{{= index}}}][address]" value="" />
+            </td>
+            <td>
+                <input type="text" class="form-control" name="stockholders[{{= index}}][stockCount]" value="" />
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        onClick="remove_stockHolder({{= index}})">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
+
+
+
+    </script>
+
+    <script id="purpose-template" type="text/x-jQuery-tmpl">
+        <div class="row" id="purpose_row_{{= index}}">
+            <div class="col-md-11 mb-3">
+                <input type="text" class="form-control" name="purposeDetail[{{= index}}][detail]"/>
+                <input type="hidden" class="form-control" name="purposeDetail[{{= index}}][ordinal]"/>
+            </div>
+            <div class="col-md-1 mb-3">
+                <div class="btns">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onClick="remove_purpose({{= index}});"
+                            name="remove_purpose_btn">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
 
     </script>
 </th:block>

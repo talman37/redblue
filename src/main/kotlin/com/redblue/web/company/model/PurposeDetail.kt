@@ -11,7 +11,7 @@ data class PurposeDetail(
 	@Id
 	val id: String = "PD" + RandomString.make(30),
 
-	val companyId: String,
+	var companyId: String? = null,
 
 	val ordinal: Int? = null,
 

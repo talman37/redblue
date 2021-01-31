@@ -84,7 +84,10 @@
                             <div class="col-md-6 mb-3">
                                 <label for="companyNumber1">법인등록번호</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1">
+                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid city.
+                                    </div>
                                     <div class="input-group-addon">
                                         <span class="input-group-text">-</span>
                                     </div>
@@ -395,6 +398,7 @@
                                 <col style="width: 130px"/>
                                 <col style="width: 130px"/>
                                 <col style="width: 130px"/>
+                                <col style="width: 130px"/>
                                 <col/>
                                 <col style="width: 100px"/>
                             </colgroup>
@@ -405,6 +409,7 @@
                                 <th>주민등록번호</th>
                                 <th>주소</th>
                                 <th>취임일자</th>
+                                <th>임기</th>
                                 <th>임기만료일</th>
                                 <th>주식수</th>
                                 <th>임원에관한사항</th>
@@ -417,21 +422,21 @@
                                     <input type="text" class="form-control" name="executives[0][name]">
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="position1" name="executives[0][position]"
+                                    <input type="checkbox" name="executives[0][position]"
                                            value="사내이사"><i>사내이사</i>
-                                    <input type="checkbox" id="position2" name="executives[0][position]"
+                                    <input type="checkbox" name="executives[0][position]"
                                            value="대표이사"><i>대표이사</i>
-                                    <input type="checkbox" id="position3" name="executives[0][position]" value="공동대표이사"><i>공동대표이사</i>
-                                    <input type="checkbox" id="position4" name="executives[0][position]" value="대표집행임원"><i>대표집행임원</i>
-                                    <input type="checkbox" id="position5" name="executives[0][position]"
+                                    <input type="checkbox" name="executives[0][position]" value="공동대표이사"><i>공동대표이사</i>
+                                    <input type="checkbox" name="executives[0][position]" value="대표집행임원"><i>대표집행임원</i>
+                                    <input type="checkbox" name="executives[0][position]"
                                            value="사외이사"><i>사외이사</i>
-                                    <input type="checkbox" id="position6" name="executives[0][position]"
+                                    <input type="checkbox" name="executives[0][position]"
                                            value="기타비상무이사"><i>기타비상무이사</i>
-                                    <input type="checkbox" id="position7" name="executives[0][position]"
+                                    <input type="checkbox" name="executives[0][position]"
                                            value="집행임원"><i>집행임원</i>
-                                    <input type="checkbox" id="position8" name="executives[0][position]"
+                                    <input type="checkbox" name="executives[0][position]"
                                            value="감사"><i>감사</i>
-                                    <input type="checkbox" id="position9" name="executives[0][position]"
+                                    <input type="checkbox" name="executives[0][position]"
                                            value="감사위원"><i>감사위원</i>
                                 </td>
                                 <td>
@@ -450,7 +455,14 @@
                                 </td>
                                 <td class="input-daterange">
                                     <input type="text" class="form-control" name="executives[0][inauguratedAt]">
-                                    <input type="hidden" name="executives[0][term]">
+                                </td>
+                                <td>
+                                    <select class="form-control" name="executives[0][term]">
+                                        <option selected value="0">직접입력</option>
+                                        <option value="1">1년</option>
+                                        <option value="2">2년</option>
+                                        <option value="3">3년</option>
+                                    </select>
                                 </td>
                                 <td class="input-daterange">
                                     <input type="text" class="form-control" name="executives[0][expiredAt]">
@@ -525,35 +537,6 @@
                             </tr>
                             </thead>
                             <tbody id="stockHolderGroup">
-                            <tr id="stockHolder_tr_{{= index}}">
-                                <td>
-                                    <input type="text" class="form-control" name="stockholders[0][name]" value=""/>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control"
-                                               name="stockholders[0][registrationNumber1]" value=""/>
-                                        <div class="input-group-addon">
-                                            <span class="input-group-text">-</span>
-                                        </div>
-                                        <input type="text" class="form-control"
-                                               name="stockholders[0][registrationNumber2]" value=""/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="stockholders[0}][address]" value=""/>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="stockholders[0][stockCount]"
-                                           value=""/>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary"
-                                            onClick="remove_stockHolder(0)">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                         <hr/>
@@ -608,6 +591,7 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" th:src="@{/static/js/serializejson.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/jquery.tmpl.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
     <script>
         $(document).ready(function () {
 
@@ -651,13 +635,10 @@
                     url: '/v1/companies',
                     contentType: 'application/json',
                     dataType: 'json',
-                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true}))
-                }).done(function () {
-                    location.href = '/company';
-                    return;
-                }).fail(function () {
-                    alert('법인 등록에 실패하였습니다.');
-                })
+                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    success : location.href = '/company',
+                    error: alert('법인 등록에 실패하였습니다.')
+                });
             });
 
             $('#add-contact-btn').on('click', function () {
@@ -790,28 +771,27 @@
             </div>
         </div>
     </script>
-
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
                 <input type="text" class="form-control" name="executives[{{= index}}][name]" style="width: 100%;">
             </td>
             <td>
-                <input type="checkbox" id="position1" name="executives[{{= index}}][position]"
+                <input type="checkbox" name="executives[{{= index}}][position]"
                        value="사내이사"><i>사내이사</i>
-                <input type="checkbox" id="position2" name="executives[{{= index}}][position]"
+                <input type="checkbox" name="executives[{{= index}}][position]"
                        value="대표이사"><i>대표이사</i>
-                <input type="checkbox" id="position3" name="executives[{{= index}}][position]" value="공동대표이사"><i>공동대표이사</i>
-                <input type="checkbox" id="position4" name="executives[{{= index}}][position]" value="대표집행임원"><i>대표집행임원</i>
-                <input type="checkbox" id="position5" name="executives[{{= index}}][position]"
+                <input type="checkbox" name="executives[{{= index}}][position]" value="공동대표이사"><i>공동대표이사</i>
+                <input type="checkbox" name="executives[{{= index}}][position]" value="대표집행임원"><i>대표집행임원</i>
+                <input type="checkbox" name="executives[{{= index}}][position]"
                        value="사외이사"><i>사외이사</i>
-                <input type="checkbox" id="position6" name="executives[{{= index}}][position]"
+                <input type="checkbox" name="executives[{{= index}}][position]"
                        value="기타비상무이사"><i>기타비상무이사</i>
-                <input type="checkbox" id="position7" name="executives[{{= index}}][position]"
+                <input type="checkbox" name="executives[{{= index}}][position]"
                        value="집행임원"><i>집행임원</i>
-                <input type="checkbox" id="position8" name="executives[{{= index}}][position]"
+                <input type="checkbox" name="executives[{{= index}}][position]"
                        value="감사"><i>감사</i>
-                <input type="checkbox" id="position9" name="executives[{{= index}}][position]"
+                <input type="checkbox" name="executives[{{= index}}][position]"
                        value="감사위원"><i>감사위원</i>
             </td>
             <td>
@@ -832,6 +812,14 @@
                 <input type="text" class="form-control" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;">
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
+            <td>
+                <select class="form-control" name="executives[{{= index}}][term]">
+                    <option selected value="0">직접입력</option>
+                    <option value="1">1년</option>
+                    <option value="2">2년</option>
+                    <option value="3">3년</option>
+                </select>
+            </td>
             <td class="input-daterange">
                 <input type="text" class="form-control" name="executives[{{= index}}][expiredAt]" style="width: 100%;">
             </td>
@@ -848,8 +836,6 @@
                 </button>
             </td>
         </tr>
-
-
     </script>
     <script id="stockHolder-template" type="text/x-jQuery-tmpl">
         <tr id="stockHolder_tr_{{= index}}">
@@ -878,7 +864,6 @@
                 </button>
             </td>
         </tr>
-
     </script>
 
     <script id="purpose-template" type="text/x-jQuery-tmpl">

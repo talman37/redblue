@@ -199,7 +199,7 @@ data class CompanyCreateDto(
 			executives = executives,
 			stock = stock,
 			contacts = contacts,
-			purposeDetail = purposeDetail
+			purposeDetail = purposeDetails
 		)
 
 
