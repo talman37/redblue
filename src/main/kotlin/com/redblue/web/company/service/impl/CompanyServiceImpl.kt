@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.lang.Exception
 import java.util.*
+import javax.transaction.Transactional
 
 @Service
 class CompanyServiceImpl(
@@ -44,6 +45,7 @@ class CompanyServiceImpl(
 		company.executives = executiveRepository.findByCompanyIdOrderByExpiredAt(id)
 		company.stock = stockRepository.findByCompanyId(id)
 		company.stockholders = stockholderRepository.findByCompanyId(id)
+		company.purposeDetail = purposeDetailRepository.findByCompanyId(id)
 		return company
 	}
 
@@ -234,5 +236,29 @@ class CompanyServiceImpl(
 
 	override fun saveContact(contact: Contact) {
 		contactRepository.save(contact)
+	}
+
+	override fun getHistories(id: String): CompanyHistory {
+		return CompanyHistory(
+			master = masterHistoryRepository.findByCompanyId(id),
+			sub = subHistoryRepository.findByCompanyId(id),
+			stock = stockHistoryRepository.findByCompanyId(id)
+		)
+	}
+
+	@Transactional
+	override fun saveStockHolders(companyId: String, stockHolders: List<Stockholder>) {
+		stockholderRepository.deleteByCompanyId(companyId)
+		if(stockHolders.isNotEmpty()) {
+			stockholderRepository.saveAll(stockHolders)
+		}
+	}
+
+	@Transactional
+	override fun savePurposeDetail(companyId: String, purposeDetails: List<PurposeDetail>) {
+		purposeDetailRepository.deleteByCompanyId(companyId)
+		if(purposeDetails.isNotEmpty()) {
+			purposeDetailRepository.saveAll(purposeDetails)
+		}
 	}
 }

@@ -84,7 +84,8 @@
                             <div class="col-md-6 mb-3">
                                 <label for="companyNumber1">법인등록번호</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1" required>
+                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1"
+                                           required>
                                     <div class="invalid-feedback">
                                         Please provide a valid city.
                                     </div>
@@ -148,7 +149,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">법인구분</label>
+                                <label for="companyDivision">법인구분</label>
                                 <div class="input-group-prepend">
                                     <select class="form-control" id="companyDivision" name="companyDivision">
                                         <option selected value="">선택</option>
@@ -160,15 +161,17 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">상호</label>
+                                <label for="companyName">상호</label>
                                 <input type="text" class="form-control" id="companyName" name="companyName" value="">
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="">관리 번호</label>
-                                <input type="text" class="form-control" name="companyManageNumber" value="">
+                            <div class="col-md-3 mb-3 input-daterange">
+                                <label for="companyFormationAt">설립일</label>
+                                <input type="text" class="form-control" id="companyFormationAt"
+                                       name="companyFormationAt"
+                                       value="">
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="">법인 종류 표시</label>
+                                <label for="displayCompanyTypeFront">법인 종류 표시</label>
                                 <div class="mt-1">
                                     <div class="form-check form-check-inline">
                                         <div class="form-input">
@@ -176,7 +179,7 @@
                                                     <input type="radio" id="displayCompanyTypeFront"
                                                            name="displayCompanyType" value="FRONT"><i></i>
                                                 </span>
-                                            <label for="">앞</label>
+                                            <label for="displayCompanyTypeFront">앞</label>
                                         </div>
                                     </div>
                                     <div class="form-check form-check-inline">
@@ -185,7 +188,7 @@
                                                     <input type="radio" id="displayCompanyTypeBack"
                                                            name="displayCompanyType" value="BACK"><i></i>
                                                 </span>
-                                            <label for="">뒤</label>
+                                            <label for="displayCompanyTypeBack">뒤</label>
                                         </div>
                                     </div>
                                 </div>
@@ -193,22 +196,30 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">관리 상태</label>
-                                <input type="text" class="form-control" name="companyManageState" value="">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="">법인 상태</label>
-                                <input type="text" class="form-control" name="companyState" value="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="">병기 상호</label>
+                                <label for="companySubName">병기 상호</label>
                                 <input type="text" class="form-control" id="companySubName" name="companySubName"
                                        value="">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">추천인</label>
+                                <label for="companyState">법인 상태</label>
+                                <input type="text" class="form-control" id="companyState" name="companyState" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="companyManageState">관리 상태</label>
+                                <input type="text" class="form-control" id="companyManageState"
+                                       name="companyManageState" value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="companyManageNumber">관리 번호</label>
+                                <input type="text" class="form-control" id="companyManageNumber"
+                                       name="companyManageNumber" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="recommender">추천인</label>
                                 <input type="text" class="form-control" id="recommender" name="recommender"
                                        placeholder="" value="">
                             </div>
@@ -228,7 +239,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-8 mb-3">
-                                <label for="">본점주소</label>
+                                <label for="companyAddress">본점주소</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="companyAddress" name="companyAddress"
                                            value="">
@@ -240,14 +251,14 @@
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="">우편번호</label>
+                                <label for="companyPostalCode">우편번호</label>
                                 <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode"
                                        value="">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-8 mb-3">
-                                <label for="">송달장소</label>
+                                <label for="deliveryPlace">송달장소</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
                                            value="">
@@ -259,56 +270,56 @@
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="">우편번호</label>
+                                <label for="deliveryPlacePostalCode">우편번호</label>
                                 <input type="text" class="form-control" id="deliveryPlacePostalCode"
                                        name="deliveryPlacePostalCode" value="">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-5 mb-3">
-                                <label for="">사업자등록번호</label>
+                                <label for="businessNumber">사업자등록번호</label>
                                 <input type="text" class="form-control" id="businessNumber" name="businessNumber"
                                        value="">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="">업태</label>
+                                <label for="businessCondition">업태</label>
                                 <input type="text" class="form-control" id="businessCondition" name="businessCondition"
                                        value="">
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="">업종</label>
+                                <label for="businessType">업종</label>
                                 <input type="text" class="form-control" id="businessType" name="businessType" value="">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">결산기</label>
+                                <label for="settlementMonth">결산기</label>
                                 <select class="form-control" id="settlementMonth" name="settlementMonth">
                                     <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
                                             th:text="${i}+'월'"></option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">1주의 금액</label>
+                                <label for="stockAmount">1주의 금액</label>
                                 <input type="text" class="form-control" id="stockAmount" name="stock[amount]"
                                        numberonly="true">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">발행할 주식의 총수</label>
+                                <label for="stockScheduleCount">발행할 주식의 총수</label>
                                 <input type="text" class="form-control" id="stockScheduleCount"
                                        name="stock[scheduleCount]" numberonly="true">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">발행주식의 총수</label>
+                                <label for="stockIssuedCount">발행주식의 총수</label>
                                 <input type="text" class="form-control" id="stockIssuedCount"
                                        name="stock[issuedCount]" numberonly="true">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">자본금</label>
+                                <label for="capital">자본금</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="capital" name="stock[capital]" value=""
                                            numberonly="true">
@@ -636,7 +647,7 @@
                     contentType: 'application/json',
                     dataType: 'json',
                     data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
-                    success : location.href = '/company',
+                    success: location.href = '/company',
                     error: alert('법인 등록에 실패하였습니다.')
                 });
             });
@@ -770,6 +781,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </script>
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
@@ -836,6 +850,9 @@
                 </button>
             </td>
         </tr>
+
+
+
     </script>
     <script id="stockHolder-template" type="text/x-jQuery-tmpl">
         <tr id="stockHolder_tr_{{= index}}">
@@ -864,6 +881,9 @@
                 </button>
             </td>
         </tr>
+
+
+
     </script>
 
     <script id="purpose-template" type="text/x-jQuery-tmpl">
@@ -881,6 +901,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </script>
 
 </th:block>

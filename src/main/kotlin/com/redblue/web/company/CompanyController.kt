@@ -95,5 +95,27 @@ class CompanyController(
 		return "/company/form"
 	}
 
+	@GetMapping("/{id}/history")
+	fun history(
+		@PathVariable("id") id: String,
+		model: Model,
+		@CurrentUser user: LawFirmUser
+	): String {
+		model.addAttribute("histories", companyService.getHistories(id))
+		return "/popup/company_history"
+	}
+
+	@GetMapping("/{id}/consult-add")
+	fun addConsult(
+		@PathVariable("id") id: String,
+		model: Model,
+		@CurrentUser user: LawFirmUser
+	): String {
+		model.addAttribute("companyId", id)
+		model.addAttribute("consultant", user.name)
+		model.addAttribute("lawFirmId", user.lawFirmId)
+		return "/popup/consult_add"
+	}
+
 
 }

@@ -151,118 +151,13 @@
                             <td th:text="${company.expiredAt}"></td>
                             <td th:text="${company.contactNumber}"></td>
                             <td>
-                                <button type="button" class="btn btn-link p-0" data-toggle="modal"
-                                        th:data-target="'#modal-executive-' + ${company.id}">
+                                <button type="button" class="btn btn-link p-0" name="history_search_btn" th:attr="data-id=${company.id}">
                                     이력보기
                                 </button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <div class="modal fade modal-executive" th:each="company: ${companies}"
-                         th:id="'modal-executive-' + ${company.id}">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">이력보기</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="accordion" id="companyHistoryAccordion">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                                <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-left" type="button"
-                                                            data-toggle="collapse" data-target="#collapseOne">
-                                                        법인 이력
-                                                    </button>
-                                                </h2>
-                                            </div>
-
-                                            <div id="collapseOne" class="collapse show"
-                                                 data-parent="#companyHistoryAccordion">
-                                                <div class="card-body">
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                        <tr>
-                                                            <th>유형</th>
-                                                            <th>등기소</th>
-                                                            <th>등기번호</th>
-                                                            <th>법인등록번호</th>
-                                                            <th>상호</th>
-                                                            <th>법인관리상태</th>
-                                                            <th>법인상태</th>
-                                                            <th>변경일</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header" id="headingTwo">
-                                                <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-left collapsed"
-                                                            type="button" data-toggle="collapse"
-                                                            data-target="#collapseTwo">
-                                                        업장 이력
-                                                    </button>
-                                                </h2>
-                                            </div>
-                                            <div id="collapseTwo" class="collapse"
-                                                 data-parent="#companyHistoryAccordion">
-                                                <div class="card-body">
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                        <tr>
-                                                            <th>유형</th>
-                                                            <th>법인주소</th>
-                                                            <th>송달주소</th>
-                                                            <th>사업자번호</th>
-                                                            <th>업종</th>
-                                                            <th>업태</th>
-                                                            <th>결산기일</th>
-                                                            <th>변경일</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-between align-items-center">
@@ -386,15 +281,21 @@
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
+            $('#q, #startDate, #endDate').keydown(function(e) {
+                if (e.keyCode === 13) {
+                    $('#searchForm').submit();
+                }
+            });
+
+            $('button[name="history_search_btn"]').on('click', function () {
+                window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
+            });
 
         });
         $('.input-daterange').datepicker({
             language: "ko",
             todayHighlight: true
         });
-        // $('.input-daterange input').each(function() {
-        //     $(this).datepicker('clearDates');
-        // });
     </script>
 </th:block>
 </html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <!-- https://fontawesome.com/cheatsheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link th:href="@{/static/css/custom.css}" rel="stylesheet"/>
+
+    <title>RedBlue</title>
+</head>
+<body>
+<div class="modal-body">
+    <div class="accordion">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0 modal-title">
+                    법인 이력
+                </h2>
+            </div>
+
+            <div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>유형</th>
+                            <th>등기소</th>
+                            <th>등기번호</th>
+                            <th>법인등록번호</th>
+                            <th>상호</th>
+                            <th>법인관리상태</th>
+                            <th>법인상태</th>
+                            <th>변경일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="master : ${histories.master}">
+                            <td th:text="${master.type}"></td>
+                            <td th:text="${master.registerOffice}"></td>
+                            <td th:text="${master.registerNumber}"></td>
+                            <td th:text="|${master.companyNumber1}-${master.companyNumber2}|"></td>
+                            <td th:text="${master.companyName}"></td>
+                            <td th:text="${master.companyManageState}"></td>
+                            <td th:text="${master.companyState}"></td>
+                            <td th:text="${#dates.format(master.issuedAt, 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0" modal-title>
+                    업장 이력
+                </h2>
+            </div>
+            <div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>유형</th>
+                            <th>법인주소</th>
+                            <th>송달주소</th>
+                            <th>사업자번호</th>
+                            <th>업종</th>
+                            <th>업태</th>
+                            <th>결산기일</th>
+                            <th>변경일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="sub : ${histories.sub}">
+                            <td th:text="${sub.type}"></td>
+                            <td th:text="${sub.companyAddress}"></td>
+                            <td th:text="${sub.deliveryPlace}"></td>
+                            <td th:text="${sub.businessNumber}"></td>
+                            <td th:text="${sub.businessType}"></td>
+                            <td th:text="${sub.businessCondition}"></td>
+                            <td th:text="|${sub.settlementMonth}월|"></td>
+                            <td th:text="${#dates.format(sub.issuedAt, 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0" modal-title>
+                    주식 이력
+                </h2>
+            </div>
+            <div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>유형</th>
+                            <th>1주의 금액</th>
+                            <th>발행할 주식의 총수</th>
+                            <th>발행주식의 총수</th>
+                            <th>변경일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="stock : ${histories.stock}">
+                            <td th:text="${stock.type}"></td>
+                            <td th:text="${stock.amount}"></td>
+                            <td th:text="${stock.scheduleCount}"></td>
+                            <td th:text="${stock.issuedCount}"></td>
+                            <td th:text="${#dates.format(stock.issuedAt, 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

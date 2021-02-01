@@ -27,7 +27,7 @@ data class Consult(
 
 	val content: String,
 
-	val memo: String,
+	val memo: String? = null,
 
 	@Enumerated(EnumType.STRING)
 	val progress: Progress,

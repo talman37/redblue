@@ -9,4 +9,6 @@ interface StockholderRepository: JpaRepository<Stockholder, String> {
 
 	fun findByCompanyId(companyId: String): List<Stockholder>
 
+	fun deleteByCompanyId(companyId: String)
+
 }

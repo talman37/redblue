@@ -13,11 +13,11 @@ data class PurposeDetail(
 
 	var companyId: String? = null,
 
-	val ordinal: Int? = null,
+	var ordinal: Int? = null,
 
 	val detail: String? = null,
 
 	@Temporal(TemporalType.DATE)
-	val detailUpdatedAt: Date? = null
+	var detailUpdatedAt: Date = Date()
 
 )

@@ -1,13 +1,12 @@
 package com.redblue.web.company
 
 import com.redblue.security.core.annotation.CurrentUser
-import com.redblue.web.company.model.dto.CompanyCreateDto
-import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
-import com.redblue.web.company.model.dto.CompanySearchResponseDto
-import com.redblue.web.company.model.dto.CompanySubUpdateDto
+import com.redblue.web.company.model.dto.*
 import com.redblue.web.company.service.CompanyDmService
 import com.redblue.web.company.service.CompanyExcelService
 import com.redblue.web.company.service.CompanyService
+import com.redblue.web.consult.model.Consult
+import com.redblue.web.consult.service.ConsultService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.core.io.InputStreamResource
 import org.springframework.data.domain.PageRequest
@@ -22,7 +21,8 @@ import java.text.SimpleDateFormat
 class CompanyRestController(
 	private val companyService: CompanyService,
 	private val companyExcelService: CompanyExcelService,
-	private val companyDmService: CompanyDmService
+	private val companyDmService: CompanyDmService,
+	private val consultService: ConsultService
 ) {
 
 	@GetMapping
@@ -79,27 +79,33 @@ class CompanyRestController(
 		return ResponseEntity(HttpStatus.OK)
 	}
 
-	@PostMapping("/{id}/stock-holder")
+	@PostMapping("/{id}/stock-holders")
 	fun addStockHolder(
 		@PathVariable("id") id: String,
+		@RequestBody dto: StockHolderUpdateDto,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
+		companyService.saveStockHolders(id, dto.to(id))
 		return ResponseEntity(HttpStatus.OK)
 	}
 
-	@PostMapping("/{id}/purpose")
+	@PostMapping("/{id}/purpose-details")
 	fun savePurposeDetail(
 		@PathVariable("id") id: String,
+		@RequestBody dto: CompanyPurposeDetailsUpdateDto,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
+		companyService.savePurposeDetail(id, dto.to(id))
 		return ResponseEntity(HttpStatus.OK)
 	}
 
 	@PostMapping("/{id}/consults")
 	fun addConsult(
 		@PathVariable("id") id: String,
+		@RequestBody consult: Consult,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
+		consultService.save(consult)
 		return ResponseEntity(HttpStatus.OK)
 	}
 

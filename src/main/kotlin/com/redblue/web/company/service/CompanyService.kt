@@ -1,8 +1,6 @@
 package com.redblue.web.company.service
 
-import com.redblue.web.company.model.Company
-import com.redblue.web.company.model.Contact
-import com.redblue.web.company.model.Executive
+import com.redblue.web.company.model.*
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
 import org.springframework.data.domain.Page
@@ -28,5 +26,11 @@ interface CompanyService {
 	fun updateCompanySub(id: String, dto: CompanySubUpdateDto)
 
 	fun saveContact(contact: Contact)
+
+	fun getHistories(id: String): CompanyHistory
+
+	fun saveStockHolders(companyId: String, stockHolders: List<Stockholder>)
+
+	fun savePurposeDetail(companyId: String, purposeDetails: List<PurposeDetail>)
 
 }
