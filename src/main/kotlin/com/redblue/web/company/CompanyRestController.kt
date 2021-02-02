@@ -71,15 +71,17 @@ class CompanyRestController(
 		return ResponseEntity(HttpStatus.OK)
 	}
 
-	@PostMapping("/{id}/executive")
+	@PostMapping("/{id}/executives")
 	fun addExecutive(
 		@PathVariable("id") id: String,
+		@RequestBody dto: ExecutiveUpdateDto,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
+		companyService.saveExecutives(id, dto.to(id))
 		return ResponseEntity(HttpStatus.OK)
 	}
 
-	@PostMapping("/{id}/stock-holders")
+	@PostMapping("/{id}/stockholders")
 	fun addStockHolder(
 		@PathVariable("id") id: String,
 		@RequestBody dto: StockHolderUpdateDto,

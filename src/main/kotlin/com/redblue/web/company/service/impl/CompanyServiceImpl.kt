@@ -247,6 +247,14 @@ class CompanyServiceImpl(
 	}
 
 	@Transactional
+	override fun saveExecutives(companyId: String, executives: List<Executive>) {
+		executiveRepository.deleteByCompanyId(companyId)
+		if(executives.isNotEmpty()) {
+			executiveRepository.saveAll(executives)
+		}
+	}
+
+	@Transactional
 	override fun saveStockHolders(companyId: String, stockHolders: List<Stockholder>) {
 		stockholderRepository.deleteByCompanyId(companyId)
 		if(stockHolders.isNotEmpty()) {

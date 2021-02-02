@@ -512,7 +512,7 @@
                             <strong class="text-primary" th:text="${#lists.size(company.stockholders)}"></strong>
                         </h4>
                         <div>
-                            <button type='button' class='btn btn-outline-primary' id="add-stockHolder-btn">
+                            <button type='button' class='btn btn-outline-primary' id="add-stockholder-btn">
                                 주주 추가
                             </button>
                             <button type='button' class='btn btn-outline-success' data-toggle="modal"
@@ -540,7 +540,7 @@
                             </div>
                         </div>
                     </div>
-                    <form id="stockHolder_form">
+                    <form id="stockholder_form">
                         <table class="table table-bordered mb-3">
                             <colgroup>
                                 <col/>
@@ -769,7 +769,7 @@
 
             $('#save-executive-btn').on('click', function () {
                 $.ajax({
-                    type: 'PATCH',
+                    type: 'POST',
                     url: '/v1/companies/' + $('#companyId').val() + '/executives',
                     contentType: 'application/json',
                     dataType: 'json',
@@ -785,10 +785,10 @@
             $('#save-stockHolder-btn').on('click', function () {
                 $.ajax({
                     type: 'POST',
-                    url: '/v1/companies/' + $('#companyId').val() + '/stock-holders',
+                    url: '/v1/companies/' + $('#companyId').val() + '/stockholders',
                     contentType: 'application/json',
                     dataType: 'json',
-                    data: JSON.stringify($('#stockHolder_form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    data: JSON.stringify($('#stockholder_form').serializeJSON({useIntKeysAsArrayIndex: true})),
                     statusCode: {
                         200: function () {
                             alert('주주정보 변경에 성공 하였습니다.');
@@ -831,9 +831,9 @@
                 $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
             });
 
-            $('#add-stockHolder-btn').on('click', function () {
+            $('#add-stockholder-btn').on('click', function () {
                 let i = $('#stockHolderGroup > tr').length;
-                $('#stockHolder-template').tmpl([{index: i}]).appendTo($('#stockHolderGroup'))
+                $('#stockholder-template').tmpl([{index: i}]).appendTo($('#stockHolderGroup'))
             });
 
             $('#add-purpose-btn').on('click', function () {
@@ -985,7 +985,7 @@
             </td>
         </tr>
     </script>
-    <script id="stockHolder-template" type="text/x-jQuery-tmpl">
+    <script id="stockholder-template" type="text/x-jQuery-tmpl">
         <tr id="stockHolder_tr_{{= index}}">
             <td>
                 <input type="text" class="form-control" name="stockholders[{{= index}}][name]" value="" />

@@ -29,6 +29,8 @@ interface CompanyService {
 
 	fun getHistories(id: String): CompanyHistory
 
+	fun saveExecutives(companyId: String, executives: List<Executive>)
+
 	fun saveStockHolders(companyId: String, stockHolders: List<Stockholder>)
 
 	fun savePurposeDetail(companyId: String, purposeDetails: List<PurposeDetail>)
