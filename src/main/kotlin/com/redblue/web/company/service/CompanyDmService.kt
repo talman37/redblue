@@ -44,7 +44,7 @@ class CompanyDmService(
 				BaseFont.EMBEDDED
 			)
 			val executives = companyService.findExecutivesByCompanyId(company.id)
-			renderer.setDocumentFromString(this.parseThymeleafTemplate(executives, user))
+			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user))
 			renderer.layout()
 			renderer.createPDF(outputStream)
 			outputStream.close()
@@ -98,7 +98,7 @@ class CompanyDmService(
 		return ByteArrayInputStream(out.toByteArray())
 	}
 
-	private fun parseThymeleafTemplate(executives: List<Executive>, user: LawFirmUser): String {
+	private fun parseThymeleafTemplate(company: Company,executives: List<Executive>, user: LawFirmUser): String {
 		val templateResolver = ClassLoaderTemplateResolver()
 		templateResolver.suffix = ".html";
 		templateResolver.templateMode = TemplateMode.HTML;
@@ -110,10 +110,21 @@ class CompanyDmService(
 			this.setVariable("lawFirm", user.lawFirm)
 			this.setVariable("tel", "(대표), ${user.lawFirm.tel}")
 			this.setVariable("postalCode", "<span>우)</span> <strong>${user.lawFirm.postalCode}</strong>")
-			this.setVariable("docNum", "<span>문서번호 :</span> <strong>7248 <span>[1806]</span></strong>")
-			this.setVariable("exAddress", "경기도 용인시 기흥구 보정로 117 (보정동)")
-			this.setVariable("exCompany", "주식회사 씨에이치산업개발")
-			this.setVariable("exName", "대표이사 <strong>최철규</strong>님 귀하")
+			this.setVariable("docNum", "<span>문서번호 :</span> <strong>${company.companyNumber1} <span>[${company.companyNumber2}]</span></strong>")
+			this.setVariable("exAddress", company.deliveryPlace)
+			this.setVariable("exCompany", company.companyName)
+
+			var masterInfo = executives.filter {
+				it.position!!.contains( "대표이사")
+			}
+
+			if(masterInfo.isEmpty()) {
+				masterInfo = executives.filter {
+					it.position!!.contains( "사내이사")
+				}
+			}
+
+			this.setVariable("exName", "대표이사 <strong>${masterInfo[0].name}</strong>님 귀하")
 			this.setVariable("exPost", "16898")
 			this.setVariable("conTitle", "제목 : <strong>임기만료 안내문</strong>")
 			var content0 = "귀사의 무궁한 발전을 기원합니다."

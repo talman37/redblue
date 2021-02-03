@@ -37,6 +37,8 @@ class CompanyQueryDslRepositoryImpl(
 					qc.registerNumber,
 					qc.companyName,
 					qc.companyAddress,
+					qc.companyNumber1,
+					qc.companyNumber2,
 					qc.deliveryPlacePostalCode,
 					qc.deliveryPlace,
 					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())

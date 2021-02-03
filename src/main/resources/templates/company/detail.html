@@ -313,46 +313,51 @@
                             </i>
                             <strong>연락처</strong>
                         </h4>
-                        <button type='button' class='btn btn-outline-primary'>
-                            연락처 추가
-                        </button>
-                    </div>
-                    <div class="add-item">
-                        <div class="row">
-                            <div class="col-md-9 mb-3">
-                                <label for="">연락처</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <select name="contacts[0][type]" class="form-control">
-                                            <option value="FACTORY">공장</option>
-                                            <option value="DIRECT_PHONE">직통번호</option>
-                                            <option value="MOBILE">휴대폰</option>
-                                            <option value="FAX">회사팩스</option>
-                                            <option value="EMAIL">이메일</option>
-                                            <option value="PHONE">유선전화</option>
-                                            <option value="TAX_EMAIL">세금계산서용 이메일</option>
-                                        </select>
-                                    </div>
-                                    <input type="text" class="form-control" name="contacts[0][value]">
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-3">
-                                <label for="">메모</label>
-                                <input type="text" class="form-control" name="contacts[0][memo]" placeholder=""
-                                       required="">
-                            </div>
-                            <div class="col-md-1 mb-3">
-                                <label for="">Actions</label>
-                                <div class="btns">
-                                    <button class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-save"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
+                        <div>
+                            <button type='button' class='btn btn-outline-primary' id="add-contact-btn">
+                                연락처 추가
+                            </button>
+                            <button type='button' class='btn btn-outline-success' data-toggle="modal"
+                                    id="save-contact-btn">
+                                저장
+                            </button>
                         </div>
+                    </div>
+                    <div class="add-item" id="contactGroup">
+                        <th:block th:each="contact, index: ${company.contacts}">
+                            <div class="row">
+                                <div class="col-md-9 mb-3">
+                                    <label th:for="'contacts['+${index.index}+'][value]'">연락처</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <select th:name="'contacts['+${index.index}+'][type]'" class="form-control">
+                                                <option value="FACTORY" th:selected="${contact.type == 'FACTORY'}">공장</option>
+                                                <option value="DIRECT_PHONE" th:selected="${contact.type == 'DIRECT_PHONE'}">직통번호</option>
+                                                <option value="MOBILE" th:selected="${contact.type == 'MOBILE'}">휴대폰</option>
+                                                <option value="FAX" th:selected="${contact.type == 'FAX'}">회사팩스</option>
+                                                <option value="EMAIL" th:selected="${contact.type == 'EMAIL'}">이메일</option>
+                                                <option value="PHONE" th:selected="${contact.type == 'PHONE'}">유선전화</option>
+                                                <option value="TAX_EMAIL" th:selected="${contact.type == 'TAX_EMAIL'}">세금계산서용 이메일</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:vlaue="${contact.value}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label th:for="'contacts['+${index.index}+'][memo]'">메모</label>
+                                    <input type="text" class="form-control" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
+                                           required="" th:vlaue="${contact.memo}">
+                                </div>
+                                <div class="col-md-1 mb-3">
+                                    <label for="">Actions</label>
+                                    <div class="btns">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="" th:onclick="'remove_contact('+${index.index}+')'">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
                     </div>
                     <hr/>
                     <div class="d-flex align-items-center justify-content-between mb-3">
@@ -822,8 +827,9 @@
                 window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
             });
 
-            $('#consult_add_btn').on('click', function () {
-                window.open('/company/' + $('#companyId').val() + '/consult-add', '상담등록', 'width=800,height=600px,scrollbars=yes');
+             $('#add-contact-btn').on('click', function () {
+                let i = $('#contactGroup > tr').length
+                $('#contact-template').tmpl([{index: i}]).appendTo($('#contactGroup'))
             });
 
             $('#add-executive-btn').on('click', function () {
@@ -839,6 +845,10 @@
             $('#add-purpose-btn').on('click', function () {
                 var i = $('#purposeGroup > div').length
                 $('#purpose-template').tmpl([{index: i}]).appendTo($('#purposeGroup'))
+            });
+
+            $('#consult_add_btn').on('click', function () {
+                window.open('/company/' + $('#companyId').val() + '/consult-add', '상담등록', 'width=800,height=600px,scrollbars=yes');
             });
 
         });
@@ -889,7 +899,7 @@
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row" id="contact_row_{{= index}}">
             <div class="col-md-9 mb-3">
-                <label for="">연락처</label>
+                <label for="contacts[{{= index}}][value]">연락처</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <select name="contacts[{{= index}}][type]" class="form-control">
@@ -902,12 +912,12 @@
                             <option value="TAX_EMAIL">세금계산서용 이메일</option>
                         </select>
                     </div>
-                    <input type="text" class="form-control" name="contacts[{{= index}}][value]">
+                    <input type="text" class="form-control" id="contacts[{{= index}}][value]" name="contacts[{{= index}}][value]">
                 </div>
             </div>
             <div class="col-md-2 mb-3">
-                <label for="">메모</label>
-                <input type="text" class="form-control" name="contacts[{{= index}}][memo]" placeholder="">
+                <label for="contacts[{{= index}}][memo]">메모</label>
+                <input type="text" class="form-control" id="contacts[{{= index}}][memo]" name="contacts[{{= index}}][memo]" placeholder="">
             </div>
             <div class="col-md-1 mb-3">
                 <label for="">Actions</label>
