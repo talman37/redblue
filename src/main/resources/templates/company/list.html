@@ -277,7 +277,7 @@
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
-                let param = '?q=' + q + '&start=' + startDate + '&end=' + endDate;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
