@@ -20,6 +20,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.xhtmlrenderer.pdf.ITextRenderer
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 @Service
@@ -50,6 +51,17 @@ class CompanyDmService(
 			outputStream.close()
 			val pdf = PdfReader(ByteArrayInputStream(outputStream.toByteArray()))
 			readers.add(pdf)
+
+			val executive = mutableListOf<MutableMap<String, Any?>>()
+			executives.forEach {
+				executive.add(
+					mutableMapOf(
+						"name" to it.name,
+						"position" to it.position,
+						"expiredAt" to it.expiredAt
+					)
+				)
+			}
 			histories.add(
 				DmHistory(
 					lawFirmId = company.lawFirmId,
@@ -61,7 +73,7 @@ class CompanyDmService(
 							"(${company.deliveryPlacePostalCode}) ${company.deliveryPlace}"
 						}
 					},
-					content = jacksonObjectMapper().writeValueAsString(executives)
+					content = jacksonObjectMapper().writeValueAsString(executive)
 				)
 			)
 		}
