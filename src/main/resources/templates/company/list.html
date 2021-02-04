@@ -120,9 +120,9 @@
                         <colgroup>
                             <col style="width: 250px">
                             <col>
+                            <col style="width: 200px">
                             <col style="width: 150px">
-                            <col>
-                            <col>
+                            <col style="width: 150px">
                             <col style="width: 150px">
                             <col style="width: 150px">
                         </colgroup>
@@ -163,93 +163,46 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <span>Total :  <span class="text-primary" th:text="${companiesPage.totalElements}"></span></span>
-                            <!--                            <nav class="ml-3">-->
-                            <!--                                <ul class="pagination pagination-sm" th:each="pageNumber : ${pageNumbers}">-->
-                            <!--                                    <li class="page-item" th:if="${pageNumber != currentPage}">-->
-                            <!--                                        <a class="page-link" href="#" th:text="${pageNumber}"></a>-->
-                            <!--                                    </li>-->
-
-                            <!--                                    <li class="page-item active" aria-current="page" th:if="${pageNumber == currentPage}">-->
-                            <!--                                        <span class="page-link" th:text="${pageNumber}">-->
-                            <!--                                            <span class="sr-only">(current)</span>-->
-                            <!--                                        </span>-->
-                            <!--                                    </li>-->
-                            <!--                                </ul>-->
-                            <!--                            </nav>-->
-                            <!--                            <nav class="ml-3" th:if="${companiesPage.totalPages gt 0}">-->
-                            <!--                                <ul class="pagination pagination-sm">-->
-                            <!--                                    <li class="page-item" th:classappend="${companiesPage.number eq 0} ? 'disabled'">-->
-                            <!--                                        <a class="page-link"-->
-                            <!--                                           th:href="@{/company?page={id}(id=${companiesPage.number lt 2 ? 1 : companiesPage.number})}">-->
-                            <!--                                            <i class="fas fa-angle-left"></i>-->
-                            <!--                                        </a>-->
-                            <!--                                    </li>-->
-                            <!--                                    <th:block-->
-                            <!--                                            th:each="pageNo : ${#numbers.sequence( companiesPage.number + 1, companiesPage.totalPages > 10 + companiesPage.number ? companiesPage.number + 10 : companiesPage.totalPages, 1)}">-->
-                            <!--                                        <li class="page-item active" aria-current="page"-->
-                            <!--                                            th:if="${companiesPage.number + 1 eq pageNo}">-->
-                            <!--                                            <span class="page-link" th:text="${pageNo}">-->
-                            <!--                                                <span class="sr-only">(current)</span>-->
-                            <!--                                            </span>-->
-                            <!--                                        </li>-->
-                            <!--                                        <li class="page-item" th:if="${not (companiesPage.number + 1 eq pageNo)}">-->
-                            <!--                                            <a class="page-link" th:href="@{${'/company'}(page=${pageNo})}"-->
-                            <!--                                               th:text="${pageNo}"></a>-->
-                            <!--                                        </li>-->
-                            <!--                                    </th:block>-->
-                            <!--                                    <li class="page-item"-->
-                            <!--                                        th:classappend="${companiesPage.number + 1 eq companiesPage.totalPages} ? 'disabled'">-->
-                            <!--                                        <a class="page-link"-->
-                            <!--                                           th:href="@{/company?page={id}(id=${companiesPage.number + 2})}">-->
-                            <!--                                            <i class="fas fa-angle-right"></i>-->
-                            <!--                                        </a>-->
-                            <!--                                    </li>-->
-                            <!--                                </ul>-->
-                            <!--                            </nav>-->
-
-
-                            <nav class="ml-3" th:with="start=${T(Math).floor(companiesPage.number/10)*10 + 1}, last=(${start + 9 < companiesPage.totalPages ? start + 9 : companiesPage.totalPages})">
-                                <th:block th:with="firstAddr=@{/company(page=1)}, prevAddr=@{/company(page=${companiesPage.number})}, nextAddr=@{/company(page=${companiesPage.number + 2})}, lastAddr=@{/company(page=${companiesPage.totalPages})}"/>
-                                <ul class="pagination pagination-sm">
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                           th:href="${firstAddr}">
-                                            <i class="fas fa-angle-left"></i>
-                                        </a>
-                                    </li>
-
+                            <nav class="ml-3">
+                                <ul class="pagination pagination-sm" th:with="start=${T(Math).floor(companiesPage.number/10)*10 + 1},
+                    last=(${start + 9 < companiesPage.totalPages ? start + 9 : companiesPage.totalPages})">
                                     <li class="page-item" th:class="${companiesPage.first} ? 'disabled'">
-                                        <a class="page-link"
-                                           th:href="${companiesPage.first} ? '#' :${prevAddr}">
-                                            <i class="fas fa-angle-left"></i>
-                                        </a>
+                                        <span class="page-link">
+                                            <a th:href="${companiesPage.first} ? '#' :@{/company(page=${companiesPage.number},q=${q},start=${startDate},end=${endDate})}">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </span>
                                     </li>
-
-                                    <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:classappend="${page == companiesPage.number + 1} ? 'active'">
-                                        <a class="page-link" th:href="@{${'/company'}(page=${page})}"
-                                           th:text="${page}"></a>
+                                    <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == companiesPage.number + 1} ? 'active'">
+                                        <a class="page-link" th:text="${page}" th:href="@{/company(page=${page},q=${q},start=${startDate},end=${endDate})}"></a>
                                     </li>
                                     <li class="page-item" th:class="${companiesPage.last} ? 'disabled'">
-                                        <a class="page-link"
-                                           th:href="${companiesPage.last} ? '#' :${nextAddr}">
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                           th:href="${lastAddr}">
+                                        <a class="page-link" th:href="${companiesPage.last} ? '#' : @{/company(page=${companiesPage.number + 2},q=${q},start=${startDate},end=${endDate})}">
                                             <i class="fas fa-angle-right"></i>
                                         </a>
                                     </li>
                                 </ul>
                             </nav>
-
                         </div>
                         <div>
                             <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
                             <button type="button" class="btn btn-dark btn-sm" id="pdf-down-btn">PDF 다운</button>
                         </div>
                     </div>
+                    <!--
+
+                    <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <span>Total :  <span class="text-primary">3</span></span>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-dark btn-sm">출력하기</button>
+                                <button type="button" class="btn btn-dark btn-sm">엑셀다운받기</button>
+                                <button type="button" class="btn btn-dark btn-sm">디엠출력</button>
+                            </div>
+                        </div>
+
+                    -->
                 </div>
             </div>
 

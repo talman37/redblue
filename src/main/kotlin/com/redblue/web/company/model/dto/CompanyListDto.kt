@@ -26,7 +26,7 @@ data class CompanyListDto(
 
 	companion object {
 
-		fun to(companies: Page<Company>, startDate: Date?, endDate: Date?): List<CompanyListDto> {
+		fun of(companies: Page<Company>, startDate: Date?, endDate: Date?): List<CompanyListDto> {
 			var list = mutableListOf<CompanyListDto>()
 			for (company in companies.content) {
 				list.add(CompanyListDto(
@@ -40,23 +40,6 @@ data class CompanyListDto(
 					contactNumber = "-"
 				))
 			}
-
-			startDate?.let{
-				list = list.filter{
-					it.expiredAt?.let {date ->
-						date >= startDate
-					} ?: false
-				}.toMutableList()
-			}
-
-			endDate?.let{
-				list = list.filter{
-					it.expiredAt?.let {date ->
-						date <= endDate
-					} ?: false
-				}.toMutableList()
-			}
-
 			return list
 		}
 

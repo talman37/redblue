@@ -5,8 +5,8 @@ import com.redblue.web.company.model.dto.CompanyListDto
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.consult.service.ConsultService
 import com.redblue.web.lawfirm.model.LawFirmUser
-import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.text.SimpleDateFormat
-import java.util.stream.Collectors
-import java.util.stream.IntStream
 
 
 @Controller
@@ -32,7 +30,7 @@ class CompanyController(
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@CurrentUser user: LawFirmUser,
-		pageable: Pageable
+		@PageableDefault(size=50) pageable: Pageable
 	): String {
 
 		val searchValue = searchValue?.let {
@@ -61,7 +59,7 @@ class CompanyController(
 
 		val companies = companyService.list(user.lawFirmId, searchValue, start, end, pageable)
 
-		model.addAttribute("companies", CompanyListDto.to(companies, start, end))
+		model.addAttribute("companies", CompanyListDto.of(companies, start, end))
 		model.addAttribute("companiesPage", companies)
 		model.addAttribute("totalCount", companyService.count(user.lawFirmId))
 		model.addAttribute("q", searchValue)
