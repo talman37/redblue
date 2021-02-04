@@ -60,6 +60,7 @@
                 </div>
             </div>
             <div class="card">
+                <form th:id="company-form" th:name="company" th:action="@{/company/add}" method="post">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -67,532 +68,530 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
-                    <form th:id="company-form" th:name="company" th:action="@{/company/add}" method="post">
-                        <input th:type="hidden" th:name="lawFirmId" th:value="${lawFirmId}">
-                        <h4 class="mb-3">
-                            <i>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot" fill="currentColor"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
-                            <strong>법인</strong>
-                        </h4>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="companyNumber1">법인등록번호</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1"
-                                           required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid city.
-                                    </div>
-                                    <div class="input-group-addon">
-                                        <span class="input-group-text">-</span>
-                                    </div>
-                                    <input type="text" class="form-control" name="companyNumber2">
+                    <input th:type="hidden" th:name="lawFirmId" th:value="${lawFirmId}">
+                    <h4 class="mb-3">
+                        <i>
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                            </svg>
+                        </i>
+                        <strong>법인</strong>
+                    </h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="companyNumber1">법인등록번호</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="companyNumber1" name="companyNumber1"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid city.
                                 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="registerNumber">등기번호</label>
-                                <input type="text" class="form-control" id="registerNumber" name="registerNumber"
-                                       value="">
+                                <div class="input-group-addon">
+                                    <span class="input-group-text">-</span>
+                                </div>
+                                <input type="text" class="form-control" name="companyNumber2" required>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex justify-content-between">
-                                    <label for="favorite_office">관할등기소</label>
-                                    <button type="button" class="btn btn-link p-0" data-toggle="modal"
-                                            id="favorite_office"
-                                            data-target="#modal-favorite">☆ 즐겨찾기
+                        <div class="col-md-6 mb-3">
+                            <label for="registerNumber">등기번호</label>
+                            <input type="text" class="form-control" id="registerNumber" name="registerNumber"
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <label for="favorite_office">관할등기소</label>
+                                <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                                        id="favorite_office"
+                                        data-target="#modal-favorite">☆ 즐겨찾기
+                                </button>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="registerOffice" name="registerOffice"
+                                       th:readonly="true">
+                                <div class="input-group-append">
+                                    <button type='button' id="office_search_btn" class="btn btn-outline-secondary">
+                                        검색
                                     </button>
                                 </div>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="registerOffice" name="registerOffice"
-                                           th:readonly="true">
-                                    <div class="input-group-append">
-                                        <button type='button' id="office_search_btn" class="btn btn-outline-secondary">
-                                            검색
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="modal fade modal-favorite" id="modal-favorite">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">즐겨찾는 관할등기소</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
+                            </div>
+                            <div class="modal fade modal-favorite" id="modal-favorite">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">즐겨찾는 관할등기소</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="list-group">
+                                                <button type="button" class="list-group-item list-group-item-action"
+                                                        th:each="favoriteOffice: ${favoriteOffices}"
+                                                        th:id="${favoriteOffice.id.registerOfficeId}"
+                                                        name="favoriteOffice" th:value="${favoriteOffice.name}"
+                                                        th:text="${favoriteOffice.name}"
+                                                        data-dismiss="modal"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="list-group">
-                                                    <button type="button" class="list-group-item list-group-item-action"
-                                                            th:each="favoriteOffice: ${favoriteOffices}"
-                                                            th:id="${favoriteOffice.id.registerOfficeId}"
-                                                            name="favoriteOffice" th:value="${favoriteOffice.name}"
-                                                            th:text="${favoriteOffice.name}"
-                                                            data-dismiss="modal"></button>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Close
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="companyDivision">법인구분</label>
-                                <div class="input-group-prepend">
-                                    <select class="form-control" id="companyDivision" name="companyDivision">
-                                        <option selected value="">선택</option>
-                                        <option value="주식회사">주식회사</option>
-                                        <option value="유한회사">유한회사</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="companyDivision">법인구분</label>
+                            <div class="input-group-prepend">
+                                <select class="form-control" id="companyDivision" name="companyDivision">
+                                    <option selected value="">선택</option>
+                                    <option value="주식회사">주식회사</option>
+                                    <option value="유한회사">유한회사</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="companyName">상호</label>
-                                <input type="text" class="form-control" id="companyName" name="companyName" value="">
-                            </div>
-                            <div class="col-md-3 mb-3 input-daterange">
-                                <label for="companyFormationAt">설립일</label>
-                                <input type="text" class="form-control" id="companyFormationAt"
-                                       name="companyFormationAt"
-                                       value="">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="displayCompanyTypeFront">법인 종류 표시</label>
-                                <div class="mt-1">
-                                    <div class="form-check form-check-inline">
-                                        <div class="form-input">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="companyName">상호</label>
+                            <input type="text" class="form-control" id="companyName" name="companyName" value="">
+                        </div>
+                        <div class="col-md-3 mb-3 input-daterange">
+                            <label for="companyFormationAt">설립일</label>
+                            <input type="text" class="form-control" id="companyFormationAt"
+                                   name="companyFormationAt"
+                                   value="">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="displayCompanyTypeFront">법인 종류 표시</label>
+                            <div class="mt-1">
+                                <div class="form-check form-check-inline">
+                                    <div class="form-input">
                                                 <span class="input">
                                                     <input type="radio" id="displayCompanyTypeFront"
                                                            name="displayCompanyType" value="FRONT"><i></i>
                                                 </span>
-                                            <label for="displayCompanyTypeFront">앞</label>
-                                        </div>
+                                        <label for="displayCompanyTypeFront">앞</label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <div class="form-input">
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <div class="form-input">
                                                 <span class="input">
                                                     <input type="radio" id="displayCompanyTypeBack"
                                                            name="displayCompanyType" value="BACK"><i></i>
                                                 </span>
-                                            <label for="displayCompanyTypeBack">뒤</label>
-                                        </div>
+                                        <label for="displayCompanyTypeBack">뒤</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="companySubName">병기 상호</label>
-                                <input type="text" class="form-control" id="companySubName" name="companySubName"
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="companySubName">병기 상호</label>
+                            <input type="text" class="form-control" id="companySubName" name="companySubName"
+                                   value="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="companyState">법인 상태</label>
+                            <input type="text" class="form-control" id="companyState" name="companyState" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="companyManageState">관리 상태</label>
+                            <input type="text" class="form-control" id="companyManageState"
+                                   name="companyManageState" value="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="companyManageNumber">관리 번호</label>
+                            <input type="text" class="form-control" id="companyManageNumber"
+                                   name="companyManageNumber" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="recommender">추천인</label>
+                            <input type="text" class="form-control" id="recommender" name="recommender"
+                                   placeholder="" value="">
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4 class="mb-3">
+                            <i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                </svg>
+                            </i>
+                            <strong>업장</strong>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="companyAddress">본점주소</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="companyAddress" name="companyAddress"
                                        value="">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="companyState">법인 상태</label>
-                                <input type="text" class="form-control" id="companyState" name="companyState" value="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="companyManageState">관리 상태</label>
-                                <input type="text" class="form-control" id="companyManageState"
-                                       name="companyManageState" value="">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="companyManageNumber">관리 번호</label>
-                                <input type="text" class="form-control" id="companyManageNumber"
-                                       name="companyManageNumber" value="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="recommender">추천인</label>
-                                <input type="text" class="form-control" id="recommender" name="recommender"
-                                       placeholder="" value="">
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h4 class="mb-3">
-                                <i>
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                         fill="currentColor"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                    </svg>
-                                </i>
-                                <strong>업장</strong>
-                            </h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8 mb-3">
-                                <label for="companyAddress">본점주소</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="companyAddress" name="companyAddress"
-                                           value="">
-                                    <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary"
-                                                name="postal_code_search_btn" data-id="companyAddress">검색
-                                        </button>
-                                    </div>
+                                <div class="input-group-append">
+                                    <button type='button' class="btn btn-outline-secondary"
+                                            name="postal_code_search_btn" data-id="companyAddress">검색
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="companyPostalCode">우편번호</label>
-                                <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode"
-                                       value="">
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8 mb-3">
-                                <label for="deliveryPlace">송달장소</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
-                                           value="">
-                                    <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary"
-                                                name="postal_code_search_btn" data-id="deliveryPlace">검색
-                                        </button>
-                                    </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="companyPostalCode">우편번호</label>
+                            <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode"
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="deliveryPlace">송달장소</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
+                                       value="">
+                                <div class="input-group-append">
+                                    <button type='button' class="btn btn-outline-secondary"
+                                            name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="deliveryPlacePostalCode">우편번호</label>
-                                <input type="text" class="form-control" id="deliveryPlacePostalCode"
-                                       name="deliveryPlacePostalCode" value="">
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-5 mb-3">
-                                <label for="businessNumber">사업자등록번호</label>
-                                <input type="text" class="form-control" id="businessNumber" name="businessNumber"
-                                       value="">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="businessCondition">업태</label>
-                                <input type="text" class="form-control" id="businessCondition" name="businessCondition"
-                                       value="">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="businessType">업종</label>
-                                <input type="text" class="form-control" id="businessType" name="businessType" value="">
-                            </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="deliveryPlacePostalCode">우편번호</label>
+                            <input type="text" class="form-control" id="deliveryPlacePostalCode"
+                                   name="deliveryPlacePostalCode" value="">
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="settlementMonth">결산기</label>
-                                <select class="form-control" id="settlementMonth" name="settlementMonth">
-                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
-                                            th:text="${i}+'월'"></option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="stockAmount">1주의 금액</label>
-                                <input type="text" class="form-control" id="stockAmount" name="stock[amount]"
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="businessNumber">사업자등록번호</label>
+                            <input type="text" class="form-control" id="businessNumber" name="businessNumber"
+                                   value="">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="businessCondition">업태</label>
+                            <input type="text" class="form-control" id="businessCondition" name="businessCondition"
+                                   value="">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="businessType">업종</label>
+                            <input type="text" class="form-control" id="businessType" name="businessType" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="settlementMonth">결산기</label>
+                            <select class="form-control" id="settlementMonth" name="settlementMonth">
+                                <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
+                                        th:text="${i}+'월'"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="stockAmount">1주의 금액</label>
+                            <input type="text" class="form-control" id="stockAmount" name="stock[amount]"
+                                   numberonly="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="stockScheduleCount">발행할 주식의 총수</label>
+                            <input type="text" class="form-control" id="stockScheduleCount"
+                                   name="stock[scheduleCount]" numberonly="true">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="stockIssuedCount">발행주식의 총수</label>
+                            <input type="text" class="form-control" id="stockIssuedCount"
+                                   name="stock[issuedCount]" numberonly="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="capital">자본금</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="capital" name="stock[capital]" value=""
                                        numberonly="true">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                            id="stock-calculate-btn">계산하기
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex justify-content-between mb-1">
+                        <h4 class="mb-3">
+                            <i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                </svg>
+                            </i>
+                            <strong>연락처</strong>
+                        </h4>
+                        <button type='button' class='btn btn-outline-primary' id="add-contact-btn">
+                            연락처 추가
+                        </button>
+                    </div>
+                    <div class="add-item" id="contactGroup">
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="stockScheduleCount">발행할 주식의 총수</label>
-                                <input type="text" class="form-control" id="stockScheduleCount"
-                                       name="stock[scheduleCount]" numberonly="true">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="stockIssuedCount">발행주식의 총수</label>
-                                <input type="text" class="form-control" id="stockIssuedCount"
-                                       name="stock[issuedCount]" numberonly="true">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="capital">자본금</label>
+                            <div class="col-md-9 mb-3">
+                                <label for="">연락처</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="capital" name="stock[capital]" value=""
-                                           numberonly="true">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-secondary"
-                                                id="stock-calculate-btn">계산하기
-                                        </button>
+                                    <div class="input-group-prepend">
+                                        <select name="contacts[0][type]" class="form-control">
+                                            <option value="FACTORY">공장</option>
+                                            <option value="DIRECT_PHONE">직통번호</option>
+                                            <option value="MOBILE">휴대폰</option>
+                                            <option value="FAX">회사팩스</option>
+                                            <option value="EMAIL">이메일</option>
+                                            <option value="PHONE">유선전화</option>
+                                            <option value="TAX_EMAIL">세금계산서용 이메일</option>
+                                        </select>
                                     </div>
+                                    <input type="text" class="form-control" name="contacts[0][value]">
                                 </div>
                             </div>
-                        </div>
-
-                        <hr/>
-                        <div class="d-flex justify-content-between mb-1">
-                            <h4 class="mb-3">
-                                <i>
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                    </svg>
-                                </i>
-                                <strong>연락처</strong>
-                            </h4>
-                            <button type='button' class='btn btn-outline-primary' id="add-contact-btn">
-                                연락처 추가
-                            </button>
-                        </div>
-                        <div class="add-item" id="contactGroup">
-                            <div class="row">
-                                <div class="col-md-9 mb-3">
-                                    <label for="">연락처</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <select name="contacts[0][type]" class="form-control">
-                                                <option value="FACTORY">공장</option>
-                                                <option value="DIRECT_PHONE">직통번호</option>
-                                                <option value="MOBILE">휴대폰</option>
-                                                <option value="FAX">회사팩스</option>
-                                                <option value="EMAIL">이메일</option>
-                                                <option value="PHONE">유선전화</option>
-                                                <option value="TAX_EMAIL">세금계산서용 이메일</option>
-                                            </select>
-                                        </div>
-                                        <input type="text" class="form-control" name="contacts[0][value]">
-                                    </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                    <label for="">메모</label>
-                                    <input type="text" class="form-control" name="contacts[0][memo]" placeholder="">
-                                </div>
-                                <div class="col-md-1 mb-3">
-                                    <label for="">Actions</label>
-                                    <div class="btns">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                name="remove_contact_btn">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="">메모</label>
+                                <input type="text" class="form-control" name="contacts[0][memo]" placeholder="">
                             </div>
-                        </div>
-
-                        <hr/>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h4>
-                                <i>
-                                    <svg width=" 1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                    </svg>
-                                </i>
-                                <strong>임원</strong>
-                                <strong class="text-primary" id="executiveCount"></strong>
-                            </h4>
-                            <div>
-                                <button type='button' class='btn btn-outline-primary' id="add-executive-btn">
-                                    임원 추가
-                                </button>
-                            </div>
-                        </div>
-                        <table class="table table-bordered mb-3">
-                            <colgroup>
-                                <col style="width: 100px"/>
-                                <col/>
-                                <col style="width: 210px"/>
-                                <col/>
-                                <col style="width: 130px"/>
-                                <col style="width: 130px"/>
-                                <col style="width: 130px"/>
-                                <col style="width: 130px"/>
-                                <col/>
-                                <col style="width: 100px"/>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>성명</th>
-                                <th>직위</th>
-                                <th>주민등록번호</th>
-                                <th>주소</th>
-                                <th>취임일자</th>
-                                <th>임기</th>
-                                <th>임기만료일</th>
-                                <th>주식수</th>
-                                <th>임원에관한사항</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody id="executiveGroup">
-                            <tr id="executive_tr_0">
-                                <td>
-                                    <input type="text" class="form-control" name="executives[0][name]">
-                                </td>
-                                <td>
-                                    <input type="checkbox" name="executives[0][position]"
-                                           value="사내이사"><i>사내이사</i>
-                                    <input type="checkbox" name="executives[0][position]"
-                                           value="대표이사"><i>대표이사</i>
-                                    <input type="checkbox" name="executives[0][position]" value="공동대표이사"><i>공동대표이사</i>
-                                    <input type="checkbox" name="executives[0][position]" value="대표집행임원"><i>대표집행임원</i>
-                                    <input type="checkbox" name="executives[0][position]"
-                                           value="사외이사"><i>사외이사</i>
-                                    <input type="checkbox" name="executives[0][position]"
-                                           value="기타비상무이사"><i>기타비상무이사</i>
-                                    <input type="checkbox" name="executives[0][position]"
-                                           value="집행임원"><i>집행임원</i>
-                                    <input type="checkbox" name="executives[0][position]"
-                                           value="감사"><i>감사</i>
-                                    <input type="checkbox" name="executives[0][position]"
-                                           value="감사위원"><i>감사위원</i>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control"
-                                               name="executives[0][registrationNumber1]">
-                                        <div class="input-group-addon">
-                                            <span class="input-group-text">-</span>
-                                        </div>
-                                        <input type="text" class="form-control"
-                                               name="executives[0][registrationNumber2]">
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="executives[0][address]">
-                                </td>
-                                <td class="input-daterange">
-                                    <input type="text" class="form-control" name="executives[0][inauguratedAt]">
-                                </td>
-                                <td>
-                                    <select class="form-control" name="executives[0][term]">
-                                        <option selected value="0">직접입력</option>
-                                        <option value="1">1년</option>
-                                        <option value="2">2년</option>
-                                        <option value="3">3년</option>
-                                    </select>
-                                </td>
-                                <td class="input-daterange">
-                                    <input type="text" class="form-control" name="executives[0][expiredAt]">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="executives[0][stockCount]"
-                                           numberonly="true">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="executives[0][detail]">
-                                </td>
-                                <td>
+                            <div class="col-md-1 mb-3">
+                                <label for="">Actions</label>
+                                <div class="btns">
                                     <button type="button" class="btn btn-sm btn-outline-secondary"
-                                            onClick="remove_executive(0)">
+                                            name="remove_contact_btn">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <hr/>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h4>
-                                <i>
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                    </svg>
-                                </i>
-                                <strong>주주</strong>
-                                <strong class="text-primary" id="stockHolderCount"></strong>
-                            </h4>
-                            <div>
-                                <button type='button' class='btn btn-outline-primary' id="add-stockHolder-btn">
-                                    주주 추가
-                                </button>
-                            </div>
-                        </div>
-                        <div class="box-status">
-                            <div class="item">
-                                <div class="item-header">
-                                    입력된 주식수
-                                </div>
-                                <div class="item-body">
-                                    <span class='text-danger' id="input_stock_count">0</span>주
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-header">
-                                    발행주식총수
-                                </div>
-                                <div class="item-body">
-                                    <span class='text-danger' id="issue_stock_count">0</span>주
                                 </div>
                             </div>
                         </div>
-                        <table class="table table-bordered mb-3">
-                            <colgroup>
-                                <col/>
-                                <col/>
-                                <col/>
-                                <col/>
-                                <col style="width: 100px"/>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>성명</th>
-                                <th>주민등록번호</th>
-                                <th>주소</th>
-                                <th>주식수</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody id="stockHolderGroup">
-                            </tbody>
-                        </table>
-                        <hr/>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h4>
-                                <i>
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                    </svg>
-                                </i>
-                                <strong>목적사항</strong>
-                            </h4>
-                            <div>
-                                <button type='button' class='btn btn-outline-primary' id="add-purpose-btn">
-                                    목적사항 추가
-                                </button>
-                            </div>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4>
+                            <i>
+                                <svg width=" 1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                </svg>
+                            </i>
+                            <strong>임원</strong>
+                            <strong class="text-primary" id="executiveCount"></strong>
+                        </h4>
+                        <div>
+                            <button type='button' class='btn btn-outline-primary' id="add-executive-btn">
+                                임원 추가
+                            </button>
                         </div>
-                        <div id="purposeGroup">
-                            <div class="row">
-                                <div class="col-md-11 mb-3">
-                                    <input type="text" class="form-control" name="purposeDetail[0][detail]"
-                                           id="purpose_detail"/>
-                                    <input type="hidden" class="form-control" name="purposeDetail[0][ordinal]"/>
-                                </div>
-                                <div class="col-md-1 mb-3">
-                                    <div class="btns">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                name="remove_purpose_btn">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
+                    </div>
+                    <table class="table table-bordered mb-3">
+                        <colgroup>
+                            <col style="width: 100px"/>
+                            <col/>
+                            <col style="width: 210px"/>
+                            <col/>
+                            <col style="width: 130px"/>
+                            <col style="width: 130px"/>
+                            <col style="width: 130px"/>
+                            <col style="width: 130px"/>
+                            <col/>
+                            <col style="width: 100px"/>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>성명</th>
+                            <th>직위</th>
+                            <th>주민등록번호</th>
+                            <th>주소</th>
+                            <th>취임일자</th>
+                            <th>임기</th>
+                            <th>임기만료일</th>
+                            <th>주식수</th>
+                            <th>임원에관한사항</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="executiveGroup">
+                        <tr id="executive_tr_0">
+                            <td>
+                                <input type="text" class="form-control" name="executives[0][name]">
+                            </td>
+                            <td>
+                                <input type="checkbox" name="executives[0][position]"
+                                       value="사내이사"><i>사내이사</i>
+                                <input type="checkbox" name="executives[0][position]"
+                                       value="대표이사"><i>대표이사</i>
+                                <input type="checkbox" name="executives[0][position]" value="공동대표이사"><i>공동대표이사</i>
+                                <input type="checkbox" name="executives[0][position]" value="대표집행임원"><i>대표집행임원</i>
+                                <input type="checkbox" name="executives[0][position]"
+                                       value="사외이사"><i>사외이사</i>
+                                <input type="checkbox" name="executives[0][position]"
+                                       value="기타비상무이사"><i>기타비상무이사</i>
+                                <input type="checkbox" name="executives[0][position]"
+                                       value="집행임원"><i>집행임원</i>
+                                <input type="checkbox" name="executives[0][position]"
+                                       value="감사"><i>감사</i>
+                                <input type="checkbox" name="executives[0][position]"
+                                       value="감사위원"><i>감사위원</i>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control"
+                                           name="executives[0][registrationNumber1]">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text">-</span>
                                     </div>
+                                    <input type="text" class="form-control"
+                                           name="executives[0][registrationNumber2]">
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="executives[0][address]">
+                            </td>
+                            <td class="input-daterange">
+                                <input type="text" class="form-control" name="executives[0][inauguratedAt]">
+                            </td>
+                            <td>
+                                <select class="form-control" name="executives[0][term]">
+                                    <option selected value="0">직접입력</option>
+                                    <option value="1">1년</option>
+                                    <option value="2">2년</option>
+                                    <option value="3">3년</option>
+                                </select>
+                            </td>
+                            <td class="input-daterange">
+                                <input type="text" class="form-control" name="executives[0][expiredAt]">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="executives[0][stockCount]"
+                                       numberonly="true">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="executives[0][detail]">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        onClick="remove_executive(0)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4>
+                            <i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                </svg>
+                            </i>
+                            <strong>주주</strong>
+                            <strong class="text-primary" id="stockHolderCount"></strong>
+                        </h4>
+                        <div>
+                            <button type='button' class='btn btn-outline-primary' id="add-stockHolder-btn">
+                                주주 추가
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-status">
+                        <div class="item">
+                            <div class="item-header">
+                                입력된 주식수
+                            </div>
+                            <div class="item-body">
+                                <span class='text-danger' id="input_stock_count">0</span>주
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="item-header">
+                                발행주식총수
+                            </div>
+                            <div class="item-body">
+                                <span class='text-danger' id="issue_stock_count">0</span>주
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered mb-3">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col style="width: 100px"/>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>성명</th>
+                            <th>주민등록번호</th>
+                            <th>주소</th>
+                            <th>주식수</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="stockHolderGroup">
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4>
+                            <i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                                </svg>
+                            </i>
+                            <strong>목적사항</strong>
+                        </h4>
+                        <div>
+                            <button type='button' class='btn btn-outline-primary' id="add-purpose-btn">
+                                목적사항 추가
+                            </button>
+                        </div>
+                    </div>
+                    <div id="purposeGroup">
+                        <div class="row">
+                            <div class="col-md-11 mb-3">
+                                <input type="text" class="form-control" name="purposeDetail[0][detail]"
+                                       id="purpose_detail"/>
+                                <input type="hidden" class="form-control" name="purposeDetail[0][ordinal]"/>
+                            </div>
+                            <div class="col-md-1 mb-3">
+                                <div class="btns">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            name="remove_purpose_btn">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <div>
-                            <button type="button" class="btn btn-dark" id="save-btn">저장하기</button>
+                            <button type="submit" class="btn btn-dark" id="save-btn">저장하기</button>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </main>
         <!-- //contents -->
@@ -625,6 +624,30 @@
                 });
             });
 
+            $("#company-form").validate({
+                errorPlacement: function(error, element) {
+                },
+                invalidHandler: function(form, validator) {
+                     var errors = validator.numberOfInvalids();
+                     if (errors) {
+                         alert("필수 값을 입력하지 않으셨습니다.");
+                         validator.errorList[0].element.focus();
+                     }
+                },
+                submitHandler: function(form) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/v1/companies',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                        success: location.href = '/company',
+                        error: alert('법인 등록에 실패하였습니다.')
+                    });
+                    return false;
+                }
+            });
+
             $('#office_search_btn').on('click', function () {
                 window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
             });
@@ -634,23 +657,22 @@
 
             });
 
-            $('#save-btn').on('click', function () {
+<!--            $('#save-btn').on('click', function () {-->
+<!--                if ($('#executiveGroup').children().length < 1) {-->
+<!--                    alert("임원을 추가해 주세요.");-->
+<!--                    return false;-->
+<!--                }-->
 
-                if ($('#executiveGroup').children().length < 1) {
-                    alert("임원을 추가해 주세요.");
-                    return false;
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/v1/companies',
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
-                    success: location.href = '/company',
-                    error: alert('법인 등록에 실패하였습니다.')
-                });
-            });
+<!--                $.ajax({-->
+<!--                    type: 'POST',-->
+<!--                    url: '/v1/companies',-->
+<!--                    contentType: 'application/json',-->
+<!--                    dataType: 'json',-->
+<!--                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),-->
+<!--                    success: location.href = '/company',-->
+<!--                    error: alert('법인 등록에 실패하였습니다.')-->
+<!--                });-->
+<!--            });-->
 
             $('#add-contact-btn').on('click', function () {
                 var i = $('#contactGroup > div').length
@@ -747,6 +769,8 @@
             $('#purpose_row_' + i).remove();
         }
 
+
+
     </script>
 
     <script id="contact-template" type="text/x-jQuery-tmpl">
@@ -781,6 +805,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
 
@@ -853,6 +879,8 @@
 
 
 
+
+
     </script>
     <script id="stockHolder-template" type="text/x-jQuery-tmpl">
         <tr id="stockHolder_tr_{{= index}}">
@@ -884,6 +912,8 @@
 
 
 
+
+
     </script>
 
     <script id="purpose-template" type="text/x-jQuery-tmpl">
@@ -901,6 +931,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
 
