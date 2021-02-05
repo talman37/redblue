@@ -40,6 +40,8 @@ data class Executive(
 	@Temporal(TemporalType.DATE)
 	val expiredAt: Date? = null,
 
-	val stockCount: Int? = 0
+	val stockCount: Int? = 0,
+
+	val nationality: String? = null
 
 )
