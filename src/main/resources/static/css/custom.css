@@ -241,7 +241,7 @@ h5 {
 * Card
 */
 .card {
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid #dedede;
   box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15); }
   .card-header, .card-footer {
     background-color: #fff; }
