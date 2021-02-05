@@ -13,51 +13,44 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-body">
-                    <input type="hidden" id="companyId" th:value="${company.id}"/>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h4 class="mb-3">
-                            <i>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                     fill="currentColor"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
-                            <strong>법인</strong>
-                        </h4>
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <button type='button' class='btn btn-outline-primary' id="update_master_btn">
+                            <strong>법인</strong>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="update_master_btn">
                                 수정
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="companyId" th:value="${company.id}"/>
                     <form id="masterForm">
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">법인등록번호</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="companyNumber1" name="companyNumber1"
+                                    <input type="text" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1"
                                            th:value="${company.companyNumber1}">
                                     <div class="input-group-addon">
                                         <span class="input-group-text">-</span>
                                     </div>
-                                    <input type="text" class="form-control" id="companyNumber2" name="companyNumber2"
+                                    <input type="text" class="form-control form-control-sm" id="companyNumber2" name="companyNumber2"
                                            th:value="${company.companyNumber2}">
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">등기번호</label>
-                                <input type="text" class="form-control" id="registerNumber" name="registerNumber"
+                                <input type="text" class="form-control form-control-sm" id="registerNumber" name="registerNumber"
                                        placeholder=""
                                        th:value="${company.registerNumber}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <div class="d-flex justify-content-between">
                                     <label for="">관할등기소</label>
-                                    <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                                    <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
                                             data-target="#modal-favorite">☆ 즐겨찾기
                                     </button>
                                     <div class="modal" id="modal-favorite">
@@ -82,7 +75,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
+                                                    <button type="button" class="btn btn-sm btn-secondary"
                                                             data-dismiss="modal">닫기
                                                     </button>
                                                 </div>
@@ -91,39 +84,26 @@
                                     </div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="registerOffice" name="registerOffice"
+                                    <input type="text" class="form-control form-control-sm" id="registerOffice" name="registerOffice"
                                            th:readonly="true"
                                            th:value="${company.registerOffice}">
                                     <div class="input-group-append">
-                                        <button type='button' id="office_search_btn" class="btn btn-outline-secondary">
+                                        <button type='button' id="office_search_btn" class="btn btn-sm btn-outline-secondary">
                                             검색
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="companyDivision">법인구분</label>
-                                <select class="form-control" id="companyDivision" name="companyDivision"
+                                <select class="form-select form-select-sm" id="companyDivision" name="companyDivision"
                                         th:field="*{company.companyDivision}">
                                     <option th:value="null">전체</option>
                                     <option th:value="주식회사">주식회사</option>
                                     <option th:value="유한회사">유한회사</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="">상호</label>
-                                <input type="text" class="form-control" id="companyName" name="companyName"
-                                       th:value="${company.companyName}">
-                            </div>
-                            <div class="col-md-3 mb-3 input-daterange">
-                                <label for="companyFormationAt">설립일</label>
-                                <input type="text" class="form-control" id="companyFormationAt"
-                                       name="companyFormationAt"
-                                       th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">
-                            </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">법인 종류 표시</label>
                                 <div class="mt-1">
                                     <div class="form-check form-check-inline">
@@ -148,330 +128,412 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="">병기 상호</label>
-                                <input type="text" class="form-control" id="companySubName" name="companySubName"
-                                       placeholder="" th:value="${company.companySubName}">
-                            </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">법인 상태</label>
-                                <input type="text" class="form-control" id="companyState" name="companyState"
+                                <input type="text" class="form-control form-control-sm" id="companyState" name="companyState"
                                        placeholder="" th:value="${company.companyState}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-2 mb-2">
+                                <label for="">상호</label>
+                                <input type="text" class="form-control form-control-sm" id="companyName" name="companyName"
+                                       th:value="${company.companyName}">
+                            </div>
+                            <div class="col-md-2 mb-2 input-daterange">
+                                <label for="companyFormationAt">설립일</label>
+                                <input type="text" class="form-control form-control-sm" id="companyFormationAt"
+                                       name="companyFormationAt"
+                                       th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">병기 상호</label>
+                                <input type="text" class="form-control form-control-sm" id="companySubName" name="companySubName"
+                                       placeholder="" th:value="${company.companySubName}">
+                            </div>
+                            <div class="col-md-2 mb-2">
                                 <label for="">관리 상태</label>
-                                <input type="text" class="form-control" id="companyManageState"
+                                <input type="text" class="form-control form-control-sm" id="companyManageState"
                                        name="companyManageState" placeholder=""
                                        th:value="${company.companyManageState}">
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">관리 번호</label>
-                                <input type="text" class="form-control" id="companyManageNumber"
+                                <input type="text" class="form-control form-control-sm" id="companyManageNumber"
                                        name="companyManageNumber" placeholder=""
                                        th:value="${company.companyManageNumber}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">추천인</label>
-                                <input type="text" class="form-control" id="recommender" name="recommender"
+                                <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
                                        placeholder="" th:value="${company.recommender}">
                             </div>
                         </div>
                     </form>
-                    <hr/>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h4 class="mb-3">
-                            <i>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                     fill="currentColor"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
-                            <strong>업장</strong>
-                        </h4>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <button type='button' class='btn btn-outline-primary' id="update_sub_btn">
+                            <strong>업장</strong>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="update_sub_btn">
                                 수정
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
                     <form id="subForm">
                         <div class="row">
-                            <div class="col-md-8 mb-3">
+                            <div class="col-md-4 mb-2">
                                 <label for="">본점주소</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="companyAddress" name="companyAddress"
+                                    <input type="text" class="form-control form-control-sm" id="companyAddress" name="companyAddress"
                                            th:value="${company.companyAddress}">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary"
+                                        <button type='button' class="btn btn-sm btn-outline-secondary"
                                                 name="postal_code_search_btn" data-id="companyAddress">검색
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">우편번호</label>
-                                <input type="text" class="form-control" id="companyPostalCode" name="companyPostalCode"
+                                <input type="text" class="form-control form-control-sm" id="companyPostalCode" name="companyPostalCode"
                                        placeholder="" th:value="${company.companyPostalCode}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8 mb-3">
+                            <div class="col-md-4 mb-2">
                                 <label for="">송달장소</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="deliveryPlace" name="deliveryPlace"
+                                    <input type="text" class="form-control form-control-sm" id="deliveryPlace" name="deliveryPlace"
                                            th:value="${company.deliveryPlace}">
                                     <div class="input-group-append">
-                                        <button type='button' class="btn btn-outline-secondary"
+                                        <button type='button' class="btn btn-sm btn-outline-secondary"
                                                 name="postal_code_search_btn" data-id="deliveryPlace">검색
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">우편번호</label>
-                                <input type="text" class="form-control" id="deliveryPlacePostalCode"
+                                <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode"
                                        name="deliveryPlacePostalCode" placeholder=""
                                        th:value="${company.deliveryPlacePostalCode}">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5 mb-3">
+                            <div class="col-md-2 mb-2">
                                 <label for="">사업자등록번호</label>
-                                <input type="text" class="form-control" id="businessNumber" name="businessNumber"
+                                <input type="text" class="form-control form-control-sm" id="businessNumber" name="businessNumber"
                                        placeholder="" th:value="${company.businessNumber}">
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-1 mb-2">
                                 <label for="">업태</label>
-                                <input type="text" class="form-control" id="businessCondition" name="businessCondition"
+                                <input type="text" class="form-control form-control-sm" id="businessCondition" name="businessCondition"
                                        placeholder="" th:value="${company.businessCondition}">
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-1 mb-2">
                                 <label for="">업종</label>
-                                <input type="text" class="form-control" id="businessType" name="businessType"
+                                <input type="text" class="form-control form-control-sm" id="businessType" name="businessType"
                                        placeholder="" th:value="${company.businessType}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-1 mb-2">
                                 <label for="">결산기</label>
-                                <select class="form-control" id="settlementMonth" name="settlementMonth">
+                                <select class="form-select form-select-sm" id="settlementMonth" name="settlementMonth">
                                     <option selected>전체</option>
                                     <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
                                             th:selected="${i == company.settlementMonth}"></option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-1 mb-2">
                                 <label for="">1주의 금액</label>
-                                <input type="text" class="form-control" id="stock.amount" name="stock[amount]"
+                                <input type="text" class="form-control form-control-sm" id="stock.amount" name="stock[amount]"
                                        numberonly="true"
                                        placeholder="" required="" th:value="${company.stock.amount}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-1 mb-2">
                                 <label for="">발행할 주식의 총수</label>
-                                <input type="text" class="form-control" id="stock.scheduleCount" numberonly="true"
+                                <input type="text" class="form-control form-control-sm" id="stock.scheduleCount" numberonly="true"
                                        name="stock[scheduleCount]" placeholder="" required=""
                                        th:value="${company.stock.scheduleCount}">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-1 mb-2">
                                 <label for="">발행주식의 총수</label>
-                                <input type="text" class="form-control" id="stock.issuedCount" name="stock[issuedCount]"
+                                <input type="text" class="form-control form-control-sm" id="stock.issuedCount" name="stock[issuedCount]"
                                        numberonly="true"
                                        placeholder="" required="" th:value="${company.stock.issuedCount}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-2">
                                 <label for="">자본금</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" numberonly="true"
+                                    <input type="text" class="form-control form-control-sm" numberonly="true"
                                            th:value="${company.stock.amount * (company.stock.normalCount + company.stock.firstCount)}">
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-secondary">계산하기</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">계산하기</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <hr/>
-                    <div class="d-flex justify-content-between mb-1">
-                        <h4 class="mb-3">
-                            <i>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
-                            <strong>연락처</strong>
-                        </h4>
-                        <div>
-                            <button type='button' class='btn btn-outline-primary' id="add-contact-btn">
-                                연락처 추가
-                            </button>
-                            <button type='button' class='btn btn-outline-success' data-toggle="modal"
-                                    id="save-contact-btn">
-                                저장
-                            </button>
-                        </div>
-                    </div>
-                    <div class="add-item" id="contactGroup">
-                        <th:block th:each="contact, index: ${company.contacts}">
-                            <div class="row">
-                                <div class="col-md-9 mb-3">
-                                    <label th:for="'contacts['+${index.index}+'][value]'">연락처</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <select th:name="'contacts['+${index.index}+'][type]'" class="form-control">
-                                                <option value="FACTORY" th:selected="${contact.type.name() == 'FACTORY'}">공장</option>
-                                                <option value="DIRECT_PHONE" th:selected="${contact.type.name() == 'DIRECT_PHONE'}">직통번호</option>
-                                                <option value="MOBILE" th:selected="${contact.type.name() == 'MOBILE'}">휴대폰</option>
-                                                <option value="FAX" th:selected="${contact.type.name() == 'FAX'}">회사팩스</option>
-                                                <option value="EMAIL" th:selected="${contact.type.name() == 'EMAIL'}">이메일</option>
-                                                <option value="PHONE" th:selected="${contact.type.name() == 'PHONE'}">유선전화</option>
-                                                <option value="TAX_EMAIL" th:selected="${contact.type.name() == 'TAX_EMAIL'}">세금계산서용 이메일</option>
-                                            </select>
-                                        </div>
-                                        <input type="text" class="form-control" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:value="${contact.value}">
-                                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>연락처</strong>
                                 </div>
-                                <div class="col-md-2 mb-3">
-                                    <label th:for="'contacts['+${index.index}+'][memo]'">메모</label>
-                                    <input type="text" class="form-control" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
-                                           th:value="${contact.memo}">
-                                </div>
-                                <div class="col-md-1 mb-3">
-                                    <label for="">Actions</label>
-                                    <div class="btns">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="" th:onclick="'remove_contact('+${index.index}+')'">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </div>
+                                <div>
+                                    <button type='button' class='btn btn-sm btn-outline-primary' id="add-contact-btn">
+                                        연락처 추가
+                                    </button>
+                                    <button type='button' class='btn btn-sm btn-outline-success' data-toggle="modal"
+                                            id="save-contact-btn">
+                                        저장
+                                    </button>
                                 </div>
                             </div>
-                        </th:block>
+                        </div>
+                        <div class="card-body">
+                            <div class="add-item" id="contactGroup">
+                                <th:block th:each="contact, index: ${company.contacts}">
+                                    <div class="row">
+                                        <div class="col-md-9 mb-2">
+                                            <label th:for="'contacts['+${index.index}+'][value]'">연락처</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <select th:name="'contacts['+${index.index}+'][type]'" class="form-select form-select-sm">
+                                                        <option value="FACTORY" th:selected="${contact.type.name() == 'FACTORY'}">공장</option>
+                                                        <option value="DIRECT_PHONE" th:selected="${contact.type.name() == 'DIRECT_PHONE'}">직통번호</option>
+                                                        <option value="MOBILE" th:selected="${contact.type.name() == 'MOBILE'}">휴대폰</option>
+                                                        <option value="FAX" th:selected="${contact.type.name() == 'FAX'}">회사팩스</option>
+                                                        <option value="EMAIL" th:selected="${contact.type.name() == 'EMAIL'}">이메일</option>
+                                                        <option value="PHONE" th:selected="${contact.type.name() == 'PHONE'}">유선전화</option>
+                                                        <option value="TAX_EMAIL" th:selected="${contact.type.name() == 'TAX_EMAIL'}">세금계산서용 이메일</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:value="${contact.value}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <label th:for="'contacts['+${index.index}+'][memo]'">메모</label>
+                                            <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
+                                                   th:value="${contact.memo}">
+                                        </div>
+                                        <div class="col-md-1 mb-2">
+                                            <label for="" class="invisible">Actions</label>
+                                            <div class="btns">
+                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_contact('+${index.index}+')'">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
                     </div>
-                    <hr/>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h4>
-                            <i>
-                                <svg width=" 1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>지점</strong>
+                                </div>
+                                <div>
+                                    <button type='button' class='btn btn-sm btn-outline-primary' id="add-office-btn">
+                                        지점 추가
+                                    </button>
+                                    <button type='button' class='btn btn-sm btn-outline-success' id="save-office-btn">
+                                        저장
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="add-item" id="officeGroup">
+                                <div class="row">
+                                    <div class="col-md-2 mb-2">
+                                        <label>지점명칭</label>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <div class="col-md-7 mb-2">
+                                        <label>지점주소</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control form-control-sm">
+                                            <div class="input-group-append">
+                                                <button type='button' class="btn btn-sm btn-outline-secondary"
+                                                        name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>우편번호</label>
+                                        <input type="text" class="form-control form-control-sm" id=""
+                                               name="deliveryPlacePostalCode" placeholder="">
+                                    </div>
+                                    <div class="col-md-1 mb-2">
+                                        <label for="" class="invisible">Actions</label>
+                                        <div class="btns">
+                                            <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <th:block th:each="office, index: ${company.offices}">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-md-2 mb-2">-->
+<!--                                            <label th:for="'offices['+${index.index}+'][name]'">지점명칭</label>-->
+<!--                                            <input type="text" class="form-control form-control-sm" th:id="'offices['+${index.index}+'][name]'" th:name="'offices['+${index.index}+'][name]'" placeholder=""-->
+<!--                                                   th:value="${office.name}">-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-7 mb-2">-->
+<!--                                            <label th:for="'offices['+${index.index}+'][value]'">지점주소</label>-->
+<!--                                            <div class="input-group">-->
+<!--                                                <input type="text" class="form-control form-control-sm" id="" name=""-->
+<!--                                                       th:value="${office.place}">-->
+<!--                                                <div class="input-group-append">-->
+<!--                                                    <button type='button' class="btn btn-sm btn-outline-secondary"-->
+<!--                                                            name="postal_code_search_btn" data-id="deliveryPlace">검색-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-2">-->
+<!--                                            <label th:for="'offices['+${index.index}+'][postalCode]'">우편번호</label>-->
+<!--                                            <input type="text" class="form-control form-control-sm" id=""-->
+<!--                                                   name="deliveryPlacePostalCode" placeholder=""-->
+<!--                                                   th:value="${company.deliveryPlacePostalCode}">-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-1 mb-2">-->
+<!--                                            <label for="" class="invisible">Actions</label>-->
+<!--                                            <div class="btns">-->
+<!--                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_office('+${index.index}+')'">-->
+<!--                                                    <i class="fas fa-trash-alt"></i>-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </th:block>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
                             <strong>임원</strong>
                             <strong class="text-primary" th:text="${#lists.size(company.executives)}"></strong>
-                        </h4>
+                        </div>
                         <div>
-                            <button type='button' class='btn btn-outline-primary' data-toggle="modal"
+                            <button type='button' class='btn btn-sm btn-outline-primary' data-toggle="modal"
                                     id="add-executive-btn">
                                 임원 추가
                             </button>
-                            <button type='button' class='btn btn-outline-success' data-toggle="modal"
+                            <button type='button' class='btn btn-sm btn-outline-success' data-toggle="modal"
                                     id="save-executive-btn">
                                 저장
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
                     <form id="executive_form">
-                        <table class="table table-bordered mb-3">
+                        <table class="table table-bordered mb-2 table-form">
                             <colgroup>
                                 <col style="width: 100px"/>
                                 <col/>
                                 <col style="width: 210px"/>
                                 <col/>
+                                <col/>
                                 <col style="width: 130px"/>
                                 <col style="width: 130px"/>
                                 <col style="width: 130px"/>
                                 <col style="width: 130px"/>
                                 <col/>
-                                <col style="width: 100px"/>
+                                <col style="width: 50px"/>
                             </colgroup>
                             <thead>
                             <tr>
                                 <th>성명</th>
                                 <th>직위</th>
                                 <th>주민등록번호</th>
+                                <th>국적</th>
                                 <th>주소</th>
                                 <th>취임일자</th>
                                 <th>임기</th>
                                 <th>임기만료일</th>
                                 <th>주식수</th>
                                 <th>임원에관한사항</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody id="executiveGroup">
                             <th:block th:each="executive, index: ${company.executives}">
                                 <tr th:id="'executive_tr_'+${index.index}">
                                     <td>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][name]'"
                                                th:value="${executive.name}">
                                     </td>
                                     <td>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '사내이사')}"
-                                               value="사내이사"><i>사내이사</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '대표이사')}"
-                                               value="대표이사"><i>대표이사</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '공동대표이사')}"
-                                               value="공동대표이사"><i>공동대표이사</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '대표집행임원')}"
-                                               value="대표집행임원"><i>대표집행임원</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '사외이사')}"
-                                               value="사외이사"><i>사외이사</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '기타비상무이사')}"
-                                               value="기타비상무이사"><i>기타비상무이사</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '집행임원')}"
-                                               value="집행임원"><i>집행임원</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '감사')}"
-                                               value="감사"><i>감사</i>
-                                        <input type="checkbox" th:name="'executives['+${index.index}+'][position]'"
-                                               th:checked="${#strings.contains(executive.position, '감사위원')}"
-                                               value="감사위원"><i>감사위원</i>
+                                        <select class="form-select form-select-sm" th:name="'executives['+${index.index}+'][position]'">
+                                            <option selected value="0">사내이사</option>
+                                            <option value="1">대표이사</option>
+                                            <option value="2">공동대표이사</option>
+                                            <option value="3">대표집행임원</option>
+                                            <option value="4">사외이사</option>
+                                            <option value="5">기타비상무이사</option>
+                                            <option value="6">집행임원</option>
+                                            <option value="7">감사</option>
+                                            <option value="8">감사위원</option>
+                                        </select>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control form-control-sm"
                                                    th:name="'executives['+${index.index}+'][registrationNumber1]'"
                                                    th:value="${executive.registrationNumber1}">
                                             <div class="input-group-addon">
                                                 <span class="input-group-text">-</span>
                                             </div>
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control form-control-sm"
                                                    th:name="'executives['+${index.index}+'][registrationNumber2]'"
                                                    th:value="${executive.registrationNumber2}">
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control"
+                                        <div class="input-group">
+                                            <select class="form-select form-select-sm" id="">
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                            <input type="text" class="form-control form-control-sm"
+                                                   name="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][address]'"
                                                th:value="${executive.address}">
                                     </td>
                                     <td class="input-daterange">
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][inauguratedAt]'"
                                                th:value="${executive.inauguratedAt}">
                                     </td>
                                     <td>
-                                        <select class="form-control" th:name="'executives['+${index.index}+'][term]'">
+                                        <select class="form-select form-select-sm" th:name="'executives['+${index.index}+'][term]'">
                                             <option value="0" th:selected="${executive.term == 0}">직접입력</option>
                                             <option value="1" th:selected="${executive.term == 1}">1년</option>
                                             <option value="2" th:selected="${executive.term == 2}">2년</option>
@@ -479,22 +541,22 @@
                                         </select>
                                     </td>
                                     <td class="input-daterange">
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][expiredAt]'"
                                                th:value="${executive.expiredAt}">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][stockCount]'"
                                                th:value="${executive.stockCount}">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][detail]'"
                                                th:value="${executive.detail}">
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
                                                 th:onclick="'remove_executive('+${index.index}+')'">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -504,28 +566,28 @@
                             </tbody>
                         </table>
                     </form>
-                    <hr/>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h4>
-                            <i>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
                             <strong>주주</strong>
                             <strong class="text-primary" th:text="${#lists.size(company.stockholders)}"></strong>
-                        </h4>
+                        </div>
                         <div>
-                            <button type='button' class='btn btn-outline-primary' id="add-stockholder-btn">
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="add-stockholder-btn">
                                 주주 추가
                             </button>
-                            <button type='button' class='btn btn-outline-success' data-toggle="modal"
+                            <button type='button' class='btn btn-sm btn-outline-success' data-toggle="modal"
                                     id="save-stockHolder-btn">
                                 저장
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
                     <div class="box-status">
                         <div class="item">
                             <div class="item-header">
@@ -546,13 +608,13 @@
                         </div>
                     </div>
                     <form id="stockholder_form">
-                        <table class="table table-bordered mb-3">
+                        <table class="table table-bordered mb-2 table-form">
                             <colgroup>
                                 <col/>
                                 <col/>
                                 <col/>
                                 <col/>
-                                <col style="width: 100px"/>
+                                <col style="width: 50px"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -560,44 +622,44 @@
                                 <th>주민등록번호</th>
                                 <th>주소</th>
                                 <th>주식수</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody id="stockHolderGroup">
                             <th:block th:each="stockholder, index: ${company.stockholders}">
-                                <input type="hidden" class="form-control"
+                                <input type="hidden" class="form-control form-control-sm"
                                        th:name="'stockholders['+${index.index}+'][id]'" th:value="${stockholder.id}"/>
                                 <tr th:id="'stockholder_tr_'+${index.index}">
                                     <td>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'stockholders['+${index.index}+'][name]'"
                                                th:value="${stockholder.name}"/>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control form-control-sm"
                                                    th:name="'stockholders['+${index.index}+'][registrationNumber1]'"
                                                    th:value="${stockholder.registrationNumber1}"/>
                                             <div class="input-group-addon">
                                                 <span class="input-group-text">-</span>
                                             </div>
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control form-control-sm"
                                                    th:name="'stockholders['+${index.index}+'][registrationNumber2]'"
                                                    th:value="${stockholder.registrationNumber2}"/>
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'stockholders['+${index.index}+'][address]'"
                                                th:value="${stockholder.address}"/>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'stockholders['+${index.index}+'][stockCount]'"
                                                th:value="${stockholder.stockCount}"/>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
                                                 th:onclick="'remove_stockHolder('+${index.index}+')'">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -607,44 +669,43 @@
                             </tbody>
                         </table>
                     </form>
-                    <hr/>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h4>
-                            <i>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
-                            <strong>목적사항</strong>
-                        </h4>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <button type='button' class='btn btn-outline-primary' id="add-purpose-btn">
+                            <strong>목적사항</strong>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="add-purpose-btn">
                                 목적사항 추가
                             </button>
-                            <button type='button' class='btn btn-outline-success' id="save-purpose-btn">
+                            <button type='button' class='btn btn-sm btn-outline-success' id="save-purpose-btn">
                                 저장
                             </button>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
                     <form id="purposeDetail_form">
                         <div id="purposeGroup">
                             <th:block th:each="purpose, index: ${company.purposeDetail}">
                                 <div class="row" th:id="'purpose_row_'+${index.index}">
-                                    <div class="col-md-11 mb-3">
-                                        <input type="hidden" class="form-control"
+                                    <div class="col-md-11 mb-2">
+                                        <input type="hidden" class="form-control form-control-sm"
                                                th:name="'purposeDetail['+${index.index}+'][id]'"
                                                th:value="${purpose.id}"/>
-                                        <input type="text" class="form-control"
+                                        <input type="text" class="form-control form-control-sm"
                                                th:name="'purposeDetail['+${index.index}+'][detail]'"
                                                id="purpose_detail" th:value="${purpose.detail}"/>
-                                        <input type="hidden" class="form-control"
+                                        <input type="hidden" class="form-control form-control-sm"
                                                th:name="'purposeDetail['+${index.index}+'][ordinal]'"
                                                th:value="${purpose.ordinal}"/>
                                     </div>
-                                    <div class="col-md-1 mb-3">
+                                    <div class="col-md-1 mb-2">
                                         <div class="btns">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
                                                     th:onclick="'remove_purpose('+${index.index}+')'"
                                                     name="remove_purpose_btn">
                                                 <i class="fas fa-trash-alt"></i>
@@ -655,25 +716,25 @@
                             </th:block>
                         </div>
                     </form>
-                    <hr/>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h4>
-                            <i>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot"
-                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                </svg>
-                            </i>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
                             <strong>상담내역</strong>
                             <strong class="text-primary" th:text="${#lists.size(consults)}"></strong>
-                        </h4>
+                        </div>
                         <div>
-                            <button type='button' class='btn btn-outline-primary' id="consult_add_btn">
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="consult_add_btn">
                                 상담 내역 추가
                             </button>
                         </div>
                     </div>
-                    <table class="table table-bordered mb-3">
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered mb-2">
                         <colgroup>
                             <col/>
                             <col/>
@@ -693,7 +754,7 @@
                         <tbody>
                         <tr th:each="consult: ${consults}">
                             <td>
-                                <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                                <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
                                         th:text="${consult.consultant}">
                                 </button>
                             </td>
@@ -831,6 +892,11 @@
                 let i = $('#contactGroup > tr').length
                 $('#contact-template').tmpl([{index: i}]).appendTo($('#contactGroup'))
             });
+            $('#add-office-btn').on('click', function () {
+                let i = $('#officeGroup > tr').length
+                $('#office-template').tmpl([{index: i}]).appendTo($('#officeGroup'))
+            });
+
 
             $('#add-executive-btn').on('click', function () {
                 let i = $('#executiveGroup > tr').length
@@ -898,11 +964,11 @@
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row" id="contact_row_{{= index}}">
-            <div class="col-md-9 mb-3">
+            <div class="col-md-9 mb-2">
                 <label for="contacts[{{= index}}][value]">연락처</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <select name="contacts[{{= index}}][type]" class="form-control">
+                        <select name="contacts[{{= index}}][type]" class="form-select form-select-sm">
                             <option value="FACTORY">공장</option>
                             <option value="DIRECT_PHONE">직통번호</option>
                             <option value="MOBILE">휴대폰</option>
@@ -912,17 +978,17 @@
                             <option value="TAX_EMAIL">세금계산서용 이메일</option>
                         </select>
                     </div>
-                    <input type="text" class="form-control" id="contacts[{{= index}}][value]" name="contacts[{{= index}}][value]">
+                    <input type="text" class="form-control form-control-sm" id="contacts[{{= index}}][value]" name="contacts[{{= index}}][value]">
                 </div>
             </div>
-            <div class="col-md-2 mb-3">
+            <div class="col-md-2 mb-2">
                 <label for="contacts[{{= index}}][memo]">메모</label>
-                <input type="text" class="form-control" id="contacts[{{= index}}][memo]" name="contacts[{{= index}}][memo]" placeholder="">
+                <input type="text" class="form-control form-control-sm" id="contacts[{{= index}}][memo]" name="contacts[{{= index}}][memo]" placeholder="">
             </div>
-            <div class="col-md-1 mb-3">
-                <label for="">Actions</label>
+            <div class="col-md-1 mb-2">
+                <label for="" class="invisible">Actions</label>
                 <div class="btns">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
+                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
@@ -932,46 +998,51 @@
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
-                <input type="text" class="form-control" name="executives[{{= index}}][name]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;">
             </td>
             <td>
-                <input type="checkbox" name="executives[{{= index}}][position]"
-                       value="사내이사"><i>사내이사</i>
-                <input type="checkbox" name="executives[{{= index}}][position]"
-                       value="대표이사"><i>대표이사</i>
-                <input type="checkbox" name="executives[{{= index}}][position]" value="공동대표이사"><i>공동대표이사</i>
-                <input type="checkbox" name="executives[{{= index}}][position]" value="대표집행임원"><i>대표집행임원</i>
-                <input type="checkbox" name="executives[{{= index}}][position]"
-                       value="사외이사"><i>사외이사</i>
-                <input type="checkbox" name="executives[{{= index}}][position]"
-                       value="기타비상무이사"><i>기타비상무이사</i>
-                <input type="checkbox" name="executives[{{= index}}][position]"
-                       value="집행임원"><i>집행임원</i>
-                <input type="checkbox" name="executives[{{= index}}][position]"
-                       value="감사"><i>감사</i>
-                <input type="checkbox" name="executives[{{= index}}][position]"
-                       value="감사위원"><i>감사위원</i>
+                <select class="form-select form-select-sm" name="executives[{{= index}}][position]">
+                    <option selected value="0">사내이사</option>
+                    <option value="1">대표이사</option>
+                    <option value="2">공동대표이사</option>
+                    <option value="3">대표집행임원</option>
+                    <option value="4">사외이사</option>
+                    <option value="5">기타비상무이사</option>
+                    <option value="6">집행임원</option>
+                    <option value="7">감사</option>
+                    <option value="8">감사위원</option>
+                </select>
             </td>
             <td>
                 <div class="input-group">
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control form-control-sm"
                            name="executives[{{= index}}][registrationNumber1]">
                     <div class="input-group-addon">
                         <span class="input-group-text">-</span>
                     </div>
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control form-control-sm"
                            name="executives[{{= index}}][registrationNumber2]">
                 </div>
             </td>
             <td>
-                <input type="text" class="form-control" name="executives[{{= index}}][address]" style="width: 100%;">
+                <div class="input-group ">
+                    <select class="form-select form-select-sm" id="">
+                        <option value="1">직접입력</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <input type="text" class="form-control form-control-sm" name="">
+                </div>
+            </td>
+            <td>
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;">
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;">
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
-                <select class="form-control" name="executives[{{= index}}][term]">
+                <select class="form-select form-select-sm" name="executives[{{= index}}][term]">
                     <option selected value="0">직접입력</option>
                     <option value="1">1년</option>
                     <option value="2">2년</option>
@@ -979,16 +1050,16 @@
                 </select>
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control" name="executives[{{= index}}][expiredAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;">
             </td>
             <td>
-                <input type="text" class="form-control" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
             </td>
             <td>
-                <input type="text" class="form-control" name="executives[{{= index}}][detail]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][detail]" style="width: 100%;">
             </td>
             <td>
-                <button type="button" class="btn btn-sm btn-outline-secondary"
+                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
                         onClick="remove_executive({{= index}})">
                     <i class="fas fa-trash-alt"></i>
                 </button>
@@ -998,25 +1069,25 @@
     <script id="stockholder-template" type="text/x-jQuery-tmpl">
         <tr id="stockHolder_tr_{{= index}}">
             <td>
-                <input type="text" class="form-control" name="stockholders[{{= index}}][name]" value="" />
+                <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][name]" value="" />
             </td>
             <td>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="stockholders[{{= index}}][registrationNumber1]" value=""/>
+                    <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][registrationNumber1]" value=""/>
                     <div class="input-group-addon">
                         <span class="input-group-text">-</span>
                     </div>
-                    <input type="text" class="form-control" name="stockholders[{{= index}}][registrationNumber2]" value="" />
+                    <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][registrationNumber2]" value="" />
                 </div>
             </td>
             <td>
-                <input type="text" class="form-control" name="stockholders[{{= index}}}][address]" value="" />
+                <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}}][address]" value="" />
             </td>
             <td>
-                <input type="text" class="form-control" name="stockholders[{{= index}}][stockCount]" value="" />
+                <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][stockCount]" value="" />
             </td>
             <td>
-                <button type="button" class="btn btn-sm btn-outline-secondary"
+                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
                         onClick="remove_stockHolder({{= index}})">
                     <i class="fas fa-trash-alt"></i>
                 </button>
@@ -1026,13 +1097,13 @@
 
     <script id="purpose-template" type="text/x-jQuery-tmpl">
         <div class="row" id="purpose_row_{{= index}}">
-            <div class="col-md-11 mb-3">
-                <input type="text" class="form-control" name="purposeDetail[{{= index}}][detail]"/>
-                <input type="hidden" class="form-control" name="purposeDetail[{{= index}}][ordinal]"/>
+            <div class="col-md-11 mb-2">
+                <input type="text" class="form-control form-control-sm" name="purposeDetail[{{= index}}][detail]"/>
+                <input type="hidden" class="form-control form-control-sm" name="purposeDetail[{{= index}}][ordinal]"/>
             </div>
-            <div class="col-md-1 mb-3">
+            <div class="col-md-1 mb-2">
                 <div class="btns">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onClick="remove_purpose({{= index}});"
+                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" onClick="remove_purpose({{= index}});"
                             name="remove_purpose_btn">
                         <i class="fas fa-trash-alt"></i>
                     </button>

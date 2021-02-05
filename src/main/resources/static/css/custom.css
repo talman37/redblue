@@ -289,7 +289,9 @@ h5 {
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all; }
-
+.table.table-form td {
+  padding: 4px;
+}
 /*
 * Pagination
 */
