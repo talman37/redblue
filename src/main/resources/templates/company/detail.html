@@ -8,7 +8,7 @@
                 <div>
                     <h1>
                         법인 상세
-                        <small th:text="|(${company.companyManageNumber})|"></small>
+                        <small th:if="${not #strings.isEmpty(company.companyManageNumber)}" th:text="|(${company.companyManageNumber})|"></small>
                     </h1>
                 </div>
             </div>
