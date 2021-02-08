@@ -375,12 +375,12 @@
                                     <div class="row">
                                         <div class="col-md-2 mb-2">
                                             <label>지점명칭</label>
-                                            <input type="text" class="form-control form-control-sm">
+                                            <input type="text" class="form-control form-control-sm" name="branches[0][name]">
                                         </div>
                                         <div class="col-md-7 mb-2">
                                             <label>지점주소</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control form-control-sm">
+                                                <input type="text" class="form-control form-control-sm" name="branches[0][address]">
                                                 <div class="input-group-append">
                                                     <button type='button' class="btn btn-sm btn-sm btn-outline-secondary"
                                                             name="postal_code_search_btn" data-id="deliveryPlace">검색
@@ -390,8 +390,8 @@
                                         </div>
                                         <div class="col-md-2">
                                             <label>우편번호</label>
-                                            <input type="text" class="form-control form-control-sm" id=""
-                                                   name="deliveryPlacePostalCode" placeholder="">
+                                            <input type="text" class="form-control form-control-sm"
+                                                   name="branches[0][postalCode]" placeholder="">
                                         </div>
                                         <div class="col-md-1 mb-2">
                                             <label for="" class="invisible">Actions</label>
@@ -483,13 +483,12 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <select class="form-select form-select-sm" id="">
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <select  class="form-select form-select-sm" th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
+                                            <option th:each="country : ${countries}" th:text="${country.countryName}"></option>
+                                            <option value="ETC">직접입력</option>
                                         </select>
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="">
+                                        <input type="text" class="form-control form-control-sm" th:readonly="true"
+                                               th:name="'executives[0][countryValue]'">
                                     </div>
                                 </td>
                                 <td>
@@ -801,6 +800,15 @@
             $('#purpose_row_' + i).remove();
         }
 
+        function changeCountry(i) {
+            if(this.value == 'ETC') {
+                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
+            } else {
+                $('input[name="executives['+i+'][countryValue]"]').val('')
+                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
+            }
+        }
+
 
 
     </script>
@@ -875,12 +883,17 @@
             </td>
             <td>
                 <div class="input-group ">
-                    <select class="form-select form-select-sm" id="">
-                        <option value="1">직접입력</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select form-select-sm" name="executives[{{= index}}][nationality]">
+                        <option value="대한민국">대한민국</option>
+                        <option value="미합중국">미합중국</option>
+                        <option value="중화인민공화국">중화인민공화국</option>
+                        <option value="캐나다">캐나다</option>
+                        <option value="일본">일본</option>
+                        <option value="호주">호주</option>
+                        <option value="홍콩">홍콩</option>
+                        <option value="ETC">직접입력</option>
                     </select>
-                    <input type="text" class="form-control form-control-sm" name="">
+                    <input type="text" class="form-control form-control-sm" readonly name="executives[{{= index}}][countryValue]">
                 </div>
             </td>
             <td>

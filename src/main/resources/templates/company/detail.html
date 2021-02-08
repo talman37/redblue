@@ -356,71 +356,41 @@
                         </div>
                         <div class="card-body">
                             <div class="add-item" id="officeGroup">
-                                <div class="row">
-                                    <div class="col-md-2 mb-2">
-                                        <label>지점명칭</label>
-                                        <input type="text" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-7 mb-2">
-                                        <label>지점주소</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control form-control-sm">
-                                            <div class="input-group-append">
-                                                <button type='button' class="btn btn-sm btn-outline-secondary"
-                                                        name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                <th:block th:each="branch, index: ${company.branches}">
+                                    <div class="row">
+                                        <div class="col-md-2 mb-2">
+                                            <label th:for="'branches['+${index.index}+'][name]'">지점명칭</label>
+                                            <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][name]'" th:name="'branches['+${index.index}+'][name]'" placeholder=""
+                                                   th:value="${branch.name}">
+                                        </div>
+                                        <div class="col-md-7 mb-2">
+                                            <label th:for="'branches['+${index.index}+'][value]'">지점주소</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-sm" id="" name=""
+                                                       th:value="${branch.address}">
+                                                <div class="input-group-append">
+                                                    <button type='button' class="btn btn-sm btn-outline-secondary"
+                                                            name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label th:for="'branches['+${index.index}+'][postalCode]'">우편번호</label>
+                                            <input type="text" class="form-control form-control-sm" id="'branches['+${index.index}+'][postalCode]'"
+                                                   name="'branches['+${index.index}+'][postalCode]'" placeholder=""
+                                                   th:value="${branch.postalCode}">
+                                        </div>
+                                        <div class="col-md-1 mb-2">
+                                            <label for="" class="invisible">Actions</label>
+                                            <div class="btns">
+                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_office('+${index.index}+')'">
+                                                    <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label>우편번호</label>
-                                        <input type="text" class="form-control form-control-sm" id=""
-                                               name="deliveryPlacePostalCode" placeholder="">
-                                    </div>
-                                    <div class="col-md-1 mb-2">
-                                        <label for="" class="invisible">Actions</label>
-                                        <div class="btns">
-                                            <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-<!--                                <th:block th:each="office, index: ${company.offices}">-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-md-2 mb-2">-->
-<!--                                            <label th:for="'offices['+${index.index}+'][name]'">지점명칭</label>-->
-<!--                                            <input type="text" class="form-control form-control-sm" th:id="'offices['+${index.index}+'][name]'" th:name="'offices['+${index.index}+'][name]'" placeholder=""-->
-<!--                                                   th:value="${office.name}">-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-7 mb-2">-->
-<!--                                            <label th:for="'offices['+${index.index}+'][value]'">지점주소</label>-->
-<!--                                            <div class="input-group">-->
-<!--                                                <input type="text" class="form-control form-control-sm" id="" name=""-->
-<!--                                                       th:value="${office.place}">-->
-<!--                                                <div class="input-group-append">-->
-<!--                                                    <button type='button' class="btn btn-sm btn-outline-secondary"-->
-<!--                                                            name="postal_code_search_btn" data-id="deliveryPlace">검색-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-2">-->
-<!--                                            <label th:for="'offices['+${index.index}+'][postalCode]'">우편번호</label>-->
-<!--                                            <input type="text" class="form-control form-control-sm" id=""-->
-<!--                                                   name="deliveryPlacePostalCode" placeholder=""-->
-<!--                                                   th:value="${company.deliveryPlacePostalCode}">-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-1 mb-2">-->
-<!--                                            <label for="" class="invisible">Actions</label>-->
-<!--                                            <div class="btns">-->
-<!--                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_office('+${index.index}+')'">-->
-<!--                                                    <i class="fas fa-trash-alt"></i>-->
-<!--                                                </button>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </th:block>-->
+                                </th:block>
                             </div>
                         </div>
                     </div>
@@ -487,15 +457,15 @@
                                     </td>
                                     <td>
                                         <select class="form-select form-select-sm" th:name="'executives['+${index.index}+'][position]'">
-                                            <option selected value="0">사내이사</option>
-                                            <option value="1">대표이사</option>
-                                            <option value="2">공동대표이사</option>
-                                            <option value="3">대표집행임원</option>
-                                            <option value="4">사외이사</option>
-                                            <option value="5">기타비상무이사</option>
-                                            <option value="6">집행임원</option>
-                                            <option value="7">감사</option>
-                                            <option value="8">감사위원</option>
+                                            <option selected value="사내이사">사내이사</option>
+                                            <option value="대표이사" th:selected="${executive.position == '대표이사'}">대표이사</option>
+                                            <option value="공동대표이사" th:selected="${executive.position == '공동대표이사'}">공동대표이사</option>
+                                            <option value="대표집행임원" th:selected="${executive.position == '대표집행임원'}">대표집행임원</option>
+                                            <option value="사외이사" th:selected="${executive.position == '사외이사'}">사외이사</option>
+                                            <option value="기타비상무이사" th:selected="${executive.position == '기타비상무이사'}">기타비상무이사</option>
+                                            <option value="집행임원" th:selected="${executive.position == '집행임원'}">집행임원</option>
+                                            <option value="감사" th:selected="${executive.position == '감사'}">감사</option>
+                                            <option value="감사위원" th:selected="${executive.position == '감사위원'}">감사위원</option>
                                         </select>
                                     </td>
                                     <td>
@@ -513,13 +483,12 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <select class="form-select form-select-sm" id="">
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                            <select  class="form-select form-select-sm" th:name="'executives['+${index.index}+'][nationality]'" th:onchange="changeCountry('+${index.index}+')">
+                                                <option th:each="country : ${countries}" th:value="${country.countryName}" th:selected="${country.countryName == executive.nationality}" th:text="${country.countryName}"></option>
+                                                <option value="ETC">직접입력</option>
                                             </select>
-                                            <input type="text" class="form-control form-control-sm"
-                                                   name="">
+                                            <input type="text" class="form-control form-control-sm" th:readonly="true"
+                                                   th:name="'executives['+${index.index}+'][countryValue]'">
                                         </div>
                                     </td>
                                     <td>
@@ -961,6 +930,15 @@
             return year + '-' + month + '-' + day;
         }
 
+        function changeCountry(i) {
+            if(this.value == 'ETC') {
+                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
+            } else {
+                $('input[name="executives['+i+'][countryValue]"]').val('')
+                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
+            }
+        }
+
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row" id="contact_row_{{= index}}">
@@ -1002,15 +980,15 @@
             </td>
             <td>
                 <select class="form-select form-select-sm" name="executives[{{= index}}][position]">
-                    <option selected value="0">사내이사</option>
-                    <option value="1">대표이사</option>
-                    <option value="2">공동대표이사</option>
-                    <option value="3">대표집행임원</option>
-                    <option value="4">사외이사</option>
-                    <option value="5">기타비상무이사</option>
-                    <option value="6">집행임원</option>
-                    <option value="7">감사</option>
-                    <option value="8">감사위원</option>
+                    <option selected value="사내이사">사내이사</option>
+                    <option value="대표이사">대표이사</option>
+                    <option value="공동대표이사">공동대표이사</option>
+                    <option value="대표집행임원">대표집행임원</option>
+                    <option value="사외이사">사외이사</option>
+                    <option value="기타비상무이사">기타비상무이사</option>
+                    <option value="집행임원">집행임원</option>
+                    <option value="감사">감사</option>
+                    <option value="감사위원">감사위원</option>
                 </select>
             </td>
             <td>
@@ -1026,12 +1004,17 @@
             </td>
             <td>
                 <div class="input-group ">
-                    <select class="form-select form-select-sm" id="">
-                        <option value="1">직접입력</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select form-select-sm" name="executives[{{= index}}][nationality]">
+                        <option value="대한민국">대한민국</option>
+                        <option value="미합중국">미합중국</option>
+                        <option value="중화인민공화국">중화인민공화국</option>
+                        <option value="캐나다">캐나다</option>
+                        <option value="일본">일본</option>
+                        <option value="호주">호주</option>
+                        <option value="홍콩">홍콩</option>
+                        <option value="ETC">직접입력</option>
                     </select>
-                    <input type="text" class="form-control form-control-sm" name="">
+                    <input type="text" class="form-control form-control-sm" readonly name="executives[{{= index}}][countryValue]">
                 </div>
             </td>
             <td>
