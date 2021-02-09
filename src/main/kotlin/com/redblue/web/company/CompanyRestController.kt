@@ -63,16 +63,28 @@ class CompanyRestController(
 		return ResponseEntity(HttpStatus.OK)
 	}
 
-	@PostMapping("/{id}/contact")
-	fun addContact(
+	@PostMapping("/{id}/branches")
+	fun updateCompanyBranch(
 		@PathVariable("id") id: String,
+		@RequestBody dto: CompanyBranchUpdateDto,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<Void> {
+		companyService.saveBranches(id, dto.to(id))
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PostMapping("/{id}/contacts")
+	fun updateContact(
+		@PathVariable("id") id: String,
+		@RequestBody dto: ContactUpdateDto,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		companyService.saveContacts(id, dto.to(id))
 		return ResponseEntity(HttpStatus.OK)
 	}
 
 	@PostMapping("/{id}/executives")
-	fun addExecutive(
+	fun updateExecutive(
 		@PathVariable("id") id: String,
 		@RequestBody dto: ExecutiveUpdateDto,
 		@CurrentUser user: LawFirmUser
@@ -82,7 +94,7 @@ class CompanyRestController(
 	}
 
 	@PostMapping("/{id}/stockholders")
-	fun addStockHolder(
+	fun updateStockHolder(
 		@PathVariable("id") id: String,
 		@RequestBody dto: StockHolderUpdateDto,
 		@CurrentUser user: LawFirmUser
@@ -92,7 +104,7 @@ class CompanyRestController(
 	}
 
 	@PostMapping("/{id}/purpose-details")
-	fun savePurposeDetail(
+	fun updatePurposeDetail(
 		@PathVariable("id") id: String,
 		@RequestBody dto: CompanyPurposeDetailsUpdateDto,
 		@CurrentUser user: LawFirmUser
@@ -102,7 +114,7 @@ class CompanyRestController(
 	}
 
 	@PostMapping("/{id}/consults")
-	fun addConsult(
+	fun updateConsult(
 		@PathVariable("id") id: String,
 		@RequestBody consult: Consult,
 		@CurrentUser user: LawFirmUser

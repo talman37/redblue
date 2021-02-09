@@ -9,4 +9,6 @@ interface CompanyBranchRepository: JpaRepository<CompanyBranch, String> {
 
 	fun findByCompanyId(companyId: String): List<CompanyBranch>
 
+	fun deleteByCompanyId(companyId: String)
+
 }

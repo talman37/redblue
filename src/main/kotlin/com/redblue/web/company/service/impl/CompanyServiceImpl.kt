@@ -117,6 +117,10 @@ class CompanyServiceImpl(
 			purposeDetailRepository.saveAll(company.purposeDetail!!)
 		}
 
+		company.branches?.let {
+			companyBranchRepository.saveAll(company.branches!!)
+		}
+
 
 
 	}
@@ -246,6 +250,22 @@ class CompanyServiceImpl(
 			sub = subHistoryRepository.findByCompanyId(id),
 			stock = stockHistoryRepository.findByCompanyId(id)
 		)
+	}
+
+	@Transactional
+	override fun saveBranches(companyId: String, branches: List<CompanyBranch>) {
+		companyBranchRepository.deleteByCompanyId(companyId)
+		if(branches.isNotEmpty()) {
+			companyBranchRepository.saveAll(branches)
+		}
+	}
+
+	@Transactional
+	override fun saveContacts(companyId: String, contacts: List<Contact>) {
+		contactRepository.deleteByCompanyId(companyId)
+		if(contacts.isNotEmpty()) {
+			contactRepository.saveAll(contacts)
+		}
 	}
 
 	@Transactional

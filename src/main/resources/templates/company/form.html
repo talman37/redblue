@@ -364,14 +364,14 @@
                                         <strong>지점</strong>
                                     </div>
                                     <div>
-                                        <button type='button' class='btn btn-sm btn-outline-primary' id="add-office-btn">
+                                        <button type='button' class='btn btn-sm btn-outline-primary' id="add-branch-btn">
                                             지점 추가
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="add-item" id="officeGroup">
+                                <div class="add-item" id="branchGroup">
                                     <div class="row">
                                         <div class="col-md-2 mb-2">
                                             <label>지점명칭</label>
@@ -396,7 +396,7 @@
                                         <div class="col-md-1 mb-2">
                                             <label for="" class="invisible">Actions</label>
                                             <div class="btns">
-                                                <button type="button" class="btn btn-sm btn-sm btn-sm btn-outline-secondary" id="">
+                                                <button type="button" class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onClick="remove_branch(0);" name="remove_branch_btn">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </div>
@@ -455,7 +455,7 @@
                             <tbody id="executiveGroup">
                             <tr id="executive_tr_0">
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" name="executives[0][name]">
+                                    <input type="text" class="form-control form-control-sm" name="executives[0][name]" required>
                                 </td>
                                 <td>
                                     <select class="form-select form-select-sm" name="executives[0][position]">
@@ -473,12 +473,12 @@
                                 <td>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][registrationNumber1]">
+                                               name="executives[0][registrationNumber1]" required>
                                         <div class="input-group-addon">
                                             <span class="input-group-text">-</span>
                                         </div>
                                         <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][registrationNumber2]">
+                                               name="executives[0][registrationNumber2]" required>
                                     </div>
                                 </td>
                                 <td>
@@ -492,10 +492,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" name="executives[0][address]">
+                                    <input type="text" class="form-control form-control-sm" name="executives[0][address]" onclick="searchExecutiveAddress(0)" required>
                                 </td>
                                 <td class="input-daterange">
-                                    <input type="text" class="form-control form-control-sm" name="executives[0][inauguratedAt]">
+                                    <input type="text" class="form-control form-control-sm" name="executives[0][inauguratedAt]" required>
                                 </td>
                                 <td>
                                     <select class="form-select form-select-sm" name="executives[0][term]">
@@ -506,7 +506,7 @@
                                     </select>
                                 </td>
                                 <td class="input-daterange">
-                                    <input type="text" class="form-control form-control-sm" name="executives[0][expiredAt]">
+                                    <input type="text" class="form-control form-control-sm" name="executives[0][expiredAt]" required>
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" name="executives[0][stockCount]"
@@ -542,7 +542,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-
                         <div class="box-status">
                             <div class="item">
                                 <div class="item-header">
@@ -746,6 +745,11 @@
                 $('#purpose-template').tmpl([{index: i}]).appendTo($('#purposeGroup'))
             });
 
+            $('#add-branch-btn').on('click', function () {
+                var i = $('#branchGroup > div').length
+                $('#branch-template').tmpl([{index: i}]).appendTo($('#branchGroup'))
+            });
+
 
         });
 
@@ -801,12 +805,27 @@
         }
 
         function changeCountry(i) {
-            if(this.value == 'ETC') {
+            if($('select[name="executives['+i+'][nationality]"]').val() == 'ETC') {
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
             } else {
                 $('input[name="executives['+i+'][countryValue]"]').val('')
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
             }
+        }
+
+        function remove_branch(i) {
+            $('#branch_row_' + i).remove();
+        }
+
+        function searchExecutiveAddress(i) {
+            var $this = $(this)
+            daum.postcode.load(function () {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        $('input[name="executives['+i+'][address]"]').val(data.address)
+                    }
+                }).open();
+            });
         }
 
 
@@ -854,10 +873,9 @@
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;" required>
             </td>
             <td>
-
                 <select class="form-select form-select-sm" name="executives[{{= index}}][position]">
                     <option selected value="0">사내이사</option>
                     <option value="1">대표이사</option>
@@ -873,17 +891,17 @@
             <td>
                 <div class="input-group">
                     <input type="text" class="form-control form-control-sm"
-                           name="executives[{{= index}}][registrationNumber1]">
+                           name="executives[{{= index}}][registrationNumber1]" required>
                     <div class="input-group-addon">
                         <span class="input-group-text">-</span>
                     </div>
                     <input type="text" class="form-control form-control-sm"
-                           name="executives[{{= index}}][registrationNumber2]">
+                           name="executives[{{= index}}][registrationNumber2]" required>
                 </div>
             </td>
             <td>
                 <div class="input-group ">
-                    <select class="form-select form-select-sm" name="executives[{{= index}}][nationality]">
+                    <select class="form-select form-select-sm" name="executives[{{= index}}][nationality]" onchange="changeCountry({{= index}})">
                         <option value="대한민국">대한민국</option>
                         <option value="미합중국">미합중국</option>
                         <option value="중화인민공화국">중화인민공화국</option>
@@ -897,10 +915,10 @@
                 </div>
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;" onclick="searchExecutiveAddress({{= index}})" required>
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" required>
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
@@ -912,7 +930,7 @@
                 </select>
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;" required>
             </td>
             <td>
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
@@ -955,13 +973,7 @@
                 </button>
             </td>
         </tr>
-
-
-
-
-
     </script>
-
     <script id="purpose-template" type="text/x-jQuery-tmpl">
         <div class="row" id="purpose_row_{{= index}}">
             <div class="col-md-11 mb-2">
@@ -977,11 +989,38 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
+    </script>
+    <script id="branch-template" type="text/x-jQuery-tmpl">
+        <div class="row" id="branch_row_{{= index}}">
+            <div class="col-md-2 mb-2">
+                <label>지점명칭</label>
+                <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][name]">
+            </div>
+            <div class="col-md-7 mb-2">
+                <label>지점주소</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][address]">
+                    <div class="input-group-append">
+                        <button type='button' class="btn btn-sm btn-sm btn-outline-secondary"
+                                name="postal_code_search_btn" data-id="deliveryPlace">검색
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>우편번호</label>
+                <input type="text" class="form-control form-control-sm"
+                       name="branches[{{= index}}][postalCode]" placeholder="">
+            </div>
+            <div class="col-md-1 mb-2">
+                <label for="" class="invisible">Actions</label>
+                <div class="btns">
+                    <button type="button" class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onClick="remove_branch({{= index}});" name="remove_branch_btn">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </script>
 
 </th:block>

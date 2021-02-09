@@ -29,6 +29,10 @@ interface CompanyService {
 
 	fun getHistories(id: String): CompanyHistory
 
+	fun saveBranches(companyId: String, branches: List<CompanyBranch>)
+
+	fun saveContacts(companyId: String, contacts: List<Contact>)
+
 	fun saveExecutives(companyId: String, executives: List<Executive>)
 
 	fun saveStockHolders(companyId: String, stockHolders: List<Stockholder>)
