@@ -7,5 +7,6 @@ enum class Country(val countryName: String) {
 	CA("캐나다"),
 	JP("일본"),
 	AU("호주"),
-	HK("홍콩")
+	HK("홍콩"),
+	ETC("기타")
 }

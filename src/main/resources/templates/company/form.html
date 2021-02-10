@@ -485,7 +485,6 @@
                                     <div class="input-group">
                                         <select  class="form-select form-select-sm" th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
                                             <option th:each="country : ${countries}" th:text="${country.countryName}"></option>
-                                            <option value="ETC">직접입력</option>
                                         </select>
                                         <input type="text" class="form-control form-control-sm" th:readonly="true"
                                                th:name="'executives[0][countryValue]'">
@@ -498,7 +497,7 @@
                                     <input type="text" class="form-control form-control-sm" name="executives[0][inauguratedAt]" required>
                                 </td>
                                 <td>
-                                    <select class="form-select form-select-sm" name="executives[0][term]">
+                                    <select class="form-select form-select-sm" name="executives[0][term]" th:onchange="calcTerm(0)">
                                         <option selected value="0">직접입력</option>
                                         <option value="1">1년</option>
                                         <option value="2">2년</option>
@@ -805,13 +804,23 @@
         }
 
         function changeCountry(i) {
-            if($('select[name="executives['+i+'][nationality]"]').val() == 'ETC') {
+            if($('select[name="executives['+i+'][nationality]"]').val() == '기타') {
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
             } else {
                 $('input[name="executives['+i+'][countryValue]"]').val('')
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
             }
         }
+
+        function calcTerm(i) {
+            if($('input[name="executives['+i+'][term]"]').val() == '0') {
+                return false;
+            }
+            let expiredAt = new Date($('input[name="executives['+i+'][inauguratedAt]"]').val());
+            expiredAt.setFullYear(expiredAt.getFullYear() + Number($('select[name="executives['+i+'][term]"]').val()));
+            $('input[name="executives['+i+'][expiredAt]"]').val(getFormatDate(expiredAt))
+        }
+
 
         function remove_branch(i) {
             $('#branch_row_' + i).remove();
@@ -909,7 +918,7 @@
                         <option value="일본">일본</option>
                         <option value="호주">호주</option>
                         <option value="홍콩">홍콩</option>
-                        <option value="ETC">직접입력</option>
+                        <option value="기타">기타</option>
                     </select>
                     <input type="text" class="form-control form-control-sm" readonly name="executives[{{= index}}][countryValue]">
                 </div>
@@ -919,10 +928,9 @@
             </td>
             <td class="input-daterange">
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" required>
-                <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
-                <select class="form-select form-select-sm" name="executives[{{= index}}][term]">
+                <select class="form-select form-select-sm" name="executives[{{= index}}][term]" onchange="calcTerm({{= index}})">
                     <option selected value="0">직접입력</option>
                     <option value="1">1년</option>
                     <option value="2">2년</option>

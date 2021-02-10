@@ -129,6 +129,9 @@ data class CompanyCreateDto(
 
 		val executives = mutableListOf<Executive>()
 		this.executives.forEach {
+			if(it.nationality == "ETC") {
+				it.nationality = it.countryValue
+			}
 			executives.add(
 				Executive(
 					id = it.id,
