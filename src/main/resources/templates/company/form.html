@@ -732,6 +732,10 @@
             $('#add-executive-btn').on('click', function () {
                 let i = $('#executiveGroup > tr').length
                 $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
+                $('.input-daterange').datepicker({
+                    language: "ko",
+                    todayHighlight: true
+                });
             });
 
             $('#add-stockHolder-btn').on('click', function () {
