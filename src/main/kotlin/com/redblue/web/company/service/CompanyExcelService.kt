@@ -5,6 +5,11 @@ import com.redblue.web.company.model.dto.CompanyExcelDto
 import com.redblue.web.company.model.dto.ExecutiveExcelDto
 import com.redblue.web.company.model.dto.StockExcelDto
 import com.redblue.web.company.repository.StockRepository
+import org.apache.poi.hssf.util.HSSFColor
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.FillPatternType
+import org.apache.poi.ss.usermodel.HorizontalAlignment
+import org.apache.poi.ss.usermodel.VerticalAlignment
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream
@@ -28,6 +33,12 @@ class CompanyExcelService(
 		headerFont.bold = true
 		val headerCellStyle = workbook.createCellStyle()
 		headerCellStyle.setFont(headerFont)
+		headerCellStyle.setAlignment(HorizontalAlignment.CENTER)
+		headerCellStyle.setVerticalAlignment(VerticalAlignment.CENTER)
+		headerCellStyle.fillForegroundColor = HSSFColor.HSSFColorPredefined.LIGHT_ORANGE.index
+		headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND)
+
+
 
 		val dateCellStyle = workbook.createCellStyle()
 		dateCellStyle.dataFormat = createHelper.createDataFormat().getFormat("yyyy-MM-dd")
@@ -38,6 +49,7 @@ class CompanyExcelService(
 		val companyExcelClass = CompanyExcelDto::class
 		companyExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
 			if(property.name!! == "executives" || property.name!! == "id") return@forEachIndexed
+			companySheet.setColumnWidth(i, property.name!!.length * 256)
 			val cell = headerRow.createCell(i)
 			cell.setCellValue(this.changeCompanyCellName(property.name!!))
 			cell.cellStyle = headerCellStyle

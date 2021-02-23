@@ -103,7 +103,9 @@ data class CompanyCreateDto(
 
 	var contacts: List<Contact> = emptyList(),
 
-	var purposeDetail: List<PurposeDetail>? = emptyList()
+	var purposeDetail: List<PurposeDetail>? = emptyList(),
+
+	var branches: List<CompanyBranch>? = emptyList()
 
 ) {
 
@@ -127,6 +129,9 @@ data class CompanyCreateDto(
 
 		val executives = mutableListOf<Executive>()
 		this.executives.forEach {
+			if(it.nationality == "ETC") {
+				it.nationality = it.countryValue
+			}
 			executives.add(
 				Executive(
 					id = it.id,
@@ -142,7 +147,8 @@ data class CompanyCreateDto(
 					term = it.term,
 					updatedReason = it.updatedReason,
 					expiredAt = it.expiredAt,
-					stockCount = it.stockCount
+					stockCount = it.stockCount,
+					nationality = it.nationality
 				)
 			)
 		}
@@ -155,6 +161,19 @@ data class CompanyCreateDto(
 					companyId = this.id!!,
 					ordinal = it.ordinal,
 					detail = it.detail
+				)
+			)
+		}
+
+		val branchList = mutableListOf<CompanyBranch>()
+		this.branches?.forEach {
+			branchList.add(
+				CompanyBranch(
+					id = it.id,
+					companyId = this.id!!,
+					name = it.name,
+					address = it.address,
+					postalCode = it.postalCode
 				)
 			)
 		}
@@ -199,7 +218,8 @@ data class CompanyCreateDto(
 			executives = executives,
 			stock = stock,
 			contacts = contacts,
-			purposeDetail = purposeDetails
+			purposeDetail = purposeDetails,
+			branches = branchList
 		)
 
 

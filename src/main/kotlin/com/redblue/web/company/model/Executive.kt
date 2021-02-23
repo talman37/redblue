@@ -3,6 +3,7 @@ package com.redblue.web.company.model
 import net.bytebuddy.utility.RandomString
 import java.util.*
 import javax.persistence.*
+import kotlin.jvm.Transient
 
 @Entity
 @Table(name = "EXECUTIVES")
@@ -40,6 +41,11 @@ data class Executive(
 	@Temporal(TemporalType.DATE)
 	val expiredAt: Date? = null,
 
-	val stockCount: Int? = 0
+	val stockCount: Int? = 0,
+
+	var nationality: String? = null,
+
+	@Transient
+	val countryValue: String? = null
 
 )

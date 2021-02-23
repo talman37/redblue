@@ -15,6 +15,7 @@ import javax.transaction.Transactional
 @Service
 class CompanyServiceImpl(
 	private val companyRepository: CompanyRepository,
+	private val companyBranchRepository: CompanyBranchRepository,
 	private val executiveRepository: ExecutiveRepository,
 	private val stockRepository: StockRepository,
 	private val stockholderRepository: StockholderRepository,
@@ -42,6 +43,7 @@ class CompanyServiceImpl(
 
 	override fun detail(id: String): Company {
 		val company = companyRepository.findById(id).get()
+		company.branches = companyBranchRepository.findByCompanyId(id)
 		company.executives = executiveRepository.findByCompanyIdOrderByExpiredAt(id)
 		company.stock = stockRepository.findByCompanyId(id)
 		company.stockholders = stockholderRepository.findByCompanyId(id)
@@ -113,6 +115,10 @@ class CompanyServiceImpl(
 
 		company.purposeDetail?.let {
 			purposeDetailRepository.saveAll(company.purposeDetail!!)
+		}
+
+		company.branches?.let {
+			companyBranchRepository.saveAll(company.branches!!)
 		}
 
 
@@ -244,6 +250,22 @@ class CompanyServiceImpl(
 			sub = subHistoryRepository.findByCompanyId(id),
 			stock = stockHistoryRepository.findByCompanyId(id)
 		)
+	}
+
+	@Transactional
+	override fun saveBranches(companyId: String, branches: List<CompanyBranch>) {
+		companyBranchRepository.deleteByCompanyId(companyId)
+		if(branches.isNotEmpty()) {
+			companyBranchRepository.saveAll(branches)
+		}
+	}
+
+	@Transactional
+	override fun saveContacts(companyId: String, contacts: List<Contact>) {
+		contactRepository.deleteByCompanyId(companyId)
+		if(contacts.isNotEmpty()) {
+			contactRepository.saveAll(contacts)
+		}
 	}
 
 	@Transactional

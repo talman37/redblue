@@ -1,6 +1,7 @@
 package com.redblue.web.company
 
 import com.redblue.security.core.annotation.CurrentUser
+import com.redblue.web.company.model.Country
 import com.redblue.web.company.model.dto.CompanyListDto
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.consult.service.ConsultService
@@ -80,6 +81,7 @@ class CompanyController(
 		model.addAttribute("company", company)
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		model.addAttribute("consults", consultService.findByCompanyId(id))
+		model.addAttribute("countries", Country.values())
 		return "/company/detail"
 	}
 
@@ -90,6 +92,7 @@ class CompanyController(
 	): String {
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		model.addAttribute("lawFirmId", user.lawFirmId)
+		model.addAttribute("countries", Country.values())
 		return "/company/form"
 	}
 
