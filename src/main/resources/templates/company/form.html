@@ -139,7 +139,7 @@
                             <div class="col-md-2 mb-2">
                                 <label for="companyDivision">법인구분</label>
                                 <div class="input-group-prepend">
-                                    <select class="form-select form-select-sm" id="companyDivision" name="companyDivision">
+                                    <select class="form-control form-select form-select-sm" id="companyDivision" name="companyDivision">
                                         <option selected value="">선택</option>
                                         <option value="주식회사">주식회사</option>
                                         <option value="유한회사">유한회사</option>
@@ -268,7 +268,7 @@
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="settlementMonth">결산기</label>
-                                <select class="form-select form-select-sm" id="settlementMonth" name="settlementMonth">
+                                <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth">
                                     <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
                                             th:text="${i}+'월'"></option>
                                 </select>
@@ -325,7 +325,7 @@
                                             <label for="">연락처</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <select name="contacts[0][type]" class="form-select form-select-sm">
+                                                    <select name="contacts[0][type]" class="form-control form-select form-select-sm">
                                                         <option value="FACTORY">공장</option>
                                                         <option value="DIRECT_PHONE">직통번호</option>
                                                         <option value="MOBILE">휴대폰</option>
@@ -458,7 +458,7 @@
                                     <input type="text" class="form-control form-control-sm" name="executives[0][name]">
                                 </td>
                                 <td>
-                                    <select class="form-select form-select-sm" name="executives[0][position]">
+                                    <select class="form-control form-select form-select-sm" name="executives[0][position]">
                                         <option selected value="0">사내이사</option>
                                         <option value="1">대표이사</option>
                                         <option value="2">공동대표이사</option>
@@ -483,7 +483,7 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <select class="form-select form-select-sm" id="">
+                                        <select class="form-control form-select form-select-sm" id="">
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
                                             <option value="3">Three</option>
@@ -499,7 +499,7 @@
                                     <input type="text" class="form-control form-control-sm" name="executives[0][inauguratedAt]">
                                 </td>
                                 <td>
-                                    <select class="form-select form-select-sm" name="executives[0][term]">
+                                    <select class="form-control form-select form-select-sm" name="executives[0][term]">
                                         <option selected value="0">직접입력</option>
                                         <option value="1">1년</option>
                                         <option value="2">2년</option>
@@ -811,7 +811,7 @@
                 <label for="">연락처</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <select name="contacts[{{= index}}][type]" class="form-select form-select-sm">
+                        <select name="contacts[{{= index}}][type]" class="form-control form-select form-select-sm">
                             <option value="FACTORY">공장</option>
                             <option value="DIRECT_PHONE">직통번호</option>
                             <option value="MOBILE">휴대폰</option>
@@ -850,7 +850,7 @@
             </td>
             <td>
 
-                <select class="form-select form-select-sm" name="executives[{{= index}}][position]">
+                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
                     <option selected value="0">사내이사</option>
                     <option value="1">대표이사</option>
                     <option value="2">공동대표이사</option>
@@ -875,7 +875,7 @@
             </td>
             <td>
                 <div class="input-group ">
-                    <select class="form-select form-select-sm" id="">
+                    <select class="form-control form-select form-select-sm" id="">
                         <option value="1">직접입력</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -891,7 +891,7 @@
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
-                <select class="form-select form-select-sm" name="executives[{{= index}}][term]">
+                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][term]">
                     <option selected value="0">직접입력</option>
                     <option value="1">1년</option>
                     <option value="2">2년</option>

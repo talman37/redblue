@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="companyDivision">법인구분</label>
-                                <select class="form-select form-select-sm" id="companyDivision" name="companyDivision"
+                                <select class="form-control form-select form-select-sm" id="companyDivision" name="companyDivision"
                                         th:field="*{company.companyDivision}">
                                     <option th:value="null">전체</option>
                                     <option th:value="주식회사">주식회사</option>
@@ -240,7 +240,7 @@
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="">결산기</label>
-                                <select class="form-select form-select-sm" id="settlementMonth" name="settlementMonth">
+                                <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth">
                                     <option selected>전체</option>
                                     <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
                                             th:selected="${i == company.settlementMonth}"></option>
@@ -305,7 +305,7 @@
                                             <label th:for="'contacts['+${index.index}+'][value]'">연락처</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <select th:name="'contacts['+${index.index}+'][type]'" class="form-select form-select-sm">
+                                                    <select th:name="'contacts['+${index.index}+'][type]'" class="form-control form-select form-select-sm">
                                                         <option value="FACTORY" th:selected="${contact.type.name() == 'FACTORY'}">공장</option>
                                                         <option value="DIRECT_PHONE" th:selected="${contact.type.name() == 'DIRECT_PHONE'}">직통번호</option>
                                                         <option value="MOBILE" th:selected="${contact.type.name() == 'MOBILE'}">휴대폰</option>
@@ -486,7 +486,7 @@
                                                th:value="${executive.name}">
                                     </td>
                                     <td>
-                                        <select class="form-select form-select-sm" th:name="'executives['+${index.index}+'][position]'">
+                                        <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][position]'">
                                             <option selected value="0">사내이사</option>
                                             <option value="1">대표이사</option>
                                             <option value="2">공동대표이사</option>
@@ -513,7 +513,7 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <select class="form-select form-select-sm" id="">
+                                            <select class="form-control form-select form-select-sm" id="">
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -533,7 +533,7 @@
                                                th:value="${executive.inauguratedAt}">
                                     </td>
                                     <td>
-                                        <select class="form-select form-select-sm" th:name="'executives['+${index.index}+'][term]'">
+                                        <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][term]'">
                                             <option value="0" th:selected="${executive.term == 0}">직접입력</option>
                                             <option value="1" th:selected="${executive.term == 1}">1년</option>
                                             <option value="2" th:selected="${executive.term == 2}">2년</option>
@@ -968,7 +968,7 @@
                 <label for="contacts[{{= index}}][value]">연락처</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <select name="contacts[{{= index}}][type]" class="form-select form-select-sm">
+                        <select name="contacts[{{= index}}][type]" class="form-control form-select form-select-sm">
                             <option value="FACTORY">공장</option>
                             <option value="DIRECT_PHONE">직통번호</option>
                             <option value="MOBILE">휴대폰</option>
@@ -1001,7 +1001,7 @@
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;">
             </td>
             <td>
-                <select class="form-select form-select-sm" name="executives[{{= index}}][position]">
+                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
                     <option selected value="0">사내이사</option>
                     <option value="1">대표이사</option>
                     <option value="2">공동대표이사</option>
@@ -1026,7 +1026,7 @@
             </td>
             <td>
                 <div class="input-group ">
-                    <select class="form-select form-select-sm" id="">
+                    <select class="form-control form-select form-select-sm" id="">
                         <option value="1">직접입력</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -1042,7 +1042,7 @@
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
-                <select class="form-select form-select-sm" name="executives[{{= index}}][term]">
+                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][term]">
                     <option selected value="0">직접입력</option>
                     <option value="1">1년</option>
                     <option value="2">2년</option>
