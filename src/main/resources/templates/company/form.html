@@ -512,7 +512,6 @@
                                     <div class="input-group">
                                         <select  class="form-control form-select form-select-sm" th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
                                             <option th:each="country : ${countries}" th:value="${country.countryName}" th:text="${country.countryName}"></option>
-                                            <option value="ETC">직접입력</option>
                                         </select>
                                         <input type="text" class="form-control form-control-sm" th:readonly="true"
                                                th:name="'executives[0][countryValue]'">
@@ -855,7 +854,7 @@
         }
 
         function changeCountry(i) {
-            if(this.value == 'ETC') {
+            if($('select[name="executives['+i+'][nationality]"]').val() == '기타') {
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
             } else {
                 $('input[name="executives['+i+'][countryValue]"]').val('')
