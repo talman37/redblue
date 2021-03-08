@@ -188,7 +188,7 @@
                             </div>
                             <div class="col-md-2 mb-2 input-daterange">
                                 <label for="companyFormationAt">설립일</label>
-                                <input type="text" class="form-control form-control-sm" id="companyFormationAt"
+                                <input type="text" class="form-control form-control-sm" id="companyFormationAt"`
                                        name="companyFormationAt"
                                        value="">
                             </div>
@@ -400,15 +400,18 @@
                                     <div class="row">
                                         <div class="col-md-2 mb-2">
                                             <label>지점명칭</label>
-                                            <input type="text" class="form-control form-control-sm" name="branches[0][name]">
+                                            <input type="text" class="form-control form-control-sm"
+                                                   name="branches[0][name]">
                                         </div>
                                         <div class="col-md-7 mb-2">
                                             <label>지점주소</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control form-control-sm" name="branches[0][address]">
+                                                <input type="text" class="form-control form-control-sm"
+                                                       name="branches[0][address]">
                                                 <div class="input-group-append">
                                                     <button type='button'
-                                                            class="btn btn-sm btn-sm btn-outline-secondary" onclick="search_address(0);">검색
+                                                            class="btn btn-sm btn-sm btn-outline-secondary"
+                                                            onclick="search_address(0);">검색
                                                     </button>
                                                 </div>
                                             </div>
@@ -510,8 +513,10 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <select  class="form-control form-select form-select-sm" th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
-                                            <option th:each="country : ${countries}" th:value="${country.countryName}" th:text="${country.countryName}"></option>
+                                        <select class="form-control form-select form-select-sm"
+                                                th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
+                                            <option th:each="country : ${countries}" th:value="${country.countryName}"
+                                                    th:text="${country.countryName}"></option>
                                         </select>
                                         <input type="text" class="form-control form-control-sm" th:readonly="true"
                                                th:name="'executives[0][countryValue]'">
@@ -526,7 +531,7 @@
                                            name="executives[0][inauguratedAt]">
                                 </td>
                                 <td>
-                                    <select class="form-control form-select form-select-sm" name="executives[0][term]">
+                                    <select class="form-control form-select form-select-sm" name="executives[0][term]" onchange="expireCalculate(0)">
                                         <option selected value="0">직접입력</option>
                                         <option value="1">1년</option>
                                         <option value="2">2년</option>
@@ -652,7 +657,7 @@
                 <div class="row mt-3">
                     <div class="d-flex justify-content-center">
                         <div>
-                            <button type="submit" class="btn  btn-dark" id="save-btn">저장하기</button>
+                            <button type="button" class="btn  btn-dark" id="save-btn">저장하기</button>
                         </div>
                     </div>
                 </div>
@@ -665,7 +670,6 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" th:src="@{/static/js/serializejson.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/jquery.tmpl.min.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
     <script>
         $(document).ready(function () {
 
@@ -688,30 +692,6 @@
                 });
             });
 
-            $("#company-form").validate({
-                errorPlacement: function (error, element) {
-                },
-                invalidHandler: function (form, validator) {
-                    var errors = validator.numberOfInvalids();
-                    if (errors) {
-                        alert("필수 값을 입력하지 않으셨습니다.");
-                        validator.errorList[0].element.focus();
-                    }
-                },
-                submitHandler: function (form) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/v1/companies',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
-                        success: location.href = '/company',
-                        error: alert('법인 등록에 실패하였습니다.')
-                    });
-                    return false;
-                }
-            });
-
             $('#office_search_btn').on('click', function () {
                 window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
             });
@@ -721,22 +701,35 @@
 
             });
 
-            <!--            $('#save-btn').on('click', function () {-->
-            <!--                if ($('#executiveGroup').children().length < 1) {-->
-            <!--                    alert("임원을 추가해 주세요.");-->
-            <!--                    return false;-->
-            <!--                }-->
+            $('#save-btn').on('click', function () {
+                if ($('#executiveGroup').children().length < 1) {
+                    alert("임원을 추가해 주세요.");
+                    return false;
+                }
 
-            <!--                $.ajax({-->
-            <!--                    type: 'POST',-->
-            <!--                    url: '/v1/companies',-->
-            <!--                    contentType: 'application/json',-->
-            <!--                    dataType: 'json',-->
-            <!--                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),-->
-            <!--                    success: location.href = '/company',-->
-            <!--                    error: alert('법인 등록에 실패하였습니다.')-->
-            <!--                });-->
-            <!--            });-->
+                $.ajax({
+                    type: 'POST',
+                    url: '/v1/companies',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
+                            alert('법인등록에 성공 하였습니다.');
+                            location.href = '/company';
+                            return false;
+                        },
+                        400: function () {
+                            alert('법인등록에 실패 하였습니다.');
+                            return false;
+                        },
+                        500: function () {
+                            alert('법인등록에 실패 하였습니다.');
+                            return false;
+                        }
+                    }
+                });
+            });
 
             $('#add-contact-btn').on('click', function () {
                 var i = $('#contactGroup > div').length
@@ -772,6 +765,10 @@
             $('#add-executive-btn').on('click', function () {
                 let i = $('#executiveGroup > tr').length
                 $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
+                $('.input-daterange').datepicker({
+                    language: "ko",
+                    todayHighlight: true
+                });
             });
 
             $('#add-stockHolder-btn').on('click', function () {
@@ -795,6 +792,22 @@
         $(document).on("keyup", "input:text[numberOnly]", function () {
             $(this).val($(this).val().replace(/[^0-9]/gi, ""));
         });
+
+        function expireCalculate(i) {
+            if($('input[name="executives[' + i + '][inauguratedAt]"]').val() === '') {
+                return false;
+            }
+            let expiredAt = new Date($('input[name="executives[' + i + '][inauguratedAt]"]').val());
+            let term = $('select[name="executives[' + i + '][term]"]').val();
+
+            if(term === '0') {
+                $('input[name="executives[' + i + '][expiredAt]"]').val('');
+                return false;
+            }
+
+            expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+            $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
+        }
 
         function getFormatDate(date) {
             var year = date.getFullYear();
@@ -846,19 +859,29 @@
             daum.postcode.load(function () {
                 new daum.Postcode({
                     oncomplete: function (data) {
-                            $('input[name="branches['+i+'][address]"]').val(data.address);
-                            $('input[name="branches['+i+'][postalCode]"]').val(data.zonecode);
+                        $('input[name="branches[' + i + '][address]"]').val(data.address);
+                        $('input[name="branches[' + i + '][postalCode]"]').val(data.zonecode);
+                    }
+                }).open();
+            });
+        }
+
+        function search_stockholder_address(i) {
+            daum.postcode.load(function () {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        $('input[name="stockholders[' + i + '][address]"]').val(data.address);
                     }
                 }).open();
             });
         }
 
         function changeCountry(i) {
-            if($('select[name="executives['+i+'][nationality]"]').val() == '기타') {
-                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
+            if ($('select[name="executives[' + i + '][nationality]"]').val() == '기타') {
+                $('input[name="executives[' + i + '][countryValue]"]').attr('readonly', false)
             } else {
-                $('input[name="executives['+i+'][countryValue]"]').val('')
-                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
+                $('input[name="executives[' + i + '][countryValue]"]').val('')
+                $('input[name="executives[' + i + '][countryValue]"]').attr('readonly', true)
             }
         }
 
@@ -897,7 +920,6 @@
                 </div>
             </div>
         </div>
-
     </script>
     <script id="branch-template" type="text/x-jQuery-tmpl">
         <div class="row" id="branch_row_{{= index}}">
@@ -930,8 +952,6 @@
                 </div>
             </div>
         </div>
-
-
     </script>
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
@@ -986,7 +1006,7 @@
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
-                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][term]">
+                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][term]" onchange="expireCalculate({{= index}})">
                     <option selected value="0">직접입력</option>
                     <option value="1">1년</option>
                     <option value="2">2년</option>
@@ -1009,7 +1029,6 @@
                 </button>
             </td>
         </tr>
-
     </script>
     <script id="stockHolder-template" type="text/x-jQuery-tmpl">
         <tr id="stockHolder_tr_{{= index}}">
@@ -1026,7 +1045,12 @@
                 </div>
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}}][address]" value="" />
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][address]" value="" />
+                    <div class="input-group-append">
+                        <button type='button' class="btn btn-sm btn-sm btn-outline-secondary" onClick="search_stockholder_address({{= index}});">검색</button>
+                    </div>
+                </div>
             </td>
             <td>
                 <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][stockCount]" value="" />
@@ -1038,12 +1062,6 @@
                 </button>
             </td>
         </tr>
-
-
-
-
-
-
     </script>
 
     <script id="purpose-template" type="text/x-jQuery-tmpl">
@@ -1061,12 +1079,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
     </script>
 
 </th:block>

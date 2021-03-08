@@ -268,7 +268,7 @@
                                 <label for="">자본금</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-sm" numberonly="true"
-                                           th:value="${company.stock.amount * (company.stock.normalCount + company.stock.firstCount)}">
+                                           th:value="${company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount)}">
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">계산하기</button>
                                     </div>
@@ -298,42 +298,44 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="add-item" id="contactGroup">
-                                <th:block th:each="contact, index: ${company.contacts}">
-                                    <div class="row">
-                                        <div class="col-md-9 mb-2">
-                                            <label th:for="'contacts['+${index.index}+'][value]'">연락처</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <select th:name="'contacts['+${index.index}+'][type]'" class="form-control form-select form-select-sm">
-                                                        <option value="FACTORY" th:selected="${contact.type.name() == 'FACTORY'}">공장</option>
-                                                        <option value="DIRECT_PHONE" th:selected="${contact.type.name() == 'DIRECT_PHONE'}">직통번호</option>
-                                                        <option value="MOBILE" th:selected="${contact.type.name() == 'MOBILE'}">휴대폰</option>
-                                                        <option value="FAX" th:selected="${contact.type.name() == 'FAX'}">회사팩스</option>
-                                                        <option value="EMAIL" th:selected="${contact.type.name() == 'EMAIL'}">이메일</option>
-                                                        <option value="PHONE" th:selected="${contact.type.name() == 'PHONE'}">유선전화</option>
-                                                        <option value="TAX_EMAIL" th:selected="${contact.type.name() == 'TAX_EMAIL'}">세금계산서용 이메일</option>
-                                                    </select>
+                            <form id="contact_form">
+                                <div class="add-item" id="contactGroup">
+                                    <th:block th:each="contact, index: ${company.contacts}">
+                                        <div class="row">
+                                            <div class="col-md-9 mb-2">
+                                                <label th:for="'contacts['+${index.index}+'][value]'">연락처</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <select th:name="'contacts['+${index.index}+'][type]'" class="form-control form-select form-select-sm">
+                                                            <option value="FACTORY" th:selected="${contact.type.name() == 'FACTORY'}">공장</option>
+                                                            <option value="DIRECT_PHONE" th:selected="${contact.type.name() == 'DIRECT_PHONE'}">직통번호</option>
+                                                            <option value="MOBILE" th:selected="${contact.type.name() == 'MOBILE'}">휴대폰</option>
+                                                            <option value="FAX" th:selected="${contact.type.name() == 'FAX'}">회사팩스</option>
+                                                            <option value="EMAIL" th:selected="${contact.type.name() == 'EMAIL'}">이메일</option>
+                                                            <option value="PHONE" th:selected="${contact.type.name() == 'PHONE'}">유선전화</option>
+                                                            <option value="TAX_EMAIL" th:selected="${contact.type.name() == 'TAX_EMAIL'}">세금계산서용 이메일</option>
+                                                        </select>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:value="${contact.value}">
                                                 </div>
-                                                <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:value="${contact.value}">
+                                            </div>
+                                            <div class="col-md-2 mb-2">
+                                                <label th:for="'contacts['+${index.index}+'][memo]'">메모</label>
+                                                <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
+                                                       th:value="${contact.memo}">
+                                            </div>
+                                            <div class="col-md-1 mb-2">
+                                                <label for="" class="invisible">Actions</label>
+                                                <div class="btns">
+                                                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_contact('+${index.index}+')'">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2 mb-2">
-                                            <label th:for="'contacts['+${index.index}+'][memo]'">메모</label>
-                                            <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
-                                                   th:value="${contact.memo}">
-                                        </div>
-                                        <div class="col-md-1 mb-2">
-                                            <label for="" class="invisible">Actions</label>
-                                            <div class="btns">
-                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_contact('+${index.index}+')'">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </th:block>
-                            </div>
+                                    </th:block>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -345,83 +347,55 @@
                                     <strong>지점</strong>
                                 </div>
                                 <div>
-                                    <button type='button' class='btn btn-sm btn-outline-primary' id="add-office-btn">
+                                    <button type='button' class='btn btn-sm btn-outline-primary' id="add-branch-btn">
                                         지점 추가
                                     </button>
-                                    <button type='button' class='btn btn-sm btn-outline-success' id="save-office-btn">
+                                    <button type='button' class='btn btn-sm btn-outline-success' id="save-branch-btn">
                                         저장
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="add-item" id="officeGroup">
-                                <div class="row">
-                                    <div class="col-md-2 mb-2">
-                                        <label>지점명칭</label>
-                                        <input type="text" class="form-control form-control-sm">
-                                    </div>
-                                    <div class="col-md-7 mb-2">
-                                        <label>지점주소</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control form-control-sm">
-                                            <div class="input-group-append">
-                                                <button type='button' class="btn btn-sm btn-outline-secondary"
-                                                        name="postal_code_search_btn" data-id="deliveryPlace">검색
-                                                </button>
+                            <form id="branch_form">
+                                <div class="add-item" id="branchGroup">
+                                    <th:block th:each="branch, index: ${company.branches}">
+                                        <div class="row" >
+                                            <div class="col-md-2 mb-2">
+                                                <label th:for="'branches['+${index.index}+'][name]'">지점명칭</label>
+                                                <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][name]'" th:name="'branches['+${index.index}+'][name]'" placeholder=""
+                                                       th:value="${branch.name}">
+                                            </div>
+                                            <div class="col-md-7 mb-2">
+                                                <label th:for="'branches['+${index.index}+'][value]'">지점주소</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][address]'" th:name="'branches['+${index.index}+'][address]'"
+                                                           th:value="${branch.address}">
+                                                    <div class="input-group-append">
+                                                        <button type='button' class="btn btn-sm btn-outline-secondary"
+                                                                name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label th:for="'branches['+${index.index}+'][postalCode]'">우편번호</label>
+                                                <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][postalCode]'"
+                                                       th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""
+                                                       th:value="${branch.postalCode}">
+                                            </div>
+                                            <div class="col-md-1 mb-2">
+                                                <label for="" class="invisible">Actions</label>
+                                                <div class="btns">
+                                                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" th:onclick="'remove_office('+${index.index}+')'">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>우편번호</label>
-                                        <input type="text" class="form-control form-control-sm" id=""
-                                               name="deliveryPlacePostalCode" placeholder="">
-                                    </div>
-                                    <div class="col-md-1 mb-2">
-                                        <label for="" class="invisible">Actions</label>
-                                        <div class="btns">
-                                            <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </th:block>
                                 </div>
-<!--                                <th:block th:each="office, index: ${company.offices}">-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-md-2 mb-2">-->
-<!--                                            <label th:for="'offices['+${index.index}+'][name]'">지점명칭</label>-->
-<!--                                            <input type="text" class="form-control form-control-sm" th:id="'offices['+${index.index}+'][name]'" th:name="'offices['+${index.index}+'][name]'" placeholder=""-->
-<!--                                                   th:value="${office.name}">-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-7 mb-2">-->
-<!--                                            <label th:for="'offices['+${index.index}+'][value]'">지점주소</label>-->
-<!--                                            <div class="input-group">-->
-<!--                                                <input type="text" class="form-control form-control-sm" id="" name=""-->
-<!--                                                       th:value="${office.place}">-->
-<!--                                                <div class="input-group-append">-->
-<!--                                                    <button type='button' class="btn btn-sm btn-outline-secondary"-->
-<!--                                                            name="postal_code_search_btn" data-id="deliveryPlace">검색-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-2">-->
-<!--                                            <label th:for="'offices['+${index.index}+'][postalCode]'">우편번호</label>-->
-<!--                                            <input type="text" class="form-control form-control-sm" id=""-->
-<!--                                                   name="deliveryPlacePostalCode" placeholder=""-->
-<!--                                                   th:value="${company.deliveryPlacePostalCode}">-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-1 mb-2">-->
-<!--                                            <label for="" class="invisible">Actions</label>-->
-<!--                                            <div class="btns">-->
-<!--                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_office('+${index.index}+')'">-->
-<!--                                                    <i class="fas fa-trash-alt"></i>-->
-<!--                                                </button>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </th:block>-->
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -647,9 +621,14 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               th:name="'stockholders['+${index.index}+'][address]'"
-                                               th:value="${stockholder.address}"/>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control form-control-sm"
+                                                th:name="'stockholders['+${index.index}+'][address]'"
+                                                th:value="${stockholder.address}"/>
+                                            <div class="input-group-append">
+                                                <button type='button' class="btn btn-sm btn-sm btn-outline-secondary" th:onClick="'search_stockholder_address('+${index.index}+')'">검색</button>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
@@ -831,6 +810,36 @@
                 });
             });
 
+            $('#save-contact-btn').on('click', function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/v1/companies/' + $('#companyId').val() + '/contacts',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#contact_form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
+                            alert('연락처 정보 변경에 성공 하였습니다.');
+                        }
+                    }
+                });
+            });
+
+            $('#save-branch-btn').on('click', function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/v1/companies/' + $('#companyId').val() + '/branches',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#branch_form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
+                            alert('지점 정보 변경에 성공 하였습니다.');
+                        }
+                    }
+                });
+            });
+
             $('#save-executive-btn').on('click', function () {
                 $.ajax({
                     type: 'POST',
@@ -887,18 +896,23 @@
             });
 
              $('#add-contact-btn').on('click', function () {
-                let i = $('#contactGroup > tr').length
+                let i = $('#contactGroup > div').length
                 $('#contact-template').tmpl([{index: i}]).appendTo($('#contactGroup'))
             });
-            $('#add-office-btn').on('click', function () {
-                let i = $('#officeGroup > tr').length
-                $('#office-template').tmpl([{index: i}]).appendTo($('#officeGroup'))
+
+            $('#add-branch-btn').on('click', function () {
+                let i = $('#branchGroup > div').length
+                $('#branch-template').tmpl([{index: i}]).appendTo($('#branchGroup'))
             });
 
 
             $('#add-executive-btn').on('click', function () {
                 let i = $('#executiveGroup > tr').length
                 $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
+                $('.input-daterange').datepicker({
+                    language: "ko",
+                    todayHighlight: true
+                });
             });
 
             $('#add-stockholder-btn').on('click', function () {
@@ -916,6 +930,10 @@
             });
 
         });
+
+        function remove_branch(i) {
+            $('#branch_row_' + i).remove();
+        }
 
         function remove_contact(i) {
             $('#contact_row_' + i).remove();
@@ -968,6 +986,27 @@
             }
         }
 
+        function search_address(i) {
+            daum.postcode.load(function () {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        $('input[name="branches[' + i + '][address]"]').val(data.address);
+                        $('input[name="branches[' + i + '][postalCode]"]').val(data.zonecode);
+                    }
+                }).open();
+            });
+        }
+
+        function search_stockholder_address(i) {
+            daum.postcode.load(function () {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        $('input[name="stockholders[' + i + '][address]"]').val(data.address);
+                    }
+                }).open();
+            });
+        }
+
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row" id="contact_row_{{= index}}">
@@ -996,6 +1035,38 @@
                 <label for="" class="invisible">Actions</label>
                 <div class="btns">
                     <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="branch-template" type="text/x-jQuery-tmpl">
+        <div class="row" id="branch_row_{{= index}}">
+            <div class="col-md-2 mb-2">
+                <label>지점명칭</label>
+                <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][name]">
+            </div>
+            <div class="col-md-7 mb-2">
+                <label>지점주소</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][address]">
+                    <div class="input-group-append">
+                        <button type='button' class="btn btn-sm btn-sm btn-outline-secondary"
+                                name="postal_code_search_btn" onClick="search_address({{= index}});">검색
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>우편번호</label>
+                <input type="text" class="form-control form-control-sm"
+                       name="branches[{{= index}}][postalCode]" placeholder="">
+            </div>
+            <div class="col-md-1 mb-2">
+                <label for="" class="invisible">Actions</label>
+                <div class="btns">
+                    <button type="button" class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onClick="remove_branch({{= index}});" name="remove_branch_btn">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
@@ -1093,7 +1164,12 @@
                 </div>
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}}][address]" value="" />
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][address]" value="" />
+                    <div class="input-group-append">
+                        <button type='button' class="btn btn-sm btn-sm btn-outline-secondary" onClick="search_stockholder_address({{= index}});">검색</button>
+                    </div>
+                </div>
             </td>
             <td>
                 <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][stockCount]" value="" />

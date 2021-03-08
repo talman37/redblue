@@ -36,6 +36,8 @@ class CompanyQueryDslRepositoryImpl(
 					qc.registerOffice,
 					qc.registerNumber,
 					qc.companyName,
+					qc.companyDivision,
+					qc.displayCompanyType,
 					qc.companyAddress,
 					qc.companyNumber1,
 					qc.companyNumber2,
@@ -54,8 +56,8 @@ class CompanyQueryDslRepositoryImpl(
 		q?.let {
 			predicate.and(
 				qc.companyName.likeIgnoreCase("%$it%")
-					.or(qc.companyNumber1.like(q))
-					.or(qc.companyNumber2.like(q))
+					.or(qc.companyNumber1.like("%$it%"))
+					.or(qc.companyNumber2.like("%$it%"))
 			)
 		}
 

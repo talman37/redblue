@@ -16,6 +16,10 @@ data class CompanyListDto(
 
 	val companyName: String? = null,
 
+	val companyDivision: String? = null,
+
+	val displayCompanyType: String? = null,
+
 	val companyAddress: String? = null,
 
 	val expiredAt: Date? = null,
@@ -35,6 +39,8 @@ data class CompanyListDto(
 					registerOffice = company.registerOffice,
 					registerNumber = company.registerNumber,
 					companyName = company.companyName,
+					companyDivision = company.companyDivision,
+					displayCompanyType = company.displayCompanyType?.name,
 					companyAddress = company.companyAddress,
 					expiredAt = company.expiredAt,
 					contactNumber = "-"
