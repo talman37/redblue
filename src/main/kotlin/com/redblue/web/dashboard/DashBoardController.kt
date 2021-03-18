@@ -1,5 +1,7 @@
 package com.redblue.web.dashboard
 
+import com.redblue.security.core.annotation.CurrentUser
+import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 
@@ -7,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping
 class DashBoardController {
 
 	@GetMapping()
-	fun dashBoard() :String {
+	fun dashBoard(@CurrentUser user: LawFirmUser) :String {
+		if(user.role == LawFirmUser.Role.ADMIN) {
+			return "redirect:/admin/users"
+		}
 		return "redirect:/company"
 	}
 

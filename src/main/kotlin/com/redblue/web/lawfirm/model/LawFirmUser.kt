@@ -32,6 +32,7 @@ data class LawFirmUser(
 
 ) {
 	enum class Role {
-		ADMIN
+		ADMIN,
+		USER
 	}
 }

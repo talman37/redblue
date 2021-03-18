@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/main_layout">
+<th:block layout:fragment="content_body">
+    <!-- container -->
+    <div class="container-fluid">
+        <!-- sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사용자 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/company">
+                                    <i class="fas fa-search"></i>
+                                    사용자 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/company/add">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사용자 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사무소 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link " href="/consult">
+                                    <i class="fas fa-comment-alt"></i>
+                                    사무소 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/company/add">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사무소 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //sidebar -->
+
+        <!-- contents -->
+        <main role="main" class="main">
+            <div class="page-header">
+                <div>
+                    <h1>사무소 관리</h1>
+                </div>
+            </div>
+            <div class="card">
+                body
+            </div>
+
+        </main>
+        <!-- //contents -->
+
+    </div>
+    <!-- //container -->
+    <script>
+
+        $(document).ready(function () {
+            $('#search-btn').on('click', function () {
+                $('#searchForm').submit()
+            });
+
+            $('#excel-down-btn').on('click', function () {
+                let q = $('#q').val();
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate;
+                location.href = '/v1/companies/download/corporations.xlsx' + param;
+            });
+
+            $('#pdf-down-btn').on('click', function () {
+                let q = $('#q').val();
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate;
+                location.href = '/v1/companies/download/dm.pdf' + param;
+            });
+
+            $('#q, #startDate, #endDate').keydown(function(e) {
+                if (e.keyCode === 13) {
+                    $('#searchForm').submit();
+                }
+            });
+
+            $('button[name="history_search_btn"]').on('click', function () {
+                window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
+            });
+
+        });
+        $('.input-daterange').datepicker({
+            language: "ko",
+            todayHighlight: true
+        });
+    </script>
+</th:block>
+</html>
