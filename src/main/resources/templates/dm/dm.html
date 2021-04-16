@@ -39,8 +39,8 @@
             .dm {
                 margin: 0;
                 border: initial;
-                width: initial;
-                min-height: initial;
+                width: 210mm;
+                height: 297mm;
                 box-shadow: initial;
                 background: initial;
                 page-break-after: always;
@@ -52,8 +52,8 @@
         }
 
         .dm {
-            width: 100%;
-            height: 100%;
+            width: 210mm;
+            height: 297mm;
             margin: 0;
             padding: 0;
             table-layout: fixed;
@@ -63,16 +63,37 @@
             font-family: "NanumMyeongjo";
         }
 
+        .dm:before,
+        .dm:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-top: 1px dashed #eee;
+        }
+
+        .dm:before {
+            top: 9.9cm;
+        }
+
+        .dm:after {
+            top: 19.8cm;
+        }
+
         .dm .td-top {
             vertical-align: top;
+            height: 295px;
         }
 
         .dm .td-middle {
             vertical-align: top;
+            height: 100%;
+            height: 650px;
         }
 
         .dm .td-bottom {
             vertical-align: bottom;
+            height: 150px;
         }
 
         .dm *,
@@ -94,17 +115,34 @@
             -webkit-box-pack: justify;
             justify-content: space-between;
             font-weight: bold;
-            padding: 30px;
+            padding: 40px 90px 0 60px;
             line-height: 1.4;
         }
 
         .dm .top .sender {
             text-align: left;
             margin-bottom: 50px;
+            font-size: 13px;
+        }
+
+        .dm .top .sender .logo {
+            display: inline-block;
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+        }
+
+        .dm .top .sender .logo img {
+            width: 100%;
         }
 
         .dm .top .sender .name {
             font-size: 20px;
+            font-weight: bold;
+        }
+        .dm .top .sender .name span {
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .dm .top .sender ul {
@@ -117,13 +155,35 @@
             min-width: 20%;
         }
 
+        .dm .top .sender .number {
+            font-size: 12px;
+        }
+
         .dm .top .recipient {
             text-align: right;
             font-size: 20px;
         }
 
+        .dm .top .recipient .address,
+        .dm .top .recipient .company {
+            text-align: left;
+            max-width: 60%;
+            margin-left: auto;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .dm .top .recipient .post {
+            font-size: 14px;
+        }
+
+        .dm .top .post {
+            letter-spacing: 3px;
+        }
+
         .dm .middle {
-            padding: 50px;
+            padding: 50px 100px;
+            position: relative;
+            z-index: 1;
         }
 
         .dm .middle .content > ol {
@@ -180,6 +240,8 @@
             table-layout: fixed;
             border: 1px solid #999;
             font-family: "NanumMyeongjo";
+            border-spacing: 0;
+            border-collapse: collapse;
         }
 
         .dm .middle .table th,
@@ -190,8 +252,13 @@
             border-left: 1px solid #999;
             padding: 5px 10px;
         }
+        .dm .middle .table td {
+            border-top: 1px solid #999;
+        }
 
         .dm .middle .notice {
+            position: relative;
+            z-index: 1;
             margin-top: 20px;
             font-family: "NanumMyeongjo";
         }
@@ -212,7 +279,7 @@
 
         .dm .bottom {
             text-align: center;
-            padding: 30px;
+            padding: 30px 30px 0;
         }
 
         .dm .bottom .name {
@@ -227,10 +294,10 @@
         .dm .bottom .desc {
             margin-top: 15px;
             font-size: 14px;
-            text-align: left;
             word-break: break-word;
             font-family: "NanumBarunGothic";
         }
+
 
     </style>
 </head>
@@ -240,7 +307,12 @@
         <td class="td-top">
             <div class="top">
                 <div class="sender">
-                    <p class="name" th:text="${lawFirm.name}"></p>
+                    <p class="name">
+                        <span class="logo">
+                            <img src="../../static/images/logo.jpg" alt="">
+                        </span>
+                        <span th:text="${lawFirm.name}">법무사이상훈사무소</span>
+                    </p>
                     <p class="address" th:text="${lawFirm.address}"></p>
                     <ul>
                         <li>
@@ -253,8 +325,8 @@
                         </li>
                     </ul>
                     <ul>
-                        <li th:utext="${postalCode}"></li>
-                        <li th:utext="${docNum}"></li>
+                        <li class="post"  th:utext="${postalCode}"></li>
+                        <li class="number" th:utext="${docNum}"></li>
                     </ul>
                 </div>
                 <div class="recipient">
