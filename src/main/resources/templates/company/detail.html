@@ -8,7 +8,7 @@
                 <div>
                     <h1>
                         법인 상세
-                        <small th:text="|(${company.companyManageNumber})|"></small>
+                        <small th:if="${not #strings.isEmpty(company.companyManageNumber)}" th:text="|(${company.companyManageNumber})|"></small>
                     </h1>
                 </div>
             </div>
@@ -134,8 +134,19 @@
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="">법인 상태</label>
-                                <input type="text" class="form-control form-control-sm" id="companyState" name="companyState"
-                                       placeholder="" th:value="${company.companyState}">
+                                <select class="form-control form-select form-select-sm" id="companyState" name="companyState"
+                                        th:field="*{company.companyState}">
+                                    <option th:value="신규법인">신규법인</option>
+                                    <option th:value="해산간주">해산간주</option>
+                                    <option th:value="장기미등기">장기미등기</option>
+                                    <option th:value="안내후미등기">안내후미등기</option>
+                                    <option th:value="반송">반송</option>
+                                    <option th:value="법무사교체">법무사교체</option>
+                                    <option th:value="연락안됨">연락안됨</option>
+                                    <option th:value="사업자폐업">사업자폐업</option>
+                                    <option th:value="법인파산">법인파산</option>
+                                    <option th:value="관리법인">관리법인</option>
+                                </select>
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="">상호</label>
@@ -155,9 +166,12 @@
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="">관리 상태</label>
-                                <input type="text" class="form-control form-control-sm" id="companyManageState"
-                                       name="companyManageState" placeholder=""
-                                       th:value="${company.companyManageState}">
+                                <select class="form-control form-select form-select-sm" id="companyManageState" name="companyManageState"
+                                        th:field="*{company.companyManageState}">
+                                    <option th:value="신규법인">신규법인</option>
+                                    <option th:value="관리법인">관리법인</option>
+                                    <option th:value="관리종결">관리종결</option>
+                                </select>
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="">관리 번호</label>
@@ -252,27 +266,26 @@
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="">1주의 금액</label>
-                                <input type="text" class="form-control form-control-sm" id="stock.amount" name="stock[amount]"
-                                       numberonly="true"
-                                       placeholder="" required="" th:value="${company.stock.amount}">
+                                <input type="text" class="form-control form-control-sm" id="stock.amount" name="stock[amount]" onkeyup="inputNumberFormat(this)"
+                                       placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.amount, 0, 'COMMA', 0, 'POINT')}">
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="">발행할 주식의 총수</label>
-                                <input type="text" class="form-control form-control-sm" id="stock.scheduleCount" numberonly="true"
-                                       name="stock[scheduleCount]" placeholder="" required=""
-                                       th:value="${company.stock.scheduleCount}">
+                                <input type="text" class="form-control form-control-sm" id="stock.scheduleCount"
+                                       name="stock[scheduleCount]" placeholder="" required="" onkeyup="inputNumberFormat(this)"
+                                       th:value="${#numbers.formatDecimal(company.stock.scheduleCount, 0, 'COMMA', 0, 'POINT')}">
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="">발행주식의 총수</label>
                                 <input type="text" class="form-control form-control-sm" id="stock.issuedCount" name="stock[issuedCount]"
-                                       numberonly="true"
-                                       placeholder="" required="" th:value="${company.stock.issuedCount}">
+                                       numberonly="true" onkeyup="inputNumberFormat(this)"
+                                       placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label for="">자본금</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" numberonly="true"
-                                           th:value="${company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount)}">
+                                    <input type="text" class="form-control form-control-sm" onkeyup="inputNumberFormat(this)"
+                                           th:value="${#numbers.formatDecimal(company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount), 0, 'COMMA', 0, 'POINT')}">
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">계산하기</button>
                                     </div>
@@ -425,6 +438,25 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="box-status">
+                        <div class="item">
+                            <div class="item-header">
+                                입력된 주식수
+                            </div>
+                            <div class="item-body">
+                                <span class='text-danger'
+                                      th:text="${#numbers.formatDecimal(company.stock.scheduleCount + company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}"></span>주
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="item-header">
+                                발행주식총수
+                            </div>
+                            <div class="item-body">
+                                <span class='text-danger' th:text="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}"></span>주
+                            </div>
+                        </div>
+                    </div>
                     <form id="executive_form">
                         <table class="table table-bordered mb-2 table-form">
                             <colgroup>
@@ -465,15 +497,15 @@
                                     </td>
                                     <td>
                                         <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][position]'">
-                                            <option selected value="0">사내이사</option>
-                                            <option value="1">대표이사</option>
-                                            <option value="2">공동대표이사</option>
-                                            <option value="3">대표집행임원</option>
-                                            <option value="4">사외이사</option>
-                                            <option value="5">기타비상무이사</option>
-                                            <option value="6">집행임원</option>
-                                            <option value="7">감사</option>
-                                            <option value="8">감사위원</option>
+                                            <option th:value="대표이사" th:selected="${executive.position eq '대표이사'}">대표이사</option>
+                                            <option th:value="공동대표이사" th:selected="${executive.position eq '공동대표이사'}">공동대표이사</option>
+                                            <option th:value="대표집행임원" th:selected="${executive.position eq '대표집행임원'}">대표집행임원</option>
+                                            <option th:value="사외이사" th:selected="${executive.position eq '사외이사'}">사외이사</option>
+                                            <option th:value="기타비상무이사" th:selected="${executive.position eq '기타비상무이사'}">기타비상무이사</option>
+                                            <option th:value="집행임원" th:selected="${executive.position eq '집행임원'}">집행임원</option>
+                                            <option th:value="감사" th:selected="${executive.position eq '감사'}">감사</option>
+                                            <option th:value="감사위원" th:selected="${executive.position eq '감사위원'}">감사위원</option>
+                                            <option th:value="주주" th:selected="${executive.position eq '주주'}">주주</option>
                                         </select>
                                     </td>
                                     <td>
@@ -534,114 +566,6 @@
                                     <td>
                                         <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
                                                 th:onclick="'remove_executive('+${index.index}+')'">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </th:block>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>주주</strong>
-                            <strong class="text-primary" th:text="${#lists.size(company.stockholders)}"></strong>
-                        </div>
-                        <div>
-                            <button type='button' class='btn btn-sm btn-outline-primary' id="add-stockholder-btn">
-                                주주 추가
-                            </button>
-                            <button type='button' class='btn btn-sm btn-outline-success' data-toggle="modal"
-                                    id="save-stockHolder-btn">
-                                저장
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="box-status">
-                        <div class="item">
-                            <div class="item-header">
-                                입력된 주식수
-                            </div>
-                            <div class="item-body">
-                                <span class='text-danger'
-                                      th:text="${company.stock.scheduleCount + company.stock.issuedCount}"></span>주
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-header">
-                                발행주식총수
-                            </div>
-                            <div class="item-body">
-                                <span class='text-danger' th:text="${company.stock.issuedCount}"></span>주
-                            </div>
-                        </div>
-                    </div>
-                    <form id="stockholder_form">
-                        <table class="table table-bordered mb-2 table-form">
-                            <colgroup>
-                                <col/>
-                                <col/>
-                                <col/>
-                                <col/>
-                                <col style="width: 50px"/>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>성명</th>
-                                <th>주민등록번호</th>
-                                <th>주소</th>
-                                <th>주식수</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody id="stockHolderGroup">
-                            <th:block th:each="stockholder, index: ${company.stockholders}">
-                                <input type="hidden" class="form-control form-control-sm"
-                                       th:name="'stockholders['+${index.index}+'][id]'" th:value="${stockholder.id}"/>
-                                <tr th:id="'stockholder_tr_'+${index.index}">
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               th:name="'stockholders['+${index.index}+'][name]'"
-                                               th:value="${stockholder.name}"/>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control form-control-sm"
-                                                   th:name="'stockholders['+${index.index}+'][registrationNumber1]'"
-                                                   th:value="${stockholder.registrationNumber1}"/>
-                                            <div class="input-group-addon">
-                                                <span class="input-group-text">-</span>
-                                            </div>
-                                            <input type="text" class="form-control form-control-sm"
-                                                   th:name="'stockholders['+${index.index}+'][registrationNumber2]'"
-                                                   th:value="${stockholder.registrationNumber2}"/>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control form-control-sm"
-                                                th:name="'stockholders['+${index.index}+'][address]'"
-                                                th:value="${stockholder.address}"/>
-                                            <div class="input-group-append">
-                                                <button type='button' class="btn btn-sm btn-sm btn-outline-secondary" th:onClick="'search_stockholder_address('+${index.index}+')'">검색</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               th:name="'stockholders['+${index.index}+'][stockCount]'"
-                                               th:value="${stockholder.stockCount}"/>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                                th:onclick="'remove_stockHolder('+${index.index}+')'">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
@@ -800,6 +724,9 @@
             });
 
             $('#update_sub_btn').on('click', function () {
+                $('#stock.amount').val($('#stock.amount').val().replace(/\,/g,""));
+                $('#stock.scheduleCount').val($('#stock.scheduleCount').val().replace(/\,/g,""));
+                $('#stock.issuedCount').val($('#stock.issuedCount').val().replace(/\,/g,""));
                 $.ajax({
                     type: 'PATCH',
                     url: '/v1/companies/' + $('#companyId').val() + '/sub',
@@ -1011,6 +938,20 @@
             });
         }
 
+        function inputNumberFormat(obj) {
+            obj.value = comma(uncomma(obj.value));
+        }
+
+        function comma(str) {
+            str = String(str);
+            return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        }
+
+        function uncomma(str) {
+            str = String(str);
+            return str.replace(/[^\d]+/g, '');
+        }
+
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row" id="contact_row_{{= index}}">
@@ -1084,15 +1025,16 @@
             </td>
             <td>
                 <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
-                    <option selected value="0">사내이사</option>
-                    <option value="1">대표이사</option>
-                    <option value="2">공동대표이사</option>
-                    <option value="3">대표집행임원</option>
-                    <option value="4">사외이사</option>
-                    <option value="5">기타비상무이사</option>
-                    <option value="6">집행임원</option>
-                    <option value="7">감사</option>
-                    <option value="8">감사위원</option>
+                    <option selected value="사내이사">사내이사</option>
+                    <option value="대표이사">대표이사</option>
+                    <option value="공동대표이사">공동대표이사</option>
+                    <option value="대표집행임원">대표집행임원</option>
+                    <option value="사외이사">사외이사</option>
+                    <option value="기타비상무이사">기타비상무이사</option>
+                    <option value="집행임원">집행임원</option>
+                    <option value="감사">감사</option>
+                    <option value="감사위원">감사위원</option>
+                    <option value="주주">주주</option>
                 </select>
             </td>
             <td>

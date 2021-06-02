@@ -92,7 +92,7 @@
                             <div class="search-area search-compact">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색"
+                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색(법인등록번호, 법인명, 법인관리번호)"
                                                th:value="${q}">
                                     </div>
                                     <div class="col">
@@ -141,15 +141,15 @@
 
                         <tr th:each="company: ${companies}">
                             <td th:if="${company.displayCompanyType} == 'FRONT'">
-                                <a th:href="'/company/' + ${company.id}" th:target="_blank"
+                                <a href="#none" th:name="companyTitle" th:attr="data-id=${company.id}"
                                    th:text="|${company.companyDivision} ${company.companyName}|"></a>
                             </td>
                             <td th:if="${company.displayCompanyType} == 'BACK'">
-                                <a th:href="'/company/' + ${company.id}" th:target="_blank"
+                                <a href="#none" th:name="companyTitle" th:attr="data-id=${company.id}"
                                    th:text="|${company.companyName} ${company.companyDivision}|"></a>
                             </td>
                             <td th:if="${company.displayCompanyType} == null">
-                                <a th:href="'/company/' + ${company.id}" th:target="_blank"
+                                <a href="#none" th:name="companyTitle" th:attr="data-id=${company.id}"
                                    th:text="${company.companyName}"></a>
                             </td>
                             <td>
@@ -164,21 +164,67 @@
                                 <button type="button" class="btn btn-link p-0" name="history_search_btn" th:attr="data-id=${company.id}">
                                     이력보기
                                 </button>
-                                <button type="button" class="btn btn-link p-0"  data-toggle="modal" data-target="#modal-summary" th:attr="data-id=${company.id}">
+                                <button type="button" class="btn btn-link p-0"  data-toggle="modal" th:attr="data-target='#modal-summary-' + ${company.id}">
                                     요약정보보기
                                 </button>
+                                <!--  요약정보 레이어 -->
+                                <div class="modal" th:id="'modal-summary-' + ${company.id}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">요약정보</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="table">
+                                                    <table class="table table-bordered">
+                                                        <colgroup>
+                                                            <col style="width: 20%">
+                                                            <col>
+                                                        </colgroup>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th>법인명</th>
+                                                            <td th:if="${company.displayCompanyType} == 'FRONT'" th:text="|${company.companyDivision} ${company.companyName}|">
+                                                            </td>
+                                                            <td th:if="${company.displayCompanyType} == 'BACK'" th:text="|${company.companyName} ${company.companyDivision}|">
+                                                            </td>
+                                                            <td th:if="${company.displayCompanyType} == null" th:text="${company.companyName}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>대표자</th>
+                                                            <td th:text="${company.companyMasterName}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>연락처</th>
+                                                            <td th:text="${company.contactNumber}"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
                 <div class="card-footer">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <span>Total :  <span class="text-primary" th:text="${companiesPage.totalElements}"></span></span>
                             <nav class="ml-3">
-                                <ul class="pagination pagination-sm" th:with="start=${T(Math).floor(companiesPage.number/10)*10 + 1},
-                    last=(${start + 9 < companiesPage.totalPages ? start + 9 : companiesPage.totalPages})">
+                                <ul class="pagination pagination-sm" th:with="start=${T(Math).floor(companiesPage.number/10)*10 + 1}, last=(${start + 9 < companiesPage.totalPages ? start + 9 : companiesPage.totalPages})">
                                     <li class="page-item" th:class="${companiesPage.first} ? 'disabled'">
                                         <span class="page-link">
                                             <a th:href="${companiesPage.first} ? '#' :@{/company(page=${companiesPage.number},q=${q},start=${startDate},end=${endDate})}">
@@ -200,53 +246,6 @@
                         <div>
                             <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
                             <button type="button" class="btn btn-dark btn-sm" id="pdf-down-btn">PDF 다운</button>
-                        </div>
-                    </div>
-                    <!--
-
-                    <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <span>Total :  <span class="text-primary">3</span></span>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-dark btn-sm">출력하기</button>
-                                <button type="button" class="btn btn-dark btn-sm">엑셀다운받기</button>
-                                <button type="button" class="btn btn-dark btn-sm">디엠출력</button>
-                            </div>
-                        </div>
-
-                    -->
-                </div>
-            </div>
-            <!--  요약정보 레이어 -->
-            <div class="modal" id="modal-summary">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">요약정보</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="table">
-                                <table class="table table-bordered">
-                                    <colgroup>
-                                        <col style="width: 20%">
-                                        <col>
-                                    </colgroup>
-                                    <tbody>
-                                    <tr>
-                                        <th>제목</th>
-                                        <td>내용</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -287,6 +286,10 @@
 
             $('button[name="history_search_btn"]').on('click', function () {
                 window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
+            });
+
+            $('a[name="companyTitle"]').on('click', function () {
+                window.open('/company/' + $(this).data('id'), '법인 상세', 'width=1350px,height=1000px,scrollbars=yes');
             });
 
         });

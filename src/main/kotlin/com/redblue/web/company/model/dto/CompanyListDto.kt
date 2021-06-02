@@ -1,6 +1,7 @@
 package com.redblue.web.company.model.dto
 
 import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.Contact
 import org.springframework.data.domain.Page
 import java.util.*
 
@@ -24,7 +25,9 @@ data class CompanyListDto(
 
 	val expiredAt: Date? = null,
 
-	val contactNumber: String? = "-"
+	val contactNumber: String? = "-",
+
+	val companyMasterName: String? = null
 
 ) {
 
@@ -43,7 +46,8 @@ data class CompanyListDto(
 					displayCompanyType = company.displayCompanyType?.name,
 					companyAddress = company.companyAddress,
 					expiredAt = company.expiredAt,
-					contactNumber = "-"
+					contactNumber = company.contacts?.first { c -> c.type!! == Contact.Type.MOBILE }?.value,
+					companyMasterName = company.companyMasterName
 				))
 			}
 			return list

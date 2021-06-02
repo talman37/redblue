@@ -150,6 +150,11 @@
                                         <option selected value="">선택</option>
                                         <option value="주식회사">주식회사</option>
                                         <option value="유한회사">유한회사</option>
+                                        <option value="유한책임회사">유한책임회사</option>
+                                        <option value="합자회사">합자회사</option>
+                                        <option value="사단법인">사단법인</option>
+                                        <option value="재단법인">재단법인</option>
+                                        <option value="농업회사">농업회사</option>
                                     </select>
                                 </div>
                             </div>
@@ -178,8 +183,18 @@
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="companyState">법인 상태</label>
-                                <input type="text" class="form-control form-control-sm" id="companyState"
-                                       name="companyState" value="">
+                                <select class="form-control form-select form-select-sm" id="companyState"
+                                        name="companyState">
+                                    <option selected value="신규법인">신규법인</option>
+                                    <option value="해산간주">해산간주</option>
+                                    <option value="장기미등기">장기미등기</option>
+                                    <option value="안내후미등기">안내후미등기</option>
+                                    <option value="반송">반송</option>
+                                    <option value="법무사교체">법무사교체</option>
+                                    <option value="사업자폐업">사업자폐업</option>
+                                    <option value="법인파산">법인파산</option>
+                                    <option value="관리법인">관리법인</option>
+                                </select>
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="companyName">상호</label>
@@ -200,8 +215,12 @@
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="companyManageState">관리 상태</label>
-                                <input type="text" class="form-control form-control-sm" id="companyManageState"
-                                       name="companyManageState" value="">
+                                <select class="form-control form-select form-select-sm" id="companyManageState"
+                                        name="companyManageState">
+                                    <option selected value="신규법인">신규법인</option>
+                                    <option value="관리법인">관리법인</option>
+                                    <option value="관리종결">관리종결</option>
+                                </select>
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="companyManageNumber">관리 번호</label>
@@ -295,24 +314,24 @@
                                 <label for="stockAmount">1주의 금액</label>
                                 <input type="text" class="form-control form-control-sm" id="stockAmount"
                                        name="stock[amount]"
-                                       numberonly="true">
+                                       onkeyup="inputNumberFormat(this)">
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="stockScheduleCount">발행할 주식의 총수</label>
                                 <input type="text" class="form-control form-control-sm" id="stockScheduleCount"
-                                       name="stock[scheduleCount]" numberonly="true">
+                                       name="stock[scheduleCount]" onkeyup="inputNumberFormat(this)">
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="stockIssuedCount">발행주식의 총수</label>
                                 <input type="text" class="form-control form-control-sm" id="stockIssuedCount"
-                                       name="stock[issuedCount]" numberonly="true">
+                                       name="stock[issuedCount]" onkeyup="inputNumberFormat(this)">
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label for="capital">자본금</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-sm" id="capital"
                                            name="stock[capital]" value=""
-                                           numberonly="true">
+                                           onkeyup="inputNumberFormat(this)">
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-sm btn-outline-secondary"
                                                 id="stock-calculate-btn">계산하기
@@ -452,6 +471,24 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="box-status">
+                            <div class="item">
+                                <div class="item-header">
+                                    입력된 주식수
+                                </div>
+                                <div class="item-body">
+                                    <span class='text-danger' id="input_stock_count">0</span>주
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="item-header">
+                                    발행주식총수
+                                </div>
+                                <div class="item-body">
+                                    <span class='text-danger' id="issue_stock_count">0</span>주
+                                </div>
+                            </div>
+                        </div>
                         <table class="table table-bordered mb-2 table-form">
                             <colgroup>
                                 <col style="width: 100px"/>
@@ -498,6 +535,7 @@
                                         <option value="6">집행임원</option>
                                         <option value="7">감사</option>
                                         <option value="8">감사위원</option>
+                                        <option value="9">주주</option>
                                     </select>
                                 </td>
                                 <td>
@@ -558,63 +596,6 @@
                                     </button>
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>주주</strong>
-                                <strong class="text-primary" id="stockHolderCount"></strong>
-                            </div>
-                            <div>
-                                <button type='button' class='btn btn-sm btn-outline-primary' id="add-stockHolder-btn">
-                                    주주 추가
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="box-status">
-                            <div class="item">
-                                <div class="item-header">
-                                    입력된 주식수
-                                </div>
-                                <div class="item-body">
-                                    <span class='text-danger' id="input_stock_count">0</span>주
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-header">
-                                    발행주식총수
-                                </div>
-                                <div class="item-body">
-                                    <span class='text-danger' id="issue_stock_count">0</span>주
-                                </div>
-                            </div>
-                        </div>
-                        <table class="table table-bordered mb-2 table-form">
-                            <colgroup>
-                                <col/>
-                                <col/>
-                                <col/>
-                                <col/>
-                                <col style="width: 50px"/>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>성명</th>
-                                <th>주민등록번호</th>
-                                <th>주소</th>
-                                <th>주식수</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody id="stockHolderGroup">
                             </tbody>
                         </table>
                     </div>
@@ -706,7 +687,10 @@
                     alert("임원을 추가해 주세요.");
                     return false;
                 }
-
+                $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
+                $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
+                $('#stockIssuedCount').val($('#stockIssuedCount').val().replace(/\,/g,""));
+                $('#capital').val($('#capital').val().replace(/\,/g,""));
                 $.ajax({
                     type: 'POST',
                     url: '/v1/companies',
@@ -743,16 +727,20 @@
 
             $('#stock-calculate-btn').on('click', function () {
 
-                let amount = $('#stockAmount').val();
+                let amount = $('#stockAmount').val().replace(/\,/g,"");
                 if (amount === '') {
                     amount = 0;
                 }
-                let count = $('#stockIssuedCount').val();
-                if (count === '') {
+                let issuedCount = $('#stockIssuedCount').val().replace(/\,/g,"");
+                if (issuedCount === '') {
+                    issuedCount = 0;
+                }
+                let scheduleCount = $('#stockScheduleCount').val().replace(/\,/g,"");
+                if (scheduleCount === '') {
                     count = 0;
                 }
 
-                $('#capital').val(amount * count);
+                $('#capital').val(comma(amount * (issuedCount + scheduleCount)));
 
             });
 
@@ -769,11 +757,6 @@
                     language: "ko",
                     todayHighlight: true
                 });
-            });
-
-            $('#add-stockHolder-btn').on('click', function () {
-                let i = $('#stockHolderGroup > tr').length;
-                $('#stockHolder-template').tmpl([{index: i}]).appendTo($('#stockHolderGroup'))
             });
 
             $('#add-purpose-btn').on('click', function () {
@@ -829,24 +812,6 @@
             $('#executive_tr_' + i).remove();
         }
 
-        function remove_stockHolder(i) {
-            if (i === 0) {
-                $('#stockHolderCount').text('');
-            } else {
-                $('#stockHolderCount').text(i);
-            }
-            var count = $('input[name="stockholders[' + i + '][stockCount]"]').val();
-            if (count === '') {
-                count = 0;
-            }
-            var inputCount = Number($('#input_stock_count').text()) - Number(count);
-            var issueCount = Number($('#issue_stock_count').text()) - Number(count);
-            $('#input_stock_count').text(inputCount);
-            $('#issue_stock_count').text(issueCount);
-
-            $('#stockHolder_tr_' + i).remove();
-        }
-
         function remove_purpose(i) {
             $('#purpose_row_' + i).remove();
         }
@@ -866,16 +831,6 @@
             });
         }
 
-        function search_stockholder_address(i) {
-            daum.postcode.load(function () {
-                new daum.Postcode({
-                    oncomplete: function (data) {
-                        $('input[name="stockholders[' + i + '][address]"]').val(data.address);
-                    }
-                }).open();
-            });
-        }
-
         function changeCountry(i) {
             if ($('select[name="executives[' + i + '][nationality]"]').val() == '기타') {
                 $('input[name="executives[' + i + '][countryValue]"]').attr('readonly', false)
@@ -883,6 +838,20 @@
                 $('input[name="executives[' + i + '][countryValue]"]').val('')
                 $('input[name="executives[' + i + '][countryValue]"]').attr('readonly', true)
             }
+        }
+
+        function inputNumberFormat(obj) {
+            obj.value = comma(uncomma(obj.value));
+        }
+
+        function comma(str) {
+            str = String(str);
+            return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        }
+
+        function uncomma(str) {
+            str = String(str);
+            return str.replace(/[^\d]+/g, '');
         }
 
 
@@ -962,14 +931,15 @@
 
                 <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
                     <option selected value="0">사내이사</option>
-                    <option value="1">대표이사</option>
-                    <option value="2">공동대표이사</option>
-                    <option value="3">대표집행임원</option>
-                    <option value="4">사외이사</option>
-                    <option value="5">기타비상무이사</option>
-                    <option value="6">집행임원</option>
-                    <option value="7">감사</option>
-                    <option value="8">감사위원</option>
+                    <option value="대표이사">대표이사</option>
+                    <option value="공동대표이사">공동대표이사</option>
+                    <option value="대표집행임원">대표집행임원</option>
+                    <option value="사외이사">사외이사</option>
+                    <option value="기타비상무이사">기타비상무이사</option>
+                    <option value="집행임원">집행임원</option>
+                    <option value="감사">감사</option>
+                    <option value="감사위원">감사위원</option>
+                    <option value="주주">주주</option>
                 </select>
             </td>
             <td>
@@ -1030,40 +1000,6 @@
             </td>
         </tr>
     </script>
-    <script id="stockHolder-template" type="text/x-jQuery-tmpl">
-        <tr id="stockHolder_tr_{{= index}}">
-            <td>
-                <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][name]" value="" />
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][registrationNumber1]" value=""/>
-                    <div class="input-group-addon">
-                        <span class="input-group-text">-</span>
-                    </div>
-                    <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][registrationNumber2]" value="" />
-                </div>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][address]" value="" />
-                    <div class="input-group-append">
-                        <button type='button' class="btn btn-sm btn-sm btn-outline-secondary" onClick="search_stockholder_address({{= index}});">검색</button>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <input type="text" class="form-control form-control-sm" name="stockholders[{{= index}}][stockCount]" value="" />
-            </td>
-            <td>
-                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                        onClick="remove_stockHolder({{= index}})">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </td>
-        </tr>
-    </script>
-
     <script id="purpose-template" type="text/x-jQuery-tmpl">
         <div class="row" id="purpose_row_{{= index}}">
             <div class="col-md-11 mb-2">

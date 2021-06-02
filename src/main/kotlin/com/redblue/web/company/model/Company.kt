@@ -118,10 +118,13 @@ data class Company(
 	var expiredAt: Date? = null,
 
 	@Transient
+	var companyMasterName: String? = null,
+
+	@Transient
 	var stockholders: List<Stockholder>? = emptyList(),
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
-	val contacts: List<Contact>? = null,
+	val contacts: List<Contact>? = emptyList(),
 
 	@Transient
 	var purposeDetail: List<PurposeDetail>? = emptyList(),

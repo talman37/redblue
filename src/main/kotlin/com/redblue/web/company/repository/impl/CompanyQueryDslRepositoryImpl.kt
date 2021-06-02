@@ -7,6 +7,7 @@ import com.querydsl.jpa.JPAExpressions
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.QCompany
+import com.redblue.web.company.model.QContact
 import com.redblue.web.company.model.QExecutive
 import com.redblue.web.company.repository.CompanyQueryDslRepository
 import org.springframework.data.domain.Page
@@ -25,12 +26,15 @@ class CompanyQueryDslRepositoryImpl(
 	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company> {
 		val qc = QCompany.company
 		val qe = QExecutive.executive
+		val qct = QContact.contact
 		val predicate = BooleanBuilder()
 
 		val query = jpaQueryFactory
 			.select(
 				Projections.fields(
 					qc,
+					qe,
+					qct,
 					qc.id,
 					qc.lawFirmId,
 					qc.registerOffice,
@@ -42,13 +46,14 @@ class CompanyQueryDslRepositoryImpl(
 					qc.companyNumber1,
 					qc.companyNumber2,
 					qc.deliveryPlacePostalCode,
-					qc.deliveryPlace,
-					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
-						.from(qe).where(qe.companyId.eq(qc.id)).limit(1), "expiredAt")
+					qc.deliveryPlace
+//					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
+//						.from(qe).where(qe.companyId.eq(qc.id)).limit(1), "expiredAt")
 				)
 			)
 			.from(qc)
 			.leftJoin(qe).on(qc.id.eq(qe.companyId)).fetchJoin()
+			.leftJoin(qct).on(qc.id.eq(qct.companyId)).fetchJoin()
 		predicate.and(
 			qc.lawFirmId.eq(lawFirmId)
 		)
@@ -58,6 +63,7 @@ class CompanyQueryDslRepositoryImpl(
 				qc.companyName.likeIgnoreCase("%$it%")
 					.or(qc.companyNumber1.like("%$it%"))
 					.or(qc.companyNumber2.like("%$it%"))
+					.or(qc.companyManageNumber.like("%$it%"))
 			)
 		}
 
