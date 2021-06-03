@@ -286,6 +286,12 @@
                 }
             });
 
+            $('#startDate, #endDate').keyup(function(){
+                if($(this).val().length == 4 || $(this).val().length == 7) {
+                    $(this).val($(this).val() + '-');
+                }
+            });
+
             $('button[name="history_search_btn"]').on('click', function () {
                 window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
             });

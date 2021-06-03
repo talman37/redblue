@@ -25,9 +25,9 @@ data class CompanyListDto(
 
 	val expiredAt: Date? = null,
 
-	val contactNumber: String? = "-",
+	var contactNumber: String? = "-",
 
-	val companyMasterName: String? = null,
+	var companyMasterName: String? = null,
 
 	val contacts: MutableList<Contact>? = mutableListOf()
 
@@ -48,9 +48,17 @@ data class CompanyListDto(
 					displayCompanyType = company.displayCompanyType?.name,
 					companyAddress = company.companyAddress,
 					expiredAt = company.executives.first().expiredAt,
-					contacts = company.contacts,
-					companyMasterName = company.companyMasterName
+					contacts = company.contacts
 				)
+				val master = company.executives.filter { e -> e.position == "대표이사" }
+				if(master.isNotEmpty()) {
+					dto.companyMasterName = master.first().name
+				}
+
+				if(company.contacts!!.isNotEmpty()) {
+					dto.contactNumber = company.contacts.first().value
+				}
+
 				list.add(dto)
 			}
 			return list
