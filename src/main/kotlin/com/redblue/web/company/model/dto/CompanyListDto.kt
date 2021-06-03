@@ -27,7 +27,9 @@ data class CompanyListDto(
 
 	val contactNumber: String? = "-",
 
-	val companyMasterName: String? = null
+	val companyMasterName: String? = null,
+
+	val contacts: MutableList<Contact>? = mutableListOf()
 
 ) {
 
@@ -36,7 +38,7 @@ data class CompanyListDto(
 		fun of(companies: Page<Company>, startDate: Date?, endDate: Date?): List<CompanyListDto> {
 			var list = mutableListOf<CompanyListDto>()
 			for (company in companies.content) {
-				list.add(CompanyListDto(
+				var dto = CompanyListDto(
 					id = company.id,
 					lawFirmId = company.lawFirmId,
 					registerOffice = company.registerOffice,
@@ -45,10 +47,11 @@ data class CompanyListDto(
 					companyDivision = company.companyDivision,
 					displayCompanyType = company.displayCompanyType?.name,
 					companyAddress = company.companyAddress,
-					expiredAt = company.expiredAt,
-					contactNumber = company.contacts?.first { c -> c.type!! == Contact.Type.MOBILE }?.value,
+					expiredAt = company.executives.first().expiredAt,
+					contacts = company.contacts,
 					companyMasterName = company.companyMasterName
-				))
+				)
+				list.add(dto)
 			}
 			return list
 		}

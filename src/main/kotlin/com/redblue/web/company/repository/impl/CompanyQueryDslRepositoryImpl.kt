@@ -30,26 +30,26 @@ class CompanyQueryDslRepositoryImpl(
 		val predicate = BooleanBuilder()
 
 		val query = jpaQueryFactory
-			.select(
-				Projections.fields(
-					qc,
-					qe,
-					qct,
-					qc.id,
-					qc.lawFirmId,
-					qc.registerOffice,
-					qc.registerNumber,
-					qc.companyName,
-					qc.companyDivision,
-					qc.displayCompanyType,
-					qc.companyAddress,
-					qc.companyNumber1,
-					qc.companyNumber2,
-					qc.deliveryPlacePostalCode,
-					qc.deliveryPlace
+			.selectFrom(qc
+//				Projections.fields(
+//					qc,
+//					qe.`as`("executives"),
+//					qct.`as`("contacts"),
+//					qc.id,
+//					qc.lawFirmId,
+//					qc.registerOffice,
+//					qc.registerNumber,
+//					qc.companyName,
+//					qc.companyDivision,
+//					qc.displayCompanyType,
+//					qc.companyAddress,
+//					qc.companyNumber1,
+//					qc.companyNumber2,
+//					qc.deliveryPlacePostalCode,
+//					qc.deliveryPlace,
 //					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
 //						.from(qe).where(qe.companyId.eq(qc.id)).limit(1), "expiredAt")
-				)
+//				)
 			)
 			.from(qc)
 			.leftJoin(qe).on(qc.id.eq(qe.companyId)).fetchJoin()
@@ -68,7 +68,9 @@ class CompanyQueryDslRepositoryImpl(
 		}
 
 		startDate?.let {
-			predicate.and(qe.expiredAt.between(it, endDate))
+			//predicate.and(qe.expiredAt.between(it, endDate))
+			predicate.and(qc.id.`in`(JPAExpressions.select(qe.companyId)
+						.from(qe).where(qe.expiredAt.between(it, endDate))))
 		}
 
 		query.where(predicate)

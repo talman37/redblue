@@ -21,14 +21,14 @@ data class Contact(
 
 ) {
 
-	enum class Type {
-		MOBILE,
-		PHONE,
-		DIRECT_PHONE,
-		FAX,
-		EMAIL,
-		TAX_EMAIL,
-		FACTORY
+	enum class Type(val text: String) {
+		MOBILE("휴대폰"),
+		PHONE("유선전화"),
+		DIRECT_PHONE("직통번호"),
+		FAX("회사팩스"),
+		EMAIL("이메일"),
+		TAX_EMAIL("세금계산서용 이메일"),
+		FACTORY("공장")
 	}
 
 }

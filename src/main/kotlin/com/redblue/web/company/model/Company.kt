@@ -112,7 +112,7 @@ data class Company(
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
 	@OrderBy("expiredAt")
-	var executives: List<Executive> = emptyList(),
+	var executives: MutableList<Executive> = mutableListOf(),
 
 	@Transient
 	var expiredAt: Date? = null,
@@ -124,7 +124,7 @@ data class Company(
 	var stockholders: List<Stockholder>? = emptyList(),
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
-	val contacts: List<Contact>? = emptyList(),
+	val contacts: MutableList<Contact>? = mutableListOf(),
 
 	@Transient
 	var purposeDetail: List<PurposeDetail>? = emptyList(),

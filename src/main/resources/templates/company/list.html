@@ -198,10 +198,12 @@
                                                             <th>대표자</th>
                                                             <td th:text="${company.companyMasterName}"></td>
                                                         </tr>
-                                                        <tr>
-                                                            <th>연락처</th>
-                                                            <td th:text="${company.contactNumber}"></td>
-                                                        </tr>
+                                                        <th:block th:each="contact: ${company.contacts}">
+                                                            <tr>
+                                                                <th th:text="${contact.type.text}"></th>
+                                                                <td th:text="${contact.value}"></td>
+                                                            </tr>
+                                                        </th:block>
                                                         </tbody>
                                                     </table>
                                                 </div>

@@ -44,7 +44,7 @@ class CompanyServiceImpl(
 	override fun detail(id: String): Company {
 		val company = companyRepository.findById(id).get()
 		company.branches = companyBranchRepository.findByCompanyId(id)
-		company.executives = executiveRepository.findByCompanyIdOrderByExpiredAt(id)
+		company.executives = executiveRepository.findByCompanyIdOrderByExpiredAt(id).toMutableList()
 		company.stock = stockRepository.findByCompanyId(id)
 		company.stockholders = stockholderRepository.findByCompanyId(id)
 		company.purposeDetail = purposeDetailRepository.findByCompanyId(id)
