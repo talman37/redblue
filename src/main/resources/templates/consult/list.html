@@ -103,7 +103,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="progress_ongoing" name="progress"
+                                                        <input type="checkbox" id="progress_ongoing" name="progress" th:checked="${#lists.contains(progress, 'ONGOING')}"
                                                                th:value="ONGOING"><i></i>
                                                     </span>
                                                         <label for="progress_ongoing">진행중</label>
@@ -112,7 +112,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="progress_complete" name="progress"
+                                                        <input type="checkbox" id="progress_complete" name="progress" th:checked="${#lists.contains(progress, 'COMPLETE')}"
                                                                th:value="COMPLETE"><i></i>
                                                     </span>
                                                         <label for="progress_complete">진행완료</label>
@@ -121,7 +121,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="progress_hold" name="progress"
+                                                        <input type="checkbox" id="progress_hold" name="progress" th:checked="${#lists.contains(progress, 'HOLD')}"
                                                                th:value="HOLD"><i></i>
                                                     </span>
                                                         <label for="progress_hold">보류</label>
@@ -130,7 +130,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="progress_cancel" name="progress"
+                                                        <input type="checkbox" id="progress_cancel" name="progress" th:checked="${#strings.contains(progress, 'CANCEL')}"
                                                                th:value="CANCEL"><i></i>
                                                     </span>
                                                         <label for="progress_cancel">취소</label>
@@ -174,11 +174,11 @@
                         </thead>
                         <tbody>
                         <tr th:each="consult: ${consults.content}">
-                            <td><a th:href="'/consult/' + ${consult.id} + '/edit'" th:text="${consult.companyName}"></a></td>
+                            <td><a href="#none" th:attr="data-id=${consult.companyId}" th:name="companyTitle" th:text="${consult.companyName}"></a></td>
                             <td th:text="${#dates.format(consult.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${consult.consultant}">@mdo</td>
                             <td>
-                                <div class="ellipsis" th:text="${consult.content}"></div>
+                                <a th:href="'/consult/' + ${consult.id} + '/edit'" class="ellipsis" th:text="${consult.content}"></a>
                             </td>
                             <td>
                                 <div class="ellipsis" th:text="${consult.memo}"></div>
@@ -254,6 +254,11 @@
                 $('#searchForm').submit()
             });
         });
+
+        $('a[name="companyTitle"]').on('click', function () {
+            window.open('/company/' + $(this).data('id'), '법인 상세', 'width=1350px,height=1000px,scrollbars=yes');
+        });
+
         $('.input-daterange').datepicker({
             language: "ko",
             todayHighlight: true

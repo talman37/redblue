@@ -233,6 +233,12 @@
                                        name="recommender"
                                        placeholder="" value="">
                             </div>
+                            <div class="col-md mb-2">
+                                <label for="precautions">주의사항</label>
+                                <input type="text" class="form-control form-control-sm" id="precautions"
+                                       name="precautions"
+                                       placeholder="" value="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -566,7 +572,7 @@
                                 </td>
                                 <td class="input-daterange">
                                     <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][inauguratedAt]">
+                                           name="executives[0][inauguratedAt]" onkeyup="inputDateFormat(this)">
                                 </td>
                                 <td>
                                     <select class="form-control form-select form-select-sm" name="executives[0][term]" onchange="expireCalculate(0)">
@@ -578,7 +584,7 @@
                                 </td>
                                 <td class="input-daterange">
                                     <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][expiredAt]">
+                                           name="executives[0][expiredAt]" onkeyup="inputDateFormat(this)">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm"
@@ -854,6 +860,15 @@
             return str.replace(/[^\d]+/g, '');
         }
 
+        function inputDateFormat(obj) {
+            obj.value = hyphen(obj.value);
+        }
+
+        function hyphen(str) {
+            str = String(str);
+            return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        }
+
 
     </script>
 
@@ -972,7 +987,7 @@
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;">
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)">
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
@@ -984,7 +999,7 @@
                 </select>
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;" onkeyup="inputDateFormat(this)">
             </td>
             <td>
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">

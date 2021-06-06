@@ -10,9 +10,9 @@ class DashBoardController {
 
 	@GetMapping()
 	fun dashBoard(@CurrentUser user: LawFirmUser) :String {
-		if(user.role == LawFirmUser.Role.ADMIN) {
-			return "redirect:/admin/users"
-		}
+//		if(user.role == LawFirmUser.Role.ADMIN) {
+//			return "redirect:/admin/users"
+//		}
 		return "redirect:/company"
 	}
 

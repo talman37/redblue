@@ -114,7 +114,8 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <div>
-                            <button type="button" id="update_btn" class="btn btn-dark">수정</button>
+                            <button type="button" id="cancel_btn" class="btn btn-secondary">뒤로가기</button>
+                            <button type="button" id="update_btn" class="btn btn-primary">수정</button>
                         </div>
                     </div>
                 </div>
@@ -129,6 +130,10 @@
         $(document).ready(function () {
             $('#update_btn').on('click', function () {
                 $('#consult-form').submit();
+            });
+
+            $('#cancel_btn').on('click', function () {
+                window.history.back();
             });
 
         });

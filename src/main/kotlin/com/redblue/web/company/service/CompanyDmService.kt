@@ -11,6 +11,7 @@ import com.redblue.web.company.model.Executive
 import com.redblue.web.dm.model.DmHistory
 import com.redblue.web.dm.service.DmService
 import com.redblue.web.lawfirm.model.LawFirmUser
+import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils
 import org.thymeleaf.TemplateEngine
@@ -53,7 +54,8 @@ class CompanyDmService(
 			readers.add(pdf)
 
 			val executive = mutableListOf<MutableMap<String, Any?>>()
-			executives.forEach {
+			executives
+				.forEach {
 				executive.add(
 					mutableMapOf(
 						"name" to it.name,
@@ -110,13 +112,14 @@ class CompanyDmService(
 		return ByteArrayInputStream(out.toByteArray())
 	}
 
-	private fun parseThymeleafTemplate(company: Company,executives: List<Executive>, user: LawFirmUser): String {
+	private fun parseThymeleafTemplate(company: Company, executives: List<Executive>, user: LawFirmUser): String {
 		val templateResolver = ClassLoaderTemplateResolver()
-		templateResolver.suffix = ".html";
-		templateResolver.templateMode = TemplateMode.HTML;
+		templateResolver.suffix = ".html"
+		templateResolver.templateMode = TemplateMode.HTML
 
 		val templateEngine = TemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver)
+
 
 		val context = Context().apply {
 			this.setVariable("lawFirm", user.lawFirm)
@@ -124,7 +127,22 @@ class CompanyDmService(
 			this.setVariable("postalCode", "<span>우)</span> <strong>${user.lawFirm.postalCode}</strong>")
 			this.setVariable("docNum", "<span>문서번호 :</span> <strong>${company.companyNumber1} <span>[${company.companyNumber2}]</span></strong>")
 			this.setVariable("exAddress", company.deliveryPlace)
-			this.setVariable("exCompany", company.companyName)
+
+			var companyNamePrefix = ""
+			if(StringUtils.hasText(company.companyDivision)) {
+				companyNamePrefix = "(" + company.companyDivision!!.slice(IntRange(0, 0)) + ")"
+			}
+			when (company.displayCompanyType) {
+				Company.DisplayCompanyType.FRONT -> {
+					this.setVariable("exCompany", companyNamePrefix + company.companyName)
+				}
+				Company.DisplayCompanyType.BACK -> {
+					this.setVariable("exCompany", company.companyName + companyNamePrefix)
+				}
+				else -> {
+					this.setVariable("exCompany", company.companyName)
+				}
+			}
 
 			var masterInfo = executives.filter {
 				it.position!!.contains( "대표이사")

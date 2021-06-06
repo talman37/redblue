@@ -18,9 +18,11 @@
                         <div>
                             <strong>법인</strong>
 
-                            <span class="badge badge-primary">지점</span>
-                            <span class="badge badge-danger">10억</span>
-                            <span class="badge badge-warning">주의</span>
+                            <span class="badge badge-primary" th:if="${#lists.size(company.branches) > 0}">지점</span>
+                            <span class="badge badge-danger" th:if="${company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount) >= 1000000000}">
+                                10억
+                            </span>
+                            <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions)}">주의</span>
                         </div>
                         <div>
                             <button type='button' class='btn btn-sm btn-outline-primary' id="update_master_btn">
@@ -184,6 +186,12 @@
                                 <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
                                        placeholder="" th:value="${company.recommender}">
                             </div>
+                            <div class="col-md mb-2">
+                                <label for="precautions">주의사항</label>
+                                <input type="text" class="form-control form-control-sm" id="precautions"
+                                       name="precautions"
+                                       placeholder=""  th:value="${company.precautions}">
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -266,28 +274,28 @@
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="">1주의 금액</label>
-                                <input type="text" class="form-control form-control-sm" id="stock.amount" name="stock[amount]" onkeyup="inputNumberFormat(this)"
+                                <input type="text" class="form-control form-control-sm" id="stockAmount" name="stock[amount]" onkeyup="inputNumberFormat(this)"
                                        placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.amount, 0, 'COMMA', 0, 'POINT')}">
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="">발행할 주식의 총수</label>
-                                <input type="text" class="form-control form-control-sm" id="stock.scheduleCount"
+                                <input type="text" class="form-control form-control-sm" id="stockScheduleCount"
                                        name="stock[scheduleCount]" placeholder="" required="" onkeyup="inputNumberFormat(this)"
                                        th:value="${#numbers.formatDecimal(company.stock.scheduleCount, 0, 'COMMA', 0, 'POINT')}">
                             </div>
                             <div class="col-md-1 mb-2">
                                 <label for="">발행주식의 총수</label>
-                                <input type="text" class="form-control form-control-sm" id="stock.issuedCount" name="stock[issuedCount]"
+                                <input type="text" class="form-control form-control-sm" id="stockIssuedCount" name="stock[issuedCount]"
                                        numberonly="true" onkeyup="inputNumberFormat(this)"
                                        placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label for="">자본금</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" onkeyup="inputNumberFormat(this)"
+                                    <input type="text" class="form-control form-control-sm" id="stockCapital" onkeyup="inputNumberFormat(this)"
                                            th:value="${#numbers.formatDecimal(company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount), 0, 'COMMA', 0, 'POINT')}">
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">계산하기</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="stock-calculate-btn">계산하기</button>
                                     </div>
                                 </div>
                             </div>
@@ -539,7 +547,7 @@
                                     <td class="input-daterange">
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][inauguratedAt]'"
-                                               th:value="${executive.inauguratedAt}">
+                                               th:value="${executive.inauguratedAt}" onkeyup="inputDateFormat(this)">
                                     </td>
                                     <td>
                                         <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][term]'">
@@ -552,7 +560,7 @@
                                     <td class="input-daterange">
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][expiredAt]'"
-                                               th:value="${executive.expiredAt}">
+                                               th:value="${executive.expiredAt}" onkeyup="inputDateFormat(this)">
                                     </td>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
@@ -719,15 +727,16 @@
                     statusCode: {
                         200: function () {
                             alert('법인정보 변경에 성공 하였습니다.');
+                            location.reload();
                         }
                     }
                 });
             });
 
             $('#update_sub_btn').on('click', function () {
-                $('#stock.amount').val($('#stock.amount').val().replace(/\,/g,""));
-                $('#stock.scheduleCount').val($('#stock.scheduleCount').val().replace(/\,/g,""));
-                $('#stock.issuedCount').val($('#stock.issuedCount').val().replace(/\,/g,""));
+                $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
+                $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
+                $('#stockIssuedCount').val($('#stockIssuedCount').val().replace(/\,/g,""));
                 $.ajax({
                     type: 'PATCH',
                     url: '/v1/companies/' + $('#companyId').val() + '/sub',
@@ -737,6 +746,7 @@
                     statusCode: {
                         200: function () {
                             alert('법인정보 변경에 성공 하였습니다.');
+                            location.reload();
                         }
                     }
                 });
@@ -752,6 +762,7 @@
                     statusCode: {
                         200: function () {
                             alert('연락처 정보 변경에 성공 하였습니다.');
+                            location.reload();
                         }
                     }
                 });
@@ -767,6 +778,7 @@
                     statusCode: {
                         200: function () {
                             alert('지점 정보 변경에 성공 하였습니다.');
+                            location.reload();
                         }
                     }
                 });
@@ -797,7 +809,6 @@
                     statusCode: {
                         200: function () {
                             alert('주주정보 변경에 성공 하였습니다.');
-                            location.reload();
                         }
                     }
                 });
@@ -859,6 +870,25 @@
 
             $('#consult_add_btn').on('click', function () {
                 window.open('/company/' + $('#companyId').val() + '/consult-add', '상담등록', 'width=800,height=600px,scrollbars=yes');
+            });
+
+            $('#stock-calculate-btn').on('click', function () {
+
+                let amount = $('#stockAmount').val().replace(/\,/g,"");
+                if (amount === '') {
+                    amount = 0;
+                }
+                let issuedCount = $('#stockIssuedCount').val().replace(/\,/g,"");
+                if (issuedCount === '') {
+                    issuedCount = 0;
+                }
+                let scheduleCount = $('#stockScheduleCount').val().replace(/\,/g,"");
+                if (scheduleCount === '') {
+                    count = 0;
+                }
+
+                $('#stockCapital').val(comma(amount * (issuedCount + scheduleCount)));
+
             });
 
         });
@@ -951,6 +981,15 @@
         function uncomma(str) {
             str = String(str);
             return str.replace(/[^\d]+/g, '');
+        }
+
+        function inputDateFormat(obj) {
+            obj.value = hyphen(obj.value);
+        }
+
+        function hyphen(str) {
+            str = String(str);
+            return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
         }
 
     </script>
@@ -1069,7 +1108,7 @@
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;">
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)">
                 <input type="hidden" name="executives[{{= index}}][term]">
             </td>
             <td>
@@ -1081,7 +1120,7 @@
                 </select>
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;" onkeyup="inputDateFormat(this)">
             </td>
             <td>
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">

@@ -41,6 +41,8 @@ data class CompanyMasterHistory (
 
 	val recommender: String? = null,
 
+	val precautions: String? = null,
+
 	@Temporal(TemporalType.DATE)
 	val issuedAt: Date? = Date()
 

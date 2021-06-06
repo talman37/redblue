@@ -103,10 +103,10 @@
                                                 </div>
                                             </div>
                                             <input type="text" class="form-control" id="startDate" name="start"
-                                                   th:value="${startDate}">
+                                                   th:value="${startDate}" onkeyup="inputDateFormat(this)">
                                             <div class="input-group-addon">~</div>
                                             <input type="text" class="form-control" id="endDate" name="end"
-                                                   th:value="${endDate}">
+                                                   th:value="${endDate}" onkeyup="inputDateFormat(this)">
                                         </div>
                                     </div>
                                     <div class="col col-md-auto">
@@ -286,12 +286,6 @@
                 }
             });
 
-            $('#startDate, #endDate').keyup(function(){
-                if($(this).val().length == 4 || $(this).val().length == 7) {
-                    $(this).val($(this).val() + '-');
-                }
-            });
-
             $('button[name="history_search_btn"]').on('click', function () {
                 window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
             });
@@ -305,6 +299,15 @@
             language: "ko",
             todayHighlight: true
         });
+
+        function inputDateFormat(obj) {
+            obj.value = hyphen(obj.value);
+        }
+
+        function hyphen(str) {
+            str = String(str);
+            return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        }
     </script>
 </th:block>
 </html>

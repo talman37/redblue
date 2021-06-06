@@ -22,7 +22,7 @@ class ConsultController(
 		@RequestParam(value = "q", required = false) searchValue: String?,
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
-		@RequestParam(value = "progress", required = false) progress: List<String>?,
+		@RequestParam(value = "progress", required = false, defaultValue = "ONGOING") progress: List<String>?,
 		model: Model,
 		@CurrentUser user: LawFirmUser,
 		pageable: Pageable

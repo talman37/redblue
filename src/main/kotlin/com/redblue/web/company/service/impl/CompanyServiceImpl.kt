@@ -143,6 +143,7 @@ class CompanyServiceImpl(
 			displayCompanyType = dto.displayCompanyType,
 			companySubName = dto.companySubName,
 			recommender = dto.recommender,
+			precautions = dto.precautions,
 			companyUpdatedAt = if(company.get().companyName != dto.companyName){
 				Date()
 			} else {

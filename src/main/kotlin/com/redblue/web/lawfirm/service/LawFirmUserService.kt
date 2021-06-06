@@ -30,10 +30,10 @@ class LawFirmUserService(
 
 	override fun loadUserByUsername(username: String): UserDetails {
 		val lawFirmUser = lawFirmUserRepository.findByEmail(username) ?: throw UsernameNotFoundException("Not exist User.")
-		if(lawFirmUser.role == LawFirmUser.Role.USER) {
+		//if(lawFirmUser.role == LawFirmUser.Role.USER) {
 			val lawFirm = lawFirmRepository.findById(lawFirmUser.lawFirmId).get()
 			lawFirmUser.lawFirm = lawFirm
-		}
+		//}
 		return SecurityUser(lawFirmUser)
 	}
 }

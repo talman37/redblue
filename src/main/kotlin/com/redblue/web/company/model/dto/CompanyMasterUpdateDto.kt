@@ -26,6 +26,8 @@ data class CompanyMasterUpdateDto(
 
 	val companySubName: String? = null,
 
-	val recommender: String? = null
+	val recommender: String? = null,
+
+	val precautions: String? = null
 
 )

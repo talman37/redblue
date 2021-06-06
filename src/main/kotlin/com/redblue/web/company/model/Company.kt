@@ -104,6 +104,8 @@ data class Company(
 
 	val recommender: String? = null,
 
+	val precautions: String? = null,
+
 	@Temporal(TemporalType.DATE)
 	val createdAt: Date? = Date(),
 
