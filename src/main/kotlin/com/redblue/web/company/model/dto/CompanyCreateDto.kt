@@ -95,6 +95,8 @@ data class CompanyCreateDto(
 
 	val recommender: String? = null,
 
+	val precautions: String? = null,
+
 	var stock: Stock? = null,
 
 	var executives: List<Executive> = emptyList(),
@@ -215,6 +217,7 @@ data class CompanyCreateDto(
 			isRegisterRecordClosure = this.isRegisterRecordClosure,
 			settlementMonth = this.settlementMonth,
 			recommender = this.recommender,
+			precautions = this.precautions,
 			executives = executives,
 			stock = stock,
 			contacts = contacts,
