@@ -433,7 +433,14 @@
                             <strong>임원</strong>
                             <strong class="text-primary" th:text="${#lists.size(company.executives)}"></strong>
                         </div>
-                        <div>
+                        <div class="form-inline">
+                            임기 :
+                            <select class="form-control form-select form-select-sm ml-1 mr-1" id="select-term">
+                                <option selected="" value="0">직접입력</option>
+                                <option value="1">1년</option>
+                                <option value="2">2년</option>
+                                <option value="3">3년</option>
+                            </select>
                             <button type='button' class='btn btn-sm btn-outline-primary' data-toggle="modal"
                                     id="add-executive-btn">
                                 임원 추가
@@ -474,7 +481,7 @@
                                 <col style="width: 250px">
                                 <col>
                                 <col style="width: 100px">
-                                <col style="width: 100px">
+<!--                                <col style="width: 100px">-->
                                 <col style="width: 100px">
                                 <col style="width: 100px">
                                 <col>
@@ -488,7 +495,7 @@
                                 <th>국적</th>
                                 <th>주소</th>
                                 <th>취임일자</th>
-                                <th>임기</th>
+<!--                                <th>임기</th>-->
                                 <th>임기만료일</th>
                                 <th>주식수</th>
                                 <th>임원에관한사항</th>
@@ -547,16 +554,16 @@
                                     <td class="input-daterange">
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][inauguratedAt]'"
-                                               th:value="${executive.inauguratedAt}" onkeyup="inputDateFormat(this)">
+                                               th:value="${executive.inauguratedAt}" onkeyup="inputDateFormat(this)" th:onblur="'expireCalculate(this,'+${index.index}+')'">
                                     </td>
-                                    <td>
-                                        <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][term]'">
-                                            <option value="0" th:selected="${executive.term == 0}">직접입력</option>
-                                            <option value="1" th:selected="${executive.term == 1}">1년</option>
-                                            <option value="2" th:selected="${executive.term == 2}">2년</option>
-                                            <option value="3" th:selected="${executive.term == 3}">3년</option>
-                                        </select>
-                                    </td>
+<!--                                    <td>-->
+<!--                                        <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][term]'">-->
+<!--                                            <option value="0" th:selected="${executive.term == 0}">직접입력</option>-->
+<!--                                            <option value="1" th:selected="${executive.term == 1}">1년</option>-->
+<!--                                            <option value="2" th:selected="${executive.term == 2}">2년</option>-->
+<!--                                            <option value="3" th:selected="${executive.term == 3}">3년</option>-->
+<!--                                        </select>-->
+<!--                                    </td>-->
                                     <td class="input-daterange">
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][expiredAt]'"
@@ -891,6 +898,11 @@
 
             });
 
+            $('.input-daterange').datepicker({
+                language: "ko",
+                todayHighlight: true
+            });
+
         });
 
         function remove_branch(i) {
@@ -990,6 +1002,23 @@
         function hyphen(str) {
             str = String(str);
             return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        }
+
+        function expireCalculate(obj, i) {
+            if(obj.value === '') {
+                return false;
+            }
+            let expiredAt = new Date(obj.value);
+            let term = $('#select-term').val();
+
+            if(term === '0') {
+                $('input[name="executives[' + i + '][expiredAt]"]').val('');
+                return false;
+            }
+
+            expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+            $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
+            $('input[name="executives[' + i + '][term]"]').val(term);
         }
 
     </script>
@@ -1108,16 +1137,8 @@
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;">
             </td>
             <td class="input-daterange">
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, {{= index}})">
                 <input type="hidden" name="executives[{{= index}}][term]">
-            </td>
-            <td>
-                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][term]">
-                    <option selected value="0">직접입력</option>
-                    <option value="1">1년</option>
-                    <option value="2">2년</option>
-                    <option value="3">3년</option>
-                </select>
             </td>
             <td class="input-daterange">
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;" onkeyup="inputDateFormat(this)">
