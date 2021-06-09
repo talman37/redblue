@@ -721,6 +721,21 @@ h5 {
   min-width: 768px; }
 .detail-company label {
   color: #666; }
+.detail-company .input-group-text,
+.detail-company .form-control,
+.detail-company .input-group button,
+.detail-company select,
+.detail-company label {
+  font-size: 9px;
+}
+.detail-company .input-group .input-group-addon button {
+  padding: 0 7px;
+}
+.detail-company select{
+  padding-right: .75rem;
+  background-size: 8px 12px;
+  background-position: right .25rem center;
+}
 .detail-company .card-header {
   padding: 5px 10px; }
 .detail-company .card .row {

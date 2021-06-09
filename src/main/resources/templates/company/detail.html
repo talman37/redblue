@@ -478,8 +478,8 @@
                                 <col style="width: 100px">
                                 <col style="width: 110px">
                                 <col style="width: 128px">
+                                <col style="width: 130px">
                                 <col style="width: 250px">
-                                <col>
                                 <col style="width: 100px">
 <!--                                <col style="width: 100px">-->
                                 <col style="width: 100px">
@@ -538,18 +538,19 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group">
-                                            <select  class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][nationality]'" th:onchange="changeCountry('+${index.index}+')">
-                                                <option th:each="country : ${countries}" th:value="${country.countryName}" th:selected="${country.countryName == executive.nationality}" th:text="${country.countryName}"></option>
-                                            </select>
-                                            <input type="text" class="form-control form-control-sm" th:readonly="true"
-                                                   th:name="'executives['+${index.index}+'][countryValue]'">
-                                        </div>
+                                        <select  class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][nationality]'" th:onchange="changeCountry('+${index.index}+')">
+                                            <option th:each="country : ${countries}" th:value="${country.countryName}" th:selected="${country.countryName == executive.nationality}" th:text="${country.countryName}"></option>
+                                        </select>
+
+                                        <input type="text" class="form-control form-control-sm mt-1" th:readonly="true"
+                                               th:name="'executives['+${index.index}+'][countryValue]'">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm"
+                                        <textarea type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][address]'"
-                                               th:value="${executive.address}">
+                                                  th:text="${executive.address}"
+                                        >
+                                        </textarea>
                                     </td>
                                     <td class="input-daterange">
                                         <input type="text" class="form-control form-control-sm"
@@ -954,7 +955,9 @@
         function changeCountry(i) {
             if($('select[name="executives['+i+'][nationality]"]').val() == '기타') {
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
+                console.log('aaa')
             } else {
+                console.log('bbb', $('select[name="executives['+i+'][nationality]"]').val() )
                 $('input[name="executives['+i+'][countryValue]"]').val('')
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
             }
