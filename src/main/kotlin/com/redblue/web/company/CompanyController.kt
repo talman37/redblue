@@ -1,6 +1,7 @@
 package com.redblue.web.company
 
 import com.redblue.security.core.annotation.CurrentUser
+import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.Country
 import com.redblue.web.company.model.dto.CompanyListDto
 import com.redblue.web.company.service.CompanyService
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -30,9 +32,20 @@ class CompanyController(
 		@RequestParam(value = "q", required = false) searchValue: String?,
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
-		@CurrentUser user: LawFirmUser,
-		@PageableDefault(size=50) pageable: Pageable
+		@RequestParam(value = "state", required = false) state: MutableList<String>?,
+		@CurrentUser user: LawFirmUser
 	): String {
+		val companyState: MutableList<String> = if(state.isNullOrEmpty()) {
+			mutableListOf("신규법인", "관리법인", "안내후미등기")
+		} else {
+			state
+		}
+
+		if(!StringUtils.hasText(searchValue) && !StringUtils.hasText(startDate) && !StringUtils.hasText(endDate)) {
+			model.addAttribute("state", companyState)
+			return "/company/list"
+		}
+
 
 		val searchValue = searchValue?.let {
 			if (it.isEmpty()) {
@@ -58,14 +71,15 @@ class CompanyController(
 			}
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, pageable)
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState)
 
-		model.addAttribute("companies", CompanyListDto.of(companies, start, end))
-		model.addAttribute("companiesPage", companies)
-		model.addAttribute("totalCount", companyService.count(user.lawFirmId))
+		model.addAttribute("companies", CompanyListDto.of(companies))
+		model.addAttribute("totalCount", companyService.totalCount(user.lawFirmId))
+		model.addAttribute("manageCount", companyService.manageCount(user.lawFirmId))
 		model.addAttribute("q", searchValue)
 		model.addAttribute("startDate", startDate)
 		model.addAttribute("endDate", endDate)
+		model.addAttribute("state", companyState)
 		model.addAttribute("name", user.name)
 
 		return "/company/list"
@@ -78,7 +92,16 @@ class CompanyController(
 		@CurrentUser user: LawFirmUser
 	): String {
 		val company = companyService.detail(id)
+
+		var name = company.companyName
+		if(company.displayCompanyType == Company.DisplayCompanyType.FRONT) {
+			name = "(" + company.companyDivision?.first() + ")" + company.companyName
+		} else if(company.displayCompanyType == Company.DisplayCompanyType.BACK){
+			name = company.companyName + "(" + company.companyDivision?.first() + ")"
+		}
+
 		model.addAttribute("company", company)
+		model.addAttribute("companyName", name)
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		model.addAttribute("consults", consultService.findByCompanyId(id))
 		model.addAttribute("countries", Country.values())

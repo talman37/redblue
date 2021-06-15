@@ -12,11 +12,13 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 	fun countBylawFirmId(lawFirmId: String): Int
 
+	fun countBylawFirmIdAndCompanyStateIn(lawFirmId: String, state: MutableList<String>): Int
+
 }
 
 interface CompanyQueryDslRepository {
 
-	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company>
+	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company>
 
 	fun findByLawFirmIdAndCompanyName(lawFirmId: String, companyName: String): List<Company>
 

@@ -128,8 +128,8 @@ class CompanyRestController(
 		@RequestParam(value = "q", required = false) searchValue: String?,
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
-		@CurrentUser user: LawFirmUser,
-		@RequestParam("page", required = false, defaultValue = "1") page: String
+		@RequestParam(value = "state", required = false) state: MutableList<String>?,
+		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
 		val searchValue = searchValue?.let {
@@ -156,10 +156,14 @@ class CompanyRestController(
 			}
 		}
 
-		val pageSize = 100
+		val companyState: MutableList<String> = if(state.isNullOrEmpty()) {
+			mutableListOf("신규법인", "관리법인", "안내후미등기")
+		} else {
+			state
+		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, PageRequest.of(Integer.valueOf(page) - 1, pageSize))
-		val resource = companyExcelService.generate(companies.content)
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState)
+		val resource = companyExcelService.generate(companies)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=corporations.xlsx")
 
@@ -172,8 +176,8 @@ class CompanyRestController(
 		@RequestParam(value = "q", required = false) searchValue: String?,
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
-		@CurrentUser user: LawFirmUser,
-		@RequestParam("page", required = false, defaultValue = "1") page: String
+		@RequestParam(value = "state", required = false) state: MutableList<String>?,
+		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
 		val searchValue = searchValue?.let {
@@ -200,10 +204,14 @@ class CompanyRestController(
 			}
 		}
 
-		val pageSize = 100
+		val companyState: MutableList<String> = if(state.isNullOrEmpty()) {
+			mutableListOf("신규법인", "관리법인", "안내후미등기")
+		} else {
+			state
+		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, PageRequest.of(Integer.valueOf(page) - 1, pageSize))
-		val resource = companyDmService.generate(companies.content, user)
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState)
+		val resource = companyDmService.generate(companies, user)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=dm.pdf")
 

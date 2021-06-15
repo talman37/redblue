@@ -23,7 +23,7 @@ class CompanyQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
 ) : CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
 
-	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company> {
+	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company> {
 		val qc = QCompany.company
 		val qe = QExecutive.executive
 		val qct = QContact.contact
@@ -31,25 +31,6 @@ class CompanyQueryDslRepositoryImpl(
 
 		val query = jpaQueryFactory
 			.selectFrom(qc
-//				Projections.fields(
-//					qc,
-//					qe.`as`("executives"),
-//					qct.`as`("contacts"),
-//					qc.id,
-//					qc.lawFirmId,
-//					qc.registerOffice,
-//					qc.registerNumber,
-//					qc.companyName,
-//					qc.companyDivision,
-//					qc.displayCompanyType,
-//					qc.companyAddress,
-//					qc.companyNumber1,
-//					qc.companyNumber2,
-//					qc.deliveryPlacePostalCode,
-//					qc.deliveryPlace,
-//					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
-//						.from(qe).where(qe.companyId.eq(qc.id)).limit(1), "expiredAt")
-//				)
 			)
 			.from(qc)
 			.leftJoin(qe).on(qc.id.eq(qe.companyId)).fetchJoin()
@@ -58,24 +39,30 @@ class CompanyQueryDslRepositoryImpl(
 			qc.lawFirmId.eq(lawFirmId)
 		)
 
+		if(companyState.isNotEmpty()) {
+			predicate.and(
+				qc.companyState.`in`(companyState)
+			)
+		}
+
 		q?.let {
 			predicate.and(
 				qc.companyName.likeIgnoreCase("%$it%")
 					.or(qc.companyNumber1.like("%$it%"))
 					.or(qc.companyNumber2.like("%$it%"))
 					.or(qc.companyManageNumber.like("%$it%"))
+					.or(qc.companyAddress.like("%$it%"))
 			)
 		}
 
 		startDate?.let {
-			//predicate.and(qe.expiredAt.between(it, endDate))
-			predicate.and(qc.id.`in`(JPAExpressions.select(qe.companyId)
-						.from(qe).where(qe.expiredAt.between(it, endDate))))
+			predicate.and(qe.expiredAt.between(it, endDate))
+//			predicate.and(qc.id.`in`(JPAExpressions.select(qe.companyId)
+//						.from(qe).where(qe.expiredAt.between(it, endDate))))
 		}
 
 		query.where(predicate)
-		val companies = querydsl?.applyPagination(pageable, query)?.distinct()?.fetch()
-		return PageImpl(companies ?: emptyList(), pageable, query.distinct().fetchCount())
+		return query.distinct().fetch()
 	}
 
 	override fun search(lawFirmId: String, q: String): Company {

@@ -25,16 +25,21 @@ class CompanyServiceImpl(
 	private val stockHistoryRepository: StockHistoryRepository,
 	private val purposeDetailRepository: PurposeDetailRepository
 ): CompanyService {
-	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company> {
-		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, pageable)
+
+	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company> {
+		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState)
 	}
 
 	override fun findExecutivesByCompanyId(companyId: String): List<Executive> {
 		return executiveRepository.findByCompanyIdOrderByExpiredAt(companyId)
 	}
 
-	override fun count(lawFirmId: String): Int {
+	override fun totalCount(lawFirmId: String): Int {
 		return companyRepository.countBylawFirmId(lawFirmId)
+	}
+
+	override fun manageCount(lawFirmId: String): Int {
+		return companyRepository.countBylawFirmIdAndCompanyStateIn(lawFirmId, mutableListOf("신규법인", "관리법인", "안내후미등기"))
 	}
 
 	override fun findByName(lawFirmId: String, name: String):List<Company> {

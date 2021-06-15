@@ -18,7 +18,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/company/add">
+                                <a class="nav-link " href="#" onclick="window.open('/company/add', '법인 등록', 'width=1350px,height=1000px,scrollbars=yes');">
                                     <i class="fas fa-pencil-alt"></i>
                                     법인 등록
                                 </a>
@@ -65,7 +65,7 @@
                         <strong th:text="${name}"></strong>님의 관할 등기소 등록 법인수
                     </div>
                     <div class="item-body">
-                        <span th:text="${totalCount}"></span>개
+                        <span th:text="${#numbers.formatDecimal(totalCount, 0, 'COMMA', 0, 'POINT')}"></span>개
                     </div>
                 </div>
                 <div class="item">
@@ -73,7 +73,7 @@
                         <strong th:text="${name}"></strong>님의 관할 등기소 관리 법인수
                     </div>
                     <div class="item-body">
-                        <span th:text="${totalCount}"></span>개
+                        <span th:text="${#numbers.formatDecimal(manageCount, 0, 'COMMA', 0, 'POINT')}"></span>개
                     </div>
                 </div>
             </div>
@@ -89,10 +89,10 @@
                 <div class="card-body">
                     <form id="searchForm" name="searchForm" method="get">
                         <div class="search-field">
-                            <div class="search-area search-compact">
+                            <div class="search-area">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색(법인등록번호, 법인명, 법인관리번호)"
+                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색(법인등록번호, 법인명, 법인관리번호, 주소)"
                                                th:value="${q}">
                                     </div>
                                     <div class="col">
@@ -109,46 +109,115 @@
                                                    th:value="${endDate}" onkeyup="inputDateFormat(this)">
                                         </div>
                                     </div>
-                                    <div class="col col-md-auto">
-                                        <button type="button" class="btn btn-sm btn-dark" id="search-btn">검색</button>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    법인상태
+                                                </div>
+                                            </div>
+                                            <div class="form-control">
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-1" name="state" th:checked="${#strings.contains(state, '신규법인')}"
+                                                               th:value="신규법인"><i></i>
+                                                    </span>
+                                                        <label for="state-1">신규법인</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-2" name="state" th:checked="${#strings.contains(state, '관리법인')}"
+                                                               th:value="관리법인"><i></i>
+                                                    </span>
+                                                        <label for="state-2">관리법인</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '안내후미등기')}"
+                                                               th:value="안내후미등기"><i></i>
+                                                    </span>
+                                                        <label for="state-3">안내후미등기</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '반송')}"
+                                                               th:value="반송"><i></i>
+                                                    </span>
+                                                        <label for="state-4">반송</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '법무사교체')}"
+                                                               th:value="법무사교체"><i></i>
+                                                    </span>
+                                                        <label for="state-5">법무사교체</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '사업자폐업')}"
+                                                               th:value="사업자폐업"><i></i>
+                                                    </span>
+                                                        <label for="state-6">사업자폐업</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-7" name="state" th:checked="${#strings.contains(state, '법인파산')}"
+                                                               th:value="법인파산"><i></i>
+                                                    </span>
+                                                        <label for="state-7">법인파산</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="btn-area">
+                                <button type="button" class="btn btn-sm btn-dark" id="search-btn">검색</button>
                             </div>
                         </div>
                     </form>
                     <table class="table table-bordered table-responsive">
                         <colgroup>
-                            <col style="width: 250px">
                             <col>
                             <col>
-                            <col style="width: 70px">
-                            <col style="width: 100px">
-                            <col style="width: 150px">
+                            <col>
+                            <col>
                             <col>
                         </colgroup>
                         <thead class="thead-light">
                         <tr>
-                            <th>법인명</th>
-                            <th>주소</th>
+                            <th>법인상태</th>
                             <th>등기소</th>
                             <th>등기번호</th>
-                            <th>임기만료일</th>
-                            <th>Phone</th>
+                            <th>법인명</th>
+                            <th>주소</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
 
                         <tr th:each="company: ${companies}">
-                            <td th:if="${company.displayCompanyType} == 'FRONT'">
-                                <a href="#none" th:name="companyTitle" th:attr="data-id=${company.id}"
-                                   th:text="|${company.companyDivision} ${company.companyName}|"></a>
-                            </td>
-                            <td th:if="${company.displayCompanyType} == 'BACK'">
-                                <a href="#none" th:name="companyTitle" th:attr="data-id=${company.id}"
-                                   th:text="|${company.companyName} ${company.companyDivision}|"></a>
-                            </td>
-                            <td th:if="${company.displayCompanyType} == null">
+                            <td th:text="${company.companyState}"></td>
+                            <td th:text="${company.registerOffice}"></td>
+                            <td th:text="${company.registerNumber}"></td>
+                            <td>
                                 <a href="#none" th:name="companyTitle" th:attr="data-id=${company.id}"
                                    th:text="${company.companyName}"></a>
                             </td>
@@ -156,10 +225,6 @@
                                 <div class="ellipsis" th:text="${company.companyAddress}">
                                 </div>
                             </td>
-                            <td th:text="${company.registerOffice}"></td>
-                            <td th:text="${company.registerNumber}"></td>
-                            <td th:text="${company.expiredAt}"></td>
-                            <td th:text="${company.contactNumber}"></td>
                             <td>
                                 <button type="button" class="btn btn-link p-0" name="history_search_btn" th:attr="data-id=${company.id}">
                                     이력보기
@@ -223,28 +288,6 @@
 
                 <div class="card-footer">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <span>Total :  <span class="text-primary" th:text="${companiesPage.totalElements}"></span></span>
-                            <nav class="ml-3">
-                                <ul class="pagination pagination-sm" th:with="start=${T(Math).floor(companiesPage.number/10)*10 + 1}, last=(${start + 9 < companiesPage.totalPages ? start + 9 : companiesPage.totalPages})">
-                                    <li class="page-item" th:class="${companiesPage.first} ? 'disabled'">
-                                        <span class="page-link">
-                                            <a th:href="${companiesPage.first} ? '#' :@{/company(page=${companiesPage.number},q=${q},start=${startDate},end=${endDate})}">
-                                                <i class="fas fa-angle-left"></i>
-                                            </a>
-                                        </span>
-                                    </li>
-                                    <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == companiesPage.number + 1} ? 'active'">
-                                        <a class="page-link" th:text="${page}" th:href="@{/company(page=${page},q=${q},start=${startDate},end=${endDate})}"></a>
-                                    </li>
-                                    <li class="page-item" th:class="${companiesPage.last} ? 'disabled'">
-                                        <a class="page-link" th:href="${companiesPage.last} ? '#' : @{/company(page=${companiesPage.number + 2},q=${q},start=${startDate},end=${endDate})}">
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
                         <div>
                             <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
                             <button type="button" class="btn btn-dark btn-sm" id="pdf-down-btn">PDF 다운</button>

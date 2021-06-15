@@ -1,59 +1,10 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/main_layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/detail_layout">
 <th:block layout:fragment="content_body">
     <!-- container -->
     <div class="container-fluid">
-        <!-- sidebar -->
-        <nav class="sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <p class="sidebar-heading">법인관리</p>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/company">
-                                    <i class="fas fa-search"></i>
-                                    법인 검색
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  active" href="/company/add">
-                                    <i class="fas fa-pencil-alt"></i>
-                                    법인 등록
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <p class="sidebar-heading">상담 관리</p>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link " href="/consult">
-                                    <i class="fas fa-comment-alt"></i>
-                                    상담 관리
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <p class="sidebar-heading">DM 관리</p>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/dm">
-                                    <i class="fas fa-envelope-open-text"></i>
-                                    DM 이력관리
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <!-- //sidebar -->
-
-        <!-- contents -->
-        <main role="main" class="main">
+        <main role="main" class="main detail-company">
             <div class="page-header">
                 <div>
                     <h1>법인 등록</h1>
@@ -73,19 +24,9 @@
                         <div class="row">
                             <div class="col-md-2 mb-2">
                                 <label for="companyNumber1">법인등록번호</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" id="companyNumber1"
-                                           name="companyNumber1" numberonly="true"
-                                           required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid city.
-                                    </div>
-                                    <div class="input-group-addon">
-                                        <span class="input-group-text">-</span>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm" name="companyNumber2" numberonly="true"
-                                           required>
-                                </div>
+                                <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1">
+                                <input type="hidden" class="form-control form-control-sm" name="companyNumber2" numberonly="true">
+                                <input type="text" class="form-control form-control-sm" name="companyNumber" required>
                             </div>
                             <div class="col-md-2 mb-2">
                                 <label for="registerNumber">등기번호</label>
@@ -147,8 +88,7 @@
                                 <div class="input-group-prepend">
                                     <select class="form-control form-select form-select-sm" id="companyDivision"
                                             name="companyDivision">
-                                        <option selected value="">선택</option>
-                                        <option value="주식회사">주식회사</option>
+                                        <option selected value="주식회사">주식회사</option>
                                         <option value="유한회사">유한회사</option>
                                         <option value="유한책임회사">유한책임회사</option>
                                         <option value="합자회사">합자회사</option>
@@ -237,6 +177,12 @@
                                 <label for="precautions">주의사항</label>
                                 <input type="text" class="form-control form-control-sm" id="precautions"
                                        name="precautions"
+                                       placeholder="" value="">
+                            </div>
+                            <div class="col-md mb-2">
+                                <label for="precautions">공고방법</label>
+                                <input type="text" class="form-control form-control-sm" id="noticeWay"
+                                       name="noticeWay"
                                        placeholder="" value="">
                             </div>
                         </div>
@@ -341,6 +287,181 @@
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-sm btn-outline-secondary"
                                                 id="stock-calculate-btn">계산하기
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>임원</strong>
+                                <strong class="text-primary" id="executiveCount"></strong>
+                            </div>
+                            <div class="form-inline">
+                                임기 :
+                                <select class="form-control form-select form-select-sm ml-1 mr-1" id="select-term">
+                                    <option selected="" value="0">직접입력</option>
+                                    <option value="1">1년</option>
+                                    <option value="2">2년</option>
+                                    <option value="3">3년</option>
+                                </select>
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-executive-btn">
+                                    임원 추가
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="box-status">
+                            <div class="item">
+                                <div class="item-header">
+                                    입력된 주식수
+                                </div>
+                                <div class="item-body">
+                                    <span class='text-danger' id="input_stock_count">0</span>주
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="item-header">
+                                    발행주식총수
+                                </div>
+                                <div class="item-body">
+                                    <span class='text-danger' id="issue_stock_count">0</span>주
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered mb-2 table-form">
+                            <colgroup>
+                                <col style="width: 100px"/>
+                                <col/>
+                                <col style="width: 210px"/>
+                                <col/>
+                                <col/>
+                                <col style="width: 130px"/>
+                                <col style="width: 130px"/>
+                                <col style="width: 130px"/>
+                                <col/>
+                                <col style="width: 50px"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>국적</th>
+                                <th>직위</th>
+                                <th>성명</th>
+                                <th>주민등록번호</th>
+                                <th>주소</th>
+                                <th>주식비율</th>
+                                <th>주식수</th>
+                                <th>취임일자</th>
+                                <th>임기만료일</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="executiveGroup">
+                            <tr id="executive_tr_0">
+                                <td>
+                                    <div class="input-group">
+                                        <select class="form-control form-select form-select-sm"
+                                                th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
+                                            <option th:each="country : ${countries}" th:value="${country.countryName}"
+                                                    th:text="${country.countryName}"></option>
+                                        </select>
+                                        <input type="text" class="form-control form-control-sm" th:readonly="true"
+                                               th:name="'executives[0][countryValue]'">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select class="form-control form-select form-select-sm"
+                                            name="executives[0][position]">
+                                        <option selected value="사내이사">사내이사</option>
+                                        <option value="대표이사">대표이사</option>
+                                        <option value="공동대표이사">공동대표이사</option>
+                                        <option value="대표집행임원">대표집행임원</option>
+                                        <option value="사외이사">사외이사</option>
+                                        <option value="기타비상무이사">기타비상무이사</option>
+                                        <option value="집행임원">집행임원</option>
+                                        <option value="감사">감사</option>
+                                        <option value="감사위원">감사위원</option>
+                                        <option value="주주">주주</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" name="executives[0][name]">
+                                </td>
+                                <td>
+                                    <input type="hidden" class="form-control form-control-sm"
+                                           name="executives[0][registrationNumber1]">
+                                    <input type="hidden" class="form-control form-control-sm"
+                                           name="executives[0][registrationNumber2]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="executives[0][registrationNumber]">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="executives[0][address]">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="executives[0][stockRatio]"
+                                           numberonly="true">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="executives[0][stockCount]"
+                                           numberonly="true">
+                                </td>
+                                <td class="input-daterange">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="executives[0][inauguratedAt]" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, 0)">
+                                    <input type="hidden" name="executives[0][term]" />
+                                </td>
+                                <td class="input-daterange">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="executives[0][expiredAt]" onkeyup="inputDateFormat(this)">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
+                                            onClick="remove_executive(0)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>목적사항</strong>
+                            </div>
+                            <div>
+                                <button type='button' class='btn btn-sm btn-outline-primary' id="add-purpose-btn">
+                                    목적사항 추가
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="purposeGroup">
+                            <div class="row">
+                                <div class="col-md-11 mb-2">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="purposeDetail[0][detail]"
+                                           id="purpose_detail"/>
+                                    <input type="hidden" class="form-control form-control-sm"
+                                           name="purposeDetail[0][ordinal]"/>
+                                </div>
+                                <div class="col-md-1 mb-2">
+                                    <div class="btns">
+                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
+                                                name="remove_purpose_btn">
+                                            <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -461,184 +582,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>임원</strong>
-                                <strong class="text-primary" id="executiveCount"></strong>
-                            </div>
-                            <div class="form-inline">
-                                임기 :
-                                <select class="form-control form-select form-select-sm ml-1 mr-1" id="select-term">
-                                    <option selected="" value="0">직접입력</option>
-                                    <option value="1">1년</option>
-                                    <option value="2">2년</option>
-                                    <option value="3">3년</option>
-                                </select>
-                                <button type="button" class="btn btn-sm btn-outline-primary" id="add-executive-btn">
-                                    임원 추가
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="box-status">
-                            <div class="item">
-                                <div class="item-header">
-                                    입력된 주식수
-                                </div>
-                                <div class="item-body">
-                                    <span class='text-danger' id="input_stock_count">0</span>주
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-header">
-                                    발행주식총수
-                                </div>
-                                <div class="item-body">
-                                    <span class='text-danger' id="issue_stock_count">0</span>주
-                                </div>
-                            </div>
-                        </div>
-                        <table class="table table-bordered mb-2 table-form">
-                            <colgroup>
-                                <col style="width: 100px"/>
-                                <col/>
-                                <col style="width: 210px"/>
-                                <col/>
-                                <col/>
-                                <col style="width: 130px"/>
-                                <col style="width: 130px"/>
-                                <col style="width: 130px"/>
-                                <col/>
-                                <col style="width: 50px"/>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>성명</th>
-                                <th>직위</th>
-                                <th>주민등록번호</th>
-                                <th>국적</th>
-                                <th>주소</th>
-                                <th>취임일자</th>
-                                <th>임기만료일</th>
-                                <th>주식수</th>
-                                <th>임원에관한사항</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody id="executiveGroup">
-                            <tr id="executive_tr_0">
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" name="executives[0][name]">
-                                </td>
-                                <td>
-                                    <select class="form-control form-select form-select-sm"
-                                            name="executives[0][position]">
-                                        <option selected value="사내이사">사내이사</option>
-                                        <option value="대표이사">대표이사</option>
-                                        <option value="공동대표이사">공동대표이사</option>
-                                        <option value="대표집행임원">대표집행임원</option>
-                                        <option value="사외이사">사외이사</option>
-                                        <option value="기타비상무이사">기타비상무이사</option>
-                                        <option value="집행임원">집행임원</option>
-                                        <option value="감사">감사</option>
-                                        <option value="감사위원">감사위원</option>
-                                        <option value="주주">주주</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][registrationNumber1]">
-                                        <div class="input-group-addon">
-                                            <span class="input-group-text">-</span>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][registrationNumber2]">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <select class="form-control form-select form-select-sm"
-                                                th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
-                                            <option th:each="country : ${countries}" th:value="${country.countryName}"
-                                                    th:text="${country.countryName}"></option>
-                                        </select>
-                                        <input type="text" class="form-control form-control-sm" th:readonly="true"
-                                               th:name="'executives[0][countryValue]'">
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][address]">
-                                </td>
-                                <td class="input-daterange">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][inauguratedAt]" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, 0)">
-                                    <input type="hidden" name="executives[0][term]" />
-                                </td>
-                                <td class="input-daterange">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][expiredAt]" onkeyup="inputDateFormat(this)">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][stockCount]"
-                                           numberonly="true">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][detail]">
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                            onClick="remove_executive(0)">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>목적사항</strong>
-                            </div>
-                            <div>
-                                <button type='button' class='btn btn-sm btn-outline-primary' id="add-purpose-btn">
-                                    목적사항 추가
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="purposeGroup">
-                            <div class="row">
-                                <div class="col-md-11 mb-2">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="purposeDetail[0][detail]"
-                                           id="purpose_detail"/>
-                                    <input type="hidden" class="form-control form-control-sm"
-                                           name="purposeDetail[0][ordinal]"/>
-                                </div>
-                                <div class="col-md-1 mb-2">
-                                    <div class="btns">
-                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                                name="remove_purpose_btn">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row mt-3">
                     <div class="d-flex justify-content-center">
                         <div>
@@ -691,10 +634,29 @@
                     alert("임원을 추가해 주세요.");
                     return false;
                 }
+
+                var companyNumber = $('#companyNumber').val().split('-');
+
+                if(companyNumber.size() > 1) {
+                    alert("법인등록번호를 확인해주세요.");
+                    $('#companyNumber').focus();
+                    return false;
+                }
+                $('#companyNumber1').val(companyNumber[0]);
+                $('#companyNumber2').val(companyNumber[1]);
+
                 $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
                 $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
                 $('#stockIssuedCount').val($('#stockIssuedCount').val().replace(/\,/g,""));
                 $('#capital').val($('#capital').val().replace(/\,/g,""));
+
+                $("input[name$='[registrationNumber]']").each(function(i, el){
+                    var registrationNumber = $(this).val().split("-");
+                    $('input[name="executives[' + i + '][registrationNumber1]"]').val(registrationNumber[0]);
+                    $('input[name="executives[' + i + '][registrationNumber2]"]').val(registrationNumber[1]);
+                });
+
+
                 $.ajax({
                     type: 'POST',
                     url: '/v1/companies',
@@ -939,35 +901,6 @@
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;">
-            </td>
-            <td>
-
-                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
-                    <option selected value="0">사내이사</option>
-                    <option value="대표이사">대표이사</option>
-                    <option value="공동대표이사">공동대표이사</option>
-                    <option value="대표집행임원">대표집행임원</option>
-                    <option value="사외이사">사외이사</option>
-                    <option value="기타비상무이사">기타비상무이사</option>
-                    <option value="집행임원">집행임원</option>
-                    <option value="감사">감사</option>
-                    <option value="감사위원">감사위원</option>
-                    <option value="주주">주주</option>
-                </select>
-            </td>
-            <td>
-                <div class="input-group">
-                    <input type="text" class="form-control form-control-sm"
-                           name="executives[{{= index}}][registrationNumber1]">
-                    <div class="input-group-addon">
-                        <span class="input-group-text">-</span>
-                    </div>
-                    <input type="text" class="form-control form-control-sm"
-                           name="executives[{{= index}}][registrationNumber2]">
-                </div>
-            </td>
-            <td>
                 <div class="input-group ">
                     <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]">
                         <option value="대한민국">대한민국</option>
@@ -983,7 +916,38 @@
                 </div>
             </td>
             <td>
+                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
+                    <option selected value="0">사내이사</option>
+                    <option value="대표이사">대표이사</option>
+                    <option value="공동대표이사">공동대표이사</option>
+                    <option value="대표집행임원">대표집행임원</option>
+                    <option value="사외이사">사외이사</option>
+                    <option value="기타비상무이사">기타비상무이사</option>
+                    <option value="집행임원">집행임원</option>
+                    <option value="감사">감사</option>
+                    <option value="감사위원">감사위원</option>
+                    <option value="주주">주주</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;">
+            </td>
+            <td>
+                <input type="hidden" class="form-control form-control-sm"
+                       name="executives[{{= index}}][registrationNumber1]">
+                <input type="hidden" class="form-control form-control-sm"
+                       name="executives[{{= index}}][registrationNumber2]">
+                <input type="text" class="form-control form-control-sm"
+                       name="executives[{{= index}}][registrationNumber]">
+            </td>
+            <td>
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;">
+            </td>
+            <td>
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockRatio]" style="width: 100%;" numberonly="true">
+            </td>
+            <td>
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
             </td>
             <td class="input-daterange">
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, {{= index}})">
@@ -991,12 +955,6 @@
             </td>
             <td class="input-daterange">
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][expiredAt]" style="width: 100%;" onkeyup="inputDateFormat(this)">
-            </td>
-            <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
-            </td>
-            <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][detail]" style="width: 100%;">
             </td>
             <td>
                 <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"

@@ -9,11 +9,13 @@ import java.util.*
 
 interface CompanyService {
 
-	fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<Company>
+	fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company>
 
 	fun findExecutivesByCompanyId(companyId: String): List<Executive>
 
-	fun count(lawFirmId: String): Int
+	fun totalCount(lawFirmId: String): Int
+
+	fun manageCount(lawFirmId: String): Int
 
 	fun findByName(lawFirmId: String, name: String): List<Company>
 
