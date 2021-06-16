@@ -133,7 +133,7 @@ a {
 * Container
 */
 .container-fluid {
-  height: 100%;
+  height: calc(100% - 40px);
   padding: 0;
   box-sizing: border-box;
   background: #f8f9fe; }
@@ -176,6 +176,18 @@ a {
   .sidebar-sticky {
     position: -webkit-sticky;
     position: sticky; } }
+.sidebar .box-status {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  margin: 0;
+  background: transparent;
+  border-radius: 0; }
+.sidebar .box-status .item {
+  border: 0; }
+.sidebar .box-status .item .item-header {
+  background-color: #343a40;
+  color: #fff; }
 .sidebar .nav-link {
   position: relative;
   padding: 10px 24px;
@@ -717,25 +729,82 @@ h5 {
 .popup .control {
   padding: 10px 0; }
 
+.list-company {
+  padding-bottom: 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between; }
+.list-company .card {
+  height: calc(100vh - 40vh - 30px);
+  overflow-y: auto;
+  overflow-x: hidden; }
+.list-company .panel {
+  position: relative;
+  height: calc(100vh - 60vh - 50px);
+  margin: 0 -20px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  border-left: 1px solid #dfdfee;
+  display: -webkit-box;
+  display: flex;
+  box-shadow: 0px -3px 10px #21252945;
+  background-color: #fff; }
+.list-company .panel:after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  background-color: #dfdfee; }
+.list-company .panel > div .panel-header {
+  padding: 10px;
+  background: #f8f8f8;
+  border-bottom: 1px solid #dfdfee; }
+.list-company .panel > div .panel-body {
+  padding: 10px; }
+.list-company .panel > div .panel-body table {
+  font-size: 9px; }
+.list-company .table-scroll {
+  overflow: auto;
+  height: calc(100vh - 60vh - 150px);
+  border: none;
+  box-shadow: inset 1px -1px #dee2e6; }
+.list-company .table-scroll thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  box-shadow: inset 1px 1px #dee2e6, 0 1px #dee2e6;
+  border: none; }
+.list-company .table-scroll td {
+  box-shadow: inset 1px -1px #dee2e6;
+  border: none; }
+
 .detail-company {
   min-width: 768px; }
 .detail-company label {
-  color: #666; }
+  color: #666;
+  margin-bottom: 0; }
 .detail-company .input-group-text,
 .detail-company .form-control,
 .detail-company .input-group button,
 .detail-company select,
 .detail-company label {
-  font-size: 9px;
-}
+  font-size: 9px; }
 .detail-company .input-group .input-group-addon button {
-  padding: 0 7px;
-}
-.detail-company select{
+  padding: 0 7px; }
+.detail-company select {
   padding-right: .75rem;
   background-size: 8px 12px;
-  background-position: right .25rem center;
-}
+  background-position: right .25rem center; }
 .detail-company .card-header {
   padding: 5px 10px; }
 .detail-company .card .row {

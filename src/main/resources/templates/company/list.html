@@ -7,6 +7,24 @@
         <!-- sidebar -->
         <nav class="sidebar">
             <div class="sidebar-sticky">
+                <div class="box-status">
+                    <div class="item">
+                        <div class="item-header">
+                             등록 법인수
+                        </div>
+                        <div class="item-body">
+                            <span th:text="${#numbers.formatDecimal(totalCount, 0, 'COMMA', 0, 'POINT')}"></span>개
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-header">
+                            관리 법인수
+                        </div>
+                        <div class="item-body">
+                            <span th:text="${#numbers.formatDecimal(manageCount, 0, 'COMMA', 0, 'POINT')}"></span>개
+                        </div>
+                    </div>
+                </div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <p class="sidebar-heading">법인관리</p>
@@ -53,30 +71,12 @@
         <!-- //sidebar -->
 
         <!-- contents -->
-        <main role="main" class="main">
-            <div class="page-header">
-                <div>
-                    <h1>법인 검색</h1>
-                </div>
-            </div>
-            <div class="box-status">
-                <div class="item">
-                    <div class="item-header">
-                        <strong th:text="${name}"></strong>님의 관할 등기소 등록 법인수
-                    </div>
-                    <div class="item-body">
-                        <span th:text="${#numbers.formatDecimal(totalCount, 0, 'COMMA', 0, 'POINT')}"></span>개
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="item-header">
-                        <strong th:text="${name}"></strong>님의 관할 등기소 관리 법인수
-                    </div>
-                    <div class="item-body">
-                        <span th:text="${#numbers.formatDecimal(manageCount, 0, 'COMMA', 0, 'POINT')}"></span>개
-                    </div>
-                </div>
-            </div>
+        <main role="main" class="main list-company">
+<!--            <div class="page-header">-->
+<!--                <div>-->
+<!--                    <h1>법인 검색</h1>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
@@ -193,104 +193,110 @@
                             </div>
                         </div>
                     </form>
-                    <table class="table table-bordered table-responsive">
-                        <colgroup>
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                            <col>
-                        </colgroup>
-                        <thead class="thead-light">
-                        <tr>
-                            <th>법인상태</th>
-                            <th>등기소</th>
-                            <th>등기번호</th>
-                            <th>법인명</th>
-                            <th>주소</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <div class="table-scroll">
+                        <table class="table table-bordered">
 
-                        <tr th:each="company: ${companies}">
-                            <td th:text="${company.companyState}"></td>
-                            <td th:text="${company.registerOffice}"></td>
-                            <td th:text="${company.registerNumber}"></td>
-                            <td>
-                                <a href="#none" th:name="companyTitle" th:attr="data-id=${company.id}"
-                                   th:text="${company.companyName}"></a>
-                            </td>
-                            <td>
-                                <div class="ellipsis" th:text="${company.companyAddress}">
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-link p-0" name="history_search_btn" th:attr="data-id=${company.id}">
-                                    이력보기
-                                </button>
-                                <button type="button" class="btn btn-link p-0"  data-toggle="modal" th:attr="data-target='#modal-summary-' + ${company.id}">
-                                    요약정보보기
-                                </button>
-                                <!--  요약정보 레이어 -->
-                                <div class="modal" th:id="'modal-summary-' + ${company.id}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">요약정보</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="table">
-                                                    <table class="table table-bordered">
-                                                        <colgroup>
-                                                            <col style="width: 20%">
-                                                            <col>
-                                                        </colgroup>
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>법인명</th>
-                                                            <td th:if="${company.displayCompanyType} == 'FRONT'" th:text="|${company.companyDivision} ${company.companyName}|">
-                                                            </td>
-                                                            <td th:if="${company.displayCompanyType} == 'BACK'" th:text="|${company.companyName} ${company.companyDivision}|">
-                                                            </td>
-                                                            <td th:if="${company.displayCompanyType} == null" th:text="${company.companyName}">
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>대표자</th>
-                                                            <td th:text="${company.companyMasterName}"></td>
-                                                        </tr>
-                                                        <th:block th:each="contact: ${company.contacts}">
-                                                            <tr>
-                                                                <th th:text="${contact.type.text}"></th>
-                                                                <td th:text="${contact.value}"></td>
-                                                            </tr>
-                                                        </th:block>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">닫기
-                                                </button>
-                                            </div>
-                                        </div>
+                            <thead class="thead-light">
+                            <tr>
+                                <th>법인상태</th>
+                                <th>등기소</th>
+                                <th>등기번호</th>
+                                <th>법인명</th>
+                                <th>주소</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="company: ${companies}">
+                                <td th:text="${company.companyState}"></td>
+                                <td th:text="${company.registerOffice}"></td>
+                                <td th:text="${company.registerNumber}"></td>
+                                <td>
+                                    <a href="#none" class="btn btn-link p-0" th:name="companyTitle" th:attr="data-id=${company.id}"
+                                       th:text="${company.companyName}"></a>
+                                </td>
+                                <td>
+                                    <div class="ellipsis" th:text="${company.companyAddress}">
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-link p-0" name="history_search_btn" th:attr="data-id=${company.id}">
+                                        이력보기
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-link p-0"  data-toggle="modal" th:attr="data-target='#modal-summary-' + ${company.id}">
+                                        요약정보보기
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="card-footer">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-end align-items-center">
                         <div>
                             <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
                             <button type="button" class="btn btn-dark btn-sm" id="pdf-down-btn">PDF 다운</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel" >
+                <div>
+                    <div class="panel-header">
+                        임원정보
+                    </div>
+                    <div class="panel-body">
+                        <div class="table">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>이름(명칭)</th>
+                                        <th>취임일(변경일)</th>
+                                        <th>만료일</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>정하명</td>
+                                        <td>2020-02-02</td>
+                                        <td>2020-02-03</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="panel-header">
+                        요약정보
+                    </div>
+                    <div class="panel-body">
+                        <div class="table">
+                            <table class="table table-bordered">
+                                <colgroup>
+                                    <col style="width: 20%">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th>법인명</th>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>대표자</th>
+                                    <td ></td>
+                                </tr>
+                                <tr>
+                                    <th >연락처</th>
+                                    <td ></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
