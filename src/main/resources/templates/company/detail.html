@@ -621,7 +621,7 @@
                         <div class="table-scroll">
                         <table class="table table-bordered mb-2 table-form">
                             <colgroup>
-                                <col style="width: 220px">
+                                <col style="width: 110px">
                                 <col style="width: 110px">
                                 <col style="width: 100px">
                                 <col style="width: 100px">
@@ -650,12 +650,12 @@
                             <th:block th:each="executive, index: ${company.executives}">
                                 <tr th:id="'executive_tr_'+${index.index}">
                                     <td>
-                                        <div class="input-group s">
+                                        <div class="d-flex flex-column">
                                             <select  class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][nationality]'" th:onchange="'changeCountry('+${index.index}+')'">
                                                 <option th:each="country : ${countries}" th:value="${country.countryName}" th:selected="${country.countryName == executive.nationality}" th:text="${country.countryName}"></option>
                                             </select>
 
-                                            <input type="text" class="form-control form-control-sm " th:readonly="true"
+                                            <input type="text" class="form-control form-control-sm mt-1"  style="display:none" th:readonly="true"
                                                    th:name="'executives['+${index.index}+'][countryValue]'">
                                         </div>
                                     </td>
@@ -1237,10 +1237,10 @@
 
         function changeCountry(i) {
             if($('select[name="executives['+i+'][nationality]"]').val() == '기타') {
+                $('input[name="executives['+i+'][countryValue]"]').show();
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
-                console.log('aaa')
             } else {
-                console.log('bbb', $('select[name="executives['+i+'][nationality]"]').val() )
+                $('input[name="executives['+i+'][countryValue]"]').hide();
                 $('input[name="executives['+i+'][countryValue]"]').val('')
                 $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
             }
@@ -1376,7 +1376,7 @@
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
-                <div class="input-group ">
+                <div class="d-flex flex-column ">
                     <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]" onchange="changeCountry({{= index}});">
                         <option value="대한민국">대한민국</option>
                         <option value="미합중국">미합중국</option>
@@ -1387,7 +1387,7 @@
                         <option value="홍콩">홍콩</option>
                         <option value="ETC">직접입력</option>
                     </select>
-                    <input type="text" class="form-control form-control-sm" readonly name="executives[{{= index}}][countryValue]">
+                    <input type="text" class="form-control form-control-sm mt-1" readonly name="executives[{{= index}}][countryValue]" style="display:none">
                 </div>
             </td>
             <td>
