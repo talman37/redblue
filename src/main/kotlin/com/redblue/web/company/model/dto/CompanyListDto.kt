@@ -2,6 +2,7 @@ package com.redblue.web.company.model.dto
 
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.Contact
+import com.redblue.web.company.model.Executive
 import org.springframework.data.domain.Page
 import java.util.*
 
@@ -25,11 +26,9 @@ data class CompanyListDto(
 
 	val companyAddress: String? = null,
 
-	val expiredAt: Date? = null,
-
-	var contactNumber: String? = "-",
-
 	var companyMasterName: String? = null,
+
+	var executives: MutableList<Executive> = mutableListOf(),
 
 	val contacts: MutableList<Contact>? = mutableListOf()
 
@@ -57,18 +56,29 @@ data class CompanyListDto(
 					companyDivision = company.companyDivision,
 					displayCompanyType = company.displayCompanyType?.name,
 					companyAddress = company.companyAddress,
-					expiredAt = company.executives.first().expiredAt,
+					executives = company.executives,
 					contacts = company.contacts
 				)
-				val master = company.executives.filter { e -> e.position == "대표이사" }
-				if(master.isNotEmpty()) {
-					dto.companyMasterName = master.first().name
-				}
+				var master: String? = ""
 
-				if(company.contacts!!.isNotEmpty()) {
-					dto.contactNumber = company.contacts.first().value
+				for (executive in company.executives) {
+					if(executive.position == "대표이사") {
+						master = executive.name
+						break
+					} else if(executive.position == "사내이사") {
+						master = executive.name
+					} else if(executive.position == "공동대표이사") {
+						master = executive.name
+					}
 				}
+				dto.companyMasterName = master
 
+				val savedContactType = company.contacts?.map { c -> c.type }.orEmpty()
+				for (value in Contact.Type.values()) {
+					if(!savedContactType.contains(value)) {
+						dto.contacts?.add(Contact(type = value, value = ""))
+					}
+				}
 				list.add(dto)
 			}
 			return list

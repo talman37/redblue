@@ -1,7 +1,7 @@
 package com.redblue.web.company.model
 
 enum class Country(val countryName: String) {
-	KR("대한민국"),
+	KR(""),
 	US("미합중국"),
 	CN("중화인민공화국"),
 	CA("캐나다"),

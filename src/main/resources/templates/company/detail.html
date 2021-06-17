@@ -651,7 +651,7 @@
                                 <tr th:id="'executive_tr_'+${index.index}">
                                     <td>
                                         <div class="input-group s">
-                                            <select  class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][nationality]'" th:onchange="changeCountry('+${index.index}+')">
+                                            <select  class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][nationality]'" th:onchange="'changeCountry('+${index.index}+')'">
                                                 <option th:each="country : ${countries}" th:value="${country.countryName}" th:selected="${country.countryName == executive.nationality}" th:text="${country.countryName}"></option>
                                             </select>
 
@@ -1377,7 +1377,7 @@
         <tr id="executive_tr_{{= index}}">
             <td>
                 <div class="input-group ">
-                    <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]">
+                    <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]" onchange="changeCountry({{= index}});">
                         <option value="대한민국">대한민국</option>
                         <option value="미합중국">미합중국</option>
                         <option value="중화인민공화국">중화인민공화국</option>
