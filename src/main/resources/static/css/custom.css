@@ -773,7 +773,6 @@ h5 {
 .list-company .panel > div .panel-body table {
   font-size: 9px; }
 .list-company .table-scroll {
-  overflow: auto;
   height: calc(100vh - 60vh - 150px);
   border: none;
   box-shadow: inset 1px -1px #dee2e6; }
@@ -788,8 +787,47 @@ h5 {
   box-shadow: inset 1px -1px #dee2e6;
   border: none; }
 
+.table-scroll {
+  overflow: auto;
+  border: none;
+  box-shadow: inset 1px -1px #dee2e6; }
+.table-scroll thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  box-shadow: inset 1px 1px #dee2e6, 0 1px #dee2e6;
+  border: none; }
+.table-scroll td {
+  box-shadow: inset 1px -1px #dee2e6;
+  border: none; }
+
+.box-scroll {
+  overflow: auto; }
+
 .detail-company {
   min-width: 768px; }
+.detail-company .table-bordered th,
+.detail-company .table-bordered td {
+  font-size: 9px;
+  padding: 3px; }
+.detail-company .table-bordered th {
+  background-color: #f8f8f8;
+  white-space: nowrap; }
+.detail-company .table-scroll,
+.detail-company .box-scroll {
+  max-height: 200px; }
+.detail-company .row-inline > div {
+  display: -webkit-box;
+  display: flex; }
+.detail-company .row-inline > div > label {
+  white-space: nowrap;
+  align-self: center; }
+.detail-company .btn.btn-link {
+  font-size: 9px; }
+.detail-company .btn.btn-sm {
+  padding: .2rem .5rem;
+  font-size: 9px; }
 .detail-company label {
   color: #666;
   margin-bottom: 0; }
@@ -805,8 +843,12 @@ h5 {
   padding-right: .75rem;
   background-size: 8px 12px;
   background-position: right .25rem center; }
+.detail-company .box-status {
+  font-size: 9px; }
 .detail-company .card-header {
-  padding: 5px 10px; }
+  padding: 5px 10px;
+  background-color: #f8f8f8;
+  border-radius: 2px; }
 .detail-company .card .row {
   margin: 0 5px; }
 .detail-company .row {

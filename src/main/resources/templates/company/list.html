@@ -195,7 +195,14 @@
                     </form>
                     <div class="table-scroll">
                         <table class="table table-bordered">
-
+                            <colgroup>
+                                <col width="150px" />
+                                <col width="150px" />
+                                <col width="150px" />
+                                <col width="150px" />
+                                <col/>
+                                <col width="100px" />
+                            </colgroup>
                             <thead class="thead-light">
                             <tr>
                                 <th>법인상태</th>
@@ -214,7 +221,7 @@
                                 <td th:text="${company.registerNumber}"></td>
                                 <td>
                                     <a href="#none" class="btn btn-link p-0" th:name="companyTitle" th:attr="data-id=${company.id}"
-                                       th:text="${company.companyName}"></a>
+                                       th:text="${company.companyName}"><i class="fas fa-external-link-alt"></i></a>
                                 </td>
                                 <td>
                                     <div class="ellipsis" th:text="${company.companyAddress}">
@@ -225,9 +232,9 @@
                                         이력보기
                                         <i class="fas fa-external-link-alt"></i>
                                     </button>
-                                    <button type="button" class="btn btn-link p-0"  data-toggle="modal" th:attr="data-target='#modal-summary-' + ${company.id}">
-                                        요약정보보기
-                                    </button>
+<!--                                    <button type="button" class="btn btn-link p-0"  data-toggle="modal" th:attr="data-target='#modal-summary-' + ${company.id}">-->
+<!--                                        요약정보보기-->
+<!--                                    </button>-->
                                 </td>
                             </tr>
                             </tbody>
