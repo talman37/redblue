@@ -232,9 +232,6 @@
                                                 이력보기
                                                 <i class="fas fa-external-link-alt"></i>
                                             </button>
-<!--                                            <button type="button" class="btn btn-link p-0"  data-toggle="modal" th:attr="data-target='#modal-summary-' + ${company.id}">-->
-<!--                                                요약정보보기-->
-<!--                                            </button>-->
                                         </td>
                                         <th:block th:each="executive: ${company.executives}">
                                             <input type="hidden" th:name="'position_'+${company.id}" th:value="${executive.position}"/>

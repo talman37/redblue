@@ -41,58 +41,10 @@
                                     <input type="text" class="form-control form-control-sm" id="companyName" name="companyName"
                                            th:value="${company.companyName}">
                                 </td>
-                                <th>등기번호</th>
+                                <th>병기 상호</th>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" id="registerNumber" name="registerNumber"
-                                           placeholder=""
-                                           th:value="${company.registerNumber}">
-                                </td>
-                                <th>관할등기소
-                                    <br/>
-                                    <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
-                                            data-target="#modal-favorite">☆ 즐겨찾기
-                                    </button>
-                                    <div class="modal" id="modal-favorite">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">즐겨찾는 관할등기소</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="list-group">
-                                                        <button type="button"
-                                                                class="list-group-item list-group-item-action"
-                                                                th:each="favoriteOffice: ${favoriteOffices}"
-                                                                th:id="${favoriteOffice.id.registerOfficeId}"
-                                                                name="favoriteOffice" th:value="${favoriteOffice.name}"
-                                                                th:text="${favoriteOffice.name}"
-                                                                data-dismiss="modal"></button>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-sm btn-secondary"
-                                                            data-dismiss="modal">닫기
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </th>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="registerOffice" name="registerOffice"
-                                               th:readonly="true"
-                                               th:value="${company.registerOffice}">
-                                        <div class="input-group-append">
-                                            <button type='button' id="office_search_btn" class="btn btn-sm btn-outline-secondary">
-                                                검색
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control form-control-sm" id="companySubName" name="companySubName"
+                                           placeholder="" th:value="${company.companySubName}">
                                 </td>
                                 <th>법인구분</th>
                                 <td>
@@ -146,14 +98,61 @@
                                         <option th:value="법인파산">법인파산</option>
                                     </select>
                                 </td>
-                                <th>설립일</th>
+                                <th>관할등기소
+                                    <br/>
+                                    <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
+                                            data-target="#modal-favorite">☆ 즐겨찾기
+                                    </button>
+                                    <div class="modal" id="modal-favorite">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">즐겨찾는 관할등기소</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="list-group">
+                                                        <button type="button"
+                                                                class="list-group-item list-group-item-action"
+                                                                th:each="favoriteOffice: ${favoriteOffices}"
+                                                                th:id="${favoriteOffice.id.registerOfficeId}"
+                                                                name="favoriteOffice" th:value="${favoriteOffice.name}"
+                                                                th:text="${favoriteOffice.name}"
+                                                                data-dismiss="modal"></button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-sm btn-secondary"
+                                                            data-dismiss="modal">닫기
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" id="companyFormationAt"
-                                           name="companyFormationAt"
-                                           th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm" id="registerOffice" name="registerOffice"
+                                               th:readonly="true"
+                                               th:value="${company.registerOffice}">
+                                        <div class="input-group-append">
+                                            <button type='button' id="office_search_btn" class="btn btn-sm btn-outline-secondary">
+                                                검색
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
+                                <th>등기번호</th>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" id="registerNumber" name="registerNumber"
+                                           placeholder=""
+                                           th:value="${company.registerNumber}">
+                                </td>
                                 <th>법인등록번호</th>
                                 <td>
                                     <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1"
@@ -163,10 +162,24 @@
                                     <input type="text" class="form-control form-control-sm" id="companyNumber" name="companyNumber"
                                            th:value="|${company.companyNumber1}-${company.companyNumber2}|">
                                 </td>
-                                <th>병기 상호</th>
+                                <th>관리 번호</th>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" id="companySubName" name="companySubName"
-                                           placeholder="" th:value="${company.companySubName}">
+                                    <input type="text" class="form-control form-control-sm" id="companyManageNumber"
+                                           name="companyManageNumber" placeholder=""
+                                           th:value="${company.companyManageNumber}">
+                                </td>
+                                <th>주의사항</th>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" id="precautions"
+                                           name="precautions"
+                                           placeholder=""  th:value="${company.precautions}">
+
+                                </td>
+                                <th>추천인</th>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
+                                           placeholder="" th:value="${company.recommender}">
+
                                 </td>
                                 <th>관리 상태</th>
                                 <td>
@@ -177,200 +190,34 @@
                                         <option th:value="관리종결">관리종결</option>
                                     </select>
                                 </td>
-                                <th>관리 번호</th>
+                                <th>설립일</th>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" id="companyManageNumber"
-                                           name="companyManageNumber" placeholder=""
-                                           th:value="${company.companyManageNumber}">
-                                </td>
-                                <th>추천인</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
-                                           placeholder="" th:value="${company.recommender}">
-
-                                </td>
-                                <th>주의사항</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="precautions"
-                                           name="precautions"
-                                           placeholder=""  th:value="${company.precautions}">
-
-                                </td>
-                                <th>공고방법</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="noticeWay"
-                                           name="noticeWay"
-                                           placeholder=""  th:value="${company.noticeWay}">
-
+                                    <input type="text" class="form-control form-control-sm" id="companyFormationAt"
+                                           name="companyFormationAt"
+                                           th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">
                                 </td>
                             </tr>
                         </table>
-<!--                        <div class="row row-inline">-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">상호</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="companyName" name="companyName"-->
-<!--                                       th:value="${company.companyName}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">등기번호</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="registerNumber" name="registerNumber"-->
-<!--                                       placeholder=""-->
-<!--                                       th:value="${company.registerNumber}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-
-<!--                                <label for="">관할등기소</label>-->
-<!--                                <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"-->
-<!--                                        data-target="#modal-favorite">☆ 즐겨찾기-->
-<!--                                </button>-->
-<!--                                    <div class="modal" id="modal-favorite">-->
-<!--                                        <div class="modal-dialog">-->
-<!--                                            <div class="modal-content">-->
-<!--                                                <div class="modal-header">-->
-<!--                                                    <h5 class="modal-title">즐겨찾는 관할등기소</h5>-->
-<!--                                                    <button type="button" class="close" data-dismiss="modal"-->
-<!--                                                            aria-label="Close">-->
-<!--                                                        <span aria-hidden="true">&times;</span>-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                                <div class="modal-body">-->
-<!--                                                    <div class="list-group">-->
-<!--                                                        <button type="button"-->
-<!--                                                                class="list-group-item list-group-item-action"-->
-<!--                                                                th:each="favoriteOffice: ${favoriteOffices}"-->
-<!--                                                                th:id="${favoriteOffice.id.registerOfficeId}"-->
-<!--                                                                name="favoriteOffice" th:value="${favoriteOffice.name}"-->
-<!--                                                                th:text="${favoriteOffice.name}"-->
-<!--                                                                data-dismiss="modal"></button>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                                <div class="modal-footer">-->
-<!--                                                    <button type="button" class="btn btn-sm btn-secondary"-->
-<!--                                                            data-dismiss="modal">닫기-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                <div class="input-group">-->
-<!--                                    <input type="text" class="form-control form-control-sm" id="registerOffice" name="registerOffice"-->
-<!--                                           th:readonly="true"-->
-<!--                                           th:value="${company.registerOffice}">-->
-<!--                                    <div class="input-group-append">-->
-<!--                                        <button type='button' id="office_search_btn" class="btn btn-sm btn-outline-secondary">-->
-<!--                                            검색-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="companyDivision">법인구분</label>-->
-<!--                                <select class="form-control form-select form-select-sm" id="companyDivision" name="companyDivision"-->
-<!--                                        th:field="*{company.companyDivision}">-->
-<!--                                    <option th:value="주식회사">주식회사</option>-->
-<!--                                    <option th:value="유한회사">유한회사</option>-->
-<!--                                    <option th:value="유한책임회사">유한책임회사</option>-->
-<!--                                    <option th:value="합자회사">합자회사</option>-->
-<!--                                    <option th:value="사단법인">사단법인</option>-->
-<!--                                    <option th:value="재단법인">재단법인</option>-->
-<!--                                    <option th:value="농업회사">농업회사</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">법인 종류 표시</label>-->
-<!--                                <div class="mt-1">-->
-<!--                                    <div class="form-check form-check-inline">-->
-<!--                                        <div class="form-input">-->
-<!--                                            <span class="input">-->
-<!--                                                <input type="radio" id="displayCompanyTypeFront"-->
-<!--                                                       name="displayCompanyType" value="FRONT"-->
-<!--                                                       th:field="${company.displayCompanyType}"><i></i>-->
-<!--                                            </span>-->
-<!--                                            <label for="displayCompanyTypeFront">앞</label>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-check form-check-inline">-->
-<!--                                        <div class="form-input">-->
-<!--                                            <span class="input">-->
-<!--                                                <input type="radio" id="displayCompanyTypeBack"-->
-<!--                                                       name="displayCompanyType" value="BACK"-->
-<!--                                                       th:field="${company.displayCompanyType}"><i></i>-->
-<!--                                            </span>-->
-<!--                                            <label for="displayCompanyTypeBack">뒤</label>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">법인 상태</label>-->
-<!--                                <select class="form-control form-select form-select-sm" id="companyState" name="companyState"-->
-<!--                                        th:field="*{company.companyState}">-->
-<!--                                    <option th:value="신규법인">신규법인</option>-->
-<!--                                    <option th:value="관리법인">관리법인</option>-->
-<!--                                    <option th:value="장기미등기">장기미등기</option>-->
-<!--                                    <option th:value="해산간주">해산간주</option>-->
-<!--                                    <option th:value="안내후미등기">안내후미등기</option>-->
-<!--                                    <option th:value="반송">반송</option>-->
-<!--                                    <option th:value="법무사교체">법무사교체</option>-->
-<!--                                    <option th:value="연락안됨">연락안됨</option>-->
-<!--                                    <option th:value="사업자폐업">사업자폐업</option>-->
-<!--                                    <option th:value="법인파산">법인파산</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">법인등록번호</label>-->
-<!--                                <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1"-->
-<!--                                       th:value="${company.companyNumber1}">-->
-<!--                                <input type="hidden" class="form-control form-control-sm" id="companyNumber2" name="companyNumber2"-->
-<!--                                       th:value="${company.companyNumber2}">-->
-<!--                                <input type="text" class="form-control form-control-sm" id="companyNumber" name="companyNumber"-->
-<!--                                       th:value="|${company.companyNumber1}-${company.companyNumber2}|">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2 input-daterange">-->
-<!--                                <label for="companyFormationAt">설립일</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="companyFormationAt"-->
-<!--                                       name="companyFormationAt"-->
-<!--                                       th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">병기 상호</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="companySubName" name="companySubName"-->
-<!--                                       placeholder="" th:value="${company.companySubName}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">관리 상태</label>-->
-<!--                                <select class="form-control form-select form-select-sm" id="companyManageState" name="companyManageState"-->
-<!--                                        th:field="*{company.companyManageState}">-->
-<!--                                    <option th:value="신규법인">신규법인</option>-->
-<!--                                    <option th:value="관리법인">관리법인</option>-->
-<!--                                    <option th:value="관리종결">관리종결</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">관리 번호</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="companyManageNumber"-->
-<!--                                       name="companyManageNumber" placeholder=""-->
-<!--                                       th:value="${company.companyManageNumber}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">추천인</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"-->
-<!--                                       placeholder="" th:value="${company.recommender}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="precautions">주의사항</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="precautions"-->
-<!--                                       name="precautions"-->
-<!--                                       placeholder=""  th:value="${company.precautions}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="precautions">공고방법</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="noticeWay"-->
-<!--                                       name="noticeWay"-->
-<!--                                       placeholder=""  th:value="${company.noticeWay}">-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>공고방법</strong>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="update_notify_btn">
+                                수정
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="text" class="form-control form-control-sm" id="noticeWay"
+                           name="noticeWay"
+                           placeholder=""  th:value="${company.noticeWay}">
                 </div>
             </div>
             <div class="card">
@@ -427,6 +274,40 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>자본금</th>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm" id="stockCapital" onkeyup="inputNumberFormat(this)"
+                                               th:value="${#numbers.formatDecimal(company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount), 0, 'COMMA', 0, 'POINT')}">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" id="stock-calculate-btn">계산하기</button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <th>1주의 금액</th>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" id="stockAmount" name="stock[amount]" onkeyup="inputNumberFormat(this)"
+                                           placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.amount, 0, 'COMMA', 0, 'POINT')}">
+                                </td>
+                                <th>발행주식의 총수</th>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" id="stockIssuedCount" name="stock[issuedCount]"
+                                           numberonly="true" onkeyup="inputNumberFormat(this)"
+                                           placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
+                                </td>
+                                <th>발행할 주식의 총수</th>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" id="stockScheduleCount"
+                                           name="stock[scheduleCount]" placeholder="" required="" onkeyup="inputNumberFormat(this)"
+                                           th:value="${#numbers.formatDecimal(company.stock.scheduleCount, 0, 'COMMA', 0, 'POINT')}">
+                                </td>
+                                <th>결산기</th>
+                                <td>
+                                    <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth">
+                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
+                                                th:selected="${i == company.settlementMonth}"></option>
+                                    </select>
+                                </td>
                                 <th>사업자등록번호</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="businessNumber" name="businessNumber"
@@ -442,132 +323,8 @@
                                     <input type="text" class="form-control form-control-sm" id="businessType" name="businessType"
                                            placeholder="" th:value="${company.businessType}">
                                 </td>
-                                <th>결산기</th>
-                                <td>
-                                    <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth">
-                                        <option selected>전체</option>
-                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
-                                                th:selected="${i == company.settlementMonth}"></option>
-                                    </select>
-                                </td>
-                                <th>1주의 금액</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="stockAmount" name="stock[amount]" onkeyup="inputNumberFormat(this)"
-                                           placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.amount, 0, 'COMMA', 0, 'POINT')}">
-                                </td>
-                                <th>발행할 주식의 총수</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="stockScheduleCount"
-                                           name="stock[scheduleCount]" placeholder="" required="" onkeyup="inputNumberFormat(this)"
-                                           th:value="${#numbers.formatDecimal(company.stock.scheduleCount, 0, 'COMMA', 0, 'POINT')}">
-                                </td>
-                                <th>발행주식의 총수</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="stockIssuedCount" name="stock[issuedCount]"
-                                           numberonly="true" onkeyup="inputNumberFormat(this)"
-                                           placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
-                                </td>
-                                <th>자본금</th>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="stockCapital" onkeyup="inputNumberFormat(this)"
-                                               th:value="${#numbers.formatDecimal(company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount), 0, 'COMMA', 0, 'POINT')}">
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary" id="stock-calculate-btn">계산하기</button>
-                                        </div>
-                                    </div>
-                                </td>
                             </tr>
                         </table>
-<!--                        <div class="row row-inline">-->
-<!--                            <div class="col-md-4 mb-2">-->
-<!--                                <label for="">본점주소</label>-->
-<!--                                <div class="input-group">-->
-<!--                                    <input type="text" class="form-control form-control-sm" id="companyAddress" name="companyAddress"-->
-<!--                                           th:value="${company.companyAddress}">-->
-<!--                                    <div class="input-group-append">-->
-<!--                                        <button type='button' class="btn btn-sm btn-outline-secondary"-->
-<!--                                                name="postal_code_search_btn" data-id="companyAddress">검색-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">우편번호</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="companyPostalCode" name="companyPostalCode"-->
-<!--                                       style="width: 55px" placeholder="" th:value="${company.companyPostalCode}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-4 mb-2">-->
-<!--                                <label for="">송달장소</label>-->
-<!--                                <div class="input-group">-->
-<!--                                    <input type="text" class="form-control form-control-sm" id="deliveryPlace" name="deliveryPlace"-->
-<!--                                           th:value="${company.deliveryPlace}">-->
-<!--                                    <div class="input-group-append">-->
-<!--                                        <button type='button' class="btn btn-sm btn-outline-secondary"-->
-<!--                                                name="postal_code_search_btn" data-id="deliveryPlace">검색-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">우편번호</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode"-->
-<!--                                       style="width: 55px" name="deliveryPlacePostalCode" placeholder=""-->
-<!--                                       th:value="${company.deliveryPlacePostalCode}">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="row row-inline">-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">사업자등록번호</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="businessNumber" name="businessNumber"-->
-<!--                                       placeholder="" th:value="${company.businessNumber}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">업태</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="businessCondition" name="businessCondition"-->
-<!--                                       placeholder="" th:value="${company.businessCondition}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">업종</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="businessType" name="businessType"-->
-<!--                                       placeholder="" th:value="${company.businessType}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">결산기</label>-->
-<!--                                <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth">-->
-<!--                                    <option selected>전체</option>-->
-<!--                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"-->
-<!--                                            th:selected="${i == company.settlementMonth}"></option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">1주의 금액</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="stockAmount" name="stock[amount]" onkeyup="inputNumberFormat(this)"-->
-<!--                                       placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.amount, 0, 'COMMA', 0, 'POINT')}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">발행할 주식의 총수</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="stockScheduleCount"-->
-<!--                                       name="stock[scheduleCount]" placeholder="" required="" onkeyup="inputNumberFormat(this)"-->
-<!--                                       th:value="${#numbers.formatDecimal(company.stock.scheduleCount, 0, 'COMMA', 0, 'POINT')}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">발행주식의 총수</label>-->
-<!--                                <input type="text" class="form-control form-control-sm" id="stockIssuedCount" name="stock[issuedCount]"-->
-<!--                                       numberonly="true" onkeyup="inputNumberFormat(this)"-->
-<!--                                       placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-auto mb-2">-->
-<!--                                <label for="">자본금</label>-->
-<!--                                <div class="input-group">-->
-<!--                                    <input type="text" class="form-control form-control-sm" id="stockCapital" onkeyup="inputNumberFormat(this)"-->
-<!--                                           th:value="${#numbers.formatDecimal(company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount), 0, 'COMMA', 0, 'POINT')}">-->
-<!--                                    <div class="input-group-append">-->
-<!--                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="stock-calculate-btn">계산하기</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </form>
                 </div>
             </div>
@@ -726,55 +483,6 @@
                             </th:block>
                             </tbody>
                         </table>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>목적사항</strong>
-                        </div>
-                        <div>
-                            <button type='button' class='btn btn-sm btn-outline-primary' id="add-purpose-btn">
-                                목적사항 추가
-                            </button>
-                            <button type='button' class='btn btn-sm btn-outline-success' id="save-purpose-btn">
-                                저장
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <form id="purposeDetail_form">
-                        <div class="box-scroll">
-                        <div id="purposeGroup">
-                            <th:block th:each="purpose, index: ${company.purposeDetail}">
-                                <div class="row" th:id="'purpose_row_'+${index.index}">
-                                    <div class="col-md mb-2">
-                                        <input type="hidden" class="form-control form-control-sm"
-                                               th:name="'purposeDetail['+${index.index}+'][id]'"
-                                               th:value="${purpose.id}"/>
-                                        <input type="text" class="form-control form-control-sm"
-                                               th:name="'purposeDetail['+${index.index}+'][detail]'"
-                                               id="purpose_detail" th:value="${purpose.detail}"/>
-                                        <input type="hidden" class="form-control form-control-sm"
-                                               th:name="'purposeDetail['+${index.index}+'][ordinal]'"
-                                               th:value="${purpose.ordinal}"/>
-                                    </div>
-                                    <div class="col-md-auto mb-2">
-                                        <div class="btns">
-                                            <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                                    th:onclick="'remove_purpose('+${index.index}+')'"
-                                                    name="remove_purpose_btn">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </th:block>
-                        </div>
                         </div>
                     </form>
                 </div>
@@ -966,6 +674,55 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>목적사항</strong>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="add-purpose-btn">
+                                목적사항 추가
+                            </button>
+                            <button type='button' class='btn btn-sm btn-outline-success' id="save-purpose-btn">
+                                저장
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="purposeDetail_form">
+                        <div class="box-scroll">
+                            <div id="purposeGroup">
+                                <th:block th:each="purpose, index: ${company.purposeDetail}">
+                                    <div class="row" th:id="'purpose_row_'+${index.index}">
+                                        <div class="col-md mb-2">
+                                            <input type="hidden" class="form-control form-control-sm"
+                                                   th:name="'purposeDetail['+${index.index}+'][id]'"
+                                                   th:value="${purpose.id}"/>
+                                            <input type="text" class="form-control form-control-sm"
+                                                   th:name="'purposeDetail['+${index.index}+'][detail]'"
+                                                   id="purpose_detail" th:value="${purpose.detail}"/>
+                                            <input type="hidden" class="form-control form-control-sm"
+                                                   th:name="'purposeDetail['+${index.index}+'][ordinal]'"
+                                                   th:value="${purpose.ordinal}"/>
+                                        </div>
+                                        <div class="col-md-auto mb-2">
+                                            <div class="btns">
+                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
+                                                        th:onclick="'remove_purpose('+${index.index}+')'"
+                                                        name="remove_purpose_btn">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>
