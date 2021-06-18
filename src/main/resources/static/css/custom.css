@@ -817,6 +817,8 @@ h5 {
 .detail-company .table-scroll,
 .detail-company .box-scroll {
   max-height: 200px; }
+.detail-company .box-scroll .row:only-child .mb-2 {
+  margin-bottom: 0 !important; }
 .detail-company .row-inline > div {
   display: -webkit-box;
   display: flex; }
@@ -845,6 +847,14 @@ h5 {
   background-position: right .25rem center; }
 .detail-company .box-status {
   font-size: 9px; }
+.detail-company .box-status .item {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center; }
+.detail-company .box-status .item > div {
+  -webkit-box-flex: 1;
+  flex: 1; }
 .detail-company .card-header {
   padding: 5px 10px;
   background-color: #f8f8f8;

@@ -556,7 +556,7 @@
                                 <div class="add-item" id="contactGroup">
                                     <th:block th:each="contact, index: ${company.contacts}">
                                         <div class="row">
-                                            <div class="col-md-9 mb-2">
+                                            <div class="col-md mb-2">
                                                 <label th:for="'contacts['+${index.index}+'][value]'">연락처</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -578,7 +578,7 @@
                                                 <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
                                                        th:value="${contact.memo}">
                                             </div>
-                                            <div class="col-md-1 mb-2">
+                                            <div class="col-md-auto mb-2">
                                                 <label for="" class="invisible">Actions</label>
                                                 <div class="btns">
                                                     <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" id="" th:onclick="'remove_contact('+${index.index}+')'">
@@ -622,7 +622,7 @@
                                                 <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][name]'" th:name="'branches['+${index.index}+'][name]'" placeholder=""
                                                        th:value="${branch.name}">
                                             </div>
-                                            <div class="col-md-7 mb-2">
+                                            <div class="col-md mb-2">
                                                 <label th:for="'branches['+${index.index}+'][value]'">지점주소</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][address]'" th:name="'branches['+${index.index}+'][address]'"
@@ -634,13 +634,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-auto">
                                                 <label th:for="'branches['+${index.index}+'][postalCode]'">우편번호</label>
                                                 <input type="text" class="form-control form-control-sm" style="width: 55px" th:id="'branches['+${index.index}+'][postalCode]'"
                                                        th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""
                                                        th:value="${branch.postalCode}">
                                             </div>
-                                            <div class="col-md-1 mb-2">
+                                            <div class="col-md-auto mb-2">
                                                 <label for="" class="invisible">Actions</label>
                                                 <div class="btns">
                                                     <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" th:onclick="'remove_office('+${index.index}+')'">
@@ -671,9 +671,13 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <input type="text" class="form-control form-control-sm" id="noticeWay"
-                           name="noticeWay"
-                           placeholder=""  th:value="${company.noticeWay}">
+                    <div class="box-scrol">
+                        <div class="row">
+                            <input type="text" class="form-control form-control-sm mb-2" id="noticeWay"
+                                name="noticeWay"
+                                placeholder=""  th:value="${company.noticeWay}">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card">
@@ -1104,7 +1108,7 @@
                 <label>지점명칭</label>
                 <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][name]">
             </div>
-            <div class="col-md-7 mb-2">
+            <div class="col-md mb-2">
                 <label>지점주소</label>
                 <div class="input-group">
                     <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][address]">
@@ -1115,12 +1119,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-auto">
                 <label>우편번호</label>
                 <input type="text" class="form-control form-control-sm" style="width: 55px"
                        name="branches[{{= index}}][postalCode]" placeholder="">
             </div>
-            <div class="col-md-1 mb-2">
+            <div class="col-md-auto mb-2">
                 <label for="" class="invisible">Actions</label>
                 <div class="btns">
                     <button type="button" class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onClick="remove_branch({{= index}});" name="remove_branch_btn">
