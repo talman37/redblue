@@ -215,7 +215,7 @@
                             </thead>
                             <tbody>
                                 <th:block th:each="company: ${companies}">
-                                    <tr th:id="${company.id}">
+                                    <tr th:id="${company.id}" th:onclick="'setSummary('+${company.id}+')'">
                                         <td th:text="${company.companyState}"></td>
                                         <td th:text="${company.registerOffice}"></td>
                                         <td th:text="${company.registerNumber}"></td>
@@ -233,17 +233,17 @@
                                                 <i class="fas fa-external-link-alt"></i>
                                             </button>
                                         </td>
-                                        <th:block th:each="executive: ${company.executives}">
-                                            <input type="hidden" th:name="'position_'+${company.id}" th:value="${executive.position}"/>
-                                            <input type="hidden" th:name="'name_'+${company.id}" th:value="${executive.name}">
-                                            <input type="hidden" th:name="'inauguratedAt_'+${company.id}" th:value="${executive.inauguratedAt}">
-                                            <input type="hidden" th:name="'expiredAt_'+${company.id}" th:value="${executive.expiredAt}">
+                                        <th:block th:each="executive, index: ${company.executives}">
+                                            <input type="hidden" th:name="'position_'+${company.id}+'_'+${index.index}" th:value="${executive.position}"/>
+                                            <input type="hidden" th:name="'name_'+${company.id}+'_'+${index.index}" th:value="${executive.name}">
+                                            <input type="hidden" th:name="'inauguratedAt_'+${company.id}+'_'+${index.index}" th:value="${executive.inauguratedAt}">
+                                            <input type="hidden" th:name="'expiredAt_'+${company.id}+'_'+${index.index}" th:value="${executive.expiredAt}">
                                         </th:block>
                                         <th:block th:each="contact: ${company.contacts}">
                                             <input type="hidden" th:name="${contact.type}+'_'+${company.id}+'_type'" th:value="${contact.type}"/>
                                             <input type="hidden" th:name="${contact.type}+'_'+${company.id}+'_value'" th:value="${contact.value}">
                                         </th:block>
-                                            <input type="hidden" th:id="${company.id}+'_masterName'" th:value="${company.companyMasterName}"/>
+                                            <input type="hidden" th:name="${company.id}+'_masterName'" th:value="${company.companyMasterName}"/>
                                     </tr>
                                 </th:block>
                             </tbody>
@@ -270,8 +270,8 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>이름(명칭)</th>
-                                        <th>취임일(변경일)</th>
+                                        <th>이름(직위)</th>
+                                        <th>취임일</th>
                                         <th>만료일</th>
                                     </tr>
                                 </thead>
@@ -300,35 +300,35 @@
                                 <tbody>
                                 <tr>
                                     <th>대표자</th>
-                                    <td></td>
+                                    <td id="masterName"></td>
                                 </tr>
                                 <tr>
                                     <th>휴대폰</th>
-                                    <td></td>
+                                    <td id="mobile"></td>
                                 </tr>
                                 <tr>
                                     <th>유선전화</th>
-                                    <td></td>
+                                    <td id="phone"></td>
                                 </tr>
                                 <tr>
                                     <th>직통번호</th>
-                                    <td></td>
+                                    <td id="directPhone"></td>
                                 </tr>
                                 <tr>
                                     <th>회사팩스</th>
-                                    <td></td>
+                                    <td id="fax"></td>
                                 </tr>
                                 <tr>
                                     <th>공장</th>
-                                    <td></td>
+                                    <td id="factory"></td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td></td>
+                                    <td id="email"></td>
                                 </tr>
                                 <tr>
                                     <th>세금계산서용 이메일</th>
-                                    <td></td>
+                                    <td id="taxEmail"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -392,6 +392,31 @@
             str = String(str);
             return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
         }
+
+        function setSummary(id) {
+
+            $('#executive_panel').empty();
+            $('input[name^="name_'+id+'_"]').each(function (i, v){
+                var senList = '';
+                senList += '<tr>';
+                senList += '<td>'+ $('input[name="name_'+id+'_'+i+'"]').val() +'('+ $('input[name="position_'+id+'_'+i+'"]').val() +')</td>';
+                senList += '<td>'+ $('input[name="inauguratedAt_'+id+'_'+i+'"]').val() +'</td>';
+                senList += '<td>'+ $('input[name="expiredAt_'+id+'_'+i+'"]').val() +'</td>';
+                senList += '</tr>';
+
+                $('#executive_panel').append(senList);
+            });
+
+            $('#masterName').text($('input[name="'+id+'_masterName"]').val());
+            $('#mobile').text($('input[name="MOBILE_'+id+'_value"]').val());
+            $('#phone').text($('input[name="PHONE'+id+'_value"]').val());
+            $('#directPhone').text($('input[name="DIRECT_PHONE'+id+'_value"]').val());
+            $('#fax').text($('input[name="FAX_'+id+'_value"]').val());
+            $('#factory').text($('input[name="FACTORY_'+id+'_value"]').val());
+            $('#email').text($('input[name="EMAIL_'+id+'_value"]').val());
+            $('#taxEmail').text($('input[name="TAX_EMAIL'+id+'_value"]').val());
+        }
+
     </script>
 </th:block>
 </html>
