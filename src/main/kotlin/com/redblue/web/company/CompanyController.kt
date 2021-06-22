@@ -101,9 +101,11 @@ class CompanyController(
 		} else if(company.displayCompanyType == Company.DisplayCompanyType.BACK){
 			name = company.companyName + "(" + company.companyDivision?.first() + ")"
 		}
+		val term = company.executives.maxBy { it.term!! }
 
 		model.addAttribute("company", company)
 		model.addAttribute("companyName", name)
+		model.addAttribute("term", term)
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		model.addAttribute("consults", consultService.findByCompanyId(id))
 		model.addAttribute("countries", Country.values())

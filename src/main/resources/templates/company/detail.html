@@ -319,10 +319,9 @@
                         <div class="form-inline">
                             임기 :
                             <select class="form-control form-select form-select-sm ml-1 mr-1" id="select-term">
-                                <option selected="" value="0">직접입력</option>
-                                <option value="1">1년</option>
-                                <option value="2">2년</option>
-                                <option value="3">3년</option>
+                                <option value="1" th:selected="${term == 1}">1년</option>
+                                <option value="2" th:selected="${term == 2}">2년</option>
+                                <option value="3" th:selected="${term == 3}">3년</option>
                             </select>
                             <button type='button' class='btn btn-sm btn-outline-primary' data-toggle="modal"
                                     id="add-executive-btn">
