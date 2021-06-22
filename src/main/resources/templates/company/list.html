@@ -215,7 +215,7 @@
                             </thead>
                             <tbody>
                                 <th:block th:each="company: ${companies}">
-                                    <tr th:id="${company.id}" th:onclick="'setSummary('+${company.id}+')'">
+                                    <tr name="companyRow" th:attr="data-id=${company.id}">
                                         <td th:text="${company.companyState}"></td>
                                         <td th:text="${company.registerOffice}"></td>
                                         <td th:text="${company.registerNumber}"></td>
@@ -276,11 +276,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="executive_panel">
-                                    <tr>
-                                        <td>정하명</td>
-                                        <td>2020-02-02</td>
-                                        <td>2020-02-03</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -378,6 +373,33 @@
                 window.open('/company/' + $(this).data('id'), '법인 상세', 'width=1350px,height=1000px,scrollbars=yes');
             });
 
+            $('tr[name="companyRow"]').on('click', function() {
+                var id = $(this).data('id');
+
+                $('#executive_panel').empty();
+                $('input[name^="name_'+id+'_"]').each(function (i, v){
+                    var senList = '';
+                    senList += '<tr>';
+                    senList += '<td>'+ $('input[name="name_'+id+'_'+i+'"]').val() +'('+ $('input[name="position_'+id+'_'+i+'"]').val() +')</td>';
+                    senList += '<td>'+ $('input[name="inauguratedAt_'+id+'_'+i+'"]').val() +'</td>';
+                    senList += '<td>'+ $('input[name="expiredAt_'+id+'_'+i+'"]').val() +'</td>';
+                    senList += '</tr>';
+
+                    $('#executive_panel').append(senList);
+                });
+
+                $('#masterName').text($('input[name="'+id+'_masterName"]').val());
+                $('#mobile').text($('input[name="MOBILE_'+id+'_value"]').val());
+                $('#phone').text($('input[name="PHONE'+id+'_value"]').val());
+                $('#directPhone').text($('input[name="DIRECT_PHONE'+id+'_value"]').val());
+                $('#fax').text($('input[name="FAX_'+id+'_value"]').val());
+                $('#factory').text($('input[name="FACTORY_'+id+'_value"]').val());
+                $('#email').text($('input[name="EMAIL_'+id+'_value"]').val());
+                $('#taxEmail').text($('input[name="TAX_EMAIL'+id+'_value"]').val());
+
+            });
+
+
         });
         $('.input-daterange').datepicker({
             language: "ko",
@@ -391,30 +413,6 @@
         function hyphen(str) {
             str = String(str);
             return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-        }
-
-        function setSummary(id) {
-
-            $('#executive_panel').empty();
-            $('input[name^="name_'+id+'_"]').each(function (i, v){
-                var senList = '';
-                senList += '<tr>';
-                senList += '<td>'+ $('input[name="name_'+id+'_'+i+'"]').val() +'('+ $('input[name="position_'+id+'_'+i+'"]').val() +')</td>';
-                senList += '<td>'+ $('input[name="inauguratedAt_'+id+'_'+i+'"]').val() +'</td>';
-                senList += '<td>'+ $('input[name="expiredAt_'+id+'_'+i+'"]').val() +'</td>';
-                senList += '</tr>';
-
-                $('#executive_panel').append(senList);
-            });
-
-            $('#masterName').text($('input[name="'+id+'_masterName"]').val());
-            $('#mobile').text($('input[name="MOBILE_'+id+'_value"]').val());
-            $('#phone').text($('input[name="PHONE'+id+'_value"]').val());
-            $('#directPhone').text($('input[name="DIRECT_PHONE'+id+'_value"]').val());
-            $('#fax').text($('input[name="FAX_'+id+'_value"]').val());
-            $('#factory').text($('input[name="FACTORY_'+id+'_value"]').val());
-            $('#email').text($('input[name="EMAIL_'+id+'_value"]').val());
-            $('#taxEmail').text($('input[name="TAX_EMAIL'+id+'_value"]').val());
         }
 
     </script>

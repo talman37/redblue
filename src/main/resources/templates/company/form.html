@@ -179,171 +179,6 @@
                                 </td>
                             </tr>
                         </table>
-                        <!-- <div class="row">
-                            <div class="col-md-2 mb-2">
-                                <label for="companyNumber1">법인등록번호</label>
-                                <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1">
-                                <input type="hidden" class="form-control form-control-sm" name="companyNumber2" numberonly="true">
-                                <input type="text" class="form-control form-control-sm" name="companyNumber" required>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="registerNumber">등기번호</label>
-                                <input type="text" class="form-control form-control-sm" id="registerNumber"
-                                       name="registerNumber" numberonly="true"
-                                       value="">
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <div class="d-flex justify-content-between">
-                                    <label for="favorite_office">관할등기소</label>
-                                    <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
-                                            id="favorite_office"
-                                            data-target="#modal-favorite">☆ 즐겨찾기
-                                    </button>
-                                </div>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" id="registerOffice"
-                                           name="registerOffice"
-                                           th:readonly="true">
-                                    <div class="input-group-append">
-                                        <button type='button' id="office_search_btn"
-                                                class="btn btn-sm btn-outline-secondary">
-                                            검색
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="modal fade modal-favorite" id="modal-favorite">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">즐겨찾는 관할등기소</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="list-group">
-                                                    <button type="button" class="list-group-item list-group-item-action"
-                                                            th:each="favoriteOffice: ${favoriteOffices}"
-                                                            th:id="${favoriteOffice.id.registerOfficeId}"
-                                                            name="favoriteOffice" th:value="${favoriteOffice.name}"
-                                                            th:text="${favoriteOffice.name}"
-                                                            data-dismiss="modal"></button>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm btn-secondary"
-                                                        data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="companyDivision">법인구분</label>
-                                <div class="input-group-prepend">
-                                    <select class="form-control form-select form-select-sm" id="companyDivision"
-                                            name="companyDivision">
-                                        <option selected value="주식회사">주식회사</option>
-                                        <option value="유한회사">유한회사</option>
-                                        <option value="유한책임회사">유한책임회사</option>
-                                        <option value="합자회사">합자회사</option>
-                                        <option value="사단법인">사단법인</option>
-                                        <option value="재단법인">재단법인</option>
-                                        <option value="농업회사">농업회사</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="displayCompanyTypeFront">법인 종류 표시</label>
-                                <div class="mt-1">
-                                    <div class="form-check form-check-inline">
-                                        <div class="form-input">
-                                                    <span class="input">
-                                                        <input type="radio" id="displayCompanyTypeFront"
-                                                               name="displayCompanyType" value="FRONT"><i></i>
-                                                    </span>
-                                            <label for="displayCompanyTypeFront">앞</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <div class="form-input">
-                                                    <span class="input">
-                                                        <input type="radio" id="displayCompanyTypeBack"
-                                                               name="displayCompanyType" value="BACK"><i></i>
-                                                    </span>
-                                            <label for="displayCompanyTypeBack">뒤</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="companyState">법인 상태</label>
-                                <select class="form-control form-select form-select-sm" id="companyState"
-                                        name="companyState">
-                                    <option selected value="신규법인">신규법인</option>
-                                    <option value="해산간주">해산간주</option>
-                                    <option value="장기미등기">장기미등기</option>
-                                    <option value="안내후미등기">안내후미등기</option>
-                                    <option value="반송">반송</option>
-                                    <option value="법무사교체">법무사교체</option>
-                                    <option value="사업자폐업">사업자폐업</option>
-                                    <option value="법인파산">법인파산</option>
-                                    <option value="관리법인">관리법인</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="companyName">상호</label>
-                                <input type="text" class="form-control form-control-sm" id="companyName"
-                                       name="companyName" value="">
-                            </div>
-                            <div class="col-md-2 mb-2 input-daterange">
-                                <label for="companyFormationAt">설립일</label>
-                                <input type="text" class="form-control form-control-sm" id="companyFormationAt"`
-                                       name="companyFormationAt"
-                                       value="">
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="companySubName">병기 상호</label>
-                                <input type="text" class="form-control form-control-sm" id="companySubName"
-                                       name="companySubName"
-                                       value="">
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="companyManageState">관리 상태</label>
-                                <select class="form-control form-select form-select-sm" id="companyManageState"
-                                        name="companyManageState">
-                                    <option selected value="신규법인">신규법인</option>
-                                    <option value="관리법인">관리법인</option>
-                                    <option value="관리종결">관리종결</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="companyManageNumber">관리 번호</label>
-                                <input type="text" class="form-control form-control-sm" id="companyManageNumber"
-                                       name="companyManageNumber" value="">
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="recommender">추천인</label>
-                                <input type="text" class="form-control form-control-sm" id="recommender"
-                                       name="recommender"
-                                       placeholder="" value="">
-                            </div>
-                            <div class="col-md mb-2">
-                                <label for="precautions">주의사항</label>
-                                <input type="text" class="form-control form-control-sm" id="precautions"
-                                       name="precautions"
-                                       placeholder="" value="">
-                            </div>
-                            <div class="col-md mb-2">
-                                <label for="precautions">공고방법</label>
-                                <input type="text" class="form-control form-control-sm" id="noticeWay"
-                                       name="noticeWay"
-                                       placeholder="" value="">
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 <div class="card">
@@ -400,7 +235,7 @@
                                 <td>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm" id="capital"
-                                               name="stock[capital]" value=""
+                                               name="stock[capital]" value="0"
                                                onkeyup="inputNumberFormat(this)">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-sm btn-outline-secondary"
@@ -412,18 +247,18 @@
                                 <th>1주의 금액</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="stockAmount"
-                                       name="stock[amount]"
+                                       name="stock[amount]" value="0"
                                        onkeyup="inputNumberFormat(this)">
                                 </td>
                                 <th>발행주식의 총수</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="stockIssuedCount"
-                                       name="stock[issuedCount]" onkeyup="inputNumberFormat(this)">
+                                       name="stock[issuedCount]" value="0" onkeyup="inputNumberFormat(this)">
                                 </td>
                                 <th>발행할 주식의 총수</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="stockScheduleCount"
-                                       name="stock[scheduleCount]" onkeyup="inputNumberFormat(this)">
+                                       name="stock[scheduleCount]" value="0" onkeyup="inputNumberFormat(this)">
                                 </td>
                                 <th>결산기</th>
                                 <td>
@@ -452,101 +287,6 @@
                                 </td>
                             </tr>
                         </table>
-                        <!-- <div class="row">
-                            <div class="col-md-4 mb-2">
-                                <label for="companyAddress">본점주소</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" id="companyAddress"
-                                           name="companyAddress"
-                                           value="">
-                                    <div class="input-group-append">
-                                        <button type='button' class="btn btn-sm btn-outline-secondary"
-                                                name="postal_code_search_btn" data-id="companyAddress">검색
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="companyPostalCode">우편번호</label>
-                                <input type="text" class="form-control form-control-sm" id="companyPostalCode"
-                                       name="companyPostalCode"
-                                       value="">
-                            </div>
-                            <div class="col-md-4 mb-2">
-                                <label for="deliveryPlace">송달장소</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" id="deliveryPlace"
-                                           name="deliveryPlace"
-                                           value="">
-                                    <div class="input-group-append">
-                                        <button type='button' class="btn btn-sm btn-outline-secondary"
-                                                name="postal_code_search_btn" data-id="deliveryPlace">검색
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <label for="deliveryPlacePostalCode">우편번호</label>
-                                <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode"
-                                       name="deliveryPlacePostalCode" value="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 mb-2">
-                                <label for="businessNumber">사업자등록번호</label>
-                                <input type="text" class="form-control form-control-sm" id="businessNumber"
-                                       name="businessNumber"
-                                       value="">
-                            </div>
-                            <div class="col-md-1 mb-2">
-                                <label for="businessCondition">업태</label>
-                                <input type="text" class="form-control form-control-sm" id="businessCondition"
-                                       name="businessCondition"
-                                       value="">
-                            </div>
-                            <div class="col-md-1 mb-2">
-                                <label for="businessType">업종</label>
-                                <input type="text" class="form-control form-control-sm" id="businessType"
-                                       name="businessType" value="">
-                            </div>
-                            <div class="col-md-1 mb-2">
-                                <label for="settlementMonth">결산기</label>
-                                <select class="form-control form-select form-select-sm" id="settlementMonth"
-                                        name="settlementMonth">
-                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
-                                            th:text="${i}+'월'"></option>
-                                </select>
-                            </div>
-                            <div class="col-md-1 mb-2">
-                                <label for="stockAmount">1주의 금액</label>
-                                <input type="text" class="form-control form-control-sm" id="stockAmount"
-                                       name="stock[amount]"
-                                       onkeyup="inputNumberFormat(this)">
-                            </div>
-                            <div class="col-md-1 mb-2">
-                                <label for="stockScheduleCount">발행할 주식의 총수</label>
-                                <input type="text" class="form-control form-control-sm" id="stockScheduleCount"
-                                       name="stock[scheduleCount]" onkeyup="inputNumberFormat(this)">
-                            </div>
-                            <div class="col-md-1 mb-2">
-                                <label for="stockIssuedCount">발행주식의 총수</label>
-                                <input type="text" class="form-control form-control-sm" id="stockIssuedCount"
-                                       name="stock[issuedCount]" onkeyup="inputNumberFormat(this)">
-                            </div>
-                            <div class="col-md-4 mb-2">
-                                <label for="capital">자본금</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" id="capital"
-                                           name="stock[capital]" value=""
-                                           onkeyup="inputNumberFormat(this)">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                id="stock-calculate-btn">계산하기
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 <div class="card">
@@ -662,13 +402,11 @@
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][stockRatio]"
-                                           numberonly="true">
+                                           name="executives[0][stockRatio]" value="0"">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][stockCount]"
-                                           numberonly="true">
+                                           name="executives[0][stockCount]" value="0">
                                 </td>
                                 <td class="input-daterange">
                                     <input type="text" class="form-control form-control-sm"
@@ -1227,10 +965,10 @@
                 <textarea type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;"></textarea>
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockRatio]" style="width: 100%;" numberonly="true">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockRatio]" style="width: 100%;" value="0">
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" value="0">
             </td>
             <td class="input-daterange">
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, {{= index}})">
