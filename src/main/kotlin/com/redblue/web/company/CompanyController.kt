@@ -40,7 +40,8 @@ class CompanyController(
 		model.addAttribute("manageCount", companyService.manageCount(user.lawFirmId))
 
 		val companyState: MutableList<String> = if(state.isNullOrEmpty()) {
-			mutableListOf("신규법인", "관리법인", "안내후미등기")
+			//mutableListOf("신규법인", "관리법인", "안내후미등기")
+			mutableListOf()
 		} else {
 			state
 		}

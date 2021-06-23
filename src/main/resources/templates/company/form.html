@@ -526,11 +526,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-auto">
-                                                <label>우편번호</label>
-                                                <input type="text" class="form-control form-control-sm" id="" style="width: 55px"
-                                                       name="branches[0][postalCode]" placeholder="">
-                                            </div>
+                                            <input type="hidden" class="form-control form-control-sm" style="width: 55px"
+                                                   name="branches[0][postalCode]" placeholder="">
+<!--                                            <div class="col-md-auto">-->
+<!--                                                <label>우편번호</label>-->
+<!--                                                <input type="text" class="form-control form-control-sm" id="" style="width: 55px"-->
+<!--                                                       name="branches[0][postalCode]" placeholder="">-->
+<!--                                            </div>-->
                                             <div class="col-md-auto mb-2">
                                                 <label for="" class="invisible">Actions</label>
                                                 <div class="btns">
@@ -934,11 +936,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-auto">
-                <label>우편번호</label>
-                <input type="text" class="form-control form-control-sm" style="width: 55px"
-                       name="branches[{{= index}}][postalCode]" placeholder="">
-            </div>
+            <input type="hidden" class="form-control form-control-sm" style="width: 55px" name="branches[{{= index}}][postalCode]" placeholder="">
             <div class="col-md-auto mb-2">
                 <label for="" class="invisible">Actions</label>
                 <div class="btns">

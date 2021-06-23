@@ -657,12 +657,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-auto">
-                                                <label th:for="'branches['+${index.index}+'][postalCode]'">우편번호</label>
-                                                <input type="text" class="form-control form-control-sm" style="width: 55px" th:id="'branches['+${index.index}+'][postalCode]'"
-                                                       th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""
-                                                       th:value="${branch.postalCode}">
-                                            </div>
+                                            <input type="hidden" class="form-control form-control-sm" style="width: 55px" th:id="'branches['+${index.index}+'][postalCode]'"
+                                                   th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""
+                                                   th:value="${branch.postalCode}">
+<!--                                            <div class="col-md-auto">-->
+<!--                                                <label th:for="'branches['+${index.index}+'][postalCode]'">우편번호</label>-->
+<!--                                                <input type="text" class="form-control form-control-sm" style="width: 55px" th:id="'branches['+${index.index}+'][postalCode]'"-->
+<!--                                                       th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""-->
+<!--                                                       th:value="${branch.postalCode}">-->
+<!--                                            </div>-->
                                             <div class="col-md-auto mb-2">
                                                 <label for="" class="invisible">Actions</label>
                                                 <div class="btns">
@@ -1196,11 +1199,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-auto">
-                <label>우편번호</label>
-                <input type="text" class="form-control form-control-sm" style="width: 55px"
+            <input type="hidden" class="form-control form-control-sm" style="width: 55px"
                        name="branches[{{= index}}][postalCode]" placeholder="">
-            </div>
             <div class="col-md-auto mb-2">
                 <label for="" class="invisible">Actions</label>
                 <div class="btns">
