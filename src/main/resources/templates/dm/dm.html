@@ -360,7 +360,8 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="executive: ${executives}">
-                                        <th:block th:if="${executive.expiredAt.after(#dates.createNow())}">
+
+                                        <th:block th:if="${executive.expiredAt != null && executive.expiredAt.after(#dates.createNow())}">
                                             <td th:text="${executive.position}"></td>
                                             <td th:text="${executive.name}"></td>
                                             <td th:text="${#dates.format(executive.expiredAt, 'yyyy년 MM월 dd일')}"></td>
