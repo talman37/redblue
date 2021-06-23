@@ -6,35 +6,15 @@ body {
   font-family: 'PT Sans', 'Noto Sans KR', sans-serif; }
 
 body {
-  font-size: 12px;
+  font-size: 13px;
   overflow-y: scroll; }
-@media screen and (max-width: 1023px) {
-  body {
-    font-size: 11px; } }
-@media screen and (max-width: 768px) {
-  body {
-    font-size: 10px; } }
 
 .input-group-text,
 .btn,
 .form-control,
 select,
 label {
-  font-size: 12px; }
-@media screen and (max-width: 1023px) {
-  .input-group-text,
-  .btn,
-  .form-control,
-  select,
-  label {
-    font-size: 11px; } }
-@media screen and (max-width: 768px) {
-  .input-group-text,
-  .btn,
-  .form-control,
-  select,
-  label {
-    font-size: 10px; } }
+  font-size: 13px; }
 
 a {
   color: #343a40; }
@@ -77,7 +57,7 @@ a {
 .page-login .input-group .form-control {
   height: 48px;
   padding-left: 50px;
-  font-size: 14px;
+  font-size: 13px;
   box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
   border: 0;
   -webkit-transition: box-shadow .15s ease;
@@ -88,7 +68,7 @@ a {
   opacity: 1; }
 .page-login .btn {
   height: 48px;
-  font-size: 14px; }
+  font-size: 13px; }
 
 /*
 * header
@@ -325,7 +305,6 @@ h5 {
   background-color: #f6f9fc;
   color: #8898aa;
   border-bottom: 1px solid #e9ecef;
-  font-size: 10px;
   text-transform: uppercase;
   font-weight: normal;
   letter-spacing: 1px; }
@@ -770,8 +749,6 @@ h5 {
   border-bottom: 1px solid #dfdfee; }
 .list-company .panel > div .panel-body {
   padding: 10px; }
-.list-company .panel > div .panel-body table {
-  font-size: 11px; }
 .list-company .table-scroll {
   height: calc(100vh - 60vh - 150px);
   border: none;
@@ -809,7 +786,6 @@ h5 {
   min-width: 768px; }
 .detail-company .table-bordered th,
 .detail-company .table-bordered td {
-  font-size: 11px;
   padding: 3px; }
 .detail-company .table-bordered th {
   background-color: #f8f8f8;
@@ -825,28 +801,17 @@ h5 {
 .detail-company .row-inline > div > label {
   white-space: nowrap;
   align-self: center; }
-.detail-company .btn.btn-link {
-  font-size: 11px; }
 .detail-company .btn.btn-sm {
-  padding: .2rem .5rem;
-  font-size: 11px; }
+  padding: .2rem .5rem; }
 .detail-company label {
   color: #666;
   margin-bottom: 0; }
-.detail-company .input-group-text,
-.detail-company .form-control,
-.detail-company .input-group button,
-.detail-company select,
-.detail-company label {
-  font-size: 11px; }
 .detail-company .input-group .input-group-addon button {
   padding: 0 7px; }
 .detail-company select {
   padding-right: .75rem;
   background-size: 8px 12px;
   background-position: right .25rem center; }
-.detail-company .box-status {
-  font-size: 11px; }
 .detail-company .box-status .item {
   display: -webkit-box;
   display: flex;

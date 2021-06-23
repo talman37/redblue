@@ -214,6 +214,15 @@
                             </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <div class="text-center">
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                                 <th:block th:each="company: ${companies}">
                                     <tr name="companyRow" th:attr="data-id=${company.id}">
                                         <td th:text="${company.companyState}"></td>
@@ -289,7 +298,7 @@
                         <div class="table">
                             <table class="table table-bordered">
                                 <colgroup>
-                                    <col style="width: 110px">
+                                    <col style="width: 130px">
                                     <col>
                                 </colgroup>
                                 <tbody>
