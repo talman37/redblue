@@ -362,8 +362,15 @@
                                     <div class="d-flex flex-column">
                                         <select class="form-control form-select form-select-sm"
                                                 th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
-                                            <option th:each="country : ${countries}" th:value="${country.countryName}"
-                                                    th:text="${country.countryName}"></option>
+                                            <option value="대한민국" selected></option>
+                                            <option value="미합중국">미합중국</option>
+                                            <option value="중화인민공화국">중화인민공화국</option>
+                                            <option value="캐나다">캐나다</option>
+                                            <option value="일본">일본</option>
+                                            <option value="호주">호주</option>
+                                            <option value="홍콩">홍콩</option>
+                                            <option value="기타">기타</option>
+
                                         </select>
                                         <input type="text" class="form-control form-control-sm mt-1"  style="display:none" th:readonly="true"
                                                th:name="'executives[0][countryValue]'">
@@ -679,6 +686,13 @@
                     $('input[name="executives[' + i + '][registrationNumber2]"]').val(registrationNumber[1]);
                 });
 
+                $('input[name$="[stockCount]"]').each(function(i, el){
+                    var count = uncomma($(this).val())
+                    if(count > 0) {
+                        $('input[name="executives[' + i + '][stockCount]"]').val(count);
+                    }
+                });
+
 
                 $.ajax({
                     type: 'POST',
@@ -952,7 +966,7 @@
             <td>
                 <div class="d-flex flex-column">
                     <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]" onchange="changeCountry({{= index}});">
-                        <option value=""></option>
+                        <option value="대한민국"></option>
                         <option value="미합중국">미합중국</option>
                         <option value="중화인민공화국">중화인민공화국</option>
                         <option value="캐나다">캐나다</option>
