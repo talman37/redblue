@@ -142,8 +142,8 @@
                                 <th>법인등록번호</th>
                                 <td>
                                     <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1">
-                                    <input type="hidden" class="form-control form-control-sm" name="companyNumber2" numberonly="true">
-                                    <input type="text" class="form-control form-control-sm" name="companyNumber" required>
+                                    <input type="hidden" class="form-control form-control-sm" id="companyNumber2" name="companyNumber2" numberonly="true">
+                                    <input type="text" class="form-control form-control-sm" id="companyNumber" name="companyNumber" required>
                                 </td>
                                 <th>관리 번호</th>
                                 <td>
@@ -253,7 +253,7 @@
                                 <th>발행주식의 총수</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="stockIssuedCount"
-                                       name="stock[issuedCount]" value="0" onkeyup="inputNumberFormat(this)">
+                                       name="stock[issuedCount]" value="0" onkeyup="inputNumberFormat(this)" onblur="reCalcRatio(this)">
                                 </td>
                                 <th>발행할 주식의 총수</th>
                                 <td>
@@ -359,13 +359,13 @@
                             <tbody id="executiveGroup">
                             <tr id="executive_tr_0">
                                 <td>
-                                    <div class="input-group">
+                                    <div class="d-flex flex-column">
                                         <select class="form-control form-select form-select-sm"
                                                 th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
                                             <option th:each="country : ${countries}" th:value="${country.countryName}"
                                                     th:text="${country.countryName}"></option>
                                         </select>
-                                        <input type="text" class="form-control form-control-sm" th:readonly="true"
+                                        <input type="text" class="form-control form-control-sm mt-1"  style="display:none" th:readonly="true"
                                                th:name="'executives[0][countryValue]'">
                                     </div>
                                 </td>
@@ -402,11 +402,11 @@
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][stockRatio]" value="0"">
+                                           name="executives[0][stockRatio]" value="0" onblur="countCalculate(this, 0)">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control form-control-sm"
-                                           name="executives[0][stockCount]" value="0">
+                                           name="executives[0][stockCount]" value="0" onkeyup="inputNumberFormat(this)" onblur="ratioCalculate(this, 0)">
                                 </td>
                                 <td class="input-daterange">
                                     <input type="text" class="form-control form-control-sm"
@@ -658,7 +658,7 @@
 
                 var companyNumber = $('#companyNumber').val().split('-');
 
-                if(companyNumber.size() > 1) {
+                if(companyNumber.length <= 1) {
                     alert("법인등록번호를 확인해주세요.");
                     $('#companyNumber').focus();
                     return false;
@@ -687,7 +687,7 @@
                     statusCode: {
                         200: function () {
                             alert('법인등록에 성공 하였습니다.');
-                            location.href = '/company';
+                            window.close();
                             return false;
                         },
                         400: function () {
@@ -821,10 +821,12 @@
 
         function changeCountry(i) {
             if ($('select[name="executives[' + i + '][nationality]"]').val() == '기타') {
-                $('input[name="executives[' + i + '][countryValue]"]').attr('readonly', false)
+                $('input[name="executives['+i+'][countryValue]"]').show();
+                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', false)
             } else {
+                $('input[name="executives['+i+'][countryValue]"]').hide();
                 $('input[name="executives[' + i + '][countryValue]"]').val('')
-                $('input[name="executives[' + i + '][countryValue]"]').attr('readonly', true)
+                $('input[name="executives['+i+'][countryValue]"]').attr('readonly', true)
             }
         }
 
@@ -849,6 +851,34 @@
         function hyphen(str) {
             str = String(str);
             return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        }
+
+        function ratioCalculate(obj, i) {
+            if(obj.value === '') {
+                return false;
+            }
+            var count = uncomma(obj.value);
+            var stockIssuedCount = uncomma($('#stockIssuedCount').val());
+            $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+        }
+
+        function countCalculate(obj, i) {
+            if(obj.value === '') {
+                return false;
+            }
+            var ratio = obj.value;
+            var stockIssuedCount = uncomma($('#stockIssuedCount').val());
+            $('input[name="executives[' + i + '][stockCount]"]').val(comma(stockIssuedCount * ratio / 100));
+        }
+
+        function reCalcRatio(obj) {
+            var stockIssuedCount = uncomma(obj.value);
+            $('input[name$="[stockCount]"]').each(function(i, el){
+                var count = uncomma($(this).val());
+                if(count > 0) {
+                    $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+                }
+            });
         }
 
 
@@ -922,9 +952,9 @@
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
-                <div class="input-group ">
+                <div class="d-flex flex-column">
                     <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]">
-                        <option value="대한민국">대한민국</option>
+                        <option value=""></option>
                         <option value="미합중국">미합중국</option>
                         <option value="중화인민공화국">중화인민공화국</option>
                         <option value="캐나다">캐나다</option>
@@ -933,7 +963,7 @@
                         <option value="홍콩">홍콩</option>
                         <option value="ETC">직접입력</option>
                     </select>
-                    <input type="text" class="form-control form-control-sm" readonly name="executives[{{= index}}][countryValue]">
+                    <input type="text" class="form-control form-control-sm mt-1"  style="display:none" readonly name="executives[{{= index}}][countryValue]">
                 </div>
             </td>
             <td>
@@ -965,10 +995,10 @@
                 <textarea type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;"></textarea>
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockRatio]" style="width: 100%;" value="0">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockRatio]" style="width: 100%;" value="0" onblur="countCalculate(this, {{= index}})">
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" value="0">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" value="0" onkeyup="inputNumberFormat(this)" onblur="ratioCalculate(this, {{= index}})">
             </td>
             <td class="input-daterange">
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, {{= index}})">

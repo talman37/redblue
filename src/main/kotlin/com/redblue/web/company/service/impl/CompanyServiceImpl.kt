@@ -2,6 +2,7 @@ package com.redblue.web.company.service.impl
 
 import com.redblue.web.company.model.*
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
+import com.redblue.web.company.model.dto.CompanyNoticeWayUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
 import com.redblue.web.company.repository.*
 import com.redblue.web.company.service.CompanyService
@@ -296,5 +297,14 @@ class CompanyServiceImpl(
 		if(purposeDetails.isNotEmpty()) {
 			purposeDetailRepository.saveAll(purposeDetails)
 		}
+	}
+
+	override fun updateNoticeWay(id: String, dto: CompanyNoticeWayUpdateDto) {
+		val company = companyRepository.findById(id)
+		val updateCompany = company.get().copy(
+			noticeWay = dto.noticeWay,
+			noticeWayUpdatedAt = Date()
+		)
+		companyRepository.save(updateCompany)
 	}
 }

@@ -273,7 +273,7 @@
                                 <th>발행주식의 총수</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="stockIssuedCount" name="stock[issuedCount]"
-                                           numberonly="true" onkeyup="inputNumberFormat(this)"
+                                           numberonly="true" onkeyup="inputNumberFormat(this)" onblur="reCalcRatio(this)"
                                            placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
                                 </td>
                                 <th>발행할 주식의 총수</th>
@@ -436,12 +436,12 @@
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][stockRatio]'"
-                                               th:value="${executive.stockRatio}">
+                                               th:value="${executive.stockRatio}" numberonly="true" th:onblur="'countCalculate(this,'+${index.index}+')'">
                                     </td>
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][stockCount]'"
-                                               th:value="${executive.stockCount}">
+                                               th:value="${executive.stockCount}" onkeyup="inputNumberFormat(this)" th:onblur="'ratioCalculate(this,'+${index.index}+')'">
                                     </td>
                                     <td class="input-daterange">
                                         <input type="text" class="form-control form-control-sm"
@@ -670,13 +670,15 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="box-scrol">
-                        <div class="row">
-                            <input type="text" class="form-control form-control-sm mb-2" id="noticeWay"
-                                name="noticeWay"
-                                placeholder=""  th:value="${company.noticeWay}">
+                    <form id="noticeWay_form">
+                        <div class="box-scrol">
+                            <div class="row">
+                                <input type="text" class="form-control form-control-sm mb-2" id="noticeWay"
+                                    name="noticeWay"
+                                    placeholder=""  th:value="${company.noticeWay}">
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="card">
@@ -755,7 +757,7 @@
             $('#update_master_btn').on('click', function () {
                 var companyNumber = $('#companyNumber').val().split('-');
 
-                if(companyNumber.size() > 1) {
+                if(companyNumber.length <= 1) {
                     alert("법인등록번호를 확인해주세요.");
                     $('#companyNumber').focus();
                     return false;
@@ -836,6 +838,13 @@
                     $('input[name="executives[' + i + '][registrationNumber2]"]').val(registrationNumber[1]);
                 });
 
+                $('input[name$="[stockCount]"]').each(function(i, el){
+                    var count = uncomma($(this).val())
+                    if(count > 0) {
+                        $('input[name="executives[' + i + '][stockCount]"]').val(count);
+                    }
+                });
+
                 $.ajax({
                     type: 'POST',
                     url: '/v1/companies/' + $('#companyId').val() + '/executives',
@@ -845,6 +854,7 @@
                     statusCode: {
                         200: function () {
                             alert('임원정보 변경에 성공 하였습니다.');
+                            location.reload();
                         }
                     }
                 });
@@ -875,6 +885,22 @@
                     statusCode: {
                         200: function () {
                             alert('목적사항 변경에 성공 하였습니다.');
+                        }
+                    }
+                });
+            });
+
+            $('#update_notify_btn').on('click', function () {
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/v1/companies/' + $('#companyId').val() + '/notice-way',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify($('#noticeWay_form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                    statusCode: {
+                        200: function () {
+                            alert('공고방법 변경에 성공 하였습니다.');
+                            location.reload();
                         }
                     }
                 });
@@ -1067,6 +1093,34 @@
             $('input[name="executives[' + i + '][term]"]').val(term);
         }
 
+        function ratioCalculate(obj, i) {
+            if(obj.value === '') {
+                return false;
+            }
+            var count = uncomma(obj.value);
+            var stockIssuedCount = uncomma($('#stockIssuedCount').val());
+            $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+        }
+
+        function countCalculate(obj, i) {
+            if(obj.value === '') {
+                return false;
+            }
+            var ratio = obj.value;
+            var stockIssuedCount = uncomma($('#stockIssuedCount').val());
+            $('input[name="executives[' + i + '][stockCount]"]').val(comma(stockIssuedCount * ratio / 100));
+        }
+
+        function reCalcRatio(obj) {
+            var stockIssuedCount = uncomma(obj.value);
+            $('input[name$="[stockCount]"]').each(function(i, el){
+                var count = uncomma($(this).val());
+                if(count > 0) {
+                    $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+                }
+            });
+        }
+
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row" id="contact_row_{{= index}}">
@@ -1138,7 +1192,7 @@
             <td>
                 <div class="d-flex flex-column ">
                     <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]" onchange="changeCountry({{= index}});">
-                        <option value="대한민국">대한민국</option>
+                        <option value="">대한민국</option>
                         <option value="미합중국">미합중국</option>
                         <option value="중화인민공화국">중화인민공화국</option>
                         <option value="캐나다">캐나다</option>
@@ -1180,10 +1234,10 @@
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][address]" style="width: 100%;">
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockRatio]" style="width: 100%;" numberonly="true">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockRatio]" style="width: 100%;" numberonly="true" value="0" onblur="countCalculate(this, {{= index}})">
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" numberonly="true">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][stockCount]" style="width: 100%;" value="0" onkeyup="inputNumberFormat(this)" onblur="ratioCalculate(this, {{= index}})">
             </td>
              <td class="input-daterange">
                 <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][inauguratedAt]" style="width: 100%;" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, {{= index}})">

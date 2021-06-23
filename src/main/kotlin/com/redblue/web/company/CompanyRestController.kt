@@ -63,6 +63,16 @@ class CompanyRestController(
 		return ResponseEntity(HttpStatus.OK)
 	}
 
+	@PatchMapping("/{id}/notice-way")
+	fun updateNoticeWay(
+		@PathVariable("id") id: String,
+		@RequestBody dto: CompanyNoticeWayUpdateDto,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		companyService.updateNoticeWay(id, dto)
+		return ResponseEntity(HttpStatus.OK)
+	}
+
 	@PostMapping("/{id}/branches")
 	fun updateCompanyBranch(
 		@PathVariable("id") id: String,

@@ -2,6 +2,7 @@ package com.redblue.web.company.service
 
 import com.redblue.web.company.model.*
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
+import com.redblue.web.company.model.dto.CompanyNoticeWayUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -24,6 +25,8 @@ interface CompanyService {
 	fun save(company: Company)
 
 	fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto)
+
+	fun updateNoticeWay(id: String, dto: CompanyNoticeWayUpdateDto)
 
 	fun updateCompanySub(id: String, dto: CompanySubUpdateDto)
 
