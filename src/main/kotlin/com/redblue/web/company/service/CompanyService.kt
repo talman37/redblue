@@ -4,6 +4,7 @@ import com.redblue.web.company.model.*
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
 import com.redblue.web.company.model.dto.CompanyNoticeWayUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
+import com.redblue.web.company.model.dto.SummaryResponseDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
@@ -19,6 +20,8 @@ interface CompanyService {
 	fun manageCount(lawFirmId: String): Int
 
 	fun findByName(lawFirmId: String, name: String): List<Company>
+
+	fun getSummary(companyId: String): SummaryResponseDto
 
 	fun detail(id: String): Company
 

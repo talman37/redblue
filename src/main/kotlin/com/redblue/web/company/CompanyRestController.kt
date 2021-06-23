@@ -9,7 +9,6 @@ import com.redblue.web.consult.model.Consult
 import com.redblue.web.consult.service.ConsultService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.core.io.InputStreamResource
-import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -32,6 +31,14 @@ class CompanyRestController(
 	): ResponseEntity<List<CompanySearchResponseDto>> {
 		val companies = companyService.findByName(user.lawFirmId, name)
 		return ResponseEntity.ok(CompanySearchResponseDto.of(companies))
+	}
+
+	@GetMapping("/{id}/executives")
+	fun getSummary(
+		@PathVariable("id") id: String,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<SummaryResponseDto> {
+		return ResponseEntity.ok(companyService.getSummary(id))
 	}
 
 	@PostMapping

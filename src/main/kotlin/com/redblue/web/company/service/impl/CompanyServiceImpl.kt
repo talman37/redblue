@@ -4,6 +4,7 @@ import com.redblue.web.company.model.*
 import com.redblue.web.company.model.dto.CompanyMasterUpdateDto
 import com.redblue.web.company.model.dto.CompanyNoticeWayUpdateDto
 import com.redblue.web.company.model.dto.CompanySubUpdateDto
+import com.redblue.web.company.model.dto.SummaryResponseDto
 import com.redblue.web.company.repository.*
 import com.redblue.web.company.service.CompanyService
 import org.springframework.data.domain.Page
@@ -45,6 +46,13 @@ class CompanyServiceImpl(
 
 	override fun findByName(lawFirmId: String, name: String):List<Company> {
 		return companyRepository.findByLawFirmIdAndCompanyName(lawFirmId, name)
+	}
+
+	override fun getSummary(companyId: String): SummaryResponseDto {
+		return SummaryResponseDto.of(
+			executiveRepository.findByCompanyIdOrderByExpiredAt(companyId),
+			contactRepository.findByCompanyId(companyId)
+		)
 	}
 
 	override fun detail(id: String): Company {
