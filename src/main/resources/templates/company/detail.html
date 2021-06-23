@@ -596,7 +596,7 @@
                                                     <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:value="${contact.value}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 mb-2">
+                                            <div class="col-md-5 mb-2">
                                                 <label th:for="'contacts['+${index.index}+'][memo]'">메모</label>
                                                 <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
                                                        th:value="${contact.memo}">
@@ -1148,7 +1148,7 @@
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <div class="row" id="contact_row_{{= index}}">
-            <div class="col-md-9 mb-2">
+            <div class="col-md mb-2">
                 <label for="contacts[{{= index}}][value]">연락처</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -1165,11 +1165,11 @@
                     <input type="text" class="form-control form-control-sm" id="contacts[{{= index}}][value]" name="contacts[{{= index}}][value]">
                 </div>
             </div>
-            <div class="col-md-2 mb-2">
+            <div class="col-md-5 mb-2">
                 <label for="contacts[{{= index}}][memo]">메모</label>
                 <input type="text" class="form-control form-control-sm" id="contacts[{{= index}}][memo]" name="contacts[{{= index}}][memo]" placeholder="">
             </div>
-            <div class="col-md-1 mb-2">
+            <div class="col-md-auto mb-2">
                 <label for="" class="invisible">Actions</label>
                 <div class="btns">
                     <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">

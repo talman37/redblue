@@ -771,7 +771,7 @@ h5 {
 .list-company .panel > div .panel-body {
   padding: 10px; }
 .list-company .panel > div .panel-body table {
-  font-size: 9px; }
+  font-size: 11px; }
 .list-company .table-scroll {
   height: calc(100vh - 60vh - 150px);
   border: none;
@@ -809,7 +809,7 @@ h5 {
   min-width: 768px; }
 .detail-company .table-bordered th,
 .detail-company .table-bordered td {
-  font-size: 9px;
+  font-size: 11px;
   padding: 3px; }
 .detail-company .table-bordered th {
   background-color: #f8f8f8;
@@ -826,10 +826,10 @@ h5 {
   white-space: nowrap;
   align-self: center; }
 .detail-company .btn.btn-link {
-  font-size: 9px; }
+  font-size: 11px; }
 .detail-company .btn.btn-sm {
   padding: .2rem .5rem;
-  font-size: 9px; }
+  font-size: 11px; }
 .detail-company label {
   color: #666;
   margin-bottom: 0; }
@@ -838,7 +838,7 @@ h5 {
 .detail-company .input-group button,
 .detail-company select,
 .detail-company label {
-  font-size: 9px; }
+  font-size: 11px; }
 .detail-company .input-group .input-group-addon button {
   padding: 0 7px; }
 .detail-company select {
@@ -846,7 +846,7 @@ h5 {
   background-size: 8px 12px;
   background-position: right .25rem center; }
 .detail-company .box-status {
-  font-size: 9px; }
+  font-size: 11px; }
 .detail-company .box-status .item {
   display: -webkit-box;
   display: flex;
