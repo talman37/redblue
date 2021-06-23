@@ -117,6 +117,7 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <div>
+                            <button type="button" id="cancel_btn" class="btn btn-secondary">취소</button>
                             <button type="button" id="save_btn" class="btn btn-dark">등록</button>
                         </div>
                     </div>
@@ -134,6 +135,11 @@
             $('#search_btn').on('click', function () {
                 window.open('/company_search', '법인검색', 'width=700px,height=800px,scrollbars=yes');
             });
+
+            $('#cancel_btn').on('click', function () {
+                window.history.back();
+            });
+
             $('#save_btn').on('click', function () {
                 if($('#companyName').val() == '' || $('#companyName').val() == null) {
                     alert('법인명을 검색해주세요.');
