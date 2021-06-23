@@ -389,10 +389,34 @@
                                     <td>
                                         <div class="d-flex flex-column">
                                             <select  class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][nationality]'" th:onchange="'changeCountry('+${index.index}+')'">
-                                                <option th:each="country : ${countries}" th:value="${country.countryName}" th:selected="${country.countryName == executive.nationality}" th:text="${country.countryName}"></option>
+                                                <option th:value="대한민국" th:selected="${executive.nationality == '대한민국'}"></option>
+                                                <option th:value="미합중국" th:selected="${executive.nationality == '미합중국'}">미합중국</option>
+                                                <option th:value="중화인민공화국" th:selected="${executive.nationality == '중화인민공화국'}">중화인민공화국</option>
+                                                <option th:value="일본" th:selected="${executive.nationality == '일본'}">일본</option>
+                                                <option th:value="호주" th:selected="${executive.nationality == '호주'}">호주</option>
+                                                <option th:value="홍콩" th:selected="${executive.nationality == '홍콩'}">홍콩</option>
+                                                <option th:value="기타" th:selected="${executive.nationality != '대한민국'
+                                                    && executive.nationality != '미합중국'
+                                                    && executive.nationality != '중화인민공화국'
+                                                    && executive.nationality != '일본'
+                                                    && executive.nationality != '호주'
+                                                    && executive.nationality != '홍콩'}">기타</option>
                                             </select>
 
-                                            <input type="text" class="form-control form-control-sm mt-1"  style="display:none" th:readonly="true"
+                                            <input type="text" class="form-control form-control-sm mt-1" th:if="${executive.nationality != '대한민국'
+                                                    && executive.nationality != '미합중국'
+                                                    && executive.nationality != '중화인민공화국'
+                                                    && executive.nationality != '일본'
+                                                    && executive.nationality != '호주'
+                                                    && executive.nationality != '홍콩'}"
+                                                   th:name="'executives['+${index.index}+'][countryValue]'" th:value="${executive.nationality}">
+                                            <input type="text" class="form-control form-control-sm mt-1" th:unless="${executive.nationality != '대한민국'
+                                                    && executive.nationality != '미합중국'
+                                                    && executive.nationality != '중화인민공화국'
+                                                    && executive.nationality != '일본'
+                                                    && executive.nationality != '호주'
+                                                    && executive.nationality != '홍콩'}"
+                                                   style="display:none" th:readonly="true"
                                                    th:name="'executives['+${index.index}+'][countryValue]'">
                                         </div>
                                     </td>
@@ -1192,14 +1216,14 @@
             <td>
                 <div class="d-flex flex-column ">
                     <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]" onchange="changeCountry({{= index}});">
-                        <option value="">대한민국</option>
+                        <option value=""></option>
                         <option value="미합중국">미합중국</option>
                         <option value="중화인민공화국">중화인민공화국</option>
                         <option value="캐나다">캐나다</option>
                         <option value="일본">일본</option>
                         <option value="호주">호주</option>
                         <option value="홍콩">홍콩</option>
-                        <option value="ETC">직접입력</option>
+                        <option value="기타">기타</option>
                     </select>
                     <input type="text" class="form-control form-control-sm mt-1" readonly name="executives[{{= index}}][countryValue]" style="display:none">
                 </div>

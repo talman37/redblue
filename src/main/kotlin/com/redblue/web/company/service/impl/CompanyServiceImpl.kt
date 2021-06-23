@@ -58,6 +58,12 @@ class CompanyServiceImpl(
 	}
 
 	override fun save(company: Company) {
+		for (executive in company.executives) {
+			if(executive.nationality == "기타") {
+				executive.nationality = executive.countryValue
+			}
+		}
+
 		companyRepository.save(company)
 
 		masterHistoryRepository.save(
@@ -279,6 +285,11 @@ class CompanyServiceImpl(
 	override fun saveExecutives(companyId: String, executives: List<Executive>) {
 		executiveRepository.deleteByCompanyId(companyId)
 		if(executives.isNotEmpty()) {
+			for (executive in executives) {
+				if(executive.nationality == "기타") {
+					executive.nationality = executive.countryValue
+				}
+			}
 			executiveRepository.saveAll(executives)
 		}
 	}
