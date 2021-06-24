@@ -133,7 +133,7 @@
                                         </div>
                                     </div>
                                 </th>
-                                <td>
+                                <td colspan="3">
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm" id="registerOffice" name="registerOffice"
                                                th:readonly="true"
@@ -183,7 +183,7 @@
                                 </td>
                                 <th>관리 상태</th>
                                 <td>
-                                    <select class="form-control form-select form-select-sm" id="companyManageState" name="companyManageState"
+                                    <select class="form-control form-select form-select-sm" id="companyManageState" name="companyManageState" style="width:100px"
                                             th:field="*{company.companyManageState}">
                                         <option th:value="신규법인">신규법인</option>
                                         <option th:value="관리법인">관리법인</option>
@@ -233,7 +233,7 @@
                                 <th>우편번호</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="companyPostalCode" name="companyPostalCode"
-                                           style="width: 55px" placeholder="" th:value="${company.companyPostalCode}">
+                                           placeholder="" th:value="${company.companyPostalCode}">
                                 </td>
                                 <th>송달장소</th>
                                 <td colspan="5">
@@ -250,7 +250,7 @@
                                 <th>우편번호</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode"
-                                           style="width: 55px" name="deliveryPlacePostalCode" placeholder=""
+                                           name="deliveryPlacePostalCode" placeholder=""
                                            th:value="${company.deliveryPlacePostalCode}">
                                 </td>
                             </tr>
@@ -284,7 +284,7 @@
                                 </td>
                                 <th>결산기</th>
                                 <td>
-                                    <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth">
+                                    <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth" style="width:50px">
                                         <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}+'월'"
                                                 th:selected="${i == company.settlementMonth}"></option>
                                     </select>
@@ -365,8 +365,8 @@
                                 <col/>
                                 <col style="width: 100px">
                                 <col style="width: 100px">
-                                <col style="width: 80px">
-                                <col style="width: 80px">
+                                <col style="width: 90px">
+                                <col style="width: 90px">
                                 <col style="width: 40px">
                             </colgroup>
                             <thead>

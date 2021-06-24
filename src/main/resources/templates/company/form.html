@@ -118,7 +118,7 @@
                                         </div>
                                     </div>
                                 </th>
-                                <td>
+                                <td colspan="3">
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm" id="registerOffice"
                                             name="registerOffice"
@@ -164,7 +164,7 @@
                                 </td>
                                 <th>관리 상태</th>
                                 <td>
-                                    <select class="form-control form-select form-select-sm" id="companyManageState"
+                                    <select class="form-control form-select form-select-sm" id="companyManageState" style="width:100px"
                                         name="companyManageState">
                                         <option selected value="신규법인">신규법인</option>
                                         <option value="관리법인">관리법인</option>
@@ -207,7 +207,7 @@
                                 </td>
                                 <th>우편번호</th>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" id="companyPostalCode" style="width: 55px"
+                                    <input type="text" class="form-control form-control-sm" id="companyPostalCode"
                                            name="companyPostalCode"
                                        value="">
                                     </td>
@@ -226,7 +226,7 @@
                                 </td>
                                 <th>우편번호</th>
                                 <td>
-                                    <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode" style="width: 55px"
+                                    <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode"
                                            name="deliveryPlacePostalCode" value="">
                                 </td>
                             </tr>
@@ -262,7 +262,7 @@
                                 </td>
                                 <th>결산기</th>
                                 <td>
-                                    <select class="form-control form-select form-select-sm" id="settlementMonth"
+                                    <select class="form-control form-select form-select-sm" id="settlementMonth" style="width:50px"
                                         name="settlementMonth">
                                         <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
                                                 th:text="${i}+'월'"></option>
@@ -338,8 +338,8 @@
                                 <col/>
                                 <col style="width: 100px">
                                 <col style="width: 100px">
-                                <col style="width: 80px">
-                                <col style="width: 80px">
+                                <col style="width: 90px">
+                                <col style="width: 90px">
                                 <col style="width: 40px">
                             </colgroup>
                             <thead>
