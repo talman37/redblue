@@ -785,15 +785,50 @@
             }
             let expiredAt = new Date(obj.value);
             let term = $('#select-term').val();
+            let position = $('select[name="executives[' + i + '][position]"]').val();
 
-            if(term === '0') {
-                $('input[name="executives[' + i + '][expiredAt]"]').val('');
-                return false;
+            if(position === '감사') {
+                let settlementMonth = $('#settlementMonth').val();
+                let inauguratedYear = expiredAt.getFullYear();
+                let meetingDate = new Date(inauguratedYear + 2, settlementMonth, 0);
+
+                expiredAt.setFullYear(expiredAt.getFullYear() + 2);
+                if(expiredAt >= meetingDate) {
+                    meetingDate.setFullYear(meetingDate.getFullYear() + 1);
+                }
+                meetingDate = addMonth(meetingDate, 3)
+                $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(meetingDate));
+            } else {
+                expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+                $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
+            }
+            $('input[name="executives[' + i + '][term]"]').val(term);
+        }
+
+        function addMonth(date, month) {
+            let addMonthFirstDate = new Date(
+                date.getFullYear(),
+                date.getMonth() + month,
+                1
+            );
+
+            let addMonthLastDate = new Date(
+                addMonthFirstDate.getFullYear(),
+                addMonthFirstDate.getMonth() + 1
+                , 0
+            );
+
+            let result = addMonthFirstDate;
+            if(date.getDate() > addMonthLastDate.getDate())
+            {
+                result.setDate(addMonthLastDate.getDate());
+            }
+            else
+            {
+                result.setDate(date.getDate());
             }
 
-            expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
-            $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
-            $('input[name="executives[' + i + '][term]"]').val(term);
+            return result;
         }
 
         function getFormatDate(date) {
@@ -875,7 +910,11 @@
             }
             var count = uncomma(obj.value);
             var stockIssuedCount = uncomma($('#stockIssuedCount').val());
-            $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+            var calcValue = count / stockIssuedCount;
+            if(isNaN(calcValue)) {
+                calcValue = 0;
+            }
+            $('input[name="executives[' + i + '][stockRatio]"]').val(calcValue * 100);
         }
 
         function countCalculate(obj, i) {
