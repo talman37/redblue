@@ -33,7 +33,7 @@ class CompanyRestController(
 		return ResponseEntity.ok(CompanySearchResponseDto.of(companies))
 	}
 
-	@GetMapping("/{id}/executives")
+	@GetMapping("/{id}/summary")
 	fun getSummary(
 		@PathVariable("id") id: String,
 		@CurrentUser user: LawFirmUser

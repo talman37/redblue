@@ -24,13 +24,7 @@ data class CompanyListDto(
 
 	val displayCompanyType: String? = null,
 
-	val companyAddress: String? = null,
-
-	var companyMasterName: String? = null,
-
-	var executives: MutableList<Executive> = mutableListOf(),
-
-	val contacts: MutableList<Contact>? = mutableListOf()
+	val companyAddress: String? = null
 
 ) {
 
@@ -55,30 +49,9 @@ data class CompanyListDto(
 					companyState = company.companyState,
 					companyDivision = company.companyDivision,
 					displayCompanyType = company.displayCompanyType?.name,
-					companyAddress = company.companyAddress,
-					executives = company.executives,
-					contacts = company.contacts
+					companyAddress = company.companyAddress
 				)
-				var master: String? = ""
 
-				for (executive in company.executives) {
-					if(executive.position == "대표이사") {
-						master = executive.name
-						break
-					} else if(executive.position == "사내이사") {
-						master = executive.name
-					} else if(executive.position == "공동대표이사") {
-						master = executive.name
-					}
-				}
-				dto.companyMasterName = master
-
-				val savedContactType = company.contacts?.map { c -> c.type }.orEmpty()
-				for (value in Contact.Type.values()) {
-					if(!savedContactType.contains(value)) {
-						dto.contacts?.add(Contact(type = value, value = ""))
-					}
-				}
 				list.add(dto)
 			}
 			return list

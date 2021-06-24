@@ -9,13 +9,13 @@ data class SummaryResponseDto (
 
 	var companyMasterName: String? = null,
 
-	val contacts: List<Contact>? = mutableListOf()
+	val contacts: MutableList<Contact>? = mutableListOf()
 
 ) {
 
 	companion object {
 
-		fun of(executives: List<Executive>, contacts: List<Contact>): SummaryResponseDto {
+		fun of(executives: List<Executive>, contacts: MutableList<Contact>): SummaryResponseDto {
 			var master: String? = ""
 
 			for (executive in executives) {
@@ -26,6 +26,13 @@ data class SummaryResponseDto (
 					master = executive.name
 				} else if(executive.position == "공동대표이사") {
 					master = executive.name
+				}
+			}
+
+			val savedContactType = contacts.map { c -> c.type }
+			for (value in Contact.Type.values()) {
+				if(!savedContactType.contains(value)) {
+					contacts.add(Contact(type = value, value = ""))
 				}
 			}
 
