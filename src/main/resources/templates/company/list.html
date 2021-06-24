@@ -367,7 +367,7 @@
             });
 
             $('tr[name="companyRow"]').on('click', function() {
-                $('#loading-area').show();
+                //$('#loading-area').show();
                 var id = $(this).data('id');
                 $.ajax({
                     url: "/v1/companies/" + id +"/summary",
@@ -404,9 +404,9 @@
                     });
                     $('#masterName').text(data.companyMasterName);
                 }).fail(function(xhr, status, errorThrown) {
-                    $('#loading-area').hide();
+                    //$('#loading-area').hide();
                 }).always(function(xhr, status) {
-                    $('#loading-area').hide();
+                    //$('#loading-area').hide();
                 });
             });
 
