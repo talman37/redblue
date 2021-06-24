@@ -189,6 +189,11 @@
                         </div>
                     </form>
                     <div class="table-scroll">
+                        <div id="loading-area" class="loading">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
                         <table class="table table-bordered">
                             <colgroup>
                                 <col width="150px" />
@@ -209,15 +214,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr id="loading-area">
-                                    <td colspan="6" class="text-center">
-                                        <div class="text-center">
-                                            <div class="spinner-border" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
                                 <th:block th:each="company: ${companies}">
                                     <tr name="companyRow" th:attr="data-id=${company.id}">
                                         <td th:text="${company.companyState}"></td>

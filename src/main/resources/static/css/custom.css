@@ -750,9 +750,24 @@ h5 {
 .list-company .panel > div .panel-body {
   padding: 10px; }
 .list-company .table-scroll {
+  position: relative;
   height: calc(100vh - 60vh - 150px);
   border: none;
   box-shadow: inset 1px -1px #dee2e6; }
+.list-company .table-scroll .loading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5); }
 .list-company .table-scroll thead th {
   position: -webkit-sticky;
   position: sticky;
