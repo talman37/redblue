@@ -209,7 +209,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr id="loading-area" style="display: none;">
+                                <tr id="loading-area">
                                     <td colspan="6" class="text-center">
                                         <div class="text-center">
                                             <div class="spinner-border" role="status">
@@ -332,6 +332,7 @@
     <script>
 
         $(document).ready(function () {
+            $('#loading-area').hide();
             $('#search-btn').on('click', function () {
                 $('#searchForm').submit()
             });
