@@ -38,6 +38,7 @@ class ConsultQueryDslRepositoryImpl(
 					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
 						.from(qe).where(qe.companyId.eq(qc.companyId)).limit(1), "expiredAt"),
 					qc.consultant,
+					qc.companyClerk,
 					qc.content,
 					qc.memo,
 					qc.progress,
@@ -86,6 +87,7 @@ class ConsultQueryDslRepositoryImpl(
 					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
 						.from(qe).where(qe.companyId.eq(qc.companyId)).limit(1), "expiredAt"),
 					qc.consultant,
+					qc.companyClerk,
 					qc.content,
 					qc.memo,
 					qc.progress,

@@ -531,16 +531,15 @@
                         </thead>
                         <tbody>
                         <tr th:each="consult: ${consults}">
-                            <td>
-                                <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
-                                        th:text="${consult.consultant}">
-                                </button>
+                            <td th:text="${consult.consultant}">
                             </td>
                             <td th:text="${consult.createdAt}">
                             </td>
-                            <td th:text="${consult.consultant}">
+                            <td th:text="${consult.companyClerk}">
                             </td>
-                            <td th:text="${consult.content}">
+                            <td>
+                                <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal" name="consult_edit_btn" th:attr="data-id=${consult.id}" th:text="${consult.content}">
+                                </button>
                             </td>
                             <td th:switch="${consult.progress}">
                                 <span th:case="${consult.progress.CANCEL}"
@@ -1003,6 +1002,11 @@
                 language: "ko",
                 todayHighlight: true
             });
+
+            $('button[name="consult_edit_btn"]').on('click', function(){
+                let id = $(this).data('id');
+                window.open('/consult/' + id + '/edit:popup', '상담수정', 'width=800,height=600px,scrollbars=yes');
+            })
 
         });
 

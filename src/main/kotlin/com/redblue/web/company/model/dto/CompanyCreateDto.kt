@@ -18,9 +18,9 @@ data class CompanyCreateDto(
 
 	val registerNumber: Int? = null,
 
-	val companyNumber1: Int? = null,
+	val companyNumber1: String? = null,
 
-	val companyNumber2: Int? = null,
+	val companyNumber2: String? = null,
 
 	val companyName: String? = null,
 

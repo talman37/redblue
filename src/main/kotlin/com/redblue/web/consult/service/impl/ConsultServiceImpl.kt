@@ -28,4 +28,11 @@ class ConsultServiceImpl(
 	override fun save(consult: Consult) {
 		consultRepository.save(consult)
 	}
+
+	override fun update(consult: Consult) {
+		val savedConsult = this.detail(consult.id)
+		consult.createdAt = savedConsult.createdAt
+		consult.updatedAt = Date()
+		consultRepository.save(consult)
+	}
 }

@@ -97,4 +97,14 @@ class ConsultController(
 		return "redirect:/consult"
 	}
 
+	@GetMapping("/{id}/edit:popup")
+	fun updateConsult(
+		@PathVariable("id") id: String,
+		model: Model,
+		@CurrentUser user: LawFirmUser
+	): String {
+		model.addAttribute("consult", consultService.detail(id))
+		return "/popup/consult_edit"
+	}
+
 }

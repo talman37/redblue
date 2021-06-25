@@ -146,5 +146,4 @@ class CompanyController(
 		return "/popup/consult_add"
 	}
 
-
 }

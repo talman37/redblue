@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <!-- https://fontawesome.com/cheatsheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link th:href="@{/static/css/custom.css}" rel="stylesheet"/>
+
+    <title>RedBlue</title>
+</head>
+<body>
+<div class="modal-content">
+    <div class="modal-body">
+        <form id="consultForm">
+            <input type="hidden" name="lawFirmId" th:value="${consult.lawFirmId}"/>
+            <input type="hidden" name="companyId" th:value="${consult.companyId}"/>
+            <input type="hidden" name="id" th:value="${consult.id}"/>
+            <input type="hidden" name="memo" th:value="${consult.memo}"/>
+            <div class="add-item border p-3 mb-3">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="consultant">상담자</label>
+                        <input type="text" class="form-control" th:value="${consult.consultant}" id="consultant"
+                               name="consultant" th:readonly="true">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="companyClerk">법인담당자</label>
+                        <input type="text" class="form-control" id="companyClerk" name="companyClerk" th:value="${consult.companyClerk}">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="progress">상태</label>
+                        <select class="form-control" id="progress" name="progress"
+                                th:field="*{consult.progress}">
+                            <option th:value="ONGOING">진행중</option>
+                            <option th:value="COMPLETE">진행완료</option>
+                            <option th:value="HOLD">보류</option>
+                            <option th:value="CANCEL">취소</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="content">상담 내용</label>
+                        <textarea name="content" id="content" cols="30" rows="10" class="form-control" th:value="${consult.content}" th:text="${consult.content}"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancel_consult_btn">취소</button>
+        <button type="button" class="btn btn-primary" id="save_consult_btn">추가</button>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/static/js/serializejson.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('#save_consult_btn').on('click', function () {
+            $.ajax({
+                type: 'PATCH',
+                url: '/v1/consults/' + $('#id').val(),
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify($('#consultForm').serializeJSON({useIntKeysAsArrayIndex: true})),
+                statusCode: {
+                    200: function () {
+                        alert('상담이 수정 되었습니다.');
+                        opener.document.location.reload();
+                        self.close();
+                    }
+                }
+            });
+        });
+
+        $('#cancel_consult_btn').on('click', function () {
+            self.close();
+        });
+    });
+</script>
+</body>
+</html>

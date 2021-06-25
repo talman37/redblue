@@ -33,7 +33,7 @@ data class Consult(
 	val progress: Progress,
 
 	@Temporal(TemporalType.TIMESTAMP)
-	val createdAt: Date = Date(),
+	var createdAt: Date = Date(),
 
 	@Temporal(TemporalType.TIMESTAMP)
 	var updatedAt: Date? = null

@@ -15,4 +15,6 @@ interface ConsultService {
 
 	fun save(consult: Consult)
 
+	fun update(consult: Consult)
+
 }

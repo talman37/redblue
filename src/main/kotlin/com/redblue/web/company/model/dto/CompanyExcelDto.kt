@@ -10,9 +10,9 @@ data class CompanyExcelDto(
 
 	val registerNumber: Int? = null,
 
-	val companyNumber1: Int? = null,
+	val companyNumber1: String? = null,
 
-	val companyNumber2: Int? = null,
+	val companyNumber2: String? = null,
 
 	val companyDivision: String?,
 
