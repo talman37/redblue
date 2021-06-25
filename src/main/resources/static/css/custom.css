@@ -786,8 +786,8 @@ h5 {
 .table-scroll thead th {
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
-  z-index: 1;
+  top: -1px;
+  z-index: 3;
   box-shadow: inset 1px 1px #dee2e6, 0 1px #dee2e6;
   border: none; }
 .table-scroll td {
@@ -796,6 +796,9 @@ h5 {
 
 .box-scroll {
   overflow: auto; }
+
+.detail-company table {
+  width: 100%; }
 
 .detail-company .table-bordered th,
 .detail-company .table-bordered td {
