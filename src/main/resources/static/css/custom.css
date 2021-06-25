@@ -797,36 +797,44 @@ h5 {
 .box-scroll {
   overflow: auto; }
 
-.detail-company {
-  min-width: 1280px; }
 .detail-company .table-bordered th,
 .detail-company .table-bordered td {
   padding: 3px; }
+
 .detail-company .table-bordered th {
   background-color: #f8f8f8;
-  white-space: nowrap; }
+  white-space: nowrap;
+  text-align: center; }
+
 .detail-company .table-scroll,
 .detail-company .box-scroll {
   max-height: 200px; }
+
 .detail-company .box-scroll .row:only-child .mb-2 {
   margin-bottom: 0 !important; }
+
 .detail-company .row-inline > div {
   display: -webkit-box;
   display: flex; }
 .detail-company .row-inline > div > label {
   white-space: nowrap;
   align-self: center; }
+
 .detail-company .btn.btn-sm {
   padding: .2rem .5rem; }
+
 .detail-company label {
   color: #666;
   margin-bottom: 0; }
+
 .detail-company .input-group .input-group-addon button {
   padding: 0 7px; }
+
 .detail-company select {
   padding-right: .75rem;
   background-size: 8px 12px;
   background-position: right .25rem center; }
+
 .detail-company .box-status .item {
   display: -webkit-box;
   display: flex;
@@ -835,40 +843,51 @@ h5 {
 .detail-company .box-status .item > div {
   -webkit-box-flex: 1;
   flex: 1; }
+
 .detail-company .card-header {
   padding: 5px 10px;
   background-color: #f8f8f8;
   border-radius: 2px; }
+
 .detail-company .card .row {
   margin: 0 5px; }
+
 .detail-company .row {
   margin: 0 -5px; }
+
 .detail-company .col-md-1 {
   -webkit-box-flex: 0;
   flex: 0 0 8.333333%;
   max-width: 8.333333%; }
+
 .detail-company .col-md-2 {
   -webkit-box-flex: 0;
   flex: 0 0 16.666667%;
   max-width: 16.666667%; }
+
 .detail-company .col-md-4 {
   -webkit-box-flex: 0;
   flex: 0 0 33.333333%;
   max-width: 33.333333%; }
+
 .detail-company .col-md-6 {
   -webkit-box-flex: 0;
   flex: 0 0 50%;
   max-width: 50%; }
+
 .detail-company .col-md-7 {
   -webkit-box-flex: 0;
   flex: 0 0 58.333333%;
   max-width: 58.333333%; }
+
 .detail-company .col-md-9 {
   -webkit-box-flex: 0;
   flex: 0 0 75%;
   max-width: 75%; }
+
 .detail-company .col, .detail-company .col-1, .detail-company .col-10, .detail-company .col-11, .detail-company .col-12, .detail-company .col-2, .detail-company .col-3, .detail-company .col-4, .detail-company .col-5, .detail-company .col-6, .detail-company .col-7, .detail-company .col-8, .detail-company .col-9, .detail-company .col-auto, .detail-company .col-lg, .detail-company .col-lg-1, .detail-company .col-lg-10, .detail-company .col-lg-11, .detail-company .col-lg-12, .detail-company .col-lg-2, .detail-company .col-lg-3, .detail-company .col-lg-4, .detail-company .col-lg-5, .detail-company .col-lg-6, .detail-company .col-lg-7, .detail-company .col-lg-8, .detail-company .col-lg-9, .detail-company .col-lg-auto, .detail-company .col-md, .detail-company .col-md-1, .detail-company .col-md-10, .detail-company .col-md-11, .detail-company .col-md-12, .detail-company .col-md-2, .detail-company .col-md-3, .detail-company .col-md-4, .detail-company .col-md-5, .detail-company .col-md-6, .detail-company .col-md-7, .detail-company .col-md-8, .detail-company .col-md-9, .detail-company .col-md-auto, .detail-company .col-sm, .detail-company .col-sm-1, .detail-company .col-sm-10, .detail-company .col-sm-11, .detail-company .col-sm-12, .detail-company .col-sm-2, .detail-company .col-sm-3, .detail-company .col-sm-4, .detail-company .col-sm-5, .detail-company .col-sm-6, .detail-company .col-sm-7, .detail-company .col-sm-8, .detail-company .col-sm-9, .detail-company .col-sm-auto, .detail-company .col-xl, .detail-company .col-xl-1, .detail-company .col-xl-10, .detail-company .col-xl-11, .detail-company .col-xl-12, .detail-company .col-xl-2, .detail-company .col-xl-3, .detail-company .col-xl-4, .detail-company .col-xl-5, .detail-company .col-xl-6, .detail-company .col-xl-7, .detail-company .col-xl-8, .detail-company .col-xl-9, .detail-company .col-xl-auto {
   padding: 0 5px; }
+
 .detail-company .card-body {
   padding: 5px; }
 

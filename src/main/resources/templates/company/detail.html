@@ -37,50 +37,51 @@
                         <table class="table-bordered">
                             <tr>
                                 <th>상호</th>
-                                <td>
+                                <td colspan="3">
                                     <input type="text" class="form-control form-control-sm" id="companyName" name="companyName"
                                            th:value="${company.companyName}">
                                 </td>
+                                <th>법인구분</th>
+                                <td colspan="3">
+                                    <div class="d-flex">
+                                        <select class="form-control form-select form-select-sm" id="companyDivision" name="companyDivision"
+                                                th:field="*{company.companyDivision}">
+                                            <option th:value="주식회사">주식회사</option>
+                                            <option th:value="유한회사">유한회사</option>
+                                            <option th:value="유한책임회사">유한책임회사</option>
+                                            <option th:value="합자회사">합자회사</option>
+                                            <option th:value="사단법인">사단법인</option>
+                                            <option th:value="재단법인">재단법인</option>
+                                            <option th:value="농업회사">농업회사</option>
+                                        </select>
+                                        <div class="form-check form-check-inline">
+                                            <div class="form-input">
+                                                <span class="input">
+                                                    <input type="radio" id="displayCompanyTypeFront"
+                                                           name="displayCompanyType" value="FRONT"
+                                                           th:field="${company.displayCompanyType}"><i></i>
+                                                </span>
+                                                <label for="displayCompanyTypeFront">앞</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="form-input">
+                                                <span class="input">
+                                                    <input type="radio" id="displayCompanyTypeBack"
+                                                           name="displayCompanyType" value="BACK"
+                                                           th:field="${company.displayCompanyType}"><i></i>
+                                                </span>
+                                                <label for="displayCompanyTypeBack">뒤</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>병기 상호</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="companySubName" name="companySubName"
                                            placeholder="" th:value="${company.companySubName}">
-                                </td>
-                                <th>법인구분</th>
-                                <td>
-                                    <select class="form-control form-select form-select-sm" id="companyDivision" name="companyDivision"
-                                            th:field="*{company.companyDivision}">
-                                        <option th:value="주식회사">주식회사</option>
-                                        <option th:value="유한회사">유한회사</option>
-                                        <option th:value="유한책임회사">유한책임회사</option>
-                                        <option th:value="합자회사">합자회사</option>
-                                        <option th:value="사단법인">사단법인</option>
-                                        <option th:value="재단법인">재단법인</option>
-                                        <option th:value="농업회사">농업회사</option>
-                                    </select>
-                                </td>
-                                <th>법인 종류 표시</th>
-                                <td>
-                                    <div class="form-check form-check-inline">
-                                        <div class="form-input">
-                                            <span class="input">
-                                                <input type="radio" id="displayCompanyTypeFront"
-                                                       name="displayCompanyType" value="FRONT"
-                                                       th:field="${company.displayCompanyType}"><i></i>
-                                            </span>
-                                            <label for="displayCompanyTypeFront">앞</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <div class="form-input">
-                                            <span class="input">
-                                                <input type="radio" id="displayCompanyTypeBack"
-                                                       name="displayCompanyType" value="BACK"
-                                                       th:field="${company.displayCompanyType}"><i></i>
-                                            </span>
-                                            <label for="displayCompanyTypeBack">뒤</label>
-                                        </div>
-                                    </div>
                                 </td>
                                 <th>법인 상태</th>
                                 <td>
@@ -168,13 +169,15 @@
                                            name="companyManageNumber" placeholder=""
                                            th:value="${company.companyManageNumber}">
                                 </td>
-                                <th>주의사항</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="precautions"
+                                <th rowspan="2">주의사항</th>
+                                <td rowspan="2">
+                                    <textarea class="form-control form-control-sm" style="height: 66px" id="precautions"
                                            name="precautions"
-                                           placeholder=""  th:value="${company.precautions}">
+                                              placeholder=""  th:value="${company.precautions}"></textarea>
 
                                 </td>
+                            </tr>
+                            <tr>
                                 <th>추천인</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
@@ -235,24 +238,6 @@
                                     <input type="text" class="form-control form-control-sm" id="companyPostalCode" name="companyPostalCode"
                                            placeholder="" th:value="${company.companyPostalCode}">
                                 </td>
-                                <th>송달장소</th>
-                                <td colspan="5">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="deliveryPlace" name="deliveryPlace"
-                                               th:value="${company.deliveryPlace}">
-                                        <div class="input-group-append">
-                                            <button type='button' class="btn btn-sm btn-outline-secondary"
-                                                    name="postal_code_search_btn" data-id="deliveryPlace">검색
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <th>우편번호</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode"
-                                           name="deliveryPlacePostalCode" placeholder=""
-                                           th:value="${company.deliveryPlacePostalCode}">
-                                </td>
                             </tr>
                             <tr>
                                 <th>자본금</th>
@@ -270,18 +255,20 @@
                                     <input type="text" class="form-control form-control-sm" id="stockAmount" name="stock[amount]" onkeyup="inputNumberFormat(this)"
                                            placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.amount, 0, 'COMMA', 0, 'POINT')}">
                                 </td>
-                                <th>발행주식의 총수</th>
+                                <th>발행주식<br/>총수</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="stockIssuedCount" name="stock[issuedCount]"
                                            numberonly="true" onkeyup="inputNumberFormat(this)" onblur="reCalcRatio(this)"
                                            placeholder="" required="" th:value="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
                                 </td>
-                                <th>발행할 주식의 총수</th>
+                                <th>발행할 주식<br/>총수</th>
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="stockScheduleCount"
                                            name="stock[scheduleCount]" placeholder="" required="" onkeyup="inputNumberFormat(this)"
                                            th:value="${#numbers.formatDecimal(company.stock.scheduleCount, 0, 'COMMA', 0, 'POINT')}">
                                 </td>
+                            </tr>
+                            <tr>
                                 <th>결산기</th>
                                 <td>
                                     <select class="form-control form-select form-select-sm" id="settlementMonth" name="settlementMonth" style="width:50px">
@@ -303,6 +290,26 @@
                                 <td>
                                     <input type="text" class="form-control form-control-sm" id="businessType" name="businessType"
                                            placeholder="" th:value="${company.businessType}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>송달장소</th>
+                                <td colspan="5">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm" id="deliveryPlace" name="deliveryPlace"
+                                               th:value="${company.deliveryPlace}">
+                                        <div class="input-group-append">
+                                            <button type='button' class="btn btn-sm btn-outline-secondary"
+                                                    name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <th>우편번호</th>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" id="deliveryPlacePostalCode"
+                                           name="deliveryPlacePostalCode" placeholder=""
+                                           th:value="${company.deliveryPlacePostalCode}">
                                 </td>
                             </tr>
                         </table>
@@ -531,17 +538,17 @@
                         </thead>
                         <tbody>
                         <tr th:each="consult: ${consults}">
-                            <td th:text="${consult.consultant}">
+                            <td class="text-center" th:text="${consult.consultant}">
                             </td>
-                            <td th:text="${consult.createdAt}">
+                            <td class="text-center" th:text="${consult.createdAt}">
                             </td>
-                            <td th:text="${consult.companyClerk}">
+                            <td class="text-center" th:text="${consult.companyClerk}">
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal" name="consult_edit_btn" th:attr="data-id=${consult.id}" th:text="${consult.content}">
                                 </button>
                             </td>
-                            <td th:switch="${consult.progress}">
+                            <td  class="text-center" th:switch="${consult.progress}">
                                 <span th:case="${consult.progress.CANCEL}"
                                       class="badge badge-pill badge-danger">취소</span>
                                 <span th:case="${consult.progress.ONGOING}"
