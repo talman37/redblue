@@ -264,8 +264,18 @@
                                 <td>
                                     <select class="form-control form-select form-select-sm" id="settlementMonth" style="width:50px"
                                         name="settlementMonth">
-                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
-                                                th:text="${i}+'월'"></option>
+                                        <option value="1">1월</option>
+                                        <option value="2">2월</option>
+                                        <option value="3">3월</option>
+                                        <option value="4">4월</option>
+                                        <option value="5">5월</option>
+                                        <option value="6">6월</option>
+                                        <option value="7">7월</option>
+                                        <option value="8">8월</option>
+                                        <option value="9">9월</option>
+                                        <option value="10">10월</option>
+                                        <option value="11">11월</option>
+                                        <option value="12" selected>12월</option>
                                     </select>
                                 </td>
                                 <th>사업자등록번호</th>
@@ -380,13 +390,13 @@
                                     <select class="form-control form-select form-select-sm"
                                             name="executives[0][position]">
                                         <option selected value="사내이사">사내이사</option>
+                                        <option value="감사">감사</option>
                                         <option value="대표이사">대표이사</option>
-                                        <option value="공동대표이사">공동대표이사</option>
-                                        <option value="대표집행임원">대표집행임원</option>
                                         <option value="사외이사">사외이사</option>
                                         <option value="기타비상무이사">기타비상무이사</option>
+                                        <option value="공동대표이사">공동대표이사</option>
                                         <option value="집행임원">집행임원</option>
-                                        <option value="감사">감사</option>
+                                        <option value="대표집행임원">대표집행임원</option>
                                         <option value="감사위원">감사위원</option>
                                         <option value="주주">주주</option>
                                     </select>
@@ -971,7 +981,6 @@
                 </div>
             </div>
         </div>
-    </script>
     <script id="branch-template" type="text/x-jQuery-tmpl">
         <div class="row" id="branch_row_{{= index}}">
             <div class="col-md-2 mb-2">
@@ -999,7 +1008,6 @@
                 </div>
             </div>
         </div>
-    </script>
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
@@ -1019,14 +1027,14 @@
             </td>
             <td>
                 <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
-                    <option selected value="0">사내이사</option>
+                    <option selected value="사내이사">사내이사</option>
+                    <option value="감사">감사</option>
                     <option value="대표이사">대표이사</option>
-                    <option value="공동대표이사">공동대표이사</option>
-                    <option value="대표집행임원">대표집행임원</option>
                     <option value="사외이사">사외이사</option>
                     <option value="기타비상무이사">기타비상무이사</option>
+                    <option value="공동대표이사">공동대표이사</option>
                     <option value="집행임원">집행임원</option>
-                    <option value="감사">감사</option>
+                    <option value="대표집행임원">대표집행임원</option>
                     <option value="감사위원">감사위원</option>
                     <option value="주주">주주</option>
                 </select>
@@ -1065,6 +1073,8 @@
                 </button>
             </td>
         </tr>
+    </script>
+    </script>
     </script>
     <script id="purpose-template" type="text/x-jQuery-tmpl">
         <div class="row" id="purpose_row_{{= index}}">
