@@ -124,6 +124,58 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0" modal-title>
+                    임원 이력
+                </h2>
+            </div>
+            <div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>유형</th>
+                            <th>임원정보</th>
+                            <th>변경일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="executiveHistory : ${histories.executives}">
+                            <td th:text="${executiveHistory.type}"></td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>국가</th>
+                                        <th>직위</th>
+                                        <th>성명</th>
+                                        <th>주식비율</th>
+                                        <th>주식수</th>
+                                        <th>취임일자</th>
+                                        <th>만료일자</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="executive : ${executiveHistory.data}">
+                                        <td th:text="${executive.nationality}"></td>
+                                        <td th:text="${executive.position}"></td>
+                                        <td th:text="${executive.name}"></td>
+                                        <td th:text="${executive.stockRatio}"></td>
+                                        <td th:text="${#numbers.formatDecimal(executive.stockCount, 0, 'COMMA', 0, 'POINT')}"></td>
+                                        <td th:text="${#dates.format(executive.inauguratedAt, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${#dates.format(executive.expiredAt, 'yyyy-MM-dd')}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td th:text="${#dates.format(executiveHistory.issuedAt, 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

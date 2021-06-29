@@ -7,8 +7,6 @@ import com.redblue.web.company.model.dto.CompanySubUpdateDto
 import com.redblue.web.company.model.dto.SummaryResponseDto
 import com.redblue.web.company.repository.*
 import com.redblue.web.company.service.CompanyService
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.lang.Exception
 import java.util.*
@@ -25,7 +23,8 @@ class CompanyServiceImpl(
 	private val masterHistoryRepository: CompanyMasterHistoryRepository,
 	private val subHistoryRepository: CompanySubHistoryRepository,
 	private val stockHistoryRepository: StockHistoryRepository,
-	private val purposeDetailRepository: PurposeDetailRepository
+	private val purposeDetailRepository: PurposeDetailRepository,
+	private val executiveHistoryRepository: ExecutiveHistoryRepository
 ): CompanyService {
 
 	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company> {
@@ -107,6 +106,12 @@ class CompanyServiceImpl(
 				settlementMonth = company.settlementMonth
 			)
 		)
+
+		executiveHistoryRepository.save(ExecutiveHistory(
+			type = IssuedType.CREATED,
+			companyId = company.id,
+			data = company.executives
+		))
 
 		company.stock?.let {
 			val stock = company.stock!!.copy(
@@ -269,7 +274,8 @@ class CompanyServiceImpl(
 		return CompanyHistory(
 			master = masterHistoryRepository.findByCompanyId(id),
 			sub = subHistoryRepository.findByCompanyId(id),
-			stock = stockHistoryRepository.findByCompanyId(id)
+			stock = stockHistoryRepository.findByCompanyId(id),
+			executives = executiveHistoryRepository.findByCompanyId(id)
 		)
 	}
 
@@ -299,6 +305,12 @@ class CompanyServiceImpl(
 				}
 			}
 			executiveRepository.saveAll(executives)
+			executiveHistoryRepository.save(ExecutiveHistory(
+				type = IssuedType.UPDATED,
+				companyId = companyId,
+				data = executives
+			))
+
 		}
 	}
 
