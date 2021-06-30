@@ -97,49 +97,50 @@ class CompanyExcelService(
 			row.createCell(6).setCellValue(companyExcelDto.companyManageState)
 			row.createCell(7).setCellValue(companyExcelDto.companyState)
 			row.createCell(8).setCellValue(companyExcelDto.companyName)
-			row.createCell(9).setCellValue(companyExcelDto.companyUpdatedAt)
-			row.createCell(10).setCellValue(companyExcelDto.businessNumber)
-			row.createCell(11).setCellValue(companyExcelDto.businessType)
-			row.createCell(12).setCellValue(companyExcelDto.businessCondition)
-			row.createCell(13).setCellValue(companyExcelDto.deliveryPlace)
-			row.createCell(14).setCellValue(companyExcelDto.deliveryPlacePostalCode)
-			row.createCell(15).setCellValue(companyExcelDto.companySubName)
-			row.createCell(16).setCellValue(companyExcelDto.companyAddress)
-			row.createCell(17).setCellValue(companyExcelDto.companyPostalCode)
-			row.createCell(18).setCellValue(companyExcelDto.companyAddressUpdatedAt)
-			row.createCell(19).setCellValue(companyExcelDto.noticeWay)
-			row.createCell(20).setCellValue(companyExcelDto.noticeWayUpdatedAt)
-			row.createCell(21).setCellValue(companyExcelDto.etc)
-			row.createCell(22).setCellValue(companyExcelDto.convertibleBond)
-			row.createCell(23).setCellValue(companyExcelDto.stockPurchaseOption)
-			val companyFormationAtCell = row.createCell(24)
+			row.createCell(9).setCellValue(companyExcelDto.masterName)
+			row.createCell(10).setCellValue(companyExcelDto.companyUpdatedAt)
+			row.createCell(11).setCellValue(companyExcelDto.businessNumber)
+			row.createCell(12).setCellValue(companyExcelDto.businessType)
+			row.createCell(13).setCellValue(companyExcelDto.businessCondition)
+			row.createCell(14).setCellValue(companyExcelDto.deliveryPlace)
+			row.createCell(15).setCellValue(companyExcelDto.deliveryPlacePostalCode)
+			row.createCell(16).setCellValue(companyExcelDto.companySubName)
+			row.createCell(17).setCellValue(companyExcelDto.companyAddress)
+			row.createCell(18).setCellValue(companyExcelDto.companyPostalCode)
+			row.createCell(19).setCellValue(companyExcelDto.companyAddressUpdatedAt)
+			row.createCell(20).setCellValue(companyExcelDto.noticeWay)
+			row.createCell(21).setCellValue(companyExcelDto.noticeWayUpdatedAt)
+			row.createCell(22).setCellValue(companyExcelDto.etc)
+			row.createCell(23).setCellValue(companyExcelDto.convertibleBond)
+			row.createCell(24).setCellValue(companyExcelDto.stockPurchaseOption)
+			val companyFormationAtCell = row.createCell(25)
 			companyFormationAtCell.setCellValue(companyExcelDto.companyFormationAt)
 			companyFormationAtCell.cellStyle = dateCellStyle
-			row.createCell(25).setCellValue(companyExcelDto.registerRecordCreateReason)
-			val registerRecordCreateAtCell = row.createCell(26)
+			row.createCell(26).setCellValue(companyExcelDto.registerRecordCreateReason)
+			val registerRecordCreateAtCell = row.createCell(27)
 			registerRecordCreateAtCell.setCellValue(companyExcelDto.registerRecordCreateAt)
 			registerRecordCreateAtCell.cellStyle = dateCellStyle
-			row.createCell(27).setCellValue(this.covertBoolean(companyExcelDto.isHeadOfficeTransfer))
-			val headOfficeTransferAtCell = row.createCell(28)
+			row.createCell(28).setCellValue(this.covertBoolean(companyExcelDto.isHeadOfficeTransfer))
+			val headOfficeTransferAtCell = row.createCell(29)
 			headOfficeTransferAtCell.setCellValue(companyExcelDto.headOfficeTransferAt)
 			headOfficeTransferAtCell.cellStyle = dateCellStyle
-			row.createCell(29).setCellValue(this.covertBoolean(companyExcelDto.isDisband))
-			val disbandAtCell = row.createCell(30)
+			row.createCell(30).setCellValue(this.covertBoolean(companyExcelDto.isDisband))
+			val disbandAtCell = row.createCell(31)
 			disbandAtCell.setCellValue(companyExcelDto.disbandAt)
 			disbandAtCell.cellStyle = dateCellStyle
-			row.createCell(31).setCellValue(companyExcelDto.disbandDeemedAt)
-			row.createCell(32).setCellValue(this.covertBoolean(companyExcelDto.isLiquidation))
-			val liquidationAtCell = row.createCell(33)
+			row.createCell(32).setCellValue(companyExcelDto.disbandDeemedAt)
+			row.createCell(33).setCellValue(this.covertBoolean(companyExcelDto.isLiquidation))
+			val liquidationAtCell = row.createCell(34)
 			liquidationAtCell.setCellValue(companyExcelDto.liquidationAt)
 			liquidationAtCell.cellStyle = dateCellStyle
-			row.createCell(34).setCellValue(this.covertBoolean(companyExcelDto.isRegisterRecordClosure))
-			val registerRecordClosureAtCell = row.createCell(35)
+			row.createCell(35).setCellValue(this.covertBoolean(companyExcelDto.isRegisterRecordClosure))
+			val registerRecordClosureAtCell = row.createCell(36)
 			registerRecordClosureAtCell.setCellValue(companyExcelDto.registerRecordClosureAt)
 			registerRecordClosureAtCell.cellStyle = dateCellStyle
 			companyExcelDto.settlementMonth?.let {
-				row.createCell(36).setCellValue(it.toDouble())
-			} ?: row.createCell(36)
-			row.createCell(37).setCellValue(companyExcelDto.recommender)
+				row.createCell(37).setCellValue(it.toDouble())
+			} ?: row.createCell(38)
+			row.createCell(39).setCellValue(companyExcelDto.recommender)
 
 			//주식
 			var stockIndex = 1
@@ -224,6 +225,7 @@ class CompanyExcelService(
 			"companyNumber1" -> "등록번호1"
 			"companyNumber2" -> "등록번호2"
 			"companyName" -> "상호"
+			"masterName" -> "대표자"
 			"companyDivision" -> "법인구분"
 			"companyManageNumber" -> "법인관리번호"
 			"companyManageState" -> "관리상태"

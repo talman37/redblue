@@ -24,6 +24,8 @@ data class CompanyExcelDto(
 
 	val companyName: String? = null,
 
+	val masterName: String? = null,
+
 	val companyUpdatedAt: Date? = null,
 
 	val businessNumber: String? = null,
@@ -92,6 +94,18 @@ data class CompanyExcelDto(
 		fun toList(companies: List<Company>): List<CompanyExcelDto> {
 			val list = mutableListOf<CompanyExcelDto>()
 			for (company in companies) {
+				var master: String? = ""
+
+				for (executive in company.executives) {
+					if(executive.position == "대표이사") {
+						master = executive.name
+						break
+					} else if(executive.position == "사내이사") {
+						master = executive.name
+					} else if(executive.position == "공동대표이사") {
+						master = executive.name
+					}
+				}
 				list.add(
 					CompanyExcelDto(
 						registerOffice = company.registerOffice,
@@ -103,6 +117,7 @@ data class CompanyExcelDto(
 						companyManageState = company.companyManageState,
 						companyState = company.companyState,
 						companyName = company.companyName,
+						masterName = master,
 						companyUpdatedAt = company.companyUpdatedAt,
 						businessNumber = company.businessNumber,
 						businessType = company.businessType,
