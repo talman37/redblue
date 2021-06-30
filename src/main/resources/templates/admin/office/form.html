@@ -12,7 +12,7 @@
                         <p class="sidebar-heading">사용자 관리</p>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="/admin/users">
+                                <a class="nav-link" href="/admin/users">
                                     <i class="fas fa-search"></i>
                                     사용자 검색
                                 </a>
@@ -30,8 +30,14 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link " href="/admin/office">
-                                    <i class="fas fa-comment-alt"></i>
+                                    <i class="fas fa-search"></i>
                                     사무소 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/admin/office/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사무소 등록
                                 </a>
                             </li>
                         </ul>
@@ -45,11 +51,66 @@
         <main role="main" class="main">
             <div class="page-header">
                 <div>
-                    <h1>사무소 관리</h1>
+                    <h1>사무소 등록</h1>
                 </div>
             </div>
             <div class="card">
-                body
+                <div class="card-body">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">이름</label>
+                                <input type="text" class="form-control" id="" placeholder="" value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="">대표자</label>
+                                <input type="text" class="form-control" id="" placeholder="" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="">주소</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <div class="input-group-append">
+                                        <button type='button' class="btn btn-outline-secondary">검색</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="">우편번호</label>
+                                <input type="text" class="form-control" id="" placeholder="" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">전화번호</label>
+                                <input type="text" class="form-control" id="" placeholder="" value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="">팩스번호</label>
+                                <input type="text" class="form-control" id="" placeholder="" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">설명</label>
+                                <input type="text" class="form-control" id="" placeholder="" value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="">기타사항</label>
+                                <input type="text" class="form-control" id="" placeholder="" value="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <button type="button" class="btn btn-dark">저장하기</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -60,40 +121,7 @@
     <script>
 
         $(document).ready(function () {
-            $('#search-btn').on('click', function () {
-                $('#searchForm').submit()
-            });
 
-            $('#excel-down-btn').on('click', function () {
-                let q = $('#q').val();
-                let startDate = $('#startDate').val();
-                let endDate = $('#endDate').val();
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate;
-                location.href = '/v1/companies/download/corporations.xlsx' + param;
-            });
-
-            $('#pdf-down-btn').on('click', function () {
-                let q = $('#q').val();
-                let startDate = $('#startDate').val();
-                let endDate = $('#endDate').val();
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate;
-                location.href = '/v1/companies/download/dm.pdf' + param;
-            });
-
-            $('#q, #startDate, #endDate').keydown(function(e) {
-                if (e.keyCode === 13) {
-                    $('#searchForm').submit();
-                }
-            });
-
-            $('button[name="history_search_btn"]').on('click', function () {
-                window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
-            });
-
-        });
-        $('.input-daterange').datepicker({
-            language: "ko",
-            todayHighlight: true
         });
     </script>
 </th:block>

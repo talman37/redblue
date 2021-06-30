@@ -10,7 +10,8 @@ class RedBlueApplicationTests {
 	@Test
 	fun contextLoads() {
 		val encoder = BCryptPasswordEncoder()
-		println(encoder.encode("redblue2020!!"))
+		println(encoder.encode("aal530.."))
+		println(encoder.encode("gurwo80"))
 	}
 
 }

@@ -12,13 +12,13 @@
                         <p class="sidebar-heading">사용자 관리</p>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="/admin/users">
+                                <a class="nav-link" href="/admin/users">
                                     <i class="fas fa-search"></i>
                                     사용자 검색
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="/admin/users/form">
+                                <a class="nav-link" href="/admin/users/form">
                                     <i class="fas fa-pencil-alt"></i>
                                     사용자 등록
                                 </a>
@@ -29,9 +29,15 @@
                         <p class="sidebar-heading">사무소 관리</p>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link " href="/admin/office">
-                                    <i class="fas fa-comment-alt"></i>
+                                <a class="nav-link active" href="/admin/office">
+                                    <i class="fas fa-search"></i>
                                     사무소 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/office/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사무소 등록
                                 </a>
                             </li>
                         </ul>
@@ -49,7 +55,40 @@
                 </div>
             </div>
             <div class="card">
-                body
+                <div class="card-body">
+                    <div class="search-field">
+                        <div class="search-area">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control" id="q" name="q" placeholder="사무소 검색(이름)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-area">
+                            <button type="button" class="btn btn-sm btn-dark" id="search-btn">검색</button>
+                        </div>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>이름</th>
+                            <th>대표</th>
+                            <th>주소</th>
+                            <th>전화번호</th>
+                            <th>팩스번호</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="lawFirm: ${lawFirms}">
+                            <td><a href="" th:text="${lawFirm.name}"></a></td>
+                            <td th:text="${lawFirm.representative}"></td>
+                            <td th:text="${lawFirm.address}"></td>
+                            <td th:text="${lawFirm.tel}"></td>
+                            <td th:text="${lawFirm.fax}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </main>
