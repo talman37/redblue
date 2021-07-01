@@ -14,4 +14,11 @@ class OfficeServiceImpl(
 		return lawFirmRepository.findAll()
 	}
 
+	override fun save(lawFirm: LawFirm) {
+		lawFirmRepository.save(lawFirm)
+	}
+
+	override fun details(id: String): LawFirm {
+		return lawFirmRepository.findById(id).get()
+	}
 }

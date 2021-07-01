@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/main_layout">
+<th:block layout:fragment="content_body">
+    <!-- container -->
+    <div class="container-fluid">
+        <!-- sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사용자 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/users">
+                                    <i class="fas fa-search"></i>
+                                    사용자 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/admin/users/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사용자 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사무소 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link " href="/admin/office">
+                                    <i class="fas fa-search"></i>
+                                    사무소 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/office/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사무소 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //sidebar -->
+
+        <!-- contents -->
+        <main role="main" class="main">
+            <div class="page-header">
+                <div>
+                    <h1>사용자 등록</h1>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">사무소</label>
+                                <select class="form-control" id="">
+                                    <option value="" selected>선택</option>
+                                    <option th:each="lawFirm: ${lawFirms}" th:value="${lawFirm.id}" th:text="${lawFirm.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">아이디</label>
+                                <input type="text" class="form-control" name="username" placeholder="" th:value="${user.username}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="">이름</label>
+                                <input type="text" class="form-control" name="name" placeholder="" th:value="${user.name}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="">비밀번호</label>
+                                <input type="password" class="form-control" id="" placeholder="" value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="">비밀번호 확인</label>
+                                <input type="password" class="form-control" id="" placeholder="" value="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <button type="button" class="btn btn-dark">저장하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- //contents -->
+    </div>
+    <!-- //container -->
+    <script>
+
+        $(document).ready(function () {
+
+
+        });
+    </script>
+</th:block>
+</html>

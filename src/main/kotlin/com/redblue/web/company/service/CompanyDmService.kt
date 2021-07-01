@@ -123,8 +123,8 @@ class CompanyDmService(
 
 		val context = Context().apply {
 			this.setVariable("lawFirm", user.lawFirm)
-			this.setVariable("tel", "(대표), ${user.lawFirm.tel}")
-			this.setVariable("postalCode", "<span>우)</span> <strong>${user.lawFirm.postalCode}</strong>")
+			this.setVariable("tel", "(대표), ${user.lawFirm!!.tel}")
+			this.setVariable("postalCode", "<span>우)</span> <strong>${user.lawFirm!!.postalCode}</strong>")
 			this.setVariable("docNum", "<span>문서번호 :</span> <strong>${company.companyNumber1} <span>[${company.companyNumber2}]</span></strong>")
 			this.setVariable("exAddress", company.deliveryPlace)
 
@@ -160,7 +160,7 @@ class CompanyDmService(
 			var content0 = "귀사의 무궁한 발전을 기원합니다."
 			var content1 = "임기만료안내"
 			var content2 = "<div>" +
-				"<p>안녕하십니까. <span>${user.lawFirm.representative}</span>법무사입니다.</p>" +
+				"<p>안녕하십니까. <span>${user.lawFirm!!.representative}</span>법무사입니다.</p>" +
 				"<p><strong>이번에 아래와 같이 귀사의 임원임기가 만료되었음을 안내해 드리오니, 연락주시면 귀사를 직접 방문하여 성심성의껏 업무처리를 도와드리겠습니다.</strong></p>" +
 				"</div>"
 			this.setVariable("content0", content0)

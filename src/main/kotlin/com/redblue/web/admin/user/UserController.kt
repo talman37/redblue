@@ -2,13 +2,13 @@ package com.redblue.web.admin.user
 
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.admin.office.service.OfficeService
+import com.redblue.web.admin.user.model.dto.UserCreateRequestDto
 import com.redblue.web.admin.user.service.UserService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("/admin/users")
@@ -25,10 +25,24 @@ class UserController(
 		return "/admin/user/list"
 	}
 
+	@GetMapping("/{id}")
+	fun details(@CurrentUser user: LawFirmUser,
+	            @PathVariable("id") id: String,
+	         model: Model
+	): String {
+		model.addAttribute("user", service.detail(id))
+		return "/admin/user/detail"
+	}
+
 	@GetMapping("/form")
 	fun form(@CurrentUser user: LawFirmUser, model: Model): String {
 		model.addAttribute("lawFirms", officeService.findAll())
 		return "/admin/user/form"
 	}
 
+	@PostMapping("/form")
+	fun save(@CurrentUser user: LawFirmUser, @RequestBody requestBody: UserCreateRequestDto): String {
+		service.save(requestBody.to())
+		return "redirect: /admin/user/list"
+	}
 }

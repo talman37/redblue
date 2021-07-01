@@ -28,9 +28,10 @@ data class LawFirmUser(
 	val createdAt: Date,
 
 	@Transient
-	var lawFirm: LawFirm
+	var lawFirm: LawFirm? = null
 
 ) {
+
 	enum class Role {
 		ADMIN,
 		SYSTEM

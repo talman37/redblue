@@ -6,4 +6,8 @@ interface OfficeService {
 
 	fun findAll(): List<LawFirm>
 
+	fun save(lawFirm: LawFirm)
+
+	fun details(id: String): LawFirm
+
 }

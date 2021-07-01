@@ -14,4 +14,11 @@ class UserServiceImpl(
 		return userRepo.findAll()
 	}
 
+	override fun save(lawFirmUser: LawFirmUser) {
+		userRepo.save(lawFirmUser)
+	}
+
+	override fun detail(id: String): LawFirmUser {
+		return userRepo.findById(id).get()
+	}
 }

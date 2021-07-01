@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/main_layout">
+<th:block layout:fragment="content_body">
+    <!-- container -->
+    <div class="container-fluid">
+        <!-- sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사용자 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/users">
+                                    <i class="fas fa-search"></i>
+                                    사용자 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/admin/users/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사용자 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사무소 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link " href="/admin/office">
+                                    <i class="fas fa-search"></i>
+                                    사무소 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/admin/office/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사무소 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //sidebar -->
+
+        <!-- contents -->
+        <main role="main" class="main">
+            <div class="page-header">
+                <div>
+                    <h1>사무소 등록</h1>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name">이름</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="" th:value="${lawFirm.name}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="representative">대표자</label>
+                                <input type="text" class="form-control" id="representative" name="representative" placeholder="" th:value="${lawFirm.representative}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="address">주소</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="address" name="address" th:value="${lawFirm.address}">
+                                    <div class="input-group-append">
+                                        <button type='button' class="btn btn-outline-secondary">검색</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="postalCode">우편번호</label>
+                                <input type="text" class="form-control" id="postalCode"  name="postalCode" placeholder="" th:value="${lawFirm.postalCode}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="tel">전화번호</label>
+                                <input type="text" class="form-control" id="tel" name="tel" placeholder="" th:value="${lawFirm.tel}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="fax">팩스번호</label>
+                                <input type="text" class="form-control" id="fax" name="fax" placeholder="" th:value="${lawFirm.fax}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="description">설명</label>
+                                <input type="text" class="form-control" id="description" name="description" placeholder="" th:value="${lawFirm.description}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="etc">기타사항</label>
+                                <input type="text" class="form-control" id="etc" name="etc" placeholder="" th:value="${lawFirm.etc}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <button type="button" class="btn btn-dark">저장하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <!-- //contents -->
+
+    </div>
+    <!-- //container -->
+    <script>
+
+        $(document).ready(function () {
+
+        });
+    </script>
+</th:block>
+</html>

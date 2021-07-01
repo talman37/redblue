@@ -6,4 +6,8 @@ interface UserService {
 
 	fun find(): List<LawFirmUser>
 
+	fun save(lawFirmUser: LawFirmUser)
+
+	fun detail(id: String): LawFirmUser
+
 }
