@@ -85,12 +85,12 @@
                     <form id="searchForm" name="searchForm" method="get">
                         <div class="search-field">
                             <div class="search-area">
-                                <div class="row">
+                                <div class="row no-gutters">
                                     <div class="col">
                                         <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색(법인등록번호, 법인명, 법인관리번호, 주소)"
                                                th:value="${q}">
                                     </div>
-                                    <div class="col">
+                                    <div class="col ml-2">
                                         <div class="input-group input-daterange">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
@@ -106,12 +106,34 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-2">
+                                <div class="row mt-2 no-gutters">
                                     <div class="col">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     법인상태
+                                                </div>
+                                            </div>
+                                            <select class="form-control form-select" >
+                                                <option th:value="유효법인">유효법인</option>
+                                                <option th:value="본점전출">본점전출(폐쇄)</option>
+                                                <option th:value="해산">해산(간주)</option>
+                                                <option th:value="조직변경해산">조직변경해산</option>
+                                                <option th:value="청산종결">청산종결(간주)</option>
+                                                <option th:value="법인회생">법인회생</option>
+                                                <option th:value="법인파산">법인파산</option>
+                                                <option th:value="법인파산">기타폐쇄</option>
+                                                <option th:value="법인파산">기타</option>
+                                                <option th:value="법인파산">전체법인</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col ml-2">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    관리상태
                                                 </div>
                                             </div>
                                             <div class="form-control">
@@ -136,46 +158,10 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '안내후미등기')}"
-                                                               th:value="안내후미등기"><i></i>
+                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결법인')}"
+                                                               th:value="관리종결법인"><i></i>
                                                     </span>
-                                                        <label for="state-3">안내후미등기</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <div class="form-input">
-                                                    <span class="input">
-                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '반송')}"
-                                                               th:value="반송"><i></i>
-                                                    </span>
-                                                        <label for="state-4">반송</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <div class="form-input">
-                                                    <span class="input">
-                                                        <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '법무사교체')}"
-                                                               th:value="법무사교체"><i></i>
-                                                    </span>
-                                                        <label for="state-5">법무사교체</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <div class="form-input">
-                                                    <span class="input">
-                                                        <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '사업자폐업')}"
-                                                               th:value="사업자폐업"><i></i>
-                                                    </span>
-                                                        <label for="state-6">사업자폐업</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <div class="form-input">
-                                                    <span class="input">
-                                                        <input type="checkbox" id="state-7" name="state" th:checked="${#strings.contains(state, '법인파산')}"
-                                                               th:value="법인파산"><i></i>
-                                                    </span>
-                                                        <label for="state-7">법인파산</label>
+                                                        <label for="state-3">관리종결법인</label>
                                                     </div>
                                                 </div>
                                             </div>
