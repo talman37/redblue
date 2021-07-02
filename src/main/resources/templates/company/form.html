@@ -58,7 +58,7 @@
                                                 <option value="재단법인">재단법인</option>
                                                 <option value="농업회사">농업회사</option>
                                             </select>
-                                            <div class="form-check form-check-inline">
+                                            <div class="form-check form-check-inline text-nowrap ml-2">
                                                 <div class="form-input">
                                                         <span class="input">
                                                             <input type="radio" id="displayCompanyTypeFront"
@@ -67,7 +67,7 @@
                                                     <label for="displayCompanyTypeFront">앞</label>
                                                 </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
+                                            <div class="form-check form-check-inline text-nowrap">
                                                 <div class="form-input">
                                                         <span class="input">
                                                             <input type="radio" id="displayCompanyTypeBack"
@@ -993,9 +993,8 @@
     </script>
 
     <script id="contact-template" type="text/x-jQuery-tmpl">
-        <div class="row" id="contact_row_{{= index}}">
-            <div class="col-md mb-2">
-                <label for="">연락처</label>
+        <tr id="contact_row_{{= index}}">
+            <td>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <select name="contacts[{{= index}}][type]" class="form-control form-select form-select-sm">
@@ -1010,28 +1009,22 @@
                     </div>
                     <input type="text" class="form-control form-control-sm" name="contacts[{{= index}}][value]">
                 </div>
-            </div>
-            <div class="col-md-5 mb-2">
-                <label for="">메모</label>
+            </td>
+            <td>
                 <input type="text" class="form-control form-control-sm" name="contacts[{{= index}}][memo]" placeholder="">
-            </div>
-            <div class="col-md-auto mb-2">
-                <label for="" class="invisible">Actions</label>
-                <div class="btns">
-                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
     <script id="branch-template" type="text/x-jQuery-tmpl">
-        <div class="row" id="branch_row_{{= index}}">
-            <div class="col-md-2 mb-2">
-                <label>지점명칭</label>
+        <tr id="branch_row_{{= index}}">
+            <td>
                 <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][name]">
-            </div>
-            <div class="col-md mb-2">
-                <label>지점주소</label>
+            </td>
+            <td>
                 <div class="input-group">
                     <input type="text" class="form-control form-control-sm" name="branches[{{= index}}][address]">
                     <div class="input-group-append">
@@ -1040,17 +1033,14 @@
                         </button>
                     </div>
                 </div>
-            </div>
-            <input type="hidden" class="form-control form-control-sm" style="width: 55px" name="branches[{{= index}}][postalCode]" placeholder="">
-            <div class="col-md-auto mb-2">
-                <label for="" class="invisible">Actions</label>
-                <div class="btns">
-                    <button type="button" class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onClick="remove_branch({{= index}});" name="remove_branch_btn">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+                <input type="hidden" class="form-control form-control-sm" style="width: 55px" name="branches[{{= index}}][postalCode]" placeholder="">
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onClick="remove_branch({{= index}});" name="remove_branch_btn">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
     <script id="executive-template" type="text/x-jQuery-tmpl">
         <tr id="executive_tr_{{= index}}">
             <td>
