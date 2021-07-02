@@ -35,171 +35,195 @@
                     <input type="hidden" id="companyId" th:value="${company.id}"/>
                     <form id="masterForm">
                         <table class="table-bordered">
-                            <tr>
-                                <th>상호</th>
-                                <td colspan="3">
-                                    <input type="text" class="form-control form-control-sm" id="companyName" name="companyName"
-                                           th:value="${company.companyName}">
-                                </td>
-                                <th>법인구분</th>
-                                <td colspan="3">
-                                    <div class="d-flex">
-                                        <select class="form-control form-select form-select-sm" id="companyDivision" name="companyDivision"
-                                                th:field="*{company.companyDivision}">
-                                            <option th:value="주식회사">주식회사</option>
-                                            <option th:value="유한회사">유한회사</option>
-                                            <option th:value="유한책임회사">유한책임회사</option>
-                                            <option th:value="합자회사">합자회사</option>
-                                            <option th:value="사단법인">사단법인</option>
-                                            <option th:value="재단법인">재단법인</option>
-                                            <option th:value="농업회사">농업회사</option>
-                                        </select>
-                                        <div class="form-check form-check-inline text-nowrap ml-2">
-                                            <div class="form-input">
-                                                <span class="input">
-                                                    <input type="radio" id="displayCompanyTypeFront"
-                                                           name="displayCompanyType" value="FRONT"
-                                                           th:field="${company.displayCompanyType}"><i></i>
-                                                </span>
-                                                <label for="displayCompanyTypeFront">앞</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-check form-check-inline text-nowrap">
-                                            <div class="form-input">
-                                                <span class="input">
-                                                    <input type="radio" id="displayCompanyTypeBack"
-                                                           name="displayCompanyType" value="BACK"
-                                                           th:field="${company.displayCompanyType}"><i></i>
-                                                </span>
-                                                <label for="displayCompanyTypeBack">뒤</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>병기 상호</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="companySubName" name="companySubName"
-                                           placeholder="" th:value="${company.companySubName}">
-                                </td>
-                                <th>법인 상태</th>
-                                <td>
-                                    <select class="form-control form-select form-select-sm" id="companyState" name="companyState"
-                                            th:field="*{company.companyState}">
-                                        <option th:value="신규법인">신규법인</option>
-                                        <option th:value="관리법인">관리법인</option>
-                                        <option th:value="장기미등기">장기미등기</option>
-                                        <option th:value="해산간주">해산간주</option>
-                                        <option th:value="안내후미등기">안내후미등기</option>
-                                        <option th:value="반송">반송</option>
-                                        <option th:value="법무사교체">법무사교체</option>
-                                        <option th:value="연락안됨">연락안됨</option>
-                                        <option th:value="사업자폐업">사업자폐업</option>
-                                        <option th:value="법인파산">법인파산</option>
-                                    </select>
-                                </td>
-                                <th>관할등기소
-                                    <br/>
-                                    <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
-                                            data-target="#modal-favorite">☆ 즐겨찾기
-                                    </button>
-                                    <div class="modal" id="modal-favorite">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">즐겨찾는 관할등기소</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                            <colgroup>
+                                <col style="width: 70px;">
+                                <col/>
+                                <col style="width: 90px;">
+                                <col style="width: 120px;">
+                                <col/>
+                                <col/>
+                                <col/>
+                                <col/>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>상호</th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" id="companyName" name="companyName"
+                                               th:value="${company.companyName}">
+                                    </td>
+                                    <th>병기 상호</th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" id="companySubName" name="companySubName"
+                                               placeholder="" th:value="${company.companySubName}">
+                                    </td>
+                                    <th>법인구분</th>
+                                    <td>
+                                        <div class="d-flex">
+                                            <select class="form-control form-select form-select-sm" id="companyDivision" name="companyDivision"
+                                                    th:field="*{company.companyDivision}">
+                                                <option th:value="주식회사">주식회사</option>
+                                                <option th:value="유한회사">유한회사</option>
+                                                <option th:value="유한책임회사">유한책임회사</option>
+                                                <option th:value="합자회사">합자회사</option>
+                                                <option th:value="사단법인">사단법인</option>
+                                                <option th:value="재단법인">재단법인</option>
+                                                <option th:value="농업회사">농업회사</option>
+                                            </select>
+                                            <div class="form-check form-check-inline text-nowrap ml-2">
+                                                <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="radio" id="displayCompanyTypeFront"
+                                                               name="displayCompanyType" value="FRONT"
+                                                               th:field="${company.displayCompanyType}"><i></i>
+                                                    </span>
+                                                    <label for="displayCompanyTypeFront">앞</label>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <div class="list-group">
-                                                        <button type="button"
-                                                                class="list-group-item list-group-item-action"
-                                                                th:each="favoriteOffice: ${favoriteOffices}"
-                                                                th:id="${favoriteOffice.id.registerOfficeId}"
-                                                                name="favoriteOffice" th:value="${favoriteOffice.name}"
-                                                                th:text="${favoriteOffice.name}"
-                                                                data-dismiss="modal"></button>
+                                            </div>
+                                            <div class="form-check form-check-inline text-nowrap">
+                                                <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="radio" id="displayCompanyTypeBack"
+                                                               name="displayCompanyType" value="BACK"
+                                                               th:field="${company.displayCompanyType}"><i></i>
+                                                    </span>
+                                                    <label for="displayCompanyTypeBack">뒤</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th>관할등기소
+                                        <br/>
+                                        <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal"
+                                                data-target="#modal-favorite">☆ 즐겨찾기
+                                        </button>
+                                        <div class="modal" id="modal-favorite">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">즐겨찾는 관할등기소</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="list-group">
+                                                            <button type="button"
+                                                                    class="list-group-item list-group-item-action"
+                                                                    th:each="favoriteOffice: ${favoriteOffices}"
+                                                                    th:id="${favoriteOffice.id.registerOfficeId}"
+                                                                    name="favoriteOffice" th:value="${favoriteOffice.name}"
+                                                                    th:text="${favoriteOffice.name}"
+                                                                    data-dismiss="modal"></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-sm btn-secondary"
+                                                                data-dismiss="modal">닫기
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-sm btn-secondary"
-                                                            data-dismiss="modal">닫기
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </th>
-                                <td colspan="3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="registerOffice" name="registerOffice"
-                                               th:readonly="true"
-                                               th:value="${company.registerOffice}">
-                                        <div class="input-group-append">
-                                            <button type='button' id="office_search_btn" class="btn btn-sm btn-outline-secondary">
-                                                검색
-                                            </button>
+                                    </th>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control form-control-sm" id="registerOffice" name="registerOffice"
+                                                   th:readonly="true"
+                                                   th:value="${company.registerOffice}">
+                                            <div class="input-group-append">
+                                                <button type='button' id="office_search_btn" class="btn btn-sm btn-outline-secondary">
+                                                    검색
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>등기번호</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="registerNumber" name="registerNumber"
-                                           placeholder=""
-                                           th:value="${company.registerNumber}">
-                                </td>
-                                <th>법인등록번호</th>
-                                <td>
-                                    <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1"
-                                           th:value="${company.companyNumber1}">
-                                    <input type="hidden" class="form-control form-control-sm" id="companyNumber2" name="companyNumber2"
-                                           th:value="${company.companyNumber2}">
-                                    <input type="text" class="form-control form-control-sm" id="companyNumber" name="companyNumber"
-                                           th:value="|${company.companyNumber1}-${company.companyNumber2}|">
-                                </td>
-                                <th>관리 번호</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="companyManageNumber"
-                                           name="companyManageNumber" placeholder=""
-                                           th:value="${company.companyManageNumber}">
-                                </td>
-                                <th rowspan="2">주의사항</th>
-                                <td rowspan="2">
-                                    <textarea class="form-control form-control-sm" style="height: 66px" id="precautions"
-                                           name="precautions"
-                                              placeholder=""  th:value="${company.precautions}"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table-bordered">
+                            <colgroup>
+                                <col style="width: 70px;">
+                                <col style="width: 110px;">
+                                <col style="width: 90px;">
+                                <col style="width: 120px;">
+                                <col style="width: 70px;">
+                                <col style="width: 100px;">
+                                <col style="width: 60px;">
+                                <col/>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>등기번호</th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" id="registerNumber" name="registerNumber"
+                                               placeholder=""
+                                               th:value="${company.registerNumber}">
+                                    </td>
+                                    <th>법인등록번호</th>
+                                    <td>
+                                        <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1"
+                                               th:value="${company.companyNumber1}">
+                                        <input type="hidden" class="form-control form-control-sm" id="companyNumber2" name="companyNumber2"
+                                               th:value="${company.companyNumber2}">
+                                        <input type="text" class="form-control form-control-sm" id="companyNumber" name="companyNumber"
+                                               th:value="|${company.companyNumber1}-${company.companyNumber2}|">
+                                    </td>
+                                    <th>관리 번호</th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" id="companyManageNumber"
+                                               name="companyManageNumber" placeholder=""
+                                               th:value="${company.companyManageNumber}">
+                                    </td>
+                                    <th>주의사항</th>
+                                    <td>
+                                        <textarea class="form-control form-control-sm" style="height: 66px" id="precautions"
+                                               name="precautions"
+                                                  placeholder=""  th:value="${company.precautions}"></textarea>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>추천인</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
-                                           placeholder="" th:value="${company.recommender}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>법인 상태</th>
+                                    <td>
+                                        <select class="form-control form-select form-select-sm" id="companyState" name="companyState"
+                                                th:field="*{company.companyState}">
+                                            <option th:value="신규법인">신규법인</option>
+                                            <option th:value="관리법인">관리법인</option>
+                                            <option th:value="장기미등기">장기미등기</option>
+                                            <option th:value="해산간주">해산간주</option>
+                                            <option th:value="안내후미등기">안내후미등기</option>
+                                            <option th:value="반송">반송</option>
+                                            <option th:value="법무사교체">법무사교체</option>
+                                            <option th:value="연락안됨">연락안됨</option>
+                                            <option th:value="사업자폐업">사업자폐업</option>
+                                            <option th:value="법인파산">법인파산</option>
+                                        </select>
+                                    </td>
+                                    <th>관리 상태</th>
+                                    <td>
+                                        <select class="form-control form-select form-select-sm" id="companyManageState" name="companyManageState" style="width:100px"
+                                                th:field="*{company.companyManageState}">
+                                            <option th:value="신규법인">신규법인</option>
+                                            <option th:value="관리법인">관리법인</option>
+                                            <option th:value="관리종결">관리종결</option>
+                                        </select>
+                                    </td>
+                                    <th>설립일</th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" id="companyFormationAt"
+                                               name="companyFormationAt"
+                                               th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">
+                                    </td>
+                                    <th>추천인</th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
+                                               placeholder="" th:value="${company.recommender}">
 
-                                </td>
-                                <th>관리 상태</th>
-                                <td>
-                                    <select class="form-control form-select form-select-sm" id="companyManageState" name="companyManageState" style="width:100px"
-                                            th:field="*{company.companyManageState}">
-                                        <option th:value="신규법인">신규법인</option>
-                                        <option th:value="관리법인">관리법인</option>
-                                        <option th:value="관리종결">관리종결</option>
-                                    </select>
-                                </td>
-                                <th>설립일</th>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm" id="companyFormationAt"
-                                           name="companyFormationAt"
-                                           th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </form>
                 </div>
@@ -362,7 +386,7 @@
                         </div>
                     </div>
                     <form id="executive_form">
-                        <div class="table-scroll">
+                        <div class="table-scroll" style="max-height: 310px">
                         <table class="table table-bordered mb-2 table-form">
                             <colgroup>
                                 <col style="width: 70px">
@@ -370,10 +394,10 @@
                                 <col style="width: 70px;">
                                 <col style="width: 115px;">
                                 <col>
-                                <col style="width: 50px;">
+                                <col style="width: 60px;">
                                 <col style="width: 80px;">
-                                <col style="width: 90px">
-                                <col style="width: 90px">
+                                <col style="width: 95px">
+                                <col style="width: 95px">
                                 <col style="width: 40px">
                             </colgroup>
                             <thead>
@@ -507,63 +531,77 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <strong>상담내역</strong>
-                            <strong class="text-primary" th:text="${#lists.size(consults)}"></strong>
+                            <strong>공고방법</strong>
                         </div>
                         <div>
-                            <button type='button' class='btn btn-sm btn-outline-primary' id="consult_add_btn">
-                                상담 내역 추가
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="update_notify_btn">
+                                수정
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-scroll">
-                    <table class="table table-bordered ">
-                        <colgroup>
-                            <col width="110px"/>
-                            <col width="110px"/>
-                            <col width="110px"/>
-                            <col/>
-                            <col width="100px"/>
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>상담자</th>
-                            <th>상담 일시</th>
-                            <th>법인 담당자</th>
-                            <th>상담내용</th>
-                            <th>사건진행정도</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="consult: ${consults}">
-                            <td class="text-center" th:text="${consult.consultant}">
-                            </td>
-                            <td class="text-center" th:text="${consult.createdAt}">
-                            </td>
-                            <td class="text-center" th:text="${consult.companyClerk}">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal" name="consult_edit_btn" th:attr="data-id=${consult.id}" th:text="${consult.content}">
-                                </button>
-                            </td>
-                            <td  class="text-center" th:switch="${consult.progress}">
-                                <span th:case="${consult.progress.CANCEL}"
-                                      class="badge badge-pill badge-danger">취소</span>
-                                <span th:case="${consult.progress.ONGOING}"
-                                      class="badge badge-pill badge-primary">진행중</span>
-                                <span th:case="${consult.progress.COMPLETE}"
-                                      class="badge badge-pill badge-success">완료</span>
-                                <span th:case="${consult.progress.HOLD}"
-                                      class="badge badge-pill badge-warning">보류</span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </div>
+                    <form id="noticeWay_form">
+                        <div class="box-scrol">
+                            <div class="row">
+                                <input type="text" class="form-control form-control-sm mb-2" id="noticeWay"
+                                       name="noticeWay"
+                                       placeholder=""  th:value="${company.noticeWay}">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>목적사항</strong>
+                        </div>
+                        <div>
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="add-purpose-btn">
+                                목적사항 추가
+                            </button>
+                            <button type='button' class='btn btn-sm btn-outline-success' id="save-purpose-btn">
+                                저장
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="purposeDetail_form">
+                        <div class="box-scroll">
+                            <div id="purposeGroup">
+                                <th:block th:each="purpose, index: ${company.purposeDetail}">
+                                    <div class="row" th:id="'purpose_row_'+${index.index}">
+                                        <div class="col-md mb-2">
+                                            <input type="hidden" class="form-control form-control-sm"
+                                                   th:name="'purposeDetail['+${index.index}+'][id]'"
+                                                   th:value="${purpose.id}"/>
+                                            <input type="text" class="form-control form-control-sm"
+                                                   th:name="'purposeDetail['+${index.index}+'][detail]'"
+                                                   id="purpose_detail" th:value="${purpose.detail}"/>
+                                            <input type="hidden" class="form-control form-control-sm"
+                                                   th:name="'purposeDetail['+${index.index}+'][ordinal]'"
+                                                   th:value="${purpose.ordinal}"/>
+                                        </div>
+                                        <div class="col-md-auto mb-2">
+                                            <div class="btns">
+                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
+                                                        th:onclick="'remove_purpose('+${index.index}+')'"
+                                                        name="remove_purpose_btn">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div class="col-md-6">
                     <div class="card">
@@ -588,7 +626,7 @@
                                 <div class="table-scroll">
                                     <table class="table table-bordered ">
                                         <colgroup>
-                                            <col/>
+                                            <col style="width: 150px;"/>
                                             <col/>
                                             <col style="width: 40px"/>
                                         </colgroup>
@@ -654,7 +692,7 @@
                                 <div class="table-scroll">
                                     <table class="table table-bordered">
                                         <colgroup>
-                                            <col/>
+                                            <col style="width: 100px"/>
                                             <col/>
                                             <col style="width: 40px"/>
                                         </colgroup>
@@ -706,78 +744,66 @@
                     </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <strong>공고방법</strong>
+                            <strong>상담내역</strong>
+                            <strong class="text-primary" th:text="${#lists.size(consults)}"></strong>
                         </div>
                         <div>
-                            <button type='button' class='btn btn-sm btn-outline-primary' id="update_notify_btn">
-                                수정
+                            <button type='button' class='btn btn-sm btn-outline-primary' id="consult_add_btn">
+                                상담 내역 추가
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form id="noticeWay_form">
-                        <div class="box-scrol">
-                            <div class="row">
-                                <input type="text" class="form-control form-control-sm mb-2" id="noticeWay"
-                                    name="noticeWay"
-                                    placeholder=""  th:value="${company.noticeWay}">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>목적사항</strong>
-                        </div>
-                        <div>
-                            <button type='button' class='btn btn-sm btn-outline-primary' id="add-purpose-btn">
-                                목적사항 추가
-                            </button>
-                            <button type='button' class='btn btn-sm btn-outline-success' id="save-purpose-btn">
-                                저장
-                            </button>
-                        </div>
+                    <div class="table-scroll">
+                        <table class="table table-bordered ">
+                            <colgroup>
+                                <col width="110px"/>
+                                <col width="110px"/>
+                                <col width="110px"/>
+                                <col/>
+                                <col width="100px"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>상담자</th>
+                                <th>상담 일시</th>
+                                <th>법인 담당자</th>
+                                <th>상담내용</th>
+                                <th>사건진행정도</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="consult: ${consults}">
+                                <td class="text-center" th:text="${consult.consultant}">
+                                </td>
+                                <td class="text-center" th:text="${consult.createdAt}">
+                                </td>
+                                <td class="text-center" th:text="${consult.companyClerk}">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-link p-0" data-toggle="modal" name="consult_edit_btn" th:attr="data-id=${consult.id}" th:text="${consult.content}">
+                                    </button>
+                                </td>
+                                <td  class="text-center" th:switch="${consult.progress}">
+                                <span th:case="${consult.progress.CANCEL}"
+                                      class="badge badge-pill badge-danger">취소</span>
+                                    <span th:case="${consult.progress.ONGOING}"
+                                          class="badge badge-pill badge-primary">진행중</span>
+                                    <span th:case="${consult.progress.COMPLETE}"
+                                          class="badge badge-pill badge-success">완료</span>
+                                    <span th:case="${consult.progress.HOLD}"
+                                          class="badge badge-pill badge-warning">보류</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="card-body">
-                    <form id="purposeDetail_form">
-                        <div class="box-scroll">
-                            <div id="purposeGroup">
-                                <th:block th:each="purpose, index: ${company.purposeDetail}">
-                                    <div class="row" th:id="'purpose_row_'+${index.index}">
-                                        <div class="col-md mb-2">
-                                            <input type="hidden" class="form-control form-control-sm"
-                                                   th:name="'purposeDetail['+${index.index}+'][id]'"
-                                                   th:value="${purpose.id}"/>
-                                            <input type="text" class="form-control form-control-sm"
-                                                   th:name="'purposeDetail['+${index.index}+'][detail]'"
-                                                   id="purpose_detail" th:value="${purpose.detail}"/>
-                                            <input type="hidden" class="form-control form-control-sm"
-                                                   th:name="'purposeDetail['+${index.index}+'][ordinal]'"
-                                                   th:value="${purpose.ordinal}"/>
-                                        </div>
-                                        <div class="col-md-auto mb-2">
-                                            <div class="btns">
-                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                                        th:onclick="'remove_purpose('+${index.index}+')'"
-                                                        name="remove_purpose_btn">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </th:block>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </main>
