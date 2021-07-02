@@ -489,9 +489,9 @@ h5 {
   border: 1px solid #ddd;
   border-top: none; }
 .search-field .input-group select.form-control {
-  min-width: 20%;
-  -webkit-box-flex: 0;
-  flex: 0 1 auto;
+  width: 1%;
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
   height: 100%; }
 .search-field .input-group-prepend .input-group-text {
   background: #fff; }
