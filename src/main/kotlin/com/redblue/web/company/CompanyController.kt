@@ -33,15 +33,15 @@ class CompanyController(
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@RequestParam(value = "state", required = false) state: MutableList<String>?,
+		@RequestParam(value = "searchType", required = false) searchType: String?,
 		@CurrentUser user: LawFirmUser
 	): String {
 
 		model.addAttribute("totalCount", companyService.totalCount(user.lawFirmId))
 		model.addAttribute("manageCount", companyService.manageCount(user.lawFirmId))
 
-		val companyState: MutableList<String> = if(state.isNullOrEmpty()) {
-			//mutableListOf("신규법인", "관리법인", "안내후미등기")
-			mutableListOf()
+		val companyState: MutableList<String> = if(state == null) {
+			mutableListOf("신규법인", "관리법인")
 		} else {
 			state
 		}
@@ -76,10 +76,11 @@ class CompanyController(
 			}
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState)
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType)
 
 		model.addAttribute("companies", CompanyListDto.of(companies))
 		model.addAttribute("q", searchValue)
+		model.addAttribute("searchType", searchType)
 		model.addAttribute("startDate", startDate)
 		model.addAttribute("endDate", endDate)
 		model.addAttribute("state", companyState)

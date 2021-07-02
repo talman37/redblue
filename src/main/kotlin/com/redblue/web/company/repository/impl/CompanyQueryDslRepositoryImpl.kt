@@ -23,7 +23,7 @@ class CompanyQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
 ) : CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
 
-	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company> {
+	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
 		val qc = QCompany.company
 		val qe = QExecutive.executive
 		val qct = QContact.contact
@@ -41,7 +41,7 @@ class CompanyQueryDslRepositoryImpl(
 
 		if(companyState.isNotEmpty()) {
 			predicate.and(
-				qc.companyState.`in`(companyState)
+				qc.companyManageState.`in`(companyState)
 			)
 		}
 
@@ -53,6 +53,19 @@ class CompanyQueryDslRepositoryImpl(
 					.or(qc.companyManageNumber.like("%$it%"))
 					.or(qc.companyAddress.like("%$it%"))
 			)
+		}
+
+		searchType?.let {
+			when (it) {
+				"유효법인" -> {
+					predicate.and(qc.companyState.`in`(mutableListOf("신규법인", "관리법인", "장기미등기")))
+				}
+				"ALL" -> {
+				}
+				else -> {
+					predicate.and(qc.companyState.eq(q))
+				}
+			}
 		}
 
 		startDate?.let {

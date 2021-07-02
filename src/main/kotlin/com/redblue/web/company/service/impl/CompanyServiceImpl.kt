@@ -27,8 +27,8 @@ class CompanyServiceImpl(
 	private val executiveHistoryRepository: ExecutiveHistoryRepository
 ): CompanyService {
 
-	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company> {
-		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState)
+	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
+		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
 	}
 
 	override fun findExecutivesByCompanyId(companyId: String): List<Executive> {

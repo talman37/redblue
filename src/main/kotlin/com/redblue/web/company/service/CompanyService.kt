@@ -11,7 +11,7 @@ import java.util.*
 
 interface CompanyService {
 
-	fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>): List<Company>
+	fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company>
 
 	fun findExecutivesByCompanyId(companyId: String): List<Executive>
 

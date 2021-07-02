@@ -146,6 +146,7 @@ class CompanyRestController(
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@RequestParam(value = "state", required = false) state: MutableList<String>?,
+		@RequestParam(value = "searchType", required = false) searchType: String?,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
@@ -180,7 +181,7 @@ class CompanyRestController(
 			state
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState)
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType)
 		val resource = companyExcelService.generate(companies)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=corporations.xlsx")
@@ -195,6 +196,7 @@ class CompanyRestController(
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@RequestParam(value = "state", required = false) state: MutableList<String>?,
+		@RequestParam(value = "searchType", required = false) searchType: String?,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
@@ -229,7 +231,7 @@ class CompanyRestController(
 			state
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState)
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType)
 		val resource = companyDmService.generate(companies, user)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=dm.pdf")
