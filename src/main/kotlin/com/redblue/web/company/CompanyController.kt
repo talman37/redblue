@@ -40,14 +40,10 @@ class CompanyController(
 		model.addAttribute("totalCount", companyService.totalCount(user.lawFirmId))
 		model.addAttribute("manageCount", companyService.manageCount(user.lawFirmId))
 
-		val companyState: MutableList<String> = if(state == null) {
-			mutableListOf("신규법인", "관리법인")
-		} else {
-			state
-		}
+		val companyState: MutableList<String> = state ?: mutableListOf()
 
-		if(!StringUtils.hasText(searchValue) && !StringUtils.hasText(startDate) && !StringUtils.hasText(endDate)) {
-			model.addAttribute("state", companyState)
+		if(!StringUtils.hasText(searchValue) && !StringUtils.hasText(startDate) && !StringUtils.hasText(endDate) && companyState.isEmpty() && !StringUtils.hasText(searchType)) {
+			model.addAttribute("state", mutableListOf("신규법인", "관리법인"))
 			return "/company/list"
 		}
 
