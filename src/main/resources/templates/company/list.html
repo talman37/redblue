@@ -249,7 +249,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>이름(직위)</th>
+                                        <th>(직위)이름</th>
                                         <th>취임일</th>
                                         <th>만료일</th>
                                     </tr>
@@ -365,7 +365,7 @@
                     $.each(data.executives, function(i, v){
                         var senList = '';
                         senList += '<tr>';
-                        senList += '<td>'+ v.name +'('+ v.position +')</td>';
+                        senList += '<td>'+ ('+ v.position +') + v.name </td>';
                         senList += '<td>'+ v.inauguratedAt +'</td>';
                         senList += '<td>'+ v.expiredAt +'</td>';
                         senList += '</tr>';
