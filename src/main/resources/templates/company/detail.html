@@ -189,9 +189,7 @@
                                     <td>
                                         <select class="form-control form-select form-select-sm" id="companyState" name="companyState"
                                                 th:field="*{company.companyState}">
-                                            <option th:value="신규법인">신규법인</option>
-                                            <option th:value="관리법인">관리법인</option>
-                                            <option th:value="장기미등기">장기미등기</option>
+                                            <option th:value="유효법인">유효법인</option>
                                             <option th:value="|본점전출(폐쇄)|">본점전출(폐쇄)</option>
                                             <option th:value="|해산(간주)|">해산(간주)</option>
                                             <option th:value="조직변경해산">조직변경해산</option>
@@ -820,10 +818,8 @@
                     new daum.Postcode({
                         oncomplete: function (data) {
                             if ($this.data('id') == 'companyAddress') {
-                                $('#companyAddress').val(data.address);
                                 $('#companyPostalCode').val(data.zonecode);
                             } else {
-                                $('#deliveryPlace').val(data.address);
                                 $('#deliveryPlacePostalCode').val(data.zonecode);
                             }
                         }

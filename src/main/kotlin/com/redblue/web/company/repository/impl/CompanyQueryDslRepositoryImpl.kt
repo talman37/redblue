@@ -57,13 +57,10 @@ class CompanyQueryDslRepositoryImpl(
 
 		searchType?.let {
 			when (it) {
-				"유효법인" -> {
-					predicate.and(qc.companyState.`in`(mutableListOf("신규법인", "관리법인", "장기미등기")))
-				}
 				"ALL" -> {
 				}
 				else -> {
-					predicate.and(qc.companyState.eq(q))
+					predicate.and(qc.companyState.eq(searchType))
 				}
 			}
 		}
