@@ -637,7 +637,8 @@
                                             </tr>
                                         </thead>
                                         <tbody id="contactGroup">
-                                            <tr th:each="contact, index: ${company.contacts}">
+                                            <th:block th:each="contact, index: ${company.contacts}">
+                                            <tr th:id="'contact_row_' + ${index.index}">
                                                 <td>
                                                     <div>
                                                         <select th:name="'contacts['+${index.index}+'][type]'" class="form-control form-select form-select-sm">
@@ -662,6 +663,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
+                                            </th:block>
                                         </tbody>
                                     </table>
                                 </div>
@@ -703,38 +705,34 @@
                                         </tr>
                                         </thead>
                                         <tbody id="branchGroup">
-                                            <tr th:each="branch, index: ${company.branches}">
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][name]'" th:name="'branches['+${index.index}+'][name]'" placeholder=""
-                                                           th:value="${branch.name}">
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][address]'" th:name="'branches['+${index.index}+'][address]'"
-                                                               th:value="${branch.address}">
-                                                        <div class="input-group-append">
-                                                            <button type='button' class="btn btn-sm btn-outline-secondary"
-                                                                    name="postal_code_search_btn" data-id="deliveryPlace">검색
-                                                            </button>
+                                            <th:block th:each="branch, index: ${company.branches}">
+                                                <tr th:id="'branch_row_' + ${index.index}">
+                                                    <td>
+                                                        <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][name]'" th:name="'branches['+${index.index}+'][name]'" placeholder=""
+                                                               th:value="${branch.name}">
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control form-control-sm" th:id="'branches['+${index.index}+'][address]'" th:name="'branches['+${index.index}+'][address]'"
+                                                                   th:value="${branch.address}">
+                                                            <div class="input-group-append">
+                                                                <button type='button' class="btn btn-sm btn-outline-secondary"
+                                                                        name="postal_code_search_btn" data-id="deliveryPlace">검색
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <input type="hidden" class="form-control form-control-sm" style="width: 55px" th:id="'branches['+${index.index}+'][postalCode]'"
-                                                           th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""
-                                                           th:value="${branch.postalCode}">
-                                                    <!--                                            <div class="col-md-auto">-->
-                                                    <!--                                                <label th:for="'branches['+${index.index}+'][postalCode]'">우편번호</label>-->
-                                                    <!--                                                <input type="text" class="form-control form-control-sm" style="width: 55px" th:id="'branches['+${index.index}+'][postalCode]'"-->
-                                                    <!--                                                       th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""-->
-                                                    <!--                                                       th:value="${branch.postalCode}">-->
-                                                    <!--                                            </div>-->
-                                                </td>
+                                                        <input type="hidden" class="form-control form-control-sm" style="width: 55px" th:id="'branches['+${index.index}+'][postalCode]'"
+                                                               th:name="'branches['+${index.index}+'][postalCode]'" placeholder=""
+                                                               th:value="${branch.postalCode}">
+                                                    </td>
 
-                                                <td>
-                                                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" th:onclick="'remove_office('+${index.index}+')'">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" th:onclick="'remove_branch('+${index.index}+')'">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </th:block>
                                         </tbody>
                                     </table>
                                 </div>
@@ -989,12 +987,12 @@
             });
 
              $('#add-contact-btn').on('click', function () {
-                let i = $('#contactGroup > div').length
+                let i = $('#contactGroup > tr').length
                 $('#contact-template').tmpl([{index: i}]).appendTo($('#contactGroup'))
             });
 
             $('#add-branch-btn').on('click', function () {
-                let i = $('#branchGroup > div').length
+                let i = $('#branchGroup > tr').length
                 $('#branch-template').tmpl([{index: i}]).appendTo($('#branchGroup'))
             });
 

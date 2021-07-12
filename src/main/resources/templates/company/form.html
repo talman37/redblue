@@ -862,7 +862,7 @@
                                         </tr>
                                         </thead>
                                         <tbody id="contactGroup">
-                                            <tr>
+                                            <tr id="contact_row_0">
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -887,7 +887,7 @@
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                                            name="remove_contact_btn">
+                                                            name="remove_contact_btn" onclick="remove_contact(0)">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -929,7 +929,7 @@
                                         </tr>
                                         </thead>
                                         <tbody id="branchGroup">
-                                            <tr>
+                                            <tr id="branch_row_0">
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm"
                                                            name="branches[0][name]">
@@ -948,7 +948,7 @@
                                                 </td>
                                                 <td>
                                                     <button type="button"
-                                                            class="btn btn-sm btn-sm btn-sm btn-outline-secondary" id="">
+                                                            class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onclick="remove_branch(0)">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -1065,12 +1065,12 @@
             });
 
             $('#add-contact-btn').on('click', function () {
-                var i = $('#contactGroup > div').length
+                var i = $('#contactGroup > tr').length
                 $('#contact-template').tmpl([{index: i}]).appendTo($('#contactGroup'))
             });
 
             $('#add-branch-btn').on('click', function () {
-                let i = $('#branchGroup > div').length
+                let i = $('#branchGroup > tr').length
                 $('#branch-template').tmpl([{index: i}]).appendTo($('#branchGroup'))
             });
 

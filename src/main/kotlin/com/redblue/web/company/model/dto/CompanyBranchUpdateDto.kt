@@ -9,10 +9,14 @@ data class CompanyBranchUpdateDto(
 ) {
 
 	fun to(companyId: String): List<CompanyBranch> {
+		val savedList = mutableListOf<CompanyBranch>()
 		this.branches.forEach {
-			it.companyId = companyId
+			if(it != null) {
+				it.companyId = companyId
+				savedList.add(it)
+			}
 		}
-		return this.branches
+		return savedList
 	}
 
 }

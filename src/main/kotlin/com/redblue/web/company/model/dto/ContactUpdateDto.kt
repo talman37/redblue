@@ -9,10 +9,14 @@ data class ContactUpdateDto(
 ) {
 
 	fun to(companyId: String): List<Contact> {
+		val savedList = mutableListOf<Contact>()
 		this.contacts.forEach {
-			it.companyId = companyId
+			if(it != null) {
+				it.companyId = companyId
+				savedList.add(it)
+			}
 		}
-		return this.contacts
+		return savedList
 	}
 
 }
