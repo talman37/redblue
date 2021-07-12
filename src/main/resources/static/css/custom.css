@@ -799,6 +799,9 @@ h5 {
 .detail-company table {
   width: 100%; }
 
+.detail-company {
+  zoom: 90%;
+}
 .detail-company .table-bordered th,
 .detail-company .table-bordered td {
   padding: 3px; }
