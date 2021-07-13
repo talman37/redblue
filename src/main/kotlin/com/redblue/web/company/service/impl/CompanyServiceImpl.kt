@@ -169,6 +169,7 @@ class CompanyServiceImpl(
 			companySubName = dto.companySubName,
 			recommender = dto.recommender,
 			precautions = dto.precautions,
+			companyFormationAt = dto.companyFormationAt,
 			companyUpdatedAt = if(company.get().companyName != dto.companyName){
 				Date()
 			} else {

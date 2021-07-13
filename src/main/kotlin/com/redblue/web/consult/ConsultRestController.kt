@@ -25,4 +25,12 @@ class ConsultRestController(
 		return ResponseEntity(HttpStatus.OK)
 	}
 
+	@DeleteMapping("/{id}")
+	fun deleteConsult(
+		@PathVariable("id") id: String
+	): ResponseEntity<Void> {
+		consultService.delete(id)
+		return ResponseEntity(HttpStatus.OK)
+	}
+
 }

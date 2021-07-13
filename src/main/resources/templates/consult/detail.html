@@ -63,7 +63,7 @@
 
                 <div class="card-body">
                     <form th:id="consult-form" th:name="consult" th:action="'/consult/' + ${consult.id} + '/edit'" method="post">
-                        <input type="hidden" name="id" th:value="${consult.id}"/>
+                        <input type="hidden" id= "id" name="id" th:value="${consult.id}"/>
                         <input type="hidden" name="lawFirmId" th:value="${consult.lawFirmId}"/>
                         <div class="row">
                             <div class="col-md-4 mb-3">
@@ -115,6 +115,7 @@
                     <div class="d-flex justify-content-center">
                         <div>
                             <button type="button" id="cancel_btn" class="btn btn-secondary">뒤로가기</button>
+                            <button type="button" id="delete_btn" class="btn btn-danger">삭제</button>
                             <button type="button" id="update_btn" class="btn btn-primary">수정</button>
                         </div>
                     </div>
@@ -130,6 +131,20 @@
         $(document).ready(function () {
             $('#update_btn').on('click', function () {
                 $('#consult-form').submit();
+            });
+
+            $('#delete_btn').on('click', function () {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/v1/consults/' + $('#id').val(),
+                    contentType: 'application/json',
+                    statusCode: {
+                        200: function () {
+                            alert('상담이 삭제 되었습니다.');
+                            location.href = "/consult"
+                        }
+                    }
+                });
             });
 
             $('#cancel_btn').on('click', function () {

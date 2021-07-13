@@ -35,4 +35,8 @@ class ConsultServiceImpl(
 		consult.updatedAt = Date()
 		consultRepository.save(consult)
 	}
+
+	override fun delete(id: String) {
+		consultRepository.deleteById(id);
+	}
 }

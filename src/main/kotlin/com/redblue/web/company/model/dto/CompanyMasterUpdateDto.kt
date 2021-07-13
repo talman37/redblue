@@ -1,6 +1,7 @@
 package com.redblue.web.company.model.dto
 
 import com.redblue.web.company.model.Company
+import java.util.*
 
 data class CompanyMasterUpdateDto(
 
@@ -28,6 +29,8 @@ data class CompanyMasterUpdateDto(
 
 	val recommender: String? = null,
 
-	val precautions: String? = null
+	val precautions: String? = null,
+
+	val companyFormationAt: Date? = null
 
 )

@@ -502,6 +502,7 @@
                                                th:value="${executive.stockCount}" onkeyup="inputNumberFormat(this)" th:onblur="'ratioCalculate(this,'+${index.index}+')'">
                                     </td>
                                     <td class="input-daterange">
+                                        <input type="hidden" th:name="'executives['+${index.index}+'][term]'" th:value="${executive.term}"/>
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][inauguratedAt]'"
                                                th:value="${executive.inauguratedAt}" onkeyup="inputDateFormat(this)" th:onblur="'expireCalculate(this,'+${index.index}+')'">
@@ -1286,7 +1287,7 @@
             <td>
                 <div class="d-flex flex-column ">
                     <select class="form-control form-select form-select-sm" name="executives[{{= index}}][nationality]" onchange="changeCountry({{= index}});">
-                        <option value=""></option>
+                        <option value="대한민국"></option>
                         <option value="미합중국">미합중국</option>
                         <option value="중화인민공화국">중화인민공화국</option>
                         <option value="캐나다">캐나다</option>

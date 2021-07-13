@@ -21,7 +21,7 @@
         <form id="consultForm">
             <input type="hidden" name="lawFirmId" th:value="${consult.lawFirmId}"/>
             <input type="hidden" name="companyId" th:value="${consult.companyId}"/>
-            <input type="hidden" name="id" th:value="${consult.id}"/>
+            <input type="hidden" id="id" name="id" th:value="${consult.id}"/>
             <input type="hidden" name="memo" th:value="${consult.memo}"/>
             <div class="add-item border p-3 mb-3">
                 <div class="row">
@@ -56,6 +56,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="cancel_consult_btn">취소</button>
+        <button type="button" class="btn btn-danger" id="delete_consult_btn">삭제</button>
         <button type="button" class="btn btn-primary" id="save_consult_btn">수정</button>
     </div>
 </div>
@@ -82,6 +83,22 @@
         $('#cancel_consult_btn').on('click', function () {
             self.close();
         });
+
+        $('#delete_consult_btn').on('click', function () {
+            $.ajax({
+                type: 'DELETE',
+                url: '/v1/consults/' + $('#id').val(),
+                contentType: 'application/json',
+                statusCode: {
+                    200: function () {
+                        alert('상담이 삭제 되었습니다.');
+                        opener.document.location.reload();
+                        self.close();
+                    }
+                }
+            });
+        });
+
     });
 </script>
 </body>
