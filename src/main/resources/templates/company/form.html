@@ -1011,15 +1011,17 @@
                     return false;
                 }
 
-                var companyNumber = $('#companyNumber').val().split('-');
+                if($('#companyNumber').val() != '') {
+                    var companyNumber = $('#companyNumber').val().split('-');
 
-                if(companyNumber.length <= 1) {
-                    alert("법인등록번호를 확인해주세요.");
-                    $('#companyNumber').focus();
-                    return false;
+                    if(companyNumber.length <= 1) {
+                        alert("법인등록번호를 확인해주세요.");
+                        $('#companyNumber').focus();
+                        return false;
+                    }
+                    $('#companyNumber1').val(companyNumber[0]);
+                    $('#companyNumber2').val(companyNumber[1]);
                 }
-                $('#companyNumber1').val(companyNumber[0]);
-                $('#companyNumber2').val(companyNumber[1]);
 
                 $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
                 $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
