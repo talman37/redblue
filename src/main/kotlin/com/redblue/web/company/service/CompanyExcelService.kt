@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment
 import org.apache.poi.ss.usermodel.VerticalAlignment
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
+import org.springframework.util.StringUtils
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import kotlin.reflect.full.primaryConstructor
@@ -87,10 +88,10 @@ class CompanyExcelService(
 				row.createCell(1).setCellValue(it.toDouble())
 			} ?: row.createCell(1)
 			companyExcelDto.companyNumber1?.let {
-				row.createCell(2).setCellValue(it.toDouble())
+				row.createCell(2).setCellValue(it)
 			} ?: row.createCell(2)
 			companyExcelDto.companyNumber2?.let {
-				row.createCell(3).setCellValue(it.toDouble())
+				row.createCell(3).setCellValue(it)
 			} ?: row.createCell(3)
 			row.createCell(4).setCellValue(companyExcelDto.companyDivision)
 			row.createCell(5).setCellValue(companyExcelDto.companyManageNumber)

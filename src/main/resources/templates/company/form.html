@@ -1010,8 +1010,17 @@
             });
 
             $('#save-btn').on('click', function () {
+                $(this).attr('disabled', true);
+
+                if ($('#companyName').val() == '') {
+                    alert("상호를 입력해 주세요.");
+                    $(this).attr('disabled', false);
+                    return false;
+                }
+
                 if ($('#executiveGroup').children().length < 1) {
                     alert("임원을 추가해 주세요.");
+                    $(this).attr('disabled', false);
                     return false;
                 }
 
@@ -1021,6 +1030,7 @@
                     if(companyNumber.length <= 1) {
                         alert("법인등록번호를 확인해주세요.");
                         $('#companyNumber').focus();
+                        $(this).attr('disabled', false);
                         return false;
                     }
                     $('#companyNumber1').val(companyNumber[0]);
@@ -1066,10 +1076,12 @@
                         },
                         400: function () {
                             alert('법인등록에 실패 하였습니다.');
+                            $(this).attr('disabled', false);
                             return false;
                         },
                         500: function () {
                             alert('법인등록에 실패 하였습니다.');
+                            $(this).attr('disabled', false);
                             return false;
                         }
                     }

@@ -113,7 +113,12 @@ data class CompanyCreateDto(
 ) {
 
 	fun to(lawFirmId: String): Company {
+
+
 		val stock = this.stock?.copy(
+			companyId = this.id
+		) ?: Stock(
+			id = "SO" + RandomString.make(30),
 			companyId = this.id
 		)
 
@@ -132,11 +137,11 @@ data class CompanyCreateDto(
 
 		val executives = mutableListOf<Executive>()
 		this.executives.forEach {
-			if(it.nationality == "ETC") {
+			if (it.nationality == "ETC") {
 				it.nationality = it.countryValue
 			}
 			var term = 3
-			if(it.term != null) {
+			if (it.term != null) {
 				term = it.term
 			}
 
@@ -162,7 +167,7 @@ data class CompanyCreateDto(
 		}
 
 		val purposeDetails = mutableListOf<PurposeDetail>()
-		this.purposeDetail?.forEach{
+		this.purposeDetail?.forEach {
 			purposeDetails.add(
 				PurposeDetail(
 					id = it.id,
@@ -230,7 +235,6 @@ data class CompanyCreateDto(
 			purposeDetail = purposeDetails,
 			branches = branchList
 		)
-
 
 
 	}
