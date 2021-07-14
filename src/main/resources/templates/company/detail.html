@@ -910,6 +910,12 @@
                     $('input[name="executives[' + i + '][registrationNumber2]"]').val(registrationNumber[1]);
                 });
 
+                $("input[name$='[name]']").each(function(i, el){
+                    if($(this).val() == '') {
+                        $(this).parent().parent().remove();
+                    }
+                });
+
                 $('input[name$="[stockCount]"]').each(function(i, el){
                     var count = uncomma($(this).val())
                     if(count > 0) {
@@ -978,6 +984,9 @@
                 });
             });
 
+            $('#companyAddress').on('blur', function(){
+                $('#deliveryPlace').val($(this).val());
+            });
 
             $('button[name="favoriteOffice"]').on('click', function (i, v) {
                 $('#registerOffice').val($(this).val());
@@ -1001,10 +1010,10 @@
             $('#add-executive-btn').on('click', function () {
                 let i = $('#executiveGroup > tr').length
                 $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
-                $('.input-daterange').datepicker({
-                    language: "ko",
-                    todayHighlight: true
-                });
+                // $('.input-daterange').datepicker({
+                //     language: "ko",
+                //     todayHighlight: true
+                // });
             });
 
             $('#add-stockholder-btn').on('click', function () {
@@ -1036,14 +1045,14 @@
                     count = 0;
                 }
 
-                $('#stockCapital').val(comma(amount * (issuedCount + scheduleCount)));
+                $('#stockCapital').val(comma(amount * (issuedCount)));
 
             });
 
-            $('.input-daterange').datepicker({
-                language: "ko",
-                todayHighlight: true
-            });
+            // $('.input-daterange').datepicker({
+            //     language: "ko",
+            //     todayHighlight: true
+            // });
 
             $('button[name="consult_edit_btn"]').on('click', function(){
                 let id = $(this).data('id');

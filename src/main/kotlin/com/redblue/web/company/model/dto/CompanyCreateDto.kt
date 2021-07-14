@@ -2,6 +2,7 @@ package com.redblue.web.company.model.dto
 
 import com.redblue.web.company.model.*
 import net.bytebuddy.utility.RandomString
+import org.springframework.util.StringUtils
 import java.util.*
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
@@ -134,6 +135,11 @@ data class CompanyCreateDto(
 			if(it.nationality == "ETC") {
 				it.nationality = it.countryValue
 			}
+			var term = 3
+			if(it.term != null) {
+				term = it.term
+			}
+
 			executives.add(
 				Executive(
 					id = it.id,
@@ -146,7 +152,7 @@ data class CompanyCreateDto(
 					address = it.address,
 					position = it.position,
 					inauguratedAt = it.inauguratedAt,
-					term = it.term,
+					term = term,
 					updatedReason = it.updatedReason,
 					expiredAt = it.expiredAt,
 					stockCount = it.stockCount,

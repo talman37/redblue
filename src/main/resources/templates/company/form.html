@@ -996,6 +996,10 @@
                 });
             });
 
+            $('#companyAddress').on('blur', function(){
+                $('#deliveryPlace').val($(this).val());
+            });
+
             $('#office_search_btn').on('click', function () {
                 window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
             });
@@ -1022,6 +1026,12 @@
                     $('#companyNumber1').val(companyNumber[0]);
                     $('#companyNumber2').val(companyNumber[1]);
                 }
+
+                $("input[name$='[name]']").each(function(i, el){
+                    if($(this).val() == '') {
+                        $(this).parent().parent().remove();
+                    }
+                });
 
                 $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
                 $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
@@ -1091,7 +1101,7 @@
                     count = 0;
                 }
 
-                $('#capital').val(comma(amount * (issuedCount + scheduleCount)));
+                $('#capital').val(comma(amount * issuedCount));
 
             });
 
@@ -1104,10 +1114,10 @@
             $('#add-executive-btn').on('click', function () {
                 let i = $('#executiveGroup > tr').length
                 $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
-                $('.input-daterange').datepicker({
-                    language: "ko",
-                    todayHighlight: true
-                });
+                // $('.input-daterange').datepicker({
+                //     language: "ko",
+                //     todayHighlight: true
+                // });
             });
 
             $('#add-purpose-btn').on('click', function () {
@@ -1118,10 +1128,10 @@
 
         });
 
-        $('.input-daterange').datepicker({
-            language: "ko",
-            todayHighlight: true
-        });
+        // $('.input-daterange').datepicker({
+        //     language: "ko",
+        //     todayHighlight: true
+        // });
 
         $(document).on("keyup", "input:text[numberOnly]", function () {
             $(this).val($(this).val().replace(/[^0-9]/gi, ""));

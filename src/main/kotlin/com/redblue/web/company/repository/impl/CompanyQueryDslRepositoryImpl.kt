@@ -52,6 +52,7 @@ class CompanyQueryDslRepositoryImpl(
 					.or(qc.companyNumber2.like("%$it%"))
 					.or(qc.companyManageNumber.like("%$it%"))
 					.or(qc.companyAddress.like("%$it%"))
+					.or(qc.registerNumber.like("%$it%"))
 			)
 		}
 

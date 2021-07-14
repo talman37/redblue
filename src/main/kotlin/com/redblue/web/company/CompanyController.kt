@@ -99,7 +99,10 @@ class CompanyController(
 		} else if(company.displayCompanyType == Company.DisplayCompanyType.BACK){
 			name = company.companyName + "(" + company.companyDivision?.first() + ")"
 		}
-		val term = company.executives.maxBy { it.term!! }
+		var term = 3
+		if(company.executives.isNotEmpty()) {
+			term = company.executives.maxBy { it.term!! }!!.term!!
+		}
 
 		model.addAttribute("company", company)
 		model.addAttribute("companyName", name)
