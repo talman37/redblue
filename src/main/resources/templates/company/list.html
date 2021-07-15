@@ -36,7 +36,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="#" onclick="window.open('/company/add', '법인 등록', 'width=1000px,height=1000px,scrollbars=yes');">
+                                <a class="nav-link " href="#" onclick="openAddForm();">
                                     <i class="fas fa-pencil-alt"></i>
                                     법인 등록
                                 </a>
@@ -350,7 +350,8 @@
             });
 
             $('a[name="companyTitle"]').on('click', function () {
-                window.open('/company/' + $(this).data('id'), '법인 상세', 'width=1000px,height=1000px,scrollbars=yes');
+                var xPos = document.body.offsetWidth - 1000;
+                window.open('/company/' + $(this).data('id'), '법인 상세', 'width=1000px,height=1000px,left='+xPos+',scrollbars=yes');
             });
 
             $('tr[name="companyRow"]').on('click', function() {
@@ -411,6 +412,11 @@
         function hyphen(str) {
             str = String(str);
             return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        }
+
+        function openAddForm() {
+            var xPos = document.body.offsetWidth - 1000;
+            window.open('/company/add', '법인 등록', 'width=1000px,height=1000px,left='+xPos+',scrollbars=yes');
         }
 
     </script>
