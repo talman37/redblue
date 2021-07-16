@@ -73,6 +73,8 @@ class CompanyQueryDslRepositoryImpl(
 		}
 
 		query.where(predicate)
+			.orderBy(qc.registerOffice.asc())
+			.orderBy(qc.registerNumber.asc())
 		return query.distinct().fetch()
 	}
 

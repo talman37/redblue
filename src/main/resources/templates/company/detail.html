@@ -454,7 +454,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][position]'">
+                                        <select class="form-control form-select form-select-sm" th:name="'executives['+${index.index}+'][position]'" th:onchange="changePosition('+${index.index}+')">
                                             <option th:value="사내이사" th:selected="${executive.position eq '사내이사'}">사내이사</option>
                                             <option th:value="감사" th:selected="${executive.position eq '감사'}">감사</option>
                                             <option th:value="대표이사" th:selected="${executive.position eq '대표이사'}">대표이사</option>
@@ -1009,6 +1009,8 @@
             $('#add-executive-btn').on('click', function () {
                 let i = $('#executiveGroup > tr').length
                 $('#executive-template').tmpl([{index: i}]).appendTo($('#executiveGroup'))
+                let term = $('#select-term').val();
+                $('input[name="executives[' + i + '][term]"]').val(term);
                 // $('.input-daterange').datepicker({
                 //     language: "ko",
                 //     todayHighlight: true
@@ -1058,6 +1060,17 @@
                 window.open('/consult/' + id + '/edit:popup', '상담수정', 'width=800,height=600px,scrollbars=yes');
             })
 
+            $('#select-term').on('change', function(){
+                var term = $(this).val();
+                $("input[name$='[term]']").each(function(i, el){
+                    $(this).val(term);
+                });
+                $("input[name$='[inauguratedAt]']").each(function(i, el){
+                    expireCalculate(el, i);
+                });
+
+            });
+
         });
 
         function remove_branch(i) {
@@ -1069,9 +1082,6 @@
         }
 
         function remove_executive(i) {
-            if (i === 0) {
-                return false;
-            }
             $('#executive_tr_' + i).remove();
         }
 
@@ -1241,6 +1251,12 @@
             });
         }
 
+        function changePosition(i) {
+            $('input[name="executives[' + i + '][inauguratedAt]"]').each(function(i, el) {
+                expireCalculate(el, i);
+            });
+        }
+
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <tr id="contact_row_{{= index}}">
@@ -1308,7 +1324,7 @@
                 </div>
             </td>
             <td>
-                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]">
+                <select class="form-control form-select form-select-sm" name="executives[{{= index}}][position]" onchange="changePosition({{= index}});">
                     <option selected value="사내이사">사내이사</option>
                     <option value="감사">감사</option>
                     <option value="대표이사">대표이사</option>
