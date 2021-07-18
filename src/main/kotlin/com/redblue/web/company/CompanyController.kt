@@ -3,10 +3,12 @@ package com.redblue.web.company
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.company.model.Company
 import com.redblue.web.company.model.Country
+import com.redblue.web.company.model.Stock
 import com.redblue.web.company.model.dto.CompanyListDto
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.consult.service.ConsultService
 import com.redblue.web.lawfirm.model.LawFirmUser
+import net.bytebuddy.utility.RandomString
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.stereotype.Controller
@@ -102,6 +104,13 @@ class CompanyController(
 		var term = 3
 		if(company.executives.isNotEmpty()) {
 			term = company.executives.maxBy { it.term!! }!!.term!!
+		}
+
+		if(company.stock == null) {
+			company.stock = Stock(
+				id = "SO" + RandomString.make(30),
+				companyId = company.id
+			)
 		}
 
 		model.addAttribute("company", company)
