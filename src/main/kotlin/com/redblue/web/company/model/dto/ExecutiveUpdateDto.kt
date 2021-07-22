@@ -9,10 +9,14 @@ data class ExecutiveUpdateDto(
 ) {
 
 	fun to(companyId: String): List<Executive> {
+		val savedList = mutableListOf<Executive>()
 		this.executives.forEach {
-			it.companyId = companyId
+			if(it != null) {
+				it.companyId = companyId
+				savedList.add(it)
+			}
 		}
-		return this.executives
+		return savedList
 	}
 
 }
