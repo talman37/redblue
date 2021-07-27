@@ -239,14 +239,14 @@ class CompanyServiceImpl(
 		val stock = stockRepository.findByCompanyId(id)
 
 		val updateStock = stock?.copy(
-			amount = dto.stock?.amount,
-			scheduleCount = dto.stock?.scheduleCount,
+			amount = dto.stock?.amount ?: 0,
+			scheduleCount = dto.stock?.scheduleCount ?: 0,
 			scheduleCountUpdatedAt = if(stock.scheduleCount != dto.stock?.scheduleCount) {
 				Date()
 			} else {
 				stock.scheduleCountUpdatedAt
 			},
-			issuedCount = dto.stock?.issuedCount,
+			issuedCount = dto.stock?.issuedCount ?: 0,
 			issuedCountUpdatedAt = if(stock.issuedCount != dto.stock?.issuedCount) {
 				Date()
 			} else {

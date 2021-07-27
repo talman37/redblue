@@ -19,7 +19,7 @@
                             <strong>법인</strong>
 
                             <span class="badge badge-primary" th:if="${#lists.size(company.branches) > 0}">지점</span>
-                            <span class="badge badge-danger" th:if="${company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount) >= 1000000000}">
+                            <span class="badge badge-danger" th:if="${company.stock.amount * company.stock.issuedCount >= 1000000000}">
                                 10억
                             </span>
                             <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions)}">주의</span>
@@ -266,7 +266,7 @@
                                 <td>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm" id="stockCapital" onkeyup="inputNumberFormat(this)"
-                                               th:value="${#numbers.formatDecimal(company.stock.amount * (company.stock.scheduleCount + company.stock.issuedCount), 0, 'COMMA', 0, 'POINT')}">
+                                               th:value="${#numbers.formatDecimal(company.stock.amount * company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-sm btn-outline-secondary" id="stock-calculate-btn">계산하기</button>
                                         </div>
@@ -844,7 +844,6 @@
                     statusCode: {
                         200: function () {
                             alert('법인정보 변경에 성공 하였습니다.');
-                            location.reload();
                         }
                     }
                 });
@@ -863,7 +862,6 @@
                     statusCode: {
                         200: function () {
                             alert('법인정보 변경에 성공 하였습니다.');
-                            location.reload();
                         }
                     }
                 });
@@ -879,7 +877,6 @@
                     statusCode: {
                         200: function () {
                             alert('연락처 정보 변경에 성공 하였습니다.');
-                            location.reload();
                         }
                     }
                 });
@@ -895,7 +892,6 @@
                     statusCode: {
                         200: function () {
                             alert('지점 정보 변경에 성공 하였습니다.');
-                            location.reload();
                         }
                     }
                 });
@@ -931,7 +927,6 @@
                     statusCode: {
                         200: function () {
                             alert('임원정보 변경에 성공 하였습니다.');
-                            location.reload();
                         }
                     }
                 });
@@ -977,7 +972,6 @@
                     statusCode: {
                         200: function () {
                             alert('공고방법 변경에 성공 하였습니다.');
-                            location.reload();
                         }
                     }
                 });
