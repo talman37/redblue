@@ -371,7 +371,7 @@
                             </div>
                             <div class="item-body">
                                 <span class='text-danger'
-                                      th:text="${#numbers.formatDecimal(company.stock.scheduleCount + company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}"></span>주
+                                      th:text="${#numbers.formatDecimal(inputStockCount, 0, 'COMMA', 0, 'POINT')}" id="inputStockCount"></span>주
                             </div>
                         </div>
                         <div class="item">
@@ -379,7 +379,7 @@
                                 발행주식총수
                             </div>
                             <div class="item-body">
-                                <span class='text-danger' th:text="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}"></span>주
+                                <span class='text-danger' th:text="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}" id="issueStockCount"></span>주
                             </div>
                         </div>
                     </div>
@@ -470,7 +470,7 @@
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][name]'"
-                                               th:value="${executive.name}">
+                                               th:value="${executive.name}" th:onblur="'expireCopy(this,'+${index.index}+')'">
                                     </td>
                                     <td>
                                         <input type="hidden" class="form-control form-control-sm"
@@ -1165,6 +1165,24 @@
             return str.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
         }
 
+        function expireCopy(obj, i) {
+            if(obj.value === '') {
+                return false;
+            }
+            let position = $('select[name="executives[' + i + '][position]"]').val();
+            let term = $('#select-term').val();
+            if(position === '대표이사') {
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '사내이사') {
+                        $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
+                    }
+                });
+            }
+            $('input[name="executives[' + i + '][term]"]').val(term);
+        }
+
         function expireCalculate(obj, i) {
             if(obj.value === '') {
                 return false;
@@ -1184,6 +1202,14 @@
                 }
                 meetingDate = addMonth(meetingDate, 3)
                 $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(meetingDate));
+            } if(position === '대표이사') {
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '사내이사') {
+                        $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
+                    }
+                });
             } else {
                 expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
                 $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
@@ -1222,8 +1248,10 @@
                 return false;
             }
             var count = uncomma(obj.value);
+
             var stockIssuedCount = uncomma($('#stockIssuedCount').val());
             $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+            this.sumInputStockCount();
         }
 
         function countCalculate(obj, i) {
@@ -1233,16 +1261,27 @@
             var ratio = obj.value;
             var stockIssuedCount = uncomma($('#stockIssuedCount').val());
             $('input[name="executives[' + i + '][stockCount]"]').val(comma(stockIssuedCount * ratio / 100));
+            this.sumInputStockCount();
         }
 
         function reCalcRatio(obj) {
             var stockIssuedCount = uncomma(obj.value);
+            $('#issueStockCount').text(obj.value);
             $('input[name$="[stockCount]"]').each(function(i, el){
                 var count = uncomma($(this).val());
                 if(count > 0) {
                     $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
                 }
             });
+            this.sumInputStockCount();
+        }
+
+        function sumInputStockCount() {
+            var total = 0;
+            $('input[name$="[stockCount]"]').each(function(i, el){
+                total += Number(uncomma($(this).val()));
+            });
+            $('#inputStockCount').text(comma(total));
         }
 
         function changePosition(i) {
@@ -1332,7 +1371,7 @@
                 </select>
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;">
+                <input type="text" class="form-control form-control-sm" name="executives[{{= index}}][name]" style="width: 100%;" onblur="expireCopy(this, {{= index}})">
             </td>
             <td>
                 <input type="hidden" class="form-control form-control-sm"

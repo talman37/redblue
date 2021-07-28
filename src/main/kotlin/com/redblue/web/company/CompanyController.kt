@@ -113,12 +113,15 @@ class CompanyController(
 			)
 		}
 
+		var inputStockCount = company.executives.sumBy { it.stockCount ?: 0 }
+
 		model.addAttribute("company", company)
 		model.addAttribute("companyName", name)
 		model.addAttribute("term", term)
 		model.addAttribute("favoriteOffices", user.lawFirmUserRegisterOffice)
 		model.addAttribute("consults", consultService.findByCompanyId(id))
 		model.addAttribute("countries", Country.values())
+		model.addAttribute("inputStockCount", inputStockCount)
 		return "/company/detail"
 	}
 
