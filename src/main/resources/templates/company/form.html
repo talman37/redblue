@@ -1206,6 +1206,16 @@
                         $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
                     }
                 });
+            } else if(position === '사내이사') {
+                expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+                $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '대표이사') {
+                        $('input[name="executives[' + index + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                    }
+                });
             } else {
                 expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
                 $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
