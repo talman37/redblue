@@ -1200,9 +1200,9 @@
                 if(expiredAt >= meetingDate) {
                     meetingDate.setFullYear(meetingDate.getFullYear() + 1);
                 }
-                meetingDate = addMonth(meetingDate, 3)
+                meetingDate = addMonth(meetingDate, 3);
                 $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(meetingDate));
-            } if(position === '대표이사') {
+            }else if(position === '대표이사') {
                 var name = $('input[name="executives[' + i + '][name]"]').val();
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
@@ -1223,24 +1223,22 @@
                 date.getMonth() + month,
                 1
             );
-
             let addMonthLastDate = new Date(
                 addMonthFirstDate.getFullYear(),
                 addMonthFirstDate.getMonth() + 1
                 , 0
             );
+            // let result = addMonthFirstDate;
+            // if(date.getDate() > addMonthLastDate.getDate())
+            // {
+            //     result.setDate(addMonthLastDate.getDate());
+            // }
+            // else
+            // {
+            //     result.setDate(date.getDate());
+            // }
 
-            let result = addMonthFirstDate;
-            if(date.getDate() > addMonthLastDate.getDate())
-            {
-                result.setDate(addMonthLastDate.getDate());
-            }
-            else
-            {
-                result.setDate(date.getDate());
-            }
-
-            return result;
+            return addMonthLastDate;
         }
 
         function ratioCalculate(obj, i) {
