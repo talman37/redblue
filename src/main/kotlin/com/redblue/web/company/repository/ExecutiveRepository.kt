@@ -9,6 +9,8 @@ interface ExecutiveRepository: JpaRepository<Executive, String> {
 
 	fun findByCompanyIdOrderByExpiredAt(companyId: String): List<Executive>
 
+	fun findByCompanyIdIn(companyIds: List<String>): List<Executive>
+
 	fun deleteByCompanyId(companyId: String)
 
 }

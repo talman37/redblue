@@ -13,6 +13,10 @@ interface CompanyService {
 
 	fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company>
 
+	fun listExcel(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company>
+
+	fun listDm(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company>
+
 	fun findExecutivesByCompanyId(companyId: String): List<Executive>
 
 	fun totalCount(lawFirmId: String): Int

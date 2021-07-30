@@ -31,6 +31,64 @@ class CompanyServiceImpl(
 		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
 	}
 
+	override fun listExcel(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
+		val companies = companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
+		val companyIds = companies.map { it.id }
+		val stocks = stockRepository.findByCompanyIdIn(companyIds)
+		val executives = executiveRepository.findByCompanyIdIn(companyIds)
+		val executiveMap = executives.groupBy { it.companyId }
+		val contacts = contactRepository.findByCompanyIdIn(companyIds)
+		val contactMap = contacts.groupBy { it.companyId }
+		val purposeDetails = purposeDetailRepository.findByCompanyIdIn(companyIds)
+		val purposeMap = purposeDetails.groupBy { it.companyId }
+		for (company in companies) {
+			loop1@ for (stock in stocks) {
+				if(company.id == stock.companyId) {
+					company.stock = stock
+					break@loop1
+				}
+			}
+			loop2@ for (entry in purposeMap.entries) {
+				if(company.id == entry.key) {
+					company.purposeDetail = entry.value
+					break@loop2
+				}
+			}
+
+			loop3@ for (entry in contactMap.entries) {
+				if(company.id == entry.key) {
+					company.contacts = entry.value as MutableList<Contact>
+					break@loop3
+				}
+			}
+
+			loop4@ for (entry in executiveMap.entries) {
+				if(company.id == entry.key) {
+					company.executives = entry.value as MutableList<Executive>
+					break@loop4
+				}
+			}
+		}
+
+		return companies
+	}
+
+	override fun listDm(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
+		val companies = companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
+		val companyIds = companies.map { it.id }
+		val executives = executiveRepository.findByCompanyIdIn(companyIds)
+		val executiveMap = executives.groupBy { it.companyId }
+		for (company in companies) {
+			loop1@ for (entry in executiveMap.entries) {
+				if(company.id == entry.key) {
+					company.executives = entry.value as MutableList<Executive>
+					break@loop1
+				}
+			}
+		}
+		return companies
+	}
+
 	override fun findExecutivesByCompanyId(companyId: String): List<Executive> {
 		return executiveRepository.findByCompanyIdOrderByExpiredAt(companyId)
 	}
@@ -40,7 +98,7 @@ class CompanyServiceImpl(
 	}
 
 	override fun manageCount(lawFirmId: String): Int {
-		return companyRepository.countBylawFirmIdAndCompanyStateIn(lawFirmId, mutableListOf("신규법인", "관리법인", "안내후미등기"))
+		return companyRepository.countBylawFirmIdAndCompanyState(lawFirmId, "유효법인")
 	}
 
 	override fun findByName(lawFirmId: String, name: String):List<Company> {

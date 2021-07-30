@@ -45,7 +45,7 @@ class CompanyDmService(
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
 			)
-			val executives = companyService.findExecutivesByCompanyId(company.id)
+			val executives = company.executives
 			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user))
 			renderer.layout()
 			renderer.createPDF(outputStream)

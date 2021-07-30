@@ -1,25 +1,25 @@
 package com.redblue.web.company.service
 
 import com.redblue.web.company.model.Company
-import com.redblue.web.company.model.dto.CompanyExcelDto
-import com.redblue.web.company.model.dto.ExecutiveExcelDto
-import com.redblue.web.company.model.dto.StockExcelDto
+import com.redblue.web.company.model.dto.*
+import com.redblue.web.company.repository.ContactRepository
+import com.redblue.web.company.repository.PurposeDetailRepository
 import com.redblue.web.company.repository.StockRepository
 import org.apache.poi.hssf.util.HSSFColor
-import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.HorizontalAlignment
 import org.apache.poi.ss.usermodel.VerticalAlignment
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.stereotype.Service
-import org.springframework.util.StringUtils
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import kotlin.reflect.full.primaryConstructor
 
 @Service
 class CompanyExcelService(
-	private val stockRepository: StockRepository
+	private val stockRepository: StockRepository,
+	private val purposeDetailRepository: PurposeDetailRepository,
+	private val contactRepository: ContactRepository
 ) {
 
 	fun generate(companies: List<Company>): ByteArrayInputStream {
@@ -76,13 +76,36 @@ class CompanyExcelService(
 			cell.cellStyle = headerCellStyle
 		}
 
+		//목적사항
+		val purposeSheet = workbook.createSheet("목적사항")
+		val purposeHeaderRow = purposeSheet.createRow(0)
+		val purposeExcelClass = PurposeExcelDto::class
+		purposeExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
+			val cell = purposeHeaderRow.createCell(i)
+			cell.setCellValue(this.changePurposeCellName(property.name!!))
+			cell.cellStyle = headerCellStyle
+		}
+
+		//연락처
+		val contactSheet = workbook.createSheet("연락처")
+		val contactHeaderRow = contactSheet.createRow(0)
+		val contactExcelClass = ContactExcelDto::class
+		contactExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
+			val cell = contactHeaderRow.createCell(i)
+			cell.setCellValue(this.changeContactCellName(property.name!!))
+			cell.cellStyle = headerCellStyle
+		}
+
 		val companiesExcelDtoList = CompanyExcelDto.toList(companies)
 
 		var rowIndex = 1
+		var executiveIndex = 1
+		var purposeIndex = 1
+		var contactIndex = 1
 		for (companyExcelDto in companiesExcelDtoList) {
 
 			//법인
-			val row = companySheet.createRow(rowIndex++)
+			val row = companySheet.createRow(rowIndex)
 			row.createCell(0).setCellValue(companyExcelDto.registerOffice)
 			companyExcelDto.registerNumber?.let {
 				row.createCell(1).setCellValue(it.toDouble())
@@ -144,43 +167,41 @@ class CompanyExcelService(
 			row.createCell(39).setCellValue(companyExcelDto.recommender)
 
 			//주식
-			var stockIndex = 1
-			val stock = stockRepository.findByCompanyId(companyExcelDto.id!!)
+			val stock = companyExcelDto.stock
 			if(stock != null) {
 				val stockExcelDto = StockExcelDto.to(companyExcelDto.companyName!!, stock)
-				val row = stockSheet.createRow(stockIndex++)
-				row.createCell(0).setCellValue(stockExcelDto.companyName)
-				row.createCell(1).setCellValue(stockExcelDto.amount.toDouble())
-				row.createCell(2).let {
+				val stockRow = stockSheet.createRow(rowIndex++)
+				stockRow.createCell(0).setCellValue(stockExcelDto.companyName)
+				stockRow.createCell(1).setCellValue(stockExcelDto.amount.toDouble())
+				stockRow.createCell(2).let {
 					it.setCellValue(stockExcelDto.amountUpdatedAt)
 					it.cellStyle = dateCellStyle
 				}
-				row.createCell(3).setCellValue(stockExcelDto.scheduleCount.toDouble())
-				row.createCell(4).let {
+				stockRow.createCell(3).setCellValue(stockExcelDto.scheduleCount.toDouble())
+				stockRow.createCell(4).let {
 					it.setCellValue(stockExcelDto.scheduleCountUpdatedAt)
 					it.cellStyle = dateCellStyle
 				}
-				row.createCell(5).setCellValue(stockExcelDto.issuedCount.toDouble())
-				row.createCell(6).let {
+				stockRow.createCell(5).setCellValue(stockExcelDto.issuedCount.toDouble())
+				stockRow.createCell(6).let {
 					it.setCellValue(stockExcelDto.issuedCountUpdatedAt)
 					it.cellStyle = dateCellStyle
 				}
-				row.createCell(7).setCellValue(stockExcelDto.normalCount.toDouble())
-				row.createCell(8).setCellValue(stockExcelDto.firstCount.toDouble())
-				row.createCell(9).setCellValue(stockExcelDto.noFaceValueCount.toDouble())
-				row.createCell(10).let {
+				stockRow.createCell(7).setCellValue(stockExcelDto.normalCount.toDouble())
+				stockRow.createCell(8).setCellValue(stockExcelDto.firstCount.toDouble())
+				stockRow.createCell(9).setCellValue(stockExcelDto.noFaceValueCount.toDouble())
+				stockRow.createCell(10).let {
 					it.setCellValue(stockExcelDto.noFaceValueUpdatedAt)
 					it.cellStyle = dateCellStyle
 				}
-				row.createCell(11).setCellValue(stockExcelDto.noFaceValueCapitalAmount.toDouble())
-				row.createCell(12).let {
+				stockRow.createCell(11).setCellValue(stockExcelDto.noFaceValueCapitalAmount.toDouble())
+				stockRow.createCell(12).let {
 					it.setCellValue(stockExcelDto.noFaceValueCapitalAmountUpdatedAt)
 					it.cellStyle = dateCellStyle
 				}
 			}
 
 			//임원
-			var executiveIndex = 1
 			val executiveExcelDtoList = ExecutiveExcelDto.toList(companyExcelDto.companyName, companyExcelDto.executives)
 			for (executiveExcelDto in executiveExcelDtoList) {
 				val row = executiveSheet.createRow(executiveIndex++)
@@ -211,6 +232,24 @@ class CompanyExcelService(
 				}
 
 				row.createCell(12).setCellValue(executiveExcelDto.stockCount.toDouble())
+			}
+
+			//목적사항
+			val purposeExcelDtoList = PurposeExcelDto.toList(companyExcelDto.companyName, companyExcelDto.purposeDetails)
+			for (purposeExcelDto in purposeExcelDtoList) {
+				val row = purposeSheet.createRow(purposeIndex++)
+				row.createCell(0).setCellValue(purposeExcelDto.companyName)
+				row.createCell(1).setCellValue(purposeExcelDto.detail)
+			}
+
+			//연락처
+			val contactExcelDtoList = ContactExcelDto.toList(companyExcelDto.companyName, companyExcelDto.contacts)
+			for (contactExcelDto in contactExcelDtoList) {
+				val row = contactSheet.createRow(contactIndex++)
+				row.createCell(0).setCellValue(contactExcelDto.companyName)
+				row.createCell(1).setCellValue(contactExcelDto.type)
+				row.createCell(2).setCellValue(contactExcelDto.value)
+				row.createCell(3).setCellValue(contactExcelDto.memo)
 			}
 
 		}
@@ -299,6 +338,24 @@ class CompanyExcelService(
 			"updatedAt" -> "임원변경일"
 			"expiredAt" -> "임원만료일"
 			"stockCount" -> "주식수"
+			else -> "NoneTitle"
+		}
+	}
+
+	private fun changePurposeCellName(name: String): String {
+		return when(name) {
+			"companyName" -> "상호"
+			"detail" -> "목적사항"
+			else -> "NoneTitle"
+		}
+	}
+
+	private fun changeContactCellName(name: String): String {
+		return when(name) {
+			"companyName" -> "상호"
+			"type" -> "유형"
+			"value" -> "연락처"
+			"memo" -> "메모"
 			else -> "NoneTitle"
 		}
 	}

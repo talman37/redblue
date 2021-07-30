@@ -7,6 +7,8 @@ interface ContactRepository: JpaRepository<Contact, String> {
 
 	fun findByCompanyId(companyId: String): MutableList<Contact>
 
+	fun findByCompanyIdIn(companyIds: List<String>): MutableList<Contact>
+
 	fun deleteByCompanyId(companyId: String)
 
 }

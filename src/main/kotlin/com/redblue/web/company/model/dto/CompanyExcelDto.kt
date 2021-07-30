@@ -1,7 +1,6 @@
 package com.redblue.web.company.model.dto
 
-import com.redblue.web.company.model.Company
-import com.redblue.web.company.model.Executive
+import com.redblue.web.company.model.*
 import java.util.*
 
 data class CompanyExcelDto(
@@ -86,6 +85,12 @@ data class CompanyExcelDto(
 
 	val executives: List<Executive>? = emptyList(),
 
+	val stock: Stock? = null,
+
+	val contacts: List<Contact>? = emptyList(),
+
+	val purposeDetails: List<PurposeDetail>? = emptyList(),
+
 	val id: String? = null
 
 ) {
@@ -148,6 +153,9 @@ data class CompanyExcelDto(
 						settlementMonth = company.settlementMonth,
 						recommender = company.recommender,
 						executives = company.executives,
+						stock = company.stock,
+						contacts = company.contacts,
+						purposeDetails = company.purposeDetail,
 						id = company.id
 					)
 				)

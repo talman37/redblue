@@ -112,8 +112,9 @@ data class Company(
 	@Transient
 	var stock: Stock? = null,
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
-	@OrderBy("expiredAt")
+	//@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
+	//@OrderBy("expiredAt")
+	@Transient
 	var executives: MutableList<Executive> = mutableListOf(),
 
 	@Transient
@@ -125,8 +126,9 @@ data class Company(
 	@Transient
 	var stockholders: List<Stockholder>? = emptyList(),
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
-	val contacts: MutableList<Contact>? = mutableListOf(),
+	//@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
+	@Transient
+	var contacts: MutableList<Contact>? = mutableListOf(),
 
 	@Transient
 	var purposeDetail: List<PurposeDetail>? = emptyList(),

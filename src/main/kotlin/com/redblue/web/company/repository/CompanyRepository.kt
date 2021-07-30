@@ -12,7 +12,7 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 	fun countBylawFirmId(lawFirmId: String): Int
 
-	fun countBylawFirmIdAndCompanyStateIn(lawFirmId: String, state: MutableList<String>): Int
+	fun countBylawFirmIdAndCompanyState(lawFirmId: String, state: String): Int
 
 }
 

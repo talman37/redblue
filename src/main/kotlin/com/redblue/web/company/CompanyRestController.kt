@@ -174,14 +174,9 @@ class CompanyRestController(
 			}
 		}
 
-		val companyState: MutableList<String> = if(state.isNullOrEmpty()) {
-			//mutableListOf("신규법인", "관리법인", "안내후미등기")
-			mutableListOf()
-		} else {
-			state
-		}
+		val companyState: MutableList<String> = state ?: mutableListOf()
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType)
+		val companies = companyService.listExcel(user.lawFirmId, searchValue, start, end, companyState, searchType)
 		val resource = companyExcelService.generate(companies)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=corporations.xlsx")
@@ -224,14 +219,9 @@ class CompanyRestController(
 			}
 		}
 
-		val companyState: MutableList<String> = if(state.isNullOrEmpty()) {
-			//mutableListOf("신규법인", "관리법인", "안내후미등기")
-			mutableListOf()
-		} else {
-			state
-		}
+		val companyState: MutableList<String> = state ?: mutableListOf()
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType)
+		val companies = companyService.listDm(user.lawFirmId, searchValue, start, end, companyState, searchType)
 		val resource = companyDmService.generate(companies, user)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=dm.pdf")

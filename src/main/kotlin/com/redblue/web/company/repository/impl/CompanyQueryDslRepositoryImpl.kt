@@ -5,10 +5,7 @@ import com.querydsl.core.types.ExpressionUtils
 import com.querydsl.core.types.Projections
 import com.querydsl.jpa.JPAExpressions
 import com.querydsl.jpa.impl.JPAQueryFactory
-import com.redblue.web.company.model.Company
-import com.redblue.web.company.model.QCompany
-import com.redblue.web.company.model.QContact
-import com.redblue.web.company.model.QExecutive
+import com.redblue.web.company.model.*
 import com.redblue.web.company.repository.CompanyQueryDslRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -124,4 +121,5 @@ class CompanyQueryDslRepositoryImpl(
 		query.where(predicate)
 		return query.distinct().fetch()
 	}
+
 }

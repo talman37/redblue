@@ -9,4 +9,6 @@ interface StockRepository: JpaRepository<Stock, String> {
 
 	fun findByCompanyId(companyId: String): Stock?
 
+	fun findByCompanyIdIn(ids: List<String>): List<Stock>
+
 }

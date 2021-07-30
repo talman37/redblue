@@ -114,7 +114,7 @@
                                                     법인상태
                                                 </div>
                                             </div>
-                                            <select class="form-control form-select" name="searchType">
+                                            <select class="form-control form-select" name="searchType" id="searchType">
                                                 <option th:selected="${searchType == '유효법인'}" th:value="유효법인">유효법인</option>
                                                 <option th:selected="${searchType == '본점전출(폐쇄)'}" th:value="|본점전출(폐쇄)|">본점전출(폐쇄)</option>
                                                 <option th:selected="${searchType == '해산(간주)'}" th:value="|해산(간주)|">해산(간주)</option>
@@ -327,7 +327,9 @@
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate;
+                let searchType = $('#searchType').val();
+                let state = $("input:checkbox[name='state']:checked").val();
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
@@ -335,7 +337,9 @@
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate;
+                let searchType = $('#searchType').val();
+                let state = $("input:checkbox[name='state']:checked").val();
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
