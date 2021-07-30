@@ -16,11 +16,9 @@ data class CompanySearchResponseDto (
 			var list = mutableListOf<CompanySearchResponseDto>()
 			for (company in companies) {
 
-				val minExpiredAt = company.executives.map { it.expiredAt }.first()
-
 				list.add(CompanySearchResponseDto(
 					companyName = company.companyName,
-					expiredAt = minExpiredAt
+					expiredAt = null
 				))
 			}
 			return list

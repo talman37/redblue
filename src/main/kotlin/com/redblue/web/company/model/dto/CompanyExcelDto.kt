@@ -100,15 +100,16 @@ data class CompanyExcelDto(
 			val list = mutableListOf<CompanyExcelDto>()
 			for (company in companies) {
 				var master: String? = ""
-
-				for (executive in company.executives) {
-					if(executive.position == "대표이사") {
-						master = executive.name
-						break
-					} else if(executive.position == "사내이사") {
-						master = executive.name
-					} else if(executive.position == "공동대표이사") {
-						master = executive.name
+				if(company.executives != null) {
+					for (executive in company.executives!!) {
+						if(executive.position == "대표이사") {
+							master = executive.name
+							break
+						} else if(executive.position == "사내이사") {
+							master = executive.name
+						} else if(executive.position == "공동대표이사") {
+							master = executive.name
+						}
 					}
 				}
 				list.add(

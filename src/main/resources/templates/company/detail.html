@@ -1258,7 +1258,9 @@
             var count = uncomma(obj.value);
 
             var stockIssuedCount = uncomma($('#stockIssuedCount').val());
-            $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+            var ratio = count / stockIssuedCount * 100;
+
+            $('input[name="executives[' + i + '][stockRatio]"]').val( Math.floor(ratio * 1000) / 1000);
             this.sumInputStockCount();
         }
 
@@ -1268,7 +1270,8 @@
             }
             var ratio = obj.value;
             var stockIssuedCount = uncomma($('#stockIssuedCount').val());
-            $('input[name="executives[' + i + '][stockCount]"]').val(comma(stockIssuedCount * ratio / 100));
+            var count = stockIssuedCount * ratio / 100
+            $('input[name="executives[' + i + '][stockCount]"]').val(comma(Math.floor(count)));
             this.sumInputStockCount();
         }
 
@@ -1278,7 +1281,8 @@
             $('input[name$="[stockCount]"]').each(function(i, el){
                 var count = uncomma($(this).val());
                 if(count > 0) {
-                    $('input[name="executives[' + i + '][stockRatio]"]').val(count / stockIssuedCount * 100);
+                    var ratio = count / stockIssuedCount * 100;
+                    $('input[name="executives[' + i + '][stockRatio]"]').val(Math.floor(ratio * 1000) / 1000);
                 }
             });
             this.sumInputStockCount();
@@ -1289,7 +1293,7 @@
             $('input[name$="[stockCount]"]').each(function(i, el){
                 total += Number(uncomma($(this).val()));
             });
-            $('#inputStockCount').text(comma(total));
+            $('#inputStockCount').text(comma(Math.floor(total)));
         }
 
         function changePosition(i) {

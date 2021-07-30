@@ -102,9 +102,7 @@ class CompanyController(
 			name = company.companyName + "(" + company.companyDivision?.first() + ")"
 		}
 		var term = 3
-		if(company.executives.isNotEmpty()) {
-			term = company.executives.maxBy { it.term!! }!!.term!!
-		}
+		term = company.executives?.maxBy { it.term!! }!!.term!! ?: 3
 
 		if(company.stock == null) {
 			company.stock = Stock(
@@ -113,7 +111,7 @@ class CompanyController(
 			)
 		}
 
-		var inputStockCount = company.executives.sumBy { it.stockCount ?: 0 }
+		var inputStockCount = company.executives?.sumBy { it.stockCount ?: 0 } ?: 0
 
 		model.addAttribute("company", company)
 		model.addAttribute("companyName", name)

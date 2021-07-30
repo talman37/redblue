@@ -112,10 +112,8 @@ data class Company(
 	@Transient
 	var stock: Stock? = null,
 
-	//@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
-	//@OrderBy("expiredAt")
 	@Transient
-	var executives: MutableList<Executive> = mutableListOf(),
+	var executives: MutableList<Executive>? = mutableListOf(),
 
 	@Transient
 	var expiredAt: Date? = null,
@@ -126,7 +124,6 @@ data class Company(
 	@Transient
 	var stockholders: List<Stockholder>? = emptyList(),
 
-	//@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "companyId")
 	@Transient
 	var contacts: MutableList<Contact>? = mutableListOf(),
 

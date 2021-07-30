@@ -119,13 +119,16 @@ class CompanyServiceImpl(
 		company.stock = stockRepository.findByCompanyId(id)
 		company.stockholders = stockholderRepository.findByCompanyId(id)
 		company.purposeDetail = purposeDetailRepository.findByCompanyId(id)
+		company.contacts = contactRepository.findByCompanyId(id)
 		return company
 	}
 
 	override fun save(company: Company) {
-		for (executive in company.executives) {
-			if(executive.nationality == "기타") {
-				executive.nationality = executive.countryValue
+		if(company.executives != null) {
+			for (executive in company.executives!!) {
+				if(executive.nationality == "기타") {
+					executive.nationality = executive.countryValue
+				}
 			}
 		}
 
@@ -168,7 +171,7 @@ class CompanyServiceImpl(
 		executiveHistoryRepository.save(ExecutiveHistory(
 			type = IssuedType.CREATED,
 			companyId = company.id,
-			data = company.executives
+			data = company.executives ?: emptyList()
 		))
 
 		company.stock?.let {

@@ -55,7 +55,7 @@ class CompanyDmService(
 
 			val executive = mutableListOf<MutableMap<String, Any?>>()
 			executives
-				.forEach {
+				?.forEach {
 				executive.add(
 					mutableMapOf(
 						"name" to it.name,
@@ -112,7 +112,7 @@ class CompanyDmService(
 		return ByteArrayInputStream(out.toByteArray())
 	}
 
-	private fun parseThymeleafTemplate(company: Company, executives: List<Executive>, user: LawFirmUser): String {
+	private fun parseThymeleafTemplate(company: Company, executives: List<Executive>?, user: LawFirmUser): String {
 		val templateResolver = ClassLoaderTemplateResolver()
 		templateResolver.suffix = ".html"
 		templateResolver.templateMode = TemplateMode.HTML
@@ -144,17 +144,20 @@ class CompanyDmService(
 				}
 			}
 
-			var masterInfo = executives.filter {
+			var masterInfo = executives?.filter {
 				it.position!!.contains( "대표이사")
 			}
 
-			if(masterInfo.isEmpty()) {
-				masterInfo = executives.filter {
-					it.position!!.contains( "사내이사")
+			if(masterInfo != null) {
+				if(masterInfo.isEmpty()) {
+					masterInfo = executives?.filter {
+						it.position!!.contains( "사내이사")
+					}
 				}
 			}
 
-			this.setVariable("exName", "대표이사 <strong>${masterInfo[0].name}</strong>님 귀하")
+
+			this.setVariable("exName", "대표이사 <strong>${masterInfo?.get(0)?.name}</strong>님 귀하")
 			this.setVariable("exPost", "16898")
 			this.setVariable("conTitle", "제목 : <strong>임기만료 안내문</strong>")
 			var content0 = "귀사의 무궁한 발전을 기원합니다."
