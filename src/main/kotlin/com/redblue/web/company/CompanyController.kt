@@ -102,7 +102,9 @@ class CompanyController(
 			name = company.companyName + "(" + company.companyDivision?.first() + ")"
 		}
 		var term = 3
-		term = company.executives?.maxBy { it.term!! }!!.term!! ?: 3
+		if(!company.executives.isNullOrEmpty()) {
+			term = company.executives!!.maxBy { it.term!! }!!.term!!
+		}
 
 		if(company.stock == null) {
 			company.stock = Stock(

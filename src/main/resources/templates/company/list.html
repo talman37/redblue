@@ -328,7 +328,10 @@
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
                 let searchType = $('#searchType').val();
-                let state = $("input:checkbox[name='state']:checked").val();
+                let state = [];
+                $("input:checkbox[name='state']:checked").each(function(){
+                    state.push($(this).val())
+                });
                 let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
@@ -338,7 +341,10 @@
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
                 let searchType = $('#searchType').val();
-                let state = $("input:checkbox[name='state']:checked").val();
+                let state = [];
+                $("input:checkbox[name='state']:checked").each(function(){
+                    state.push($(this).val())
+                });
                 let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
@@ -378,20 +384,27 @@
                     });
 
                     $.each(data.contacts, function(i, v){
+                        let contactValue = '';
+                        if(v.memo == null || v.memo == '') {
+                            contactValue = v.value;
+                        } else {
+                            contactValue = v.value + '(' + v.memo + ')';
+                        }
+                        console.log(v.memo);
                         if(v.type === 'MOBILE') {
-                            $('#mobile').text(v.value);
+                            $('#mobile').text(contactValue);
                         } else if(v.type === 'PHONE') {
-                            $('#phone').text(v.value);
+                            $('#phone').text(contactValue);
                         } else if(v.type === 'DIRECT_PHONE') {
-                            $('#directPhone').text(v.value);
+                            $('#directPhone').text(contactValue);
                         } else if(v.type === 'FAX') {
-                            $('#fax').text(v.value);
+                            $('#fax').text(contactValue);
                         } else if(v.type === 'EMAIL') {
-                            $('#email').text(v.value);
+                            $('#email').text(contactValue);
                         } else if(v.type === 'TAX_EMAIL') {
-                            $('#taxEmail').text(v.value);
+                            $('#taxEmail').text(contactValue);
                         } else if(v.type === 'FACTORY') {
-                            $('#factory').text(v.value);
+                            $('#factory').text(contactValue);
                         }
                     });
                     $('#masterName').text(data.companyMasterName);
