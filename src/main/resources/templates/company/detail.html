@@ -318,7 +318,7 @@
                                 <th>송달장소</th>
                                 <td colspan="5">
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="deliveryPlace" name="deliveryPlace"
+                                        <input type="text" class="form-control form-control-sm" id="deliveryPlace" name="deliveryPlace" style="color:#0000FF;"
                                                th:value="${company.deliveryPlace}">
                                         <div class="input-group-append">
                                             <button type='button' class="btn btn-sm btn-outline-secondary"
@@ -977,9 +977,9 @@
                 });
             });
 
-            $('#companyAddress').on('blur', function(){
-                $('#deliveryPlace').val($(this).val());
-            });
+            // $('#companyAddress').on('blur', function(){
+            //     $('#deliveryPlace').val($(this).val());
+            // });
 
             $('button[name="favoriteOffice"]').on('click', function (i, v) {
                 $('#registerOffice').val($(this).val());

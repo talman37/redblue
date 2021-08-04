@@ -45,7 +45,9 @@ class CompanyDmService(
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
 			)
-			val executives = company.executives
+			val executives = company.executives?.filter {
+				it.expiredAt != null
+			}
 			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user))
 			renderer.layout()
 			renderer.createPDF(outputStream)
@@ -56,21 +58,21 @@ class CompanyDmService(
 			val executive = mutableListOf<MutableMap<String, Any?>>()
 			executives
 				?.forEach {
-				executive.add(
-					mutableMapOf(
-						"name" to it.name,
-						"position" to it.position,
-						"expiredAt" to it.expiredAt
+					executive.add(
+						mutableMapOf(
+							"name" to it.name,
+							"position" to it.position,
+							"expiredAt" to it.expiredAt
+						)
 					)
-				)
-			}
+				}
 			histories.add(
 				DmHistory(
 					lawFirmId = company.lawFirmId,
 					companyName = company.companyName!!,
-					address = company.deliveryPlacePostalCode.let {
+					address = company.deliveryPlace.let {
 						if (StringUtils.isEmpty(it)) {
-							company.deliveryPlace!!
+							"(${company.companyPostalCode}) ${company.companyAddress}"
 						} else {
 							"(${company.deliveryPlacePostalCode}) ${company.deliveryPlace}"
 						}
@@ -120,16 +122,21 @@ class CompanyDmService(
 		val templateEngine = TemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver)
 
+		val address = if (StringUtils.hasText(company.deliveryPlace)) {
+			company.deliveryPlace
+		} else {
+			company.companyAddress
+		}
 
 		val context = Context().apply {
 			this.setVariable("lawFirm", user.lawFirm)
 			this.setVariable("tel", "(대표), ${user.lawFirm!!.tel}")
 			this.setVariable("postalCode", "<span>우)</span> <strong>${user.lawFirm!!.postalCode}</strong>")
 			this.setVariable("docNum", "<span>문서번호 :</span> <strong>${company.companyNumber1} <span>[${company.companyNumber2}]</span></strong>")
-			this.setVariable("exAddress", company.deliveryPlace)
+			this.setVariable("exAddress", address)
 
 			var companyNamePrefix = ""
-			if(StringUtils.hasText(company.companyDivision)) {
+			if (StringUtils.hasText(company.companyDivision)) {
 				companyNamePrefix = "(" + company.companyDivision!!.slice(IntRange(0, 0)) + ")"
 			}
 			when (company.displayCompanyType) {
@@ -145,20 +152,24 @@ class CompanyDmService(
 			}
 
 			var masterInfo = executives?.filter {
-				it.position!!.contains( "대표이사")
+				it.position!!.contains("대표이사")
 			}
 
-			if(masterInfo != null) {
-				if(masterInfo.isEmpty()) {
+			if (masterInfo != null) {
+				if (masterInfo.isEmpty()) {
 					masterInfo = executives?.filter {
-						it.position!!.contains( "사내이사")
+						it.position!!.contains("사내이사")
 					}
 				}
 			}
 
-
+			val postalCode = if (StringUtils.hasText(company.deliveryPlacePostalCode)) {
+				company.deliveryPlacePostalCode
+			} else {
+				company.companyPostalCode
+			}
 			this.setVariable("exName", "대표이사 <strong>${masterInfo?.get(0)?.name}</strong>님 귀하")
-			this.setVariable("exPost", "16898")
+			this.setVariable("exPost", postalCode)
 			this.setVariable("conTitle", "제목 : <strong>임기만료 안내문</strong>")
 			var content0 = "귀사의 무궁한 발전을 기원합니다."
 			var content1 = "임기만료안내"

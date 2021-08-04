@@ -311,7 +311,7 @@
                                 <th>송달장소</th>
                                 <td colspan="5">
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="deliveryPlace"
+                                        <input type="text" class="form-control form-control-sm" id="deliveryPlace" style="color:#0000FF;"
                                                name="deliveryPlace"
                                                value="">
                                         <div class="input-group-append">
@@ -996,9 +996,9 @@
                 });
             });
 
-            $('#companyAddress').on('blur', function(){
-                $('#deliveryPlace').val($(this).val());
-            });
+            // $('#companyAddress').on('blur', function(){
+            //     $('#deliveryPlace').val($(this).val());
+            // });
 
             $('#office_search_btn').on('click', function () {
                 window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
