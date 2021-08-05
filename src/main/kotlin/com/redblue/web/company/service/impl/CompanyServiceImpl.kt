@@ -27,6 +27,8 @@ class CompanyServiceImpl(
 	private val executiveHistoryRepository: ExecutiveHistoryRepository
 ): CompanyService {
 
+	val positions = mutableListOf("대표이사", "공동대표이사", "사내이사", "사외이사", "기타비상무이사", "감사", "감사위원", "대표집행임원", "집행임원", "주주")
+
 	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
 		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
 	}
@@ -106,8 +108,19 @@ class CompanyServiceImpl(
 	}
 
 	override fun getSummary(companyId: String): SummaryResponseDto {
+		val executives = executiveRepository.findByCompanyIdOrderByExpiredAt(companyId)
+
+		val sortedExecutives = mutableListOf<Executive>()
+		for (position in positions) {
+			for (executive in executives) {
+				if(position == executive.position) {
+					sortedExecutives.add(executive)
+				}
+			}
+		}
+
 		return SummaryResponseDto.of(
-			executiveRepository.findByCompanyIdOrderByExpiredAt(companyId),
+			sortedExecutives,
 			contactRepository.findByCompanyId(companyId)
 		)
 	}
@@ -115,7 +128,20 @@ class CompanyServiceImpl(
 	override fun detail(id: String): Company {
 		val company = companyRepository.findById(id).get()
 		company.branches = companyBranchRepository.findByCompanyId(id)
-		company.executives = executiveRepository.findByCompanyIdOrderByExpiredAt(id).toMutableList()
+
+		val executives = executiveRepository.findByCompanyIdOrderByExpiredAt(id).toMutableList()
+
+		val sortedExecutives = mutableListOf<Executive>()
+
+		for (position in positions) {
+			for (executive in executives) {
+				if(position == executive.position) {
+					sortedExecutives.add(executive)
+				}
+			}
+		}
+
+		company.executives = sortedExecutives
 		company.stock = stockRepository.findByCompanyId(id)
 		company.stockholders = stockholderRepository.findByCompanyId(id)
 		company.purposeDetail = purposeDetailRepository.findByCompanyId(id)

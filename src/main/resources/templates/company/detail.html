@@ -9,6 +9,11 @@
                     <h1>
                         <span th:text="${companyName}"></span>
                         <small th:if="${not #strings.isEmpty(company.companyManageNumber)}" th:text="|(${company.companyManageNumber})|"></small>
+                        <span class="badge badge-primary" th:if="${#lists.size(company.branches) > 0}">지점</span>
+                        <span class="badge badge-danger" th:if="${company.stock.amount * company.stock.issuedCount >= 1000000000}">
+                                10억
+                            </span>
+                        <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions)}">주의</span>
                     </h1>
                 </div>
             </div>
@@ -17,12 +22,6 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <strong>법인</strong>
-
-                            <span class="badge badge-primary" th:if="${#lists.size(company.branches) > 0}">지점</span>
-                            <span class="badge badge-danger" th:if="${company.stock.amount * company.stock.issuedCount >= 1000000000}">
-                                10억
-                            </span>
-                            <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions)}">주의</span>
                         </div>
                         <div>
                             <button type='button' class='btn btn-sm btn-outline-primary' id="update_master_btn">
