@@ -51,4 +51,8 @@ interface CompanyService {
 
 	fun savePurposeDetail(companyId: String, purposeDetails: List<PurposeDetail>)
 
+	fun duplicateCheck(companyNumber1: String, companyNumber2: String): Boolean
+
+	fun delete(id: String)
+
 }

@@ -7,4 +7,6 @@ interface ExecutiveHistoryRepository: JpaRepository<ExecutiveHistory, String>{
 
 	fun findByCompanyId(companyId: String): List<ExecutiveHistory>
 
+	fun deleteByCompanyId(companyId: String)
+
 }

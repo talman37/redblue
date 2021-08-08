@@ -341,6 +341,12 @@
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
                 let searchType = $('#searchType').val();
+
+                if(startDate == '' || endDate == '') {
+                    alert('DM 다운로드 시 임기만료일 검색값은 필수 입니다.');
+                    return false;
+                }
+
                 let state = [];
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
@@ -374,11 +380,22 @@
                 }).done(function(data){
                     $('#executive_panel').empty();
                     $.each(data.executives, function(i, v){
+
+                        var inauguratedAt = '';
+                        var expiredAt = '';
+
+                        if(v.inauguratedAt != null) {
+                            inauguratedAt = v.inauguratedAt;
+                        }
+                        if(v.expiredAt != null) {
+                            expiredAt = v.expiredAt;
+                        }
+
                         var senList = '';
                         senList += '<tr>';
                         senList += '<td>(' + v.position + ')' + v.name + '</td>';
-                        senList += '<td>'+ v.inauguratedAt +'</td>';
-                        senList += '<td>'+ v.expiredAt +'</td>';
+                        senList += '<td>'+ inauguratedAt +'</td>';
+                        senList += '<td>'+ expiredAt +'</td>';
                         senList += '</tr>';
                         $('#executive_panel').append(senList);
                     });

@@ -125,6 +125,26 @@ class CompanyServiceImpl(
 		)
 	}
 
+	override fun duplicateCheck(companyNumber1: String, companyNumber2: String): Boolean {
+		return companyRepository.existsByCompanyNumber1AndCompanyNumber2(companyNumber1, companyNumber2)
+	}
+
+	@Transactional
+	override fun delete(id: String) {
+		executiveHistoryRepository.deleteByCompanyId(id)
+		stockHistoryRepository.deleteByCompanyId(id)
+		subHistoryRepository.deleteByCompanyId(id)
+		masterHistoryRepository.deleteByCompanyId(id)
+
+		purposeDetailRepository.deleteByCompanyId(id)
+		contactRepository.deleteByCompanyId(id)
+		companyBranchRepository.deleteByCompanyId(id)
+		executiveRepository.deleteByCompanyId(id)
+		stockRepository.deleteByCompanyId(id)
+
+		companyRepository.deleteById(id)
+	}
+
 	override fun detail(id: String): Company {
 		val company = companyRepository.findById(id).get()
 		company.branches = companyBranchRepository.findByCompanyId(id)

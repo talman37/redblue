@@ -122,6 +122,7 @@ class CompanyController(
 		model.addAttribute("consults", consultService.findByCompanyId(id))
 		model.addAttribute("countries", Country.values())
 		model.addAttribute("inputStockCount", inputStockCount)
+		model.addAttribute("lawFirmUserId", user.id)
 		return "/company/detail"
 	}
 

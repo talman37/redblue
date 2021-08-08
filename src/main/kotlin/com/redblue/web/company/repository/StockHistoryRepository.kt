@@ -7,4 +7,6 @@ interface StockHistoryRepository: JpaRepository<StockHistory, String> {
 
 	fun findByCompanyId(companyId: String): List<StockHistory>
 
+	fun deleteByCompanyId(companyId: String)
+
 }

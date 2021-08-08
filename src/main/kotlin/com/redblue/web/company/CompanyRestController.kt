@@ -140,6 +140,22 @@ class CompanyRestController(
 		return ResponseEntity(HttpStatus.OK)
 	}
 
+	@GetMapping("/duplicate-check")
+	fun duplicateCheck(
+		@RequestParam("companyNumber1") companyNumber1: String,
+		@RequestParam("companyNumber2") companyNumber2: String
+	): ResponseEntity<Boolean> {
+		return ResponseEntity.ok(companyService.duplicateCheck(companyNumber1, companyNumber2))
+	}
+
+	@DeleteMapping("/{id}")
+	fun delete(
+		@PathVariable("id") id: String
+	): ResponseEntity<Void> {
+		companyService.delete(id)
+		return ResponseEntity(HttpStatus.OK)
+	}
+
 	@GetMapping("/download/corporations.xlsx")
 	fun downloadExcel(
 		@RequestParam(value = "q", required = false) searchValue: String?,

@@ -14,6 +14,8 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 	fun countBylawFirmIdAndCompanyState(lawFirmId: String, state: String): Int
 
+	fun existsByCompanyNumber1AndCompanyNumber2(companyNumber1: String, companyNumber2: String): Boolean
+
 }
 
 interface CompanyQueryDslRepository {

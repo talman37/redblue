@@ -1035,57 +1035,71 @@
                     }
                     $('#companyNumber1').val(companyNumber[0]);
                     $('#companyNumber2').val(companyNumber[1]);
-                }
 
-                $("input[name$='[name]']").each(function(i, el){
-                    if($(this).val() == '') {
-                        $(this).parent().parent().remove();
-                    }
-                });
-
-                $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
-                $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
-                $('#stockIssuedCount').val($('#stockIssuedCount').val().replace(/\,/g,""));
-                $('#capital').val($('#capital').val().replace(/\,/g,""));
-
-                $("input[name$='[registrationNumber]']").each(function(i, el){
-                    var registrationNumber = $(this).val().split("-");
-                    $('input[name="executives[' + i + '][registrationNumber1]"]').val(registrationNumber[0]);
-                    $('input[name="executives[' + i + '][registrationNumber2]"]').val(registrationNumber[1]);
-                });
-
-                $('input[name$="[stockCount]"]').each(function(i, el){
-                    var count = uncomma($(this).val())
-                    if(count > 0) {
-                        $('input[name="executives[' + i + '][stockCount]"]').val(count);
-                    }
-                });
-
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/v1/companies',
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
-                    statusCode: {
-                        200: function () {
-                            alert('법인등록에 성공 하였습니다.');
-                            window.close();
-                            return false;
-                        },
-                        400: function () {
-                            alert('법인등록에 실패 하였습니다.');
+                    $.ajax({
+                        url: "/v1/companies/duplicate-check?companyNumber1="+$('#companyNumber1').val()+"&companyNumber2="+$('#companyNumber2').val(),
+                        method: "GET",
+                        dataType: "json"
+                    }).done(function(data){
+                        if(data) {
+                            alert("이미 등록된 법인 입니다. 법인등록번호를 확인해주세요.");
                             $(this).attr('disabled', false);
                             return false;
-                        },
-                        500: function () {
-                            alert('법인등록에 실패 하였습니다.');
-                            $(this).attr('disabled', false);
-                            return false;
+                        } else {
+                            $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
+                            $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
+                            $('#stockIssuedCount').val($('#stockIssuedCount').val().replace(/\,/g,""));
+                            $('#capital').val($('#capital').val().replace(/\,/g,""));
+
+                            $("input[name$='[registrationNumber]']").each(function(i, el){
+                                var registrationNumber = $(this).val().split("-");
+                                $('input[name="executives[' + i + '][registrationNumber1]"]').val(registrationNumber[0]);
+                                $('input[name="executives[' + i + '][registrationNumber2]"]').val(registrationNumber[1]);
+                            });
+
+                            $('input[name$="[stockCount]"]').each(function(i, el){
+                                var count = uncomma($(this).val())
+                                if(count > 0) {
+                                    $('input[name="executives[' + i + '][stockCount]"]').val(count);
+                                }
+                            });
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '/v1/companies',
+                                contentType: 'application/json',
+                                dataType: 'json',
+                                data: JSON.stringify($('#company-form').serializeJSON({useIntKeysAsArrayIndex: true})),
+                                statusCode: {
+                                    200: function () {
+                                        alert('법인등록에 성공 하였습니다.');
+                                        window.close();
+                                        return false;
+                                    },
+                                    400: function () {
+                                        alert('법인등록에 실패 하였습니다.');
+                                        $(this).attr('disabled', false);
+                                        return false;
+                                    },
+                                    500: function () {
+                                        alert('법인등록에 실패 하였습니다.');
+                                        $(this).attr('disabled', false);
+                                        return false;
+                                    }
+                                }
+                            });
+                            $("input[name$='[name]']").each(function(i, el){
+                                if($(this).val() == '') {
+                                    $(this).parent().parent().remove();
+                                }
+                            });
                         }
-                    }
-                });
+                    });
+                } else {
+                    alert("법인등록번호는 필수값 입니다.");
+                    $(this).attr('disabled', false);
+                    return false;
+                }
             });
 
             $('#add-contact-btn').on('click', function () {

@@ -11,4 +11,6 @@ interface StockRepository: JpaRepository<Stock, String> {
 
 	fun findByCompanyIdIn(ids: List<String>): List<Stock>
 
+	fun deleteByCompanyId(companyId: String)
+
 }

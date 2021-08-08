@@ -9,4 +9,5 @@ interface PurposeDetailRepository: JpaRepository<PurposeDetail, String> {
 	fun findByCompanyIdIn(ids: List<String>): List<PurposeDetail>
 
 	fun deleteByCompanyId(companyId: String)
+
 }
