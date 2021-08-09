@@ -182,7 +182,7 @@
                         </div>
                         <table class="table table-bordered">
                             <colgroup>
-                                <col width="80px" />
+                                <col width="110px" />
                                 <col width="170px" />
                                 <col width="80px" />
                                 <col width="200px" />
@@ -209,8 +209,8 @@
                                             <a href="#none" class="btn btn-link p-0" th:name="companyTitle" th:attr="data-id=${company.id}"
                                                th:text="${company.companyName}"></a>
                                         </td>
-                                        <td>
-                                            <div class="ellipsis" th:text="${company.companyAddress}">
+                                        <td th:title="${company.companyAddress}">
+                                            <div class="nowrap" th:text="${company.companyAddress}">
                                             </div>
                                         </td>
                                         <td>

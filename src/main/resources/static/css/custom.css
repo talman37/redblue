@@ -15,8 +15,16 @@ select,
 label {
   font-size: 13px; }
 
+.form-control-sm {
+  height: calc(1.5em + .5rem);
+  padding: .1rem .2rem; }
+
 a {
   color: #343a40; }
+
+textarea.form-control {
+  font-size: 11px;
+  font-family: 'malgun gothic'; }
 
 /*
 * login
@@ -161,8 +169,11 @@ a {
   flex-direction: column;
   margin: 0;
   background: transparent;
-  border-radius: 0; }
+  border-radius: 0;
+  display: block; }
 .sidebar .box-status .item {
+  -webkit-box-flex: 1;
+  flex: 1 1 100%;
   border: 0; }
 .sidebar .box-status .item .item-header {
   background-color: #343a40;
@@ -283,7 +294,7 @@ h5 {
   white-space: nowrap;
   vertical-align: middle; }
 .table td {
-  padding: 6px;
+  padding: 3px;
   vertical-align: middle; }
 .table-overflow {
   display: block;
@@ -314,6 +325,10 @@ h5 {
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-all; }
+.table .nowrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
 
 /*
 * Pagination
@@ -445,14 +460,16 @@ h5 {
   -moz-appearance: none;
   appearance: none; }
 .form-select-sm {
-  padding-top: .25rem;
-  padding-bottom: .25rem;
+  padding-top: .15rem;
+  padding-bottom: .15rem;
   padding-left: .5rem;
-  height: calc(1.5em + .5rem + 2px);
+  height: calc(1.5em + .5rem);
   line-height: 1.5; }
 .form-select:disabled {
   color: #6c757d;
   background-color: #e9ecef; }
+.form-select::-ms-expand {
+  display: none; }
 
 .input-group .input-group-addon .input-group-text {
   border: 0;
@@ -808,6 +825,8 @@ h5 {
 
 .detail-company {
   zoom: 90%; }
+.detail-company h1 {
+  font-weight: bold; }
 .detail-company table {
   width: 100%; }
 .detail-company .table-bordered th,
