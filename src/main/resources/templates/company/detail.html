@@ -177,9 +177,9 @@
                                                name="companyManageNumber" placeholder=""
                                                th:value="${company.companyManageNumber}">
                                     </td>
-                                    <th>주의사항</th>
-                                    <td>
-                                        <textarea class="form-control form-control-sm" style="height: 30px" id="precautions"
+                                    <th rowspan="2">주의사항</th>
+                                    <td rowspan="2">
+                                        <textarea class="form-control form-control-sm" style="height: 60px" id="precautions"
                                                name="precautions"  placeholder=""  th:text="${company.precautions}"></textarea>
 
                                     </td>
@@ -215,12 +215,12 @@
                                                name="companyFormationAt"
                                                th:value="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}">
                                     </td>
-                                    <th>추천인</th>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"
-                                               placeholder="" th:value="${company.recommender}">
+<!--                                    <th>추천인</th>-->
+<!--                                    <td>-->
+<!--                                        <input type="text" class="form-control form-control-sm" id="recommender" name="recommender"-->
+<!--                                               placeholder="" th:value="${company.recommender}">-->
 
-                                    </td>
+<!--                                    </td>-->
                                 </tr>
                             </tbody>
                         </table>
