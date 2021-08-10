@@ -109,6 +109,9 @@ data class Company(
 	@Temporal(TemporalType.DATE)
 	val createdAt: Date? = Date(),
 
+	@Temporal(TemporalType.DATE)
+	val updatedAt: Date? = Date(),
+
 	@Transient
 	var stock: Stock? = null,
 
@@ -134,7 +137,7 @@ data class Company(
 	var branches: List<CompanyBranch>? = emptyList()
 
 ) {
-	enum class DisplayCompanyType{
+	enum class DisplayCompanyType {
 		FRONT,
 		BACK
 	}
