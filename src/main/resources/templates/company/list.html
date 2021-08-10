@@ -73,14 +73,6 @@
         <!-- contents -->
         <main role="main" class="main list-company">
             <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>법인 검색</strong>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="card-body">
                     <form id="searchForm" name="searchForm" method="get">
                         <div class="search-field">
@@ -90,18 +82,28 @@
                                         <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색(법인등록번호, 등기번호, 법인명, 법인관리번호, 주소)"
                                                th:value="${q}">
                                     </div>
-                                    <div class="col ml-2">
-                                        <div class="input-group input-daterange">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    임기만료일
+                                    <div class="col col-7 ml-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="input-group input-daterange">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        임기만료일
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" id="startDate" name="start"
+                                                       th:value="${startDate}" onkeyup="inputDateFormat(this)">
+                                                <div class="input-group-addon">~</div>
+                                                <input type="text" class="form-control" id="endDate" name="end"
+                                                       th:value="${endDate}" onkeyup="inputDateFormat(this)">
+                                            </div>
+                                            <div class="form-check form-check-inline ml-2 nowrap">
+                                                <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="" name="" value="" checked="checked"><i></i>
+                                                    </span>
+                                                    <label for="">감사</label>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" id="startDate" name="start"
-                                                   th:value="${startDate}" onkeyup="inputDateFormat(this)">
-                                            <div class="input-group-addon">~</div>
-                                            <input type="text" class="form-control" id="endDate" name="end"
-                                                   th:value="${endDate}" onkeyup="inputDateFormat(this)">
                                         </div>
                                     </div>
                                 </div>
@@ -128,8 +130,24 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col ml-2">
+                                        <div class="input-group input-daterange">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    수정일
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" id="modifiedStartDate" name="start"
+                                                   th:value="${startDate}" onkeyup="inputDateFormat(this)">
+                                            <div class="input-group-addon">~</div>
+                                            <input type="text" class="form-control" id="modifiedEndDate" name="end"
+                                                   th:value="${endDate}" onkeyup="inputDateFormat(this)">
+                                        </div>
+                                    </div>
+                                </div>
 
-                                    <div class="col col-8 ml-2">
+                                <div class="row mt-2 no-gutters">
+                                    <div class="col">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
@@ -161,7 +179,7 @@
                                                         <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결')}"
                                                                th:value="관리종결"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결법인</label>
+                                                        <label for="state-3">관리종결법인(장기, 반송, 폐업, 기타)</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +201,7 @@
                         <table class="table table-bordered">
                             <colgroup>
                                 <col width="110px" />
-                                <col width="170px" />
+                                <col width="110px" />
                                 <col width="80px" />
                                 <col width="200px" />
                                 <col/>
@@ -303,6 +321,10 @@
                                 <tr>
                                     <th>세금계산서용 이메일</th>
                                     <td id="taxEmail"></td>
+                                </tr>
+                                <tr>
+                                    <th>주의 사항</th>
+                                    <td id="" class="memo"></td>
                                 </tr>
                                 </tbody>
                             </table>

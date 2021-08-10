@@ -23,8 +23,13 @@ a {
   color: #343a40; }
 
 textarea.form-control {
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'malgun gothic'; }
+
+.nowrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
 
 /*
 * login
@@ -290,7 +295,7 @@ h5 {
   white-space: nowrap;
   vertical-align: middle; }
 .table th {
-  padding: 4px 6px;
+  padding: 3px 6px;
   white-space: nowrap;
   vertical-align: middle; }
 .table td {
@@ -531,6 +536,9 @@ h5 {
   border-right: 0; }
 .search-field .input-daterange .form-control:last-child {
   border-left: 0; }
+.search-field .input-daterange + .form-check {
+  min-width: 60px;
+  margin-right: 0; }
 
 .search-status {
   display: -webkit-box;
@@ -741,13 +749,9 @@ h5 {
   flex-direction: column;
   -webkit-box-pack: justify;
   justify-content: space-between; }
-.list-company .card {
-  height: calc(100vh - 40vh);
-  overflow-y: auto;
-  overflow-x: hidden; }
 .list-company .panel {
   position: relative;
-  height: calc(100vh - 60vh - 69px);
+  height: 242px;
   margin: 0 -20px 0;
   overflow-y: auto;
   overflow-x: hidden;
@@ -755,28 +759,37 @@ h5 {
   border-left: 1px solid #dfdfee;
   display: -webkit-box;
   display: flex;
-  box-shadow: 0px -3px 10px #21252945;
+  box-shadow: 0px 1px 6px 0px #21252945;
   background-color: #fff;
   font-size: 12px; }
 .list-company .panel:after {
   content: '';
   display: block;
   width: 1px;
-  height: 100%;
   position: absolute;
   left: 50%;
   top: 0;
   bottom: 0;
   background-color: #dfdfee; }
 .list-company .panel > div .panel-header {
-  padding: 10px;
+  padding: 5px 10px;
   background: #f8f8f8;
-  border-bottom: 1px solid #dfdfee; }
+  border-bottom: 1px solid #dfdfee;
+  font-weight: bold; }
 .list-company .panel > div .panel-body {
-  padding: 10px; }
+  padding: 5px; }
+.list-company .panel .table thead th {
+  padding: 0 3px; }
+.list-company .panel .table th,
+.list-company .panel .table td {
+  padding: 0 3px;
+  vertical-align: top; }
+.list-company .panel .table th.memo,
+.list-company .panel .table td.memo {
+  height: 50px; }
 .list-company .table-scroll {
   position: relative;
-  height: calc(100vh - 55vh - 150px);
+  height: calc(100vh - 560px);
   border: none;
   box-shadow: inset 1px -1px #dee2e6; }
 .list-company .table-scroll .loading {
