@@ -36,6 +36,9 @@ class CompanyController(
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@RequestParam(value = "state", required = false) state: MutableList<String>?,
 		@RequestParam(value = "searchType", required = false) searchType: String?,
+		@RequestParam(value = "positionTarget", required = false) positionTarget: String?,
+		@RequestParam(value = "modifiedStartDate", required = false) modifiedStartDate: String?,
+		@RequestParam(value = "modifiedEndDate", required = false) modifiedEndDate: String?,
 		@CurrentUser user: LawFirmUser
 	): String {
 
@@ -74,7 +77,23 @@ class CompanyController(
 			}
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType)
+		val updatedStart = modifiedStartDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+			}
+		}
+
+		val updatedEnd = modifiedEndDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+			}
+		}
+
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd)
 
 		model.addAttribute("companies", CompanyListDto.of(companies))
 		model.addAttribute("q", searchValue)
@@ -82,6 +101,9 @@ class CompanyController(
 		model.addAttribute("startDate", startDate)
 		model.addAttribute("endDate", endDate)
 		model.addAttribute("state", companyState)
+		model.addAttribute("positionTarget", positionTarget)
+		model.addAttribute("modifiedStartDate", modifiedStartDate)
+		model.addAttribute("modifiedEndDate", modifiedEndDate)
 		model.addAttribute("name", user.name)
 
 		return "/company/list"

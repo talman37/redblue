@@ -16,11 +16,14 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 	fun existsByCompanyNumber1AndCompanyNumber2(companyNumber1: String, companyNumber2: String): Boolean
 
+	@Query("UPDATE Company c SET c.updatedAt = :updatedAt WHERE c.id = :id")
+	fun saveUpdatedAt(id: String, updatedAt: Date)
+
 }
 
 interface CompanyQueryDslRepository {
 
-	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company>
+	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?): List<Company>
 
 	fun findByLawFirmIdAndCompanyName(lawFirmId: String, companyName: String): List<Company>
 

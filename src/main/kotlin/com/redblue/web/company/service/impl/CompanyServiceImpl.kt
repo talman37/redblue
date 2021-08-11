@@ -29,12 +29,12 @@ class CompanyServiceImpl(
 
 	val positions = mutableListOf("대표이사", "공동대표이사", "사내이사", "사외이사", "기타비상무이사", "감사", "감사위원", "대표집행임원", "집행임원", "주주")
 
-	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
-		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
+	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?): List<Company> {
+		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType, positionTarget, modifiedStartDate, modifiedEndDate)
 	}
 
-	override fun listExcel(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
-		val companies = companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
+	override fun listExcel(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?): List<Company> {
+		val companies = companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType, positionTarget, modifiedStartDate, modifiedEndDate)
 		val companyIds = companies.map { it.id }
 		val stocks = stockRepository.findByCompanyIdIn(companyIds)
 		val executives = executiveRepository.findByCompanyIdIn(companyIds)
@@ -75,8 +75,8 @@ class CompanyServiceImpl(
 		return companies
 	}
 
-	override fun listDm(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
-		val companies = companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType)
+	override fun listDm(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?): List<Company> {
+		val companies = companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType, positionTarget, modifiedStartDate, modifiedEndDate)
 		val companyIds = companies.map { it.id }
 		val executives = executiveRepository.findByCompanyIdIn(companyIds)
 		val executiveMap = executives.groupBy { it.companyId }
@@ -108,6 +108,7 @@ class CompanyServiceImpl(
 	}
 
 	override fun getSummary(companyId: String): SummaryResponseDto {
+		val company = companyRepository.findById(companyId)
 		val executives = executiveRepository.findByCompanyIdOrderByExpiredAt(companyId)
 
 		val sortedExecutives = mutableListOf<Executive>()
@@ -121,7 +122,8 @@ class CompanyServiceImpl(
 
 		return SummaryResponseDto.of(
 			sortedExecutives,
-			contactRepository.findByCompanyId(companyId)
+			contactRepository.findByCompanyId(companyId),
+			company.get().precautions
 		)
 	}
 
@@ -213,6 +215,9 @@ class CompanyServiceImpl(
 				settlementMonth = company.settlementMonth
 			)
 		)
+		company.executives?.let {
+			executiveRepository.saveAll(company.executives!!)
+		}
 
 		executiveHistoryRepository.save(ExecutiveHistory(
 			type = IssuedType.CREATED,
@@ -262,6 +267,7 @@ class CompanyServiceImpl(
 		if(!company.isPresent) {
 			throw Exception("company is not exist.")
 		}
+		val current = Date()
 		val updateCompany = company.get().copy(
 			registerNumber = dto.registerNumber,
 			registerOffice = dto.registerOffice,
@@ -278,11 +284,12 @@ class CompanyServiceImpl(
 			precautions = dto.precautions,
 			companyFormationAt = dto.companyFormationAt,
 			companyUpdatedAt = if(company.get().companyName != dto.companyName){
-				Date()
+				current
 			} else {
 				company.get().companyUpdatedAt
 			}
 		)
+		updateCompany.updatedAt = current
 		companyRepository.save(updateCompany)
 
 		masterHistoryRepository.save(
@@ -310,12 +317,12 @@ class CompanyServiceImpl(
 		if(!company.isPresent) {
 			throw Exception("company is not exist.")
 		}
-
+		var current = Date()
 		val updateCompany = company.get().copy(
 			companyAddress = dto.companyAddress,
 			companyPostalCode = dto.companyPostalCode,
 			companyAddressUpdatedAt = if(company.get().companyAddress != dto.companyAddress){
-				Date()
+				current
 			} else {
 				company.get().companyUpdatedAt
 			},
@@ -326,6 +333,7 @@ class CompanyServiceImpl(
 			businessNumber = dto.businessNumber,
 			settlementMonth = dto.settlementMonth
 		)
+		updateCompany.updatedAt = current
 		companyRepository.save(updateCompany)
 
 		subHistoryRepository.save(
@@ -349,13 +357,13 @@ class CompanyServiceImpl(
 			amount = dto.stock?.amount ?: 0,
 			scheduleCount = dto.stock?.scheduleCount ?: 0,
 			scheduleCountUpdatedAt = if(stock.scheduleCount != dto.stock?.scheduleCount) {
-				Date()
+				current
 			} else {
 				stock.scheduleCountUpdatedAt
 			},
 			issuedCount = dto.stock?.issuedCount ?: 0,
 			issuedCountUpdatedAt = if(stock.issuedCount != dto.stock?.issuedCount) {
-				Date()
+				current
 			} else {
 				stock.issuedCountUpdatedAt
 			}
@@ -393,6 +401,7 @@ class CompanyServiceImpl(
 		if(branches.isNotEmpty()) {
 			companyBranchRepository.saveAll(branches)
 		}
+		companyRepository.saveUpdatedAt(companyId, Date())
 	}
 
 	@Transactional
@@ -401,6 +410,7 @@ class CompanyServiceImpl(
 		if(contacts.isNotEmpty()) {
 			contactRepository.saveAll(contacts)
 		}
+		companyRepository.saveUpdatedAt(companyId, Date())
 	}
 
 	@Transactional
@@ -418,8 +428,8 @@ class CompanyServiceImpl(
 				companyId = companyId,
 				data = executives
 			))
-
 		}
+		companyRepository.saveUpdatedAt(companyId, Date())
 	}
 
 	@Transactional
@@ -436,13 +446,16 @@ class CompanyServiceImpl(
 		if(purposeDetails.isNotEmpty()) {
 			purposeDetailRepository.saveAll(purposeDetails)
 		}
+		companyRepository.saveUpdatedAt(companyId, Date())
 	}
 
 	override fun updateNoticeWay(id: String, dto: CompanyNoticeWayUpdateDto) {
 		val company = companyRepository.findById(id)
+		val current = Date()
 		val updateCompany = company.get().copy(
 			noticeWay = dto.noticeWay,
-			noticeWayUpdatedAt = Date()
+			noticeWayUpdatedAt = current,
+			updatedAt = current
 		)
 		companyRepository.save(updateCompany)
 	}

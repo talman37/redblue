@@ -163,6 +163,9 @@ class CompanyRestController(
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@RequestParam(value = "state", required = false) state: MutableList<String>?,
 		@RequestParam(value = "searchType", required = false) searchType: String?,
+		@RequestParam(value = "positionTarget", required = false) positionTarget: String?,
+		@RequestParam(value = "modifiedStartDate", required = false) modifiedStartDate: String?,
+		@RequestParam(value = "modifiedEndDate", required = false) modifiedEndDate: String?,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
@@ -190,9 +193,25 @@ class CompanyRestController(
 			}
 		}
 
+		val updatedStart = modifiedStartDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+			}
+		}
+
+		val updatedEnd = modifiedEndDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+			}
+		}
+
 		val companyState: MutableList<String> = state ?: mutableListOf()
 
-		val companies = companyService.listExcel(user.lawFirmId, searchValue, start, end, companyState, searchType)
+		val companies = companyService.listExcel(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd)
 		val resource = companyExcelService.generate(companies)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=corporations.xlsx")
@@ -208,6 +227,9 @@ class CompanyRestController(
 		@RequestParam(value = "end", required = false) endDate: String?,
 		@RequestParam(value = "state", required = false) state: MutableList<String>?,
 		@RequestParam(value = "searchType", required = false) searchType: String?,
+		@RequestParam(value = "positionTarget", required = false) positionTarget: String?,
+		@RequestParam(value = "modifiedStartDate", required = false) modifiedStartDate: String?,
+		@RequestParam(value = "modifiedEndDate", required = false) modifiedEndDate: String?,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
@@ -235,9 +257,25 @@ class CompanyRestController(
 			}
 		}
 
+		val updatedStart = modifiedStartDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+			}
+		}
+
+		val updatedEnd = modifiedEndDate?.let {
+			if (it.isEmpty()) {
+				null
+			} else {
+				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+			}
+		}
+
 		val companyState: MutableList<String> = state ?: mutableListOf()
 
-		val companies = companyService.listDm(user.lawFirmId, searchValue, start, end, companyState, searchType)
+		val companies = companyService.listDm(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd)
 		val resource = companyDmService.generate(companies, user)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=dm.pdf")

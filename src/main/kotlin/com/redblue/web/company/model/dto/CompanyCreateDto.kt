@@ -137,33 +137,35 @@ data class CompanyCreateDto(
 
 		val executives = mutableListOf<Executive>()
 		this.executives.forEach {
-			if (it.nationality == "ETC") {
-				it.nationality = it.countryValue
-			}
-			var term = 3
-			if (it.term != null) {
-				term = it.term
-			}
+			if(StringUtils.hasText(it.name)) {
+				if (it.nationality == "ETC") {
+					it.nationality = it.countryValue
+				}
+				var term = 3
+				if (it.term != null) {
+					term = it.term
+				}
 
-			executives.add(
-				Executive(
-					id = it.id,
-					companyId = this.id,
-					detail = it.detail,
-					type = it.type,
-					name = it.name,
-					registrationNumber1 = it.registrationNumber1,
-					registrationNumber2 = it.registrationNumber2,
-					address = it.address,
-					position = it.position,
-					inauguratedAt = it.inauguratedAt,
-					term = term,
-					updatedReason = it.updatedReason,
-					expiredAt = it.expiredAt,
-					stockCount = it.stockCount,
-					nationality = it.nationality
+				executives.add(
+					Executive(
+						id = it.id,
+						companyId = this.id,
+						detail = it.detail,
+						type = it.type,
+						name = it.name,
+						registrationNumber1 = it.registrationNumber1,
+						registrationNumber2 = it.registrationNumber2,
+						address = it.address,
+						position = it.position,
+						inauguratedAt = it.inauguratedAt,
+						term = term,
+						updatedReason = it.updatedReason,
+						expiredAt = it.expiredAt,
+						stockCount = it.stockCount,
+						nationality = it.nationality
+					)
 				)
-			)
+			}
 		}
 
 		val purposeDetails = mutableListOf<PurposeDetail>()

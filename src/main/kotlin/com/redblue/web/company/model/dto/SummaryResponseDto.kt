@@ -9,13 +9,15 @@ data class SummaryResponseDto (
 
 	var companyMasterName: String? = null,
 
-	val contacts: MutableList<Contact>? = mutableListOf()
+	val contacts: MutableList<Contact>? = mutableListOf(),
+
+	val precautions: String? = null
 
 ) {
 
 	companion object {
 
-		fun of(executives: List<Executive>, contacts: MutableList<Contact>): SummaryResponseDto {
+		fun of(executives: List<Executive>, contacts: MutableList<Contact>, precautions: String?): SummaryResponseDto {
 			var master: String? = ""
 
 			for (executive in executives) {
@@ -39,7 +41,8 @@ data class SummaryResponseDto (
 			return SummaryResponseDto(
 				executives = executives,
 				companyMasterName = master,
-				contacts = contacts
+				contacts = contacts,
+				precautions = precautions
 			)
 
 		}
