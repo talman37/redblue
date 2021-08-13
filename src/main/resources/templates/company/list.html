@@ -99,9 +99,9 @@
                                             <div class="form-check form-check-inline ml-2 nowrap">
                                                 <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="" name="" value="" checked="checked"><i></i>
+                                                        <input type="checkbox" id="positionTarget" name="positionTarget" value="감사" th:checked="${positionTarget == '감사'}"><i></i>
                                                     </span>
-                                                    <label for="">감사</label>
+                                                    <label for="positionTarget">감사</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,11 +137,11 @@
                                                     수정일
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" id="modifiedStartDate" name="start"
-                                                   th:value="${startDate}" onkeyup="inputDateFormat(this)">
+                                            <input type="text" class="form-control" id="modifiedStartDate" name="modifiedStartDate"
+                                                   value="" onkeyup="inputDateFormat(this)">
                                             <div class="input-group-addon">~</div>
-                                            <input type="text" class="form-control" id="modifiedEndDate" name="end"
-                                                   th:value="${endDate}" onkeyup="inputDateFormat(this)">
+                                            <input type="text" class="form-control" id="modifiedEndDate" name="modifiedEndDate"
+                                                   value="" onkeyup="inputDateFormat(this)">
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +179,34 @@
                                                         <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결')}"
                                                                th:value="관리종결"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결법인(장기, 반송, 폐업, 기타)</label>
+                                                        <label for="state-3">관리종결법인(장기)</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결')}"
+                                                               th:value="관리종결"><i></i>
+                                                    </span>
+                                                        <label for="state-3">관리종결법인(반송)</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '관리종결')}"
+                                                               th:value="관리종결"><i></i>
+                                                    </span>
+                                                        <label for="state-3">관리종결법인(폐업)</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '관리종결')}"
+                                                               th:value="관리종결"><i></i>
+                                                    </span>
+                                                        <label for="state-3">관리종결법인(기타)</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,7 +248,7 @@
                                 <th:block th:each="company: ${companies}">
                                     <tr name="companyRow" th:attr="data-id=${company.id}">
                                         <td th:text="${company.companyState}"></td>
-                                        <td th:text="${company.registerOffice}"></td>
+                                        <td th:text="${company.registerOfficeSlicedName}"></td>
                                         <td th:text="${company.registerNumber}"></td>
                                         <td>
                                             <a href="#none" class="btn btn-link p-0" th:name="companyTitle" th:attr="data-id=${company.id}"
@@ -324,7 +351,7 @@
                                 </tr>
                                 <tr>
                                     <th>주의 사항</th>
-                                    <td id="" class="memo"></td>
+                                    <td id="precautions" class="precautions"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -350,11 +377,12 @@
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
                 let searchType = $('#searchType').val();
+                let positionTarget = $('#positionTarget').val();
                 let state = [];
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
@@ -363,7 +391,7 @@
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
                 let searchType = $('#searchType').val();
-
+                let positionTarget = $('#positionTarget').val();
                 if(startDate == '' || endDate == '') {
                     alert('DM 다운로드 시 임기만료일 검색값은 필수 입니다.');
                     return false;
@@ -373,7 +401,7 @@
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
@@ -447,6 +475,7 @@
                         }
                     });
                     $('#masterName').text(data.companyMasterName);
+                    $('#precautions').text(data.precautions);
                 }).fail(function(xhr, status, errorThrown) {
                     //$('#loading-area').hide();
                 }).always(function(xhr, status) {

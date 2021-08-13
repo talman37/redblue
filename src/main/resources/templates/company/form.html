@@ -34,7 +34,7 @@
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <th>상호</th>
+                                    <th style="background-color: #e3f2fd;">상호</th>
                                     <td>
                                         <input type="text" class="form-control form-control-sm" id="companyName"
                                                name="companyName" value="">
@@ -148,7 +148,7 @@
                                                name="registerNumber" numberonly="true"
                                                value="">
                                     </td>
-                                    <th>법인등록번호</th>
+                                    <th style="background-color: #e3f2fd;">법인등록번호</th>
                                     <td>
                                         <input type="hidden" class="form-control form-control-sm" id="companyNumber1" name="companyNumber1">
                                         <input type="hidden" class="form-control form-control-sm" id="companyNumber2" name="companyNumber2" numberonly="true">
@@ -188,7 +188,10 @@
                                                 name="companyManageState">
                                             <option selected value="신규법인">신규법인</option>
                                             <option value="관리법인">관리법인</option>
-                                            <option value="관리종결">관리종결</option>
+                                            <option value="관리종결(장기미등기)">관리종결(장기미등기)</option>
+                                            <option value="관리종결(DM반송)">관리종결(DM반송)</option>
+                                            <option value="관리종결(폐업)">관리종결(폐업)</option>
+                                            <option value="관리종결(기타)">관리종결(기타)</option>
                                         </select>
                                     </td>
                                     <th>설립일</th>
@@ -862,36 +865,36 @@
                                         </tr>
                                         </thead>
                                         <tbody id="contactGroup">
-                                            <tr id="contact_row_0">
-                                                <td>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <select name="contacts[0][type]"
-                                                                    class="form-control form-select form-select-sm">
-                                                                <option value="FACTORY">공장</option>
-                                                                <option value="DIRECT_PHONE">직통번호</option>
-                                                                <option value="MOBILE">휴대폰</option>
-                                                                <option value="FAX">회사팩스</option>
-                                                                <option value="EMAIL">이메일</option>
-                                                                <option value="PHONE">유선전화</option>
-                                                                <option value="TAX_EMAIL">세금계산서용 이메일</option>
-                                                            </select>
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                               name="contacts[0][value]">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                           name="contacts[0][memo]" placeholder="">
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                                            name="remove_contact_btn" onclick="remove_contact(0)">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+<!--                                            <tr id="contact_row_0">-->
+<!--                                                <td>-->
+<!--                                                    <div class="input-group">-->
+<!--                                                        <div class="input-group-prepend">-->
+<!--                                                            <select name="contacts[0][type]"-->
+<!--                                                                    class="form-control form-select form-select-sm">-->
+<!--                                                                <option value="FACTORY">공장</option>-->
+<!--                                                                <option value="DIRECT_PHONE">직통번호</option>-->
+<!--                                                                <option value="MOBILE">휴대폰</option>-->
+<!--                                                                <option value="FAX">회사팩스</option>-->
+<!--                                                                <option value="EMAIL">이메일</option>-->
+<!--                                                                <option value="PHONE">유선전화</option>-->
+<!--                                                                <option value="TAX_EMAIL">세금계산서용 이메일</option>-->
+<!--                                                            </select>-->
+<!--                                                        </div>-->
+<!--                                                        <input type="text" class="form-control form-control-sm"-->
+<!--                                                               name="contacts[0][value]">-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <input type="text" class="form-control form-control-sm"-->
+<!--                                                           name="contacts[0][memo]" placeholder="">-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"-->
+<!--                                                            name="remove_contact_btn" onclick="remove_contact(0)">-->
+<!--                                                        <i class="fas fa-trash-alt"></i>-->
+<!--                                                    </button>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -929,30 +932,30 @@
                                         </tr>
                                         </thead>
                                         <tbody id="branchGroup">
-                                            <tr id="branch_row_0">
-                                                <td>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                           name="branches[0][name]">
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control form-control-sm"
-                                                               name="branches[0][address]">
-                                                        <div class="input-group-append">
-                                                            <button type='button'
-                                                                    class="btn btn-sm btn-sm btn-outline-secondary"
-                                                                    onclick="search_address(0);">검색
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button type="button"
-                                                            class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onclick="remove_branch(0)">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+<!--                                            <tr id="branch_row_0">-->
+<!--                                                <td>-->
+<!--                                                    <input type="text" class="form-control form-control-sm"-->
+<!--                                                           name="branches[0][name]">-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <div class="input-group">-->
+<!--                                                        <input type="text" class="form-control form-control-sm"-->
+<!--                                                               name="branches[0][address]">-->
+<!--                                                        <div class="input-group-append">-->
+<!--                                                            <button type='button'-->
+<!--                                                                    class="btn btn-sm btn-sm btn-outline-secondary"-->
+<!--                                                                    onclick="search_address(0);">검색-->
+<!--                                                            </button>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <button type="button"-->
+<!--                                                            class="btn btn-sm btn-sm btn-sm btn-outline-secondary" onclick="remove_branch(0)">-->
+<!--                                                        <i class="fas fa-trash-alt"></i>-->
+<!--                                                    </button>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
                                         </tbody>
                                     </table>
                                 </div>

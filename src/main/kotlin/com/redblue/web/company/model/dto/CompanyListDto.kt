@@ -5,6 +5,7 @@ import com.redblue.web.company.model.Contact
 import com.redblue.web.company.model.Executive
 import org.springframework.data.domain.Page
 import java.util.*
+import javax.persistence.Transient
 
 data class CompanyListDto(
 
@@ -24,7 +25,9 @@ data class CompanyListDto(
 
 	val displayCompanyType: String? = null,
 
-	val companyAddress: String? = null
+	val companyAddress: String? = null,
+
+	var registerOfficeSlicedName: String? = null
 
 ) {
 
@@ -49,7 +52,8 @@ data class CompanyListDto(
 					companyState = company.companyState,
 					companyDivision = company.companyDivision,
 					displayCompanyType = company.displayCompanyType?.name,
-					companyAddress = company.companyAddress
+					companyAddress = company.companyAddress,
+					registerOfficeSlicedName = company.registerOffice?.split(" ")?.last() ?: ""
 				)
 
 				list.add(dto)

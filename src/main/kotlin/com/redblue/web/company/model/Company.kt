@@ -110,7 +110,7 @@ data class Company(
 	val createdAt: Date? = Date(),
 
 	@Temporal(TemporalType.DATE)
-	val updatedAt: Date? = Date(),
+	var updatedAt: Date? = Date(),
 
 	@Transient
 	var stock: Stock? = null,

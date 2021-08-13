@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
+import org.springframework.util.StringUtils
 import java.util.*
 import kotlin.math.min
 
@@ -20,7 +21,7 @@ class CompanyQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
 ) : CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
 
-	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?): List<Company> {
+	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?): List<Company> {
 		val qc = QCompany.company
 		val qe = QExecutive.executive
 		val qct = QContact.contact
@@ -37,9 +38,7 @@ class CompanyQueryDslRepositoryImpl(
 		)
 
 		if(companyState.isNotEmpty()) {
-			predicate.and(
-				qc.companyManageState.`in`(companyState)
-			)
+			predicate.and(qc.companyManageState.`in`(companyState))
 		}
 
 		q?.let {
@@ -65,8 +64,13 @@ class CompanyQueryDslRepositoryImpl(
 
 		startDate?.let {
 			predicate.and(qe.expiredAt.between(it, endDate))
-//			predicate.and(qc.id.`in`(JPAExpressions.select(qe.companyId)
-//						.from(qe).where(qe.expiredAt.between(it, endDate))))
+			if(StringUtils.hasText(positionTarget)) {
+				predicate.and(qe.position.eq("감사"))
+			}
+		}
+
+		modifiedStartDate?.let {
+			predicate.and(qc.updatedAt.between(it, modifiedEndDate))
 		}
 
 		query.where(predicate)
