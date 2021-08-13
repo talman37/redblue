@@ -49,7 +49,7 @@ class CompanyExcelService(
 		val headerRow = companySheet.createRow(0)
 		val companyExcelClass = CompanyExcelDto::class
 		companyExcelClass.primaryConstructor?.parameters?.forEachIndexed { i, property ->
-			if(property.name!! == "executives" || property.name!! == "id") return@forEachIndexed
+			if(property.name!! == "executives" || property.name!! == "id" || property.name!! == "stock" || property.name!! == "contacts" || property.name!! == "purposeDetails") return@forEachIndexed
 			companySheet.setColumnWidth(i, property.name!!.length * 256)
 			val cell = headerRow.createCell(i)
 			cell.setCellValue(this.changeCompanyCellName(property.name!!))
@@ -163,8 +163,8 @@ class CompanyExcelService(
 			registerRecordClosureAtCell.cellStyle = dateCellStyle
 			companyExcelDto.settlementMonth?.let {
 				row.createCell(37).setCellValue(it.toDouble())
-			} ?: row.createCell(38)
-			row.createCell(39).setCellValue(companyExcelDto.recommender)
+			} ?: row.createCell(37)
+			row.createCell(38).setCellValue(companyExcelDto.precautions)
 
 			//주식
 			val stock = companyExcelDto.stock
@@ -299,7 +299,8 @@ class CompanyExcelService(
 			"registerRecordClosureAt" -> "등기기록폐쇄일"
 			"settlementMonth" -> "결산기일"
 			"recommender" -> "추천인"
-			else -> "NoneTitle"
+			"precautions" -> "주의사항"
+			else -> ""
 		}
 
 	}

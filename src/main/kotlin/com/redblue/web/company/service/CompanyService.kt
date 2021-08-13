@@ -31,11 +31,11 @@ interface CompanyService {
 
 	fun save(company: Company)
 
-	fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto)
+	fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto): Date
 
 	fun updateNoticeWay(id: String, dto: CompanyNoticeWayUpdateDto)
 
-	fun updateCompanySub(id: String, dto: CompanySubUpdateDto)
+	fun updateCompanySub(id: String, dto: CompanySubUpdateDto): Date
 
 	fun saveContact(contact: Contact)
 
@@ -45,7 +45,7 @@ interface CompanyService {
 
 	fun saveContacts(companyId: String, contacts: List<Contact>)
 
-	fun saveExecutives(companyId: String, executives: List<Executive>)
+	fun saveExecutives(companyId: String, executives: List<Executive>): Date
 
 	fun saveStockHolders(companyId: String, stockHolders: List<Stockholder>)
 

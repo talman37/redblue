@@ -168,6 +168,16 @@ class CompanyServiceImpl(
 		company.stockholders = stockholderRepository.findByCompanyId(id)
 		company.purposeDetail = purposeDetailRepository.findByCompanyId(id)
 		company.contacts = contactRepository.findByCompanyId(id)
+
+		val master = masterHistoryRepository.findByCompanyIdOrderByIssuedAtDesc(id)
+		company.masterUpdatedAt = if(master.isNotEmpty()) master.first().issuedAt else company.createdAt
+
+		val sub = subHistoryRepository.findByCompanyIdOrderByIssuedAtDesc(id)
+		company.subUpdatedAt = if(sub.isNotEmpty()) sub.first().issuedAt else company.createdAt
+
+		val exe = executiveHistoryRepository.findByCompanyIdOrderByIssuedAtDesc(id)
+		company.executiveUpdatedAt = if(exe.isNotEmpty()) exe.first().issuedAt else company.createdAt
+
 		return company
 	}
 
@@ -262,7 +272,7 @@ class CompanyServiceImpl(
 
 	}
 
-	override fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto) {
+	override fun updateCompanyMaster(id: String, dto: CompanyMasterUpdateDto): Date {
 		val company = companyRepository.findById(id)
 		if(!company.isPresent) {
 			throw Exception("company is not exist.")
@@ -310,9 +320,10 @@ class CompanyServiceImpl(
 				recommender = updateCompany.recommender
 			)
 		)
+		return current
 	}
 
-	override fun updateCompanySub(id: String, dto: CompanySubUpdateDto) {
+	override fun updateCompanySub(id: String, dto: CompanySubUpdateDto): Date {
 		val company = companyRepository.findById(id)
 		if(!company.isPresent) {
 			throw Exception("company is not exist.")
@@ -328,28 +339,13 @@ class CompanyServiceImpl(
 			},
 			deliveryPlace = dto.deliveryPlace,
 			deliveryPlacePostalCode = dto.deliveryPlacePostalCode,
-			businessCondition = dto.businessNumber,
+			businessCondition = dto.businessCondition,
 			businessType = dto.businessType,
 			businessNumber = dto.businessNumber,
 			settlementMonth = dto.settlementMonth
 		)
 		updateCompany.updatedAt = current
 		companyRepository.save(updateCompany)
-
-		subHistoryRepository.save(
-			CompanySubHistory(
-				type = IssuedType.UPDATED,
-				companyId = updateCompany.id,
-				companyAddress = updateCompany.companyAddress,
-				companyPostalCode = updateCompany.companyPostalCode,
-				deliveryPlace = updateCompany.deliveryPlace,
-				deliveryPlacePostalCode = updateCompany.deliveryPlacePostalCode,
-				businessNumber = updateCompany.businessNumber,
-				businessType = updateCompany.businessType,
-				businessCondition = updateCompany.businessCondition,
-				settlementMonth = updateCompany.settlementMonth
-			)
-		)
 
 		val stock = stockRepository.findByCompanyId(id)
 
@@ -380,6 +376,23 @@ class CompanyServiceImpl(
 				issuedCount = updateStock.issuedCount
 			)
 		)
+
+		subHistoryRepository.save(
+			CompanySubHistory(
+				type = IssuedType.UPDATED,
+				companyId = updateCompany.id,
+				companyAddress = updateCompany.companyAddress,
+				companyPostalCode = updateCompany.companyPostalCode,
+				deliveryPlace = updateCompany.deliveryPlace,
+				deliveryPlacePostalCode = updateCompany.deliveryPlacePostalCode,
+				businessNumber = updateCompany.businessNumber,
+				businessType = updateCompany.businessType,
+				businessCondition = updateCompany.businessCondition,
+				settlementMonth = updateCompany.settlementMonth
+			)
+		)
+
+		return current
 	}
 
 	override fun saveContact(contact: Contact) {
@@ -414,8 +427,9 @@ class CompanyServiceImpl(
 	}
 
 	@Transactional
-	override fun saveExecutives(companyId: String, executives: List<Executive>) {
+	override fun saveExecutives(companyId: String, executives: List<Executive>): Date {
 		executiveRepository.deleteByCompanyId(companyId)
+		val current = Date()
 		if(executives.isNotEmpty()) {
 			for (executive in executives) {
 				if(executive.nationality == "기타") {
@@ -426,10 +440,12 @@ class CompanyServiceImpl(
 			executiveHistoryRepository.save(ExecutiveHistory(
 				type = IssuedType.UPDATED,
 				companyId = companyId,
-				data = executives
+				data = executives,
+				issuedAt = current
 			))
 		}
-		companyRepository.saveUpdatedAt(companyId, Date())
+		companyRepository.saveUpdatedAt(companyId, current)
+		return current
 	}
 
 	@Transactional

@@ -7,5 +7,7 @@ interface CompanyMasterHistoryRepository: JpaRepository<CompanyMasterHistory, St
 
 	fun findByCompanyId(companyId: String): List<CompanyMasterHistory>
 
+	fun findByCompanyIdOrderByIssuedAtDesc(companyId: String): List<CompanyMasterHistory>
+
 	fun deleteByCompanyId(companyId: String)
 }

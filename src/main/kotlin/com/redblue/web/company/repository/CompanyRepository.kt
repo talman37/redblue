@@ -1,11 +1,9 @@
 package com.redblue.web.company.repository
 
 import com.redblue.web.company.model.Company
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
-import org.springframework.stereotype.Repository
 import java.util.*
 
 interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, String> {
@@ -16,6 +14,7 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 	fun existsByCompanyNumber1AndCompanyNumber2(companyNumber1: String, companyNumber2: String): Boolean
 
+	@Modifying
 	@Query("UPDATE Company c SET c.updatedAt = :updatedAt WHERE c.id = :id")
 	fun saveUpdatedAt(id: String, updatedAt: Date)
 

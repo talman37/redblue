@@ -138,10 +138,10 @@
                                                 </div>
                                             </div>
                                             <input type="text" class="form-control" id="modifiedStartDate" name="modifiedStartDate"
-                                                   value="" onkeyup="inputDateFormat(this)">
+                                                   th:value="${modifiedStartDate}" onkeyup="inputDateFormat(this)">
                                             <div class="input-group-addon">~</div>
                                             <input type="text" class="form-control" id="modifiedEndDate" name="modifiedEndDate"
-                                                   value="" onkeyup="inputDateFormat(this)">
+                                                   th:value="${modifiedEndDate}" onkeyup="inputDateFormat(this)">
                                         </div>
                                     </div>
                                 </div>
@@ -176,8 +176,8 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결')}"
-                                                               th:value="관리종결"><i></i>
+                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결(장기)')}"
+                                                               th:value="|관리종결(장기)|"><i></i>
                                                     </span>
                                                         <label for="state-3">관리종결법인(장기)</label>
                                                     </div>
@@ -185,8 +185,8 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결')}"
-                                                               th:value="관리종결"><i></i>
+                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결(반송)')}"
+                                                               th:value="|관리종결(반송)|"><i></i>
                                                     </span>
                                                         <label for="state-3">관리종결법인(반송)</label>
                                                     </div>
@@ -194,8 +194,8 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '관리종결')}"
-                                                               th:value="관리종결"><i></i>
+                                                        <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '관리종결(폐업)')}"
+                                                               th:value="|관리종결(폐업)|"><i></i>
                                                     </span>
                                                         <label for="state-3">관리종결법인(폐업)</label>
                                                     </div>
@@ -203,8 +203,8 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '관리종결')}"
-                                                               th:value="관리종결"><i></i>
+                                                        <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '관리종결(기타)')}"
+                                                               th:value="|관리종결(기타)|"><i></i>
                                                     </span>
                                                         <label for="state-3">관리종결법인(기타)</label>
                                                     </div>
@@ -244,7 +244,7 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="companyListBody">
                                 <th:block th:each="company: ${companies}">
                                     <tr name="companyRow" th:attr="data-id=${company.id}">
                                         <td th:text="${company.companyState}"></td>
@@ -376,13 +376,15 @@
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
+                let modifiedStartDate = $('#modifiedStartDate').val();
+                let modifiedEndDate = $('#modifiedEndDate').val();
                 let searchType = $('#searchType').val();
                 let positionTarget = $('#positionTarget').val();
                 let state = [];
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
@@ -390,6 +392,8 @@
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
+                let modifiedStartDate = $('#modifiedStartDate').val();
+                let modifiedEndDate = $('#modifiedEndDate').val();
                 let searchType = $('#searchType').val();
                 let positionTarget = $('#positionTarget').val();
                 if(startDate == '' || endDate == '') {
@@ -401,7 +405,7 @@
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
@@ -423,6 +427,8 @@
             $('tr[name="companyRow"]').on('click', function() {
                 //$('#loading-area').show();
                 var id = $(this).data('id');
+                $('tr[name="companyRow"]').removeClass('active');
+                $(this).addClass('active');
                 $.ajax({
                     url: "/v1/companies/" + id +"/summary",
                     method: "GET",
@@ -457,7 +463,6 @@
                         } else {
                             contactValue = v.value + '(' + v.memo + ')';
                         }
-                        console.log(v.memo);
                         if(v.type === 'MOBILE') {
                             $('#mobile').text(contactValue);
                         } else if(v.type === 'PHONE') {

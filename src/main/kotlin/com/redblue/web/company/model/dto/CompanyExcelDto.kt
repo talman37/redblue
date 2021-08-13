@@ -81,6 +81,8 @@ data class CompanyExcelDto(
 
 	val settlementMonth: Int? = null,
 
+	val precautions: String? = null,
+
 	val recommender: String? = null,
 
 	val executives: List<Executive>? = emptyList(),
@@ -157,7 +159,8 @@ data class CompanyExcelDto(
 						stock = company.stock,
 						contacts = company.contacts,
 						purposeDetails = company.purposeDetail,
-						id = company.id
+						id = company.id,
+						precautions = company.precautions
 					)
 				)
 			}

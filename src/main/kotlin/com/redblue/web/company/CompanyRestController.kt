@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.text.SimpleDateFormat
+import java.util.*
 
 @RestController
 @RequestMapping("/v1/companies")
@@ -55,9 +56,9 @@ class CompanyRestController(
 		@PathVariable("id") id: String,
 		@RequestBody dto: CompanyMasterUpdateDto,
 		@CurrentUser user: LawFirmUser
-	): ResponseEntity<Void> {
-		companyService.updateCompanyMaster(id, dto)
-		return ResponseEntity(HttpStatus.OK)
+	): ResponseEntity<String> {
+		val updatedAt = companyService.updateCompanyMaster(id, dto)
+		return ResponseEntity.ok(SimpleDateFormat("yyyy-MM-dd").format(updatedAt))
 	}
 
 	@PatchMapping("/{id}/sub")
@@ -65,9 +66,9 @@ class CompanyRestController(
 		@PathVariable("id") id: String,
 		@RequestBody dto: CompanySubUpdateDto,
 		@CurrentUser user: LawFirmUser
-	): ResponseEntity<Void> {
-		companyService.updateCompanySub(id, dto)
-		return ResponseEntity(HttpStatus.OK)
+	): ResponseEntity<String> {
+		val updatedAt = companyService.updateCompanySub(id, dto)
+		return ResponseEntity.ok(SimpleDateFormat("yyyy-MM-dd").format(updatedAt))
 	}
 
 	@PatchMapping("/{id}/notice-way")
@@ -105,9 +106,9 @@ class CompanyRestController(
 		@PathVariable("id") id: String,
 		@RequestBody dto: ExecutiveUpdateDto,
 		@CurrentUser user: LawFirmUser
-	): ResponseEntity<Void> {
-		companyService.saveExecutives(id, dto.to(id))
-		return ResponseEntity(HttpStatus.OK)
+	): ResponseEntity<String> {
+		val updatedAt = companyService.saveExecutives(id, dto.to(id))
+		return ResponseEntity.ok(SimpleDateFormat("yyyy-MM-dd").format(updatedAt))
 	}
 
 	@PostMapping("/{id}/stockholders")

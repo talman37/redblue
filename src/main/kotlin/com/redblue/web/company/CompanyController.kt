@@ -81,7 +81,7 @@ class CompanyController(
 			if (it.isEmpty()) {
 				null
 			} else {
-				SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+				SimpleDateFormat("yyyy-MM-dd").parse(modifiedStartDate)
 			}
 		}
 
@@ -89,7 +89,7 @@ class CompanyController(
 			if (it.isEmpty()) {
 				null
 			} else {
-				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+				SimpleDateFormat("yyyy-MM-dd").parse(modifiedEndDate)
 			}
 		}
 

@@ -134,7 +134,16 @@ data class Company(
 	var purposeDetail: List<PurposeDetail>? = emptyList(),
 
 	@Transient
-	var branches: List<CompanyBranch>? = emptyList()
+	var branches: List<CompanyBranch>? = emptyList(),
+
+	@Transient
+	var masterUpdatedAt: Date? = null,
+
+	@Transient
+	var subUpdatedAt: Date? =  null,
+
+	@Transient
+	var executiveUpdatedAt: Date? = null
 
 ) {
 	enum class DisplayCompanyType {
