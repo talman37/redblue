@@ -1179,11 +1179,21 @@
             }
             let position = $('select[name="executives[' + i + '][position]"]').val();
             let term = $('#select-term').val();
-            if(position === '대표이사') {
+            if(position === '대표이사' || position === '공동대표이사') {
                 var name = $('input[name="executives[' + i + '][name]"]').val();
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
-                    if($(this).val() == name && targetPosition == '사내이사') {
+                    if($(this).val() == name && targetPosition == '사내이사' ) {
+                        $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
+                    }
+                });
+
+            }
+            if(position === '대표집행임원') {
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '집행임원' ) {
                         $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
                     }
                 });
@@ -1210,11 +1220,19 @@
                 }
                 meetingDate = addMonth(meetingDate, 3);
                 $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(meetingDate));
-            } else if(position === '대표이사') {
+            } else if(position === '대표이사' || position === '공동대표이사') {
                 var name = $('input[name="executives[' + i + '][name]"]').val();
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
                     if($(this).val() == name && targetPosition == '사내이사') {
+                        $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
+                    }
+                });
+            } else if(position === '대표집행임원' ) {
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '집행임원') {
                         $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
                     }
                 });
@@ -1225,6 +1243,19 @@
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
                     if($(this).val() == name && targetPosition == '대표이사') {
+                        $('input[name="executives[' + index + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                    }
+                    if($(this).val() == name && targetPosition == '공동대표이사') {
+                        $('input[name="executives[' + index + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                    }
+                });
+            } else if(position === '집행임원') {
+                expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+                $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '대표집행임원') {
                         $('input[name="executives[' + index + '][expiredAt]"]').val(getFormatDate(expiredAt));
                     }
                 });

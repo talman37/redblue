@@ -10,7 +10,7 @@
                         <span th:text="${companyName}"></span>
                         <small th:if="${not #strings.isEmpty(company.companyManageNumber)}" th:text="|(${company.companyManageNumber})|"></small>
                         <span class="badge badge-primary" th:if="${#lists.size(company.branches) > 0}">지점</span>
-                        <span class="badge badge-danger" th:if="${company.stock.amount * company.stock.issuedCount >= 1000000000}">
+                        <span class="badge badge-danger" th:if="${company.stock.capital >= 1000000000}">
                                 10억
                             </span>
                         <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions)}">주의</span>
@@ -271,8 +271,8 @@
                                 <th>자본금</th>
                                 <td>
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="stockCapital" onkeyup="inputNumberFormat(this)"
-                                               th:value="${#numbers.formatDecimal(company.stock.amount * company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}">
+                                        <input type="text" class="form-control form-control-sm" id="stockCapital" name="stock[capital]" onkeyup="inputNumberFormat(this)"
+                                               th:value="${#numbers.formatDecimal(company.stock.capital, 0, 'COMMA', 0, 'POINT')}">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-sm btn-outline-secondary" id="stock-calculate-btn">계산하기</button>
                                         </div>
@@ -1211,11 +1211,20 @@
             }
             let position = $('select[name="executives[' + i + '][position]"]').val();
             let term = $('#select-term').val();
-            if(position === '대표이사') {
+            if(position === '대표이사' || position === '공동대표이사') {
                 var name = $('input[name="executives[' + i + '][name]"]').val();
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
                     if($(this).val() == name && targetPosition == '사내이사') {
+                        $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
+                    }
+                });
+            }
+            if(position === '대표집행임원') {
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '집행임원') {
                         $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
                     }
                 });
@@ -1242,7 +1251,7 @@
                 }
                 meetingDate = addMonth(meetingDate, 3);
                 $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(meetingDate));
-            }else if(position === '대표이사') {
+            }else if(position === '대표이사' || position === '공동대표이사') {
                 var name = $('input[name="executives[' + i + '][name]"]').val();
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
@@ -1257,6 +1266,27 @@
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
                     if($(this).val() == name && targetPosition == '대표이사') {
+                        $('input[name="executives[' + index + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                    }
+                    if($(this).val() == name && targetPosition == '공동대표이사') {
+                        $('input[name="executives[' + index + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                    }
+                });
+            } else if(position === '대표집행임원') {
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '집행임원') {
+                        $('input[name="executives[' + i + '][expiredAt]"]').val($('input[name="executives[' + index + '][expiredAt]"]').val());
+                    }
+                });
+            } else if(position === '집행임원') {
+                expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+                $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
+                var name = $('input[name="executives[' + i + '][name]"]').val();
+                $("input[name$='[name]']").each(function(index, el){
+                    var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
+                    if($(this).val() == name && targetPosition == '대표집행임원') {
                         $('input[name="executives[' + index + '][expiredAt]"]').val(getFormatDate(expiredAt));
                     }
                 });
