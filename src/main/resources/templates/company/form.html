@@ -848,14 +848,16 @@
                                 <div class="table-scroll">
                                     <table class="table table-bordered ">
                                         <colgroup>
-                                            <col style="width: 150px;"/>
+                                            <col style="width: 100px;"/>
                                             <col/>
+                                            <col style="width: 140px;"/>
                                             <col style="width: 40px"/>
                                         </colgroup>
                                         <thead>
                                         <tr>
+                                            <th>구분</th>
                                             <th>연락처</th>
-                                            <th>메모</th>
+                                            <th>담당자/메모</th>
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -1440,11 +1442,13 @@
                             <option value="FAX">회사팩스</option>
                             <option value="EMAIL">이메일</option>
                             <option value="PHONE">유선전화</option>
-                            <option value="TAX_EMAIL">세금계산서용 이메일</option>
+                            <option value="TAX_EMAIL">세금용 메일</option>
                         </select>
                     </div>
-                    <input type="text" class="form-control form-control-sm" name="contacts[{{= index}}][value]">
                 </div>
+            </td>
+            <td>
+                <input type="text" class="form-control form-control-sm" name="contacts[{{= index}}][value]">
             </td>
             <td>
                 <input type="text" class="form-control form-control-sm" name="contacts[{{= index}}][memo]" placeholder="">
