@@ -870,6 +870,7 @@
                 $('#stockAmount').val($('#stockAmount').val().replace(/\,/g,""));
                 $('#stockScheduleCount').val($('#stockScheduleCount').val().replace(/\,/g,""));
                 $('#stockIssuedCount').val($('#stockIssuedCount').val().replace(/\,/g,""));
+                $('#stockCapital').val($('#stockCapital').val().replace(/\,/g,""));
                 $.ajax({
                     type: 'PATCH',
                     url: '/v1/companies/' + $('#companyId').val() + '/sub',

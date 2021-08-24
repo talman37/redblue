@@ -480,7 +480,8 @@
                         }
                     });
                     $('#masterName').text(data.companyMasterName);
-                    $('#precautions').text(data.precautions);
+                    var precautions = $('#precautions').text(data.precautions);
+                    precautions.html(precautions.html().replace(/\n/g, '<br/>'));
                 }).fail(function(xhr, status, errorThrown) {
                     //$('#loading-area').hide();
                 }).always(function(xhr, status) {
