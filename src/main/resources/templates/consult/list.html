@@ -148,8 +148,8 @@
                     </div>
                     <table class="table table-bordered">
                         <colgroup>
-                            <col style="width: 200px">
-                            <col style="width: 140px">
+                            <col style="width: 100px">
+                            <col style="width: 100px">
                             <col style="width: 60px">
                             <col>
                             <col style="width: 100px">
@@ -169,8 +169,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="consult: ${consults.content}">
-                            <td><a href="#none" th:attr="data-id=${consult.companyId}" th:name="companyTitle" th:text="${consult.companyName}"></a></td>
-                            <td th:text="${#dates.format(consult.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td><a class="nowrap" href="#none" th:attr="data-id=${consult.companyId}" th:name="companyTitle" th:text="${consult.companyName}" th:title="${consult.companyName}"></a></td>
+                            <td class="nowrap" th:text="${#dates.format(consult.createdAt, 'yyyy-MM-dd HH:mm:ss')}" th:title="${#dates.format(consult.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${consult.consultant}">@mdo</td>
                             <td>
                                 <a th:href="'/consult/' + ${consult.id} + '/edit'" class="ellipsis" th:text="${consult.content}" th:title="${consult.content}"></a>

@@ -631,14 +631,16 @@
                                 <div class="table-scroll">
                                     <table class="table table-bordered ">
                                         <colgroup>
-                                            <col style="width: 150px;"/>
+                                            <col style="width: 100px;"/>
                                             <col/>
+                                            <col style="width: 140px;"/>
                                             <col style="width: 40px"/>
                                         </colgroup>
                                         <thead>
                                             <tr>
+                                                <th>구분</th>
                                                 <th>연락처</th>
-                                                <th>메모</th>
+                                                <th>담당자/메모</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -654,13 +656,16 @@
                                                             <option value="FAX" th:selected="${contact.type.name() == 'FAX'}">회사팩스</option>
                                                             <option value="EMAIL" th:selected="${contact.type.name() == 'EMAIL'}">이메일</option>
                                                             <option value="PHONE" th:selected="${contact.type.name() == 'PHONE'}">유선전화</option>
-                                                            <option value="TAX_EMAIL" th:selected="${contact.type.name() == 'TAX_EMAIL'}">세금계산서용 이메일</option>
+                                                            <option value="TAX_EMAIL" th:selected="${contact.type.name() == 'TAX_EMAIL'}">세금용 메일</option>
                                                         </select>
-                                                        <input type="text" class="mt-1 form-control form-control-sm" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:value="${contact.value}">
+
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-sm" style="height: 63px"  th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
+                                                    <input type="text" class="mt-1 form-control form-control-sm" th:id="'contacts['+${index.index}+'][value]'" th:name="'contacts['+${index.index}+'][value]'" th:value="${contact.value}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-sm" th:id="'contacts['+${index.index}+'][memo]'" th:name="'contacts['+${index.index}+'][memo]'" placeholder=""
                                                            th:value="${contact.memo}">
                                                 </td>
                                                 <td>
@@ -1384,12 +1389,14 @@
                     <option value="FAX">회사팩스</option>
                     <option value="EMAIL">이메일</option>
                     <option value="PHONE">유선전화</option>
-                    <option value="TAX_EMAIL">세금계산서용 이메일</option>
+                    <option value="TAX_EMAIL">세금용 메일</option>
                 </select>
+            </td>
+            <td>
                 <input type="text" class="mt-1 form-control form-control-sm" id="contacts[{{= index}}][value]" name="contacts[{{= index}}][value]">
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm" style="height: 63px" id="contacts[{{= index}}][memo]" name="contacts[{{= index}}][memo]" placeholder="">
+                <input type="text" class="form-control form-control-sm" id="contacts[{{= index}}][memo]" name="contacts[{{= index}}][memo]" placeholder="">
             </td>
             <td>
                 <button type="button" class="btn btn-sm btn-sm btn-outline-secondary" onClick="remove_contact({{= index}});" name="remove_contact_btn">
