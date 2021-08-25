@@ -2,7 +2,10 @@ package com.redblue.web.lawfirm.service
 
 import com.redblue.security.core.userdetails.SecurityUser
 import com.redblue.web.lawfirm.model.LawFirmUser
+import com.redblue.web.lawfirm.model.LawFirmUserRegisterOffice
+import com.redblue.web.lawfirm.model.dto.LawFirmUserUpdateDto
 import com.redblue.web.lawfirm.repository.LawFirmRepository
+import com.redblue.web.lawfirm.repository.LawFirmUserRegisterOfficeRepository
 import com.redblue.web.lawfirm.repository.LawFirmUserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -15,6 +18,7 @@ import javax.transaction.Transactional
 class LawFirmUserService(
 	private val lawFirmUserRepository: LawFirmUserRepository,
 	private val lawFirmRepository: LawFirmRepository,
+	private val lawFirmUserRegisterOfficeRepository: LawFirmUserRegisterOfficeRepository,
 	private val passwordEncoder: PasswordEncoder
 ): UserDetailsService {
 
@@ -26,6 +30,38 @@ class LawFirmUserService(
 				role = LawFirmUser.Role.ADMIN
 			)
 		)
+	}
+
+	fun details(id: String): LawFirmUser{
+		return lawFirmUserRepository.findById(id)
+			.orElseThrow {throw UsernameNotFoundException("Not exist User.")}
+	}
+
+	fun update(lawFirmUserUpdateDto: LawFirmUserUpdateDto) {
+		val user = lawFirmUserRepository.findById(lawFirmUserUpdateDto.id)
+			.orElseThrow {throw UsernameNotFoundException("Not exist User.")}
+		user.name = lawFirmUserUpdateDto.name
+		lawFirmUserUpdateDto.password?.let {
+			user.password = passwordEncoder.encode(lawFirmUserUpdateDto.password)
+		}
+		lawFirmUserRepository.save(user)
+
+		val registerOfficeList = mutableListOf<LawFirmUserRegisterOffice>()
+
+		lawFirmUserUpdateDto.lawFirmUserRegisterOffices.forEach {
+			registerOfficeList.add(
+				LawFirmUserRegisterOffice(
+					id = LawFirmUserRegisterOffice.Id(lawFirmUserUpdateDto.id, it.id),
+					name = it.name
+				)
+			)
+		}
+
+		if(registerOfficeList.isNotEmpty()) {
+			lawFirmUserRegisterOfficeRepository.deleteByUserId(lawFirmUserUpdateDto.id)
+			lawFirmUserRegisterOfficeRepository.saveAll(registerOfficeList)
+		}
+
 	}
 
 	override fun loadUserByUsername(username: String): UserDetails {

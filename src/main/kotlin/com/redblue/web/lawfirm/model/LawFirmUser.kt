@@ -14,9 +14,9 @@ data class LawFirmUser(
 
 	val email: String,
 
-	val password: String,
+	var password: String,
 
-	val name: String,
+	var name: String,
 
 	@Enumerated(EnumType.STRING)
 	var role: Role,
