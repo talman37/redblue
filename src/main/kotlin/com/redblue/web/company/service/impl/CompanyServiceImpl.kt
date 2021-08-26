@@ -362,7 +362,8 @@ class CompanyServiceImpl(
 				current
 			} else {
 				stock.issuedCountUpdatedAt
-			}
+			},
+			capital = dto.stock?.capital ?: 0
 		)
 		stockRepository.save(updateStock!!)
 
