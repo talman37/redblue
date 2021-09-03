@@ -33,7 +33,7 @@ class MeController(
 	fun update(
 		@RequestBody lawFirmUserUpdateDto: LawFirmUserUpdateDto
 	): String {
-
+		lawFirmUserService.update(lawFirmUserUpdateDto);
 		return "redirect:/me"
 	}
 

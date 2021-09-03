@@ -14,10 +14,14 @@ class LawFirmSearchController(
 	@GetMapping("/office_search")
 	fun findRegisterOffice(
 		@RequestParam("q", required = false) searchValue: String?,
+		@RequestParam("projection", required = false) projection: String?,
 		model: Model
 	): String {
 		model.addAttribute("q", searchValue)
 		model.addAttribute("offices", lawFirmService.findRegisterOffice(searchValue))
+		if("me" == projection) {
+			return "/popup/office_search_me"
+		}
 		return "/popup/office_search"
 	}
 
