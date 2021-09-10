@@ -19,6 +19,7 @@
 <div class="popup">
     <form id="searchForm" name="searchForm" method="get">
         <div class="input-group">
+            <input type="hidden" name="projection" value="me"/>
             <input type="text" class="form-control" name="q" placeholder="검색어" th:value="${q}">
             <div class="input-group-append">
                 <button type="submit" class="btn btn-sm btn-dark" id="search-btn">검색</button>

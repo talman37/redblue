@@ -14,4 +14,6 @@ interface LawFirmUserRegisterOfficeRepository: JpaRepository<LawFirmUserRegister
 	@Query("delete from LawFirmUserRegisterOffice lugo where lugo.id.userId = :userId")
 	fun deleteByUserId(userId: String)
 
+	fun deleteByIdUserIdAndIdRegisterOfficeId(userId: String, officeId: String)
+
 }

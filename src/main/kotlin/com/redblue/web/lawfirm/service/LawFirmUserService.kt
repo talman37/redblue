@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.util.StringUtils
 import javax.transaction.Transactional
 
 @Service
@@ -37,11 +38,12 @@ class LawFirmUserService(
 			.orElseThrow {throw UsernameNotFoundException("Not exist User.")}
 	}
 
+	@Transactional
 	fun update(lawFirmUserUpdateDto: LawFirmUserUpdateDto) {
 		val user = lawFirmUserRepository.findById(lawFirmUserUpdateDto.id)
 			.orElseThrow {throw UsernameNotFoundException("Not exist User.")}
 		user.name = lawFirmUserUpdateDto.name
-		lawFirmUserUpdateDto.password?.let {
+		if(StringUtils.hasText(lawFirmUserUpdateDto.password)) {
 			user.password = passwordEncoder.encode(lawFirmUserUpdateDto.password)
 		}
 		lawFirmUserRepository.save(user)
@@ -58,10 +60,14 @@ class LawFirmUserService(
 		}
 
 		if(registerOfficeList.isNotEmpty()) {
-			lawFirmUserRegisterOfficeRepository.deleteByUserId(lawFirmUserUpdateDto.id)
 			lawFirmUserRegisterOfficeRepository.saveAll(registerOfficeList)
 		}
 
+	}
+
+	@Transactional
+	fun deleteOffice(id: String, officeId: String) {
+		lawFirmUserRegisterOfficeRepository.deleteByIdUserIdAndIdRegisterOfficeId(id, officeId)
 	}
 
 	override fun loadUserByUsername(username: String): UserDetails {
@@ -72,4 +78,5 @@ class LawFirmUserService(
 		}
 		return SecurityUser(lawFirmUser)
 	}
+
 }

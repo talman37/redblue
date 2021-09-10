@@ -71,6 +71,7 @@
                                                 <option th:value="재단법인">재단법인</option>
                                                 <option th:value="농업회사">농업회사</option>
                                                 <option th:value="협동조합">협동조합</option>
+                                                <option th:value="기타">기타</option>
                                             </select>
                                             <div class="form-check form-check-inline text-nowrap ml-2">
                                                 <div class="form-input">
@@ -470,6 +471,7 @@
                                             <option th:value="사외이사" th:selected="${executive.position eq '사외이사'}">사외이사</option>
                                             <option th:value="기타비상무이사" th:selected="${executive.position eq '기타비상무이사'}">기타비상무이사</option>
                                             <option th:value="공동대표이사" th:selected="${executive.position eq '공동대표이사'}">공동대표이사</option>
+                                            <option th:value="이사" th:selected="${executive.position eq '이사'}">이사</option>
                                             <option th:value="집행임원" th:selected="${executive.position eq '집행임원'}">집행임원</option>
                                             <option th:value="대표집행임원" th:selected="${executive.position eq '대표집행임원'}">대표집행임원</option>
                                             <option th:value="감사위원" th:selected="${executive.position eq '감사위원'}">감사위원</option>
@@ -1455,6 +1457,7 @@
                     <option value="사외이사">사외이사</option>
                     <option value="기타비상무이사">기타비상무이사</option>
                     <option value="공동대표이사">공동대표이사</option>
+                    <option value="이사">이사</option>
                     <option value="집행임원">집행임원</option>
                     <option value="대표집행임원">대표집행임원</option>
                     <option value="감사위원">감사위원</option>
