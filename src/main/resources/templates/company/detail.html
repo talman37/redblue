@@ -507,7 +507,8 @@
                                     <td>
                                         <input type="text" class="form-control form-control-sm"
                                                th:name="'executives['+${index.index}+'][stockCount]'"
-                                               th:value="${executive.stockCount}" onkeyup="inputNumberFormat(this)" th:onblur="'ratioCalculate(this,'+${index.index}+')'">
+                                               th:value="${#numbers.formatDecimal(executive.stockCount, 0, 'COMMA', 0, 'POINT')}"
+                                               onkeyup="inputNumberFormat(this)" th:onblur="'ratioCalculate(this,'+${index.index}+')'">
                                     </td>
                                     <td class="input-daterange">
                                         <input type="hidden" th:name="'executives['+${index.index}+'][term]'" th:value="${executive.term}"/>

@@ -27,7 +27,7 @@ class CompanyServiceImpl(
 	private val executiveHistoryRepository: ExecutiveHistoryRepository
 ): CompanyService {
 
-	val positions = mutableListOf("대표이사", "공동대표이사", "사내이사", "사외이사", "기타비상무이사", "감사", "감사위원", "대표집행임원", "집행임원", "주주")
+	val positions = mutableListOf("대표이사", "공동대표이사", "사내이사", "사외이사", "기타비상무이사", "이사","감사", "감사위원", "대표집행임원", "집행임원", "주주")
 
 	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?, searchRange: String?): List<Company> {
 		return companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType, positionTarget, modifiedStartDate, modifiedEndDate, searchRange)

@@ -18,7 +18,7 @@ class ConsultServiceImpl(
 	}
 
 	override fun findByCompanyId(companyId: String): List<Consult> {
-		return consultRepository.findByCompanyId(companyId)
+		return consultRepository.findByCompanyIdOrderByCreatedAtDesc(companyId)
 	}
 
 	override fun detail(id: String): Consult {

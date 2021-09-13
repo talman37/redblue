@@ -161,6 +161,7 @@ data class CompanyCreateDto(
 						term = term,
 						updatedReason = it.updatedReason,
 						expiredAt = it.expiredAt,
+						stockRatio = it.stockRatio,
 						stockCount = it.stockCount,
 						nationality = it.nationality
 					)

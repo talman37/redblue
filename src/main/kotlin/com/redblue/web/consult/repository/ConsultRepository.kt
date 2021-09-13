@@ -11,6 +11,8 @@ interface ConsultRepository: ConsultQueryDslRepository, JpaRepository<Consult, S
 
 	fun findByCompanyId(companyId: String): List<Consult>
 
+	fun findByCompanyIdOrderByCreatedAtDesc(companyId: String): List<Consult>
+
 	fun deleteByCompanyId(companyId: String)
 
 }
