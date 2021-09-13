@@ -79,8 +79,20 @@
                             <div class="search-area">
                                 <div class="row no-gutters">
                                     <div class="col">
-                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인 검색(법인등록번호, 등기번호, 법인명, 법인관리번호, 주소)"
-                                               th:value="${q}">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <select class="form-control form-select" name="" id="">
+                                                    <option th:selected="${searchRange == 'ALL'}" th:value="ALL">전체검색</option>
+                                                    <option th:selected="${searchRange == '법인등록번호'}" th:value="법인등록번호">법인등록번호</option>
+                                                    <option th:selected="${searchRange == '등기번호'}" th:value="등기번호">등기번호</option>
+                                                    <option th:selected="${searchRange == '법인명'}" th:value="법인명">법인명</option>
+                                                    <option th:selected="${searchRange == '법인관리번호'}" th:value="법인관리번호">법인관리번호</option>
+                                                    <option th:selected="${searchRange == '주소'}" th:value="주소">주소</option>
+                                                </select>
+                                            </div>
+                                            <input type="text" class="form-control" id="q" name="q" placeholder="검색어 입력"
+                                                   th:value="${q}">
+                                        </div>
                                     </div>
                                     <div class="col col-7 ml-2">
                                         <div class="d-flex align-items-center">
