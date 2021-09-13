@@ -22,7 +22,7 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 interface CompanyQueryDslRepository {
 
-	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?): List<Company>
+	fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?, searchRange: String?): List<Company>
 
 	fun findByLawFirmIdAndCompanyName(lawFirmId: String, companyName: String): List<Company>
 

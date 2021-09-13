@@ -21,7 +21,7 @@ class CompanyQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
 ) : CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
 
-	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?): List<Company> {
+	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?, searchRange: String?): List<Company> {
 		val qc = QCompany.company
 		val qe = QExecutive.executive
 		val qct = QContact.contact
@@ -42,14 +42,55 @@ class CompanyQueryDslRepositoryImpl(
 		}
 
 		q?.let {
-			predicate.and(
-				qc.companyName.likeIgnoreCase("%$it%")
-					.or(qc.companyNumber1.like("%$it%"))
-					.or(qc.companyNumber2.like("%$it%"))
-					.or(qc.companyManageNumber.like("%$it%"))
-					.or(qc.companyAddress.like("%$it%"))
-					.or(qc.registerNumber.like("%$it%"))
-			)
+			when (searchRange) {
+				"법인등록번호" -> {
+					predicate.and(
+						qc.companyNumber1.like("%$it%")
+							.or(qc.companyNumber2.like("%$it%"))
+					)
+				}
+				"등기번호" -> {
+					predicate.and(
+						qc.registerNumber.like("%$it%")
+					)
+				}
+				"법인명" -> {
+					if(it.length > 2) {
+						predicate.and(
+							qc.companyName.likeIgnoreCase("%$it%")
+						)
+					} else {
+						predicate.and(
+							qc.companyName.eq(it)
+						)
+					}
+				}
+				"법인관리번호" -> {
+					predicate.and(
+						qc.companyManageNumber.like("%$it%")
+					)
+				}
+				"주소" -> {
+					predicate.and(
+						qc.companyAddress.like("%$it%")
+					)
+				}
+				"임원이름" -> {
+					predicate.and(
+						qe.name.like("%$it%")
+					)
+				}
+				else -> {
+					predicate.and(
+						qc.companyName.likeIgnoreCase("%$it%")
+							.or(qc.companyNumber1.like("%$it%"))
+							.or(qc.companyNumber2.like("%$it%"))
+							.or(qc.companyManageNumber.like("%$it%"))
+							.or(qc.companyAddress.like("%$it%"))
+							.or(qc.registerNumber.like("%$it%"))
+					)
+				}
+			}
 		}
 
 		searchType?.let {

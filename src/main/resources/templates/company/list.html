@@ -81,13 +81,14 @@
                                     <div class="col">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <select class="form-control form-select" name="" id="">
+                                                <select class="form-control form-select" name="searchRange" id="searchRange">
                                                     <option th:selected="${searchRange == 'ALL'}" th:value="ALL">전체검색</option>
                                                     <option th:selected="${searchRange == '법인등록번호'}" th:value="법인등록번호">법인등록번호</option>
                                                     <option th:selected="${searchRange == '등기번호'}" th:value="등기번호">등기번호</option>
                                                     <option th:selected="${searchRange == '법인명'}" th:value="법인명">법인명</option>
                                                     <option th:selected="${searchRange == '법인관리번호'}" th:value="법인관리번호">법인관리번호</option>
                                                     <option th:selected="${searchRange == '주소'}" th:value="주소">주소</option>
+                                                    <option th:selected="${searchRange == '임원이름'}" th:value="임원이름">임원이름</option>
                                                 </select>
                                             </div>
                                             <input type="text" class="form-control" id="q" name="q" placeholder="검색어 입력"
@@ -188,8 +189,8 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결(장기)')}"
-                                                               th:value="|관리종결(장기)|"><i></i>
+                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결(장기미등기)')}"
+                                                               th:value="|관리종결(장기미등기)|"><i></i>
                                                     </span>
                                                         <label for="state-3">관리종결법인(장기)</label>
                                                     </div>
@@ -197,8 +198,8 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결(반송)')}"
-                                                               th:value="|관리종결(반송)|"><i></i>
+                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결(DM반송)')}"
+                                                               th:value="|관리종결(DM반송)|"><i></i>
                                                     </span>
                                                         <label for="state-3">관리종결법인(반송)</label>
                                                     </div>
