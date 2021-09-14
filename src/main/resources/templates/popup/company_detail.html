@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script><!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <!-- https://fontawesome.com/cheatsheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link th:href="@{/static/css/custom.css}" rel="stylesheet"/>
+
+    <title>RedBlue</title>
+</head>
+<body>
+    <div class="modal-body detail-company-popup">
+        <div class="modal-header">
+            <div class="modal-title"><strong>법인 현황 - <span>법인명</span></strong></div>
+            <button type="button" class="btn btn-sm btn-link"><i class="fa fa-print"></i> 인쇄하기</button>
+        </div>
+        <div class="accordion">
+            <div class="box">
+                <div class="box-header d-flex justify-content-between align-items-center">
+                    <!-- 법인, 업장, 공고방법 -->
+                    <strong class="title title-1"><i class="fa fa-arrow-right"></i> 기본정보 </strong>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-link" data-toggle="collapse" href="#multiCollapse1" >숨기기</button>
+                    </div>
+                </div>
+                <div class="collapse show multi-collapse" id="multiCollapse1">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>등기번호</th>
+                            <td>842</td>
+                            <th>법인등록번호</th>
+                            <td>134511-0008373</td>
+                            <th>관리번호</th>
+                            <td>12345</td>
+                        </tr>
+                        <tr>
+                            <th>관할등기소</th>
+                            <td>용인등기소</td>
+                            <th>법인구분</th>
+                            <td>주식회사</td>
+                            <th>법인상태</th>
+                            <td>유효법인</td>
+                        </tr>
+                        <tr>
+                            <th>상호</th>
+                            <td colspan="3">농업회사법인 주식회사 한서울 </td>
+                            <th>관리상태</th>
+                            <td>신규법인</td>
+                        </tr>
+                        <tr>
+                            <th>병기상호</th>
+                            <td colspan="3">농업회사법인 주식회사 한서울 </td>
+                            <th>설립일</th>
+                            <td>1990-11-21</td>
+                        </tr>
+                        <tr>
+                            <th>본점주소</th>
+                            <td colspan="5">(우 : 17170) 경기도 용인시 처인구 원삼면 죽능리 산79 </td>
+                        </tr>
+                        <tr>
+                            <th>공고방법</th>
+                            <td colspan="5">서울특별시내에서 발행되는 일간 매일경제신문에 게재한다</td>
+                        </tr>
+                        <tr>
+                            <th>자본금</th>
+                            <td>4,800,000,000</td>
+                            <th>결산기</th>
+                            <td>12월</td>
+                        </tr>
+                        <tr>
+                            <th>1주의 금액</th>
+                            <td>50,000</td>
+                            <th>발행주식총수</th>
+                            <td>96,000</td>
+                            <th>발행할 주식총수</th>
+                            <td>2,000,000</td>
+                        </tr>
+                        <tr>
+                            <th>사업자등록번호</th>
+                            <td></td>
+                            <th>업태</th>
+                            <td></td>
+                            <th>업종</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>송달장소</th>
+                            <td colspan="5">(우 : 17170) 경기도 용인시 처인구 원삼면 죽능리 산79</td>
+                        </tr>
+                        <tr>
+                            <th>최종 수정일</th>
+                            <td>2021-08-11</td>
+                            <th>최종변경기관</th>
+                            <td></td>
+                            <th>최종변경자</th>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header d-flex justify-content-between align-items-center">
+                    <strong class="title title-2"><i class="fa fa-arrow-right"></i> 임원 </strong>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-link" data-toggle="collapse" href="#multiCollapse2" >숨기기</button>
+                    </div>
+                </div>
+                <div class="collapse show multi-collapse" id="multiCollapse2">
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col width="40px">
+                            <col width="52px">
+                            <col width="50px">
+                            <col width="50px">
+                            <col width="50px">
+                            <col width="40px">
+                            <col width="70px">
+                            <col width="70px">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>국적</th>
+                            <th>직위</th>
+                            <th>성명</th>
+                            <th>주민번호</th>
+                            <th>주식비율</th>
+                            <th>주식수</th>
+                            <th>취임일자</th>
+                            <th>임기만료일</th>
+                            <th>주소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>-</td>
+                            <td>대표이사</td>
+                            <td>함봉식</td>
+                            <td>710304-1333016</td>
+                            <td>1%</td>
+                            <td>960</td>
+                            <td>2020-11-24</td>
+                            <td>2020-11-24</td>
+                            <td>경기도 안산시 상록구 해양1로 11, 615동 1801호(사동, 안산고잔6차푸르지오)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header d-flex justify-content-between align-items-center">
+                    <strong class="title title-3"><i class="fa fa-arrow-right"></i> 목적사항 </strong>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-link" data-toggle="collapse" href="#multiCollapse3" >숨기기</button>
+                    </div>
+                </div>
+                <div class="collapse show multi-collapse" id="multiCollapse3">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>목적사항</th>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header d-flex justify-content-between align-items-center">
+                    <strong class="title title-4"><i class="fa fa-arrow-right"></i> 연락처 </strong>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-link" data-toggle="collapse" href="#multiCollapse4" >숨기기</button>
+                    </div>
+                </div>
+                <div class="collapse show multi-collapse" id="multiCollapse4">
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col style="width:70px;">
+                            <col style="width: 100px">
+                            <col >
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>연락처</th>
+                            <th>담당자/메모</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>세금용 메일</td>
+                            <td>123-3455</td>
+                            <td>메모</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header d-flex justify-content-between align-items-center">
+                    <strong class="title title-5"><i class="fa fa-arrow-right"></i> 지점 </strong>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-link" data-toggle="collapse" href="#multiCollapse5" >숨기기</button>
+                    </div>
+                </div>
+                <div class="collapse show multi-collapse" id="multiCollapse5">
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col style="width: 100px">
+                            <col >
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>지점 명칭</th>
+                            <th>지점 주소</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1지점</td>
+                            <td>서울특별시 강남구 삼성로 412, 지하1층(대치동, 포우빌딩)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header d-flex justify-content-between align-items-center">
+                    <strong class="title title-6"><i class="fa fa-arrow-right"></i> 상담내역 </strong>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-link" data-toggle="collapse" href="#multiCollapse6" >숨기기</button>
+                    </div>
+                </div>
+                <div class="collapse show multi-collapse" id="multiCollapse6">
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col width="50px">
+                            <col width="70px">
+                            <col width="80px">
+                            <col>
+                            <col width="100px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>상담자</th>
+                            <th>상담 일시</th>
+                            <th>법인 담당자</th>
+                            <th>상담내용</th>
+                            <th>사건진행정도</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>홍길동</td>
+                            <td>2020-05-08</td>
+                            <td></td>
+                            <td></td>
+                            <td>진행완료</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

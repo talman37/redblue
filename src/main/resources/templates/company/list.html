@@ -272,10 +272,11 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-link p-0" name="history_search_btn" th:attr="data-id=${company.id}">
-                                                이력보기
+                                            <button type="button" class="btn btn-link p-0" name="detail_btn" th:attr="data-id=${company.id}">
+                                                법인 현황
                                                 <i class="fas fa-external-link-alt"></i>
                                             </button>
+
                                         </td>
                                     </tr>
                                 </th:block>
@@ -428,8 +429,8 @@
                 }
             });
 
-            $('button[name="history_search_btn"]').on('click', function () {
-                window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
+            $('button[name="detail_btn"]').on('click', function () {
+                window.open('/company/' + $(this).data('id') + '/detail-popup', '법인 현황', 'width=800px,height=800px,scrollbars=yes');
             });
 
             $('a[name="companyTitle"]').on('click', function () {

@@ -171,6 +171,16 @@ class CompanyController(
 		return "/popup/company_history"
 	}
 
+	@GetMapping("/{id}/detail-popup")
+	fun detailPopup(
+		@PathVariable("id") id: String,
+		model: Model,
+		@CurrentUser user: LawFirmUser
+	): String {
+		model.addAttribute("histories", companyService.getHistories(id))
+		return "/popup/company_detail"
+	}
+
 	@GetMapping("/{id}/consult-add")
 	fun addConsult(
 		@PathVariable("id") id: String,

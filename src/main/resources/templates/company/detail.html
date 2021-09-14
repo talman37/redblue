@@ -4,7 +4,7 @@
 <th:block layout:fragment="content_body">
     <div class="container-fluid">
         <main role="main" class="main detail-company">
-            <div class="page-header">
+            <div class="page-header align-items-center">
                 <div>
                     <h1>
                         <span th:text="${companyName}"></span>
@@ -15,6 +15,12 @@
                             </span>
                         <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions)}">주의</span>
                     </h1>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-link p-0 text-white" name="history_search_btn" th:attr="data-id=${company.id}">
+                        이력보기
+                        <i class="fas fa-external-link-alt"></i>
+                    </button>
                 </div>
             </div>
             <div class="card">
@@ -1382,6 +1388,9 @@
             });
         }
 
+        $('button[name="history_search_btn"]').on('click', function () {
+            window.open('/company/' + $(this).data('id') + '/history', '법인 이력', 'width=1200px,height=800px,scrollbars=yes');
+        });
     </script>
     <script id="contact-template" type="text/x-jQuery-tmpl">
         <tr id="contact_row_{{= index}}">

@@ -931,4 +931,47 @@ h5 {
 .list-consult table {
   zoom: 90%; }
 
+.detail-company-popup {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0; }
+.detail-company-popup .modal-header {
+  padding: 0.5em;
+  -webkit-box-align: center;
+  align-items: center; }
+.detail-company-popup .box {
+  margin-top: 10px;
+  font-size: 11px;
+  font-family: 'dotum'; }
+.detail-company-popup .box .title {
+  padding: 2px 30px 2px 5px; }
+.detail-company-popup .box .title.title-1 {
+  background-color: #d5a917; }
+.detail-company-popup .box .title.title-2 {
+  background-color: #9DC8C8; }
+.detail-company-popup .box .title.title-3 {
+  background-color: #58C9B9; }
+.detail-company-popup .box .title.title-4 {
+  background-color: #519D9E; }
+.detail-company-popup .box .title.title-5 {
+  background-color: #D1B6E1; }
+.detail-company-popup .box .title.title-6 {
+  background-color: #8CD790; }
+.detail-company-popup .box .table th {
+  background-color: #f8f8f8; }
+.detail-company-popup .box .table tbody th {
+  text-align: right;
+  width: 97px; }
+.detail-company-popup .box .table thead th {
+  padding: 2px 0;
+  text-align: center; }
+.detail-company-popup .btn-link {
+  font-size: 11px; }
+
+@media print {
+  .detail-company-popup {
+    width: 100%;
+    max-width: none;
+    padding: 20px; } }
+
 /*# sourceMappingURL=maps/custom.css.map */
