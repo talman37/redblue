@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 @Controller
@@ -70,12 +71,18 @@ class CompanyController(
 			}
 		}
 
-		val end = endDate?.let {
+		var end = endDate?.let {
 			if (it.isEmpty()) {
 				null
 			} else {
 				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
 			}
+		}
+		if(end != null) {
+			val cal = Calendar.getInstance()
+			cal.time = end
+			cal.add(Calendar.DATE, 1)
+			end = cal.time
 		}
 
 		val updatedStart = modifiedStartDate?.let {

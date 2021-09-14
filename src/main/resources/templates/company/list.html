@@ -192,7 +192,7 @@
                                                         <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결(장기미등기)')}"
                                                                th:value="|관리종결(장기미등기)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결법인(장기)</label>
+                                                        <label for="state-3">관리종결(장기)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -201,7 +201,7 @@
                                                         <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결(DM반송)')}"
                                                                th:value="|관리종결(DM반송)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결법인(반송)</label>
+                                                        <label for="state-3">관리종결(반송)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -210,7 +210,7 @@
                                                         <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '관리종결(폐업)')}"
                                                                th:value="|관리종결(폐업)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결법인(폐업)</label>
+                                                        <label for="state-3">관리종결(폐업)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -219,7 +219,7 @@
                                                         <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '관리종결(기타)')}"
                                                                th:value="|관리종결(기타)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결법인(기타)</label>
+                                                        <label for="state-3">관리종결(기타)</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -383,6 +383,13 @@
         $(document).ready(function () {
             $('#loading-area').hide();
             $('#search-btn').on('click', function () {
+
+                if($('#searchRange').val() == '등기번호') {
+                    if(!$.isNumeric($('#q').val())) {
+                        alert('등기번호 검색은 숫자만 가능합니다.');
+                        return false;
+                    }
+                }
                 $('#searchForm').submit()
             });
 

@@ -51,7 +51,7 @@ class CompanyQueryDslRepositoryImpl(
 				}
 				"등기번호" -> {
 					predicate.and(
-						qc.registerNumber.like("%$it%")
+						qc.registerNumber.eq(it.toInt())
 					)
 				}
 				"법인명" -> {
@@ -88,6 +88,7 @@ class CompanyQueryDslRepositoryImpl(
 							.or(qc.companyManageNumber.like("%$it%"))
 							.or(qc.companyAddress.like("%$it%"))
 							.or(qc.registerNumber.like("%$it%"))
+							.or(qe.name.like("%$it%"))
 					)
 				}
 			}
@@ -117,7 +118,22 @@ class CompanyQueryDslRepositoryImpl(
 		query.where(predicate)
 			.orderBy(qc.registerOffice.asc())
 			.orderBy(qc.registerNumber.asc())
-		return query.distinct().fetch()
+		var companies = query.distinct().fetch()
+
+		startDate?.let {
+			if(StringUtils.hasText(positionTarget)) {
+				var companyIds = companies.map { company -> company.id }
+				var inQuery = jpaQueryFactory.selectFrom(qe)
+				val inPredicate = BooleanBuilder()
+				inPredicate.and(qe.companyId.`in`(companyIds))
+				inPredicate.and(qe.position.ne("감사"))
+				inPredicate.and(qe.expiredAt.between(it, endDate))
+				inQuery.where(inPredicate)
+				val exceptIds = inQuery.fetch().map { executive -> executive.companyId }.distinct()
+				companies = companies.filter { c -> !exceptIds.contains(c.id) }
+			}
+		}
+		return companies
 	}
 
 	override fun search(lawFirmId: String, q: String): Company {
