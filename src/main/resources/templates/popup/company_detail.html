@@ -22,8 +22,8 @@
 <body>
     <div class="modal-body detail-company-popup">
         <div class="modal-header">
-            <div class="modal-title"><strong>법인 현황 - <span>법인명</span></strong></div>
-            <button type="button" class="btn btn-sm btn-link"><i class="fa fa-print"></i> 인쇄하기</button>
+            <div class="modal-title"><strong>법인 현황 - <span th:text="${companyName}"></span></strong></div>
+            <button type="button" class="btn btn-sm btn-link" id="print-btn"><i class="fa fa-print"></i> 인쇄하기</button>
         </div>
         <div class="accordion">
             <div class="box">
@@ -39,69 +39,69 @@
                         <tbody>
                         <tr>
                             <th>등기번호</th>
-                            <td>842</td>
+                            <td th:text="${company.registerNumber}"></td>
                             <th>법인등록번호</th>
-                            <td>134511-0008373</td>
+                            <td th:text="|${company.companyNumber1}-${company.companyNumber2}|"></td>
                             <th>관리번호</th>
-                            <td>12345</td>
+                            <td th:text="${company.companyManageNumber}"></td>
                         </tr>
                         <tr>
                             <th>관할등기소</th>
-                            <td>용인등기소</td>
+                            <td th:text="${company.registerOffice}"></td>
                             <th>법인구분</th>
-                            <td>주식회사</td>
+                            <td th:text="${company.companyDivision}"></td>
                             <th>법인상태</th>
-                            <td>유효법인</td>
+                            <td th:text="${company.companyState}"></td>
                         </tr>
                         <tr>
                             <th>상호</th>
-                            <td colspan="3">농업회사법인 주식회사 한서울 </td>
+                            <td colspan="3" th:text="${company.companyName}"></td>
                             <th>관리상태</th>
-                            <td>신규법인</td>
+                            <td th:text="${company.companyManageState}"></td>
                         </tr>
                         <tr>
                             <th>병기상호</th>
-                            <td colspan="3">농업회사법인 주식회사 한서울 </td>
+                            <td colspan="3" th:text="${company.companySubName}"></td>
                             <th>설립일</th>
-                            <td>1990-11-21</td>
+                            <td th:text="${#dates.format(company.companyFormationAt, 'yyyy-MM-dd')}"></td>
                         </tr>
                         <tr>
                             <th>본점주소</th>
-                            <td colspan="5">(우 : 17170) 경기도 용인시 처인구 원삼면 죽능리 산79 </td>
+                            <td colspan="5" th:text="|(우 : ${company.companyPostalCode})${company.companyAddress}|"></td>
                         </tr>
                         <tr>
                             <th>공고방법</th>
-                            <td colspan="5">서울특별시내에서 발행되는 일간 매일경제신문에 게재한다</td>
+                            <td colspan="5" th:text="${company.noticeWay}"></td>
                         </tr>
                         <tr>
                             <th>자본금</th>
-                            <td>4,800,000,000</td>
+                            <td th:text="${#numbers.formatDecimal(company.stock.capital, 0, 'COMMA', 0, 'POINT')}"></td>
                             <th>결산기</th>
-                            <td>12월</td>
+                            <td th:text="|${company.settlementMonth}월|"></td>
                         </tr>
                         <tr>
                             <th>1주의 금액</th>
-                            <td>50,000</td>
+                            <td th:text="${#numbers.formatDecimal(company.stock.amount, 0, 'COMMA', 0, 'POINT')}"></td>
                             <th>발행주식총수</th>
-                            <td>96,000</td>
+                            <td th:text="${#numbers.formatDecimal(company.stock.issuedCount, 0, 'COMMA', 0, 'POINT')}"></td>
                             <th>발행할 주식총수</th>
-                            <td>2,000,000</td>
+                            <td th:text="${#numbers.formatDecimal(company.stock.scheduleCount, 0, 'COMMA', 0, 'POINT')}"></td>
                         </tr>
                         <tr>
                             <th>사업자등록번호</th>
-                            <td></td>
+                            <td th:text="${company.businessNumber}"></td>
                             <th>업태</th>
-                            <td></td>
+                            <td th:text="${company.businessCondition}"></td>
                             <th>업종</th>
-                            <td></td>
+                            <td th:text="${company.businessType}"></td>
                         </tr>
                         <tr>
                             <th>송달장소</th>
-                            <td colspan="5">(우 : 17170) 경기도 용인시 처인구 원삼면 죽능리 산79</td>
+                            <td colspan="5" th:text="|(우 : ${company.deliveryPlacePostalCode})${company.deliveryPlace}|"></td>
                         </tr>
                         <tr>
                             <th>최종 수정일</th>
-                            <td>2021-08-11</td>
+                            <td th:text="${#dates.format(company.subUpdatedAt, 'yyyy-MM-dd')}"></td>
                             <th>최종변경기관</th>
                             <td></td>
                             <th>최종변경자</th>
@@ -145,16 +145,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>-</td>
-                            <td>대표이사</td>
-                            <td>함봉식</td>
-                            <td>710304-1333016</td>
-                            <td>1%</td>
-                            <td>960</td>
-                            <td>2020-11-24</td>
-                            <td>2020-11-24</td>
-                            <td>경기도 안산시 상록구 해양1로 11, 615동 1801호(사동, 안산고잔6차푸르지오)</td>
+                        <tr th:each="executive: ${company.executives}">
+                            <td th:if="${executive.nationality == '대한민국'}"></td>
+                            <td th:unless="${executive.nationality == '대한민국'}" th:text="${executive.nationality}"></td>
+                            <td th:text="${executive.position}"></td>
+                            <td th:text="${executive.name}"></td>
+                            <td th:text="|${executive.registrationNumber1}-${executive.registrationNumber2}|"></td>
+                            <td th:text="|${executive.stockRatio}%|"></td>
+                            <td th:text="${#numbers.formatDecimal(executive.stockCount, 0, 'COMMA', 0, 'POINT')}"></td>
+                            <td th:text="${executive.inauguratedAt}"></td>
+                            <td th:text="${executive.expiredAt}"></td>
+                            <td th:text="${executive.address}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -172,7 +173,9 @@
                         <tbody>
                         <tr>
                             <th>목적사항</th>
-                            <td></td>
+                            <th:block th:each="purpose: ${company.purposeDetail}">
+                                <td th:text="${purpose.detail}"></td>
+                            </th:block>
                         </tr>
                         </tbody>
                     </table>
@@ -200,10 +203,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>세금용 메일</td>
-                            <td>123-3455</td>
-                            <td>메모</td>
+                        <tr th:each="contact: ${company.contacts}">
+                            <td th:text="${contact.type.text}"></td>
+                            <td th:text="${contact.value}"></td>
+                            <td th:text="${contact.memo}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -229,9 +232,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1지점</td>
-                            <td>서울특별시 강남구 삼성로 412, 지하1층(대치동, 포우빌딩)</td>
+                        <tr th:each="branch: ${company.branches}">
+                            <td th:text="${branch.name}"></td>
+                            <td th:text="${branch.address}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -263,12 +266,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>홍길동</td>
-                            <td>2020-05-08</td>
-                            <td></td>
-                            <td></td>
-                            <td>진행완료</td>
+                        <tr th:each="consult: ${consults}">
+                            <td th:text="${consult.consultant}"></td>
+                            <td th:text="${consult.createdAt}">/td>
+                            <td th:text="${consult.companyClerk}"></td>
+                            <td th:text="${consult.content}"></td>
+                            <td th:switch="${consult.progress}">
+                                <span th:case="${consult.progress.CANCEL}"
+                                      class="badge badge-pill badge-danger">취소</span>
+                                <span th:case="${consult.progress.ONGOING}"
+                                      class="badge badge-pill badge-primary">진행중</span>
+                                <span th:case="${consult.progress.COMPLETE}"
+                                      class="badge badge-pill badge-success">완료</span>
+                                <span th:case="${consult.progress.HOLD}"
+                                      class="badge badge-pill badge-warning">보류</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -277,4 +289,13 @@
         </div>
     </div>
 </body>
+<script>
+    $(document).ready(function () {
+
+        $('#print-btn').on('click', function(){
+           window.print();
+        });
+
+    });
+</script>
 </html>
