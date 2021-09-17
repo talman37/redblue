@@ -229,7 +229,7 @@
                             </div>
                             <div class="btn-area">
                                 <button type="button" class="btn btn-sm btn-dark" id="search-btn">검색</button>
-                                <button type="reset" class="btn btn-sm btn-light" id="reset-btn" ><i class="fa fa-redo-alt"></i>초기화</button>
+                                <button type="button" class="btn btn-sm btn-light" id="reset-btn" ><i class="fa fa-redo-alt"></i>초기화</button>
                             </div>
                         </div>
                     </form>
@@ -390,8 +390,28 @@
                         alert('등기번호 검색은 숫자만 가능합니다.');
                         return false;
                     }
+                    var regex = /[^0-9]/g;
+                    $('#q').val($('#q').val().replace(regex, ""));
                 }
                 $('#searchForm').submit()
+            });
+
+            $('#reset-btn').on('click', function(){
+                $('#q').val('')
+                $('#startDate').val('');
+                $('#endDate').val('');
+                $('#modifiedStartDate').val('');
+                $('#modifiedEndDate').val('');
+                $('#searchType').val('유효법인').prop("selected", true);
+                $('#positionTarget').prop('checked', false);
+                $('#searchRange').val('ALL').prop("selected", true);
+                $("input:checkbox[name='state']").each(function(){
+                    if($(this).val() == '신규법인' || $(this).val() == '관리법인') {
+                        $(this).prop('checked', true);
+                    } else {
+                        $(this).prop('checked', false);
+                    }
+                });
             });
 
             $('#excel-down-btn').on('click', function () {

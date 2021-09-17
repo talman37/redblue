@@ -51,7 +51,7 @@ class CompanyQueryDslRepositoryImpl(
 				}
 				"등기번호" -> {
 					predicate.and(
-						qc.registerNumber.eq(it.toInt())
+						qc.registerNumber.eq(it.replace("[^0-9]".toRegex(), "").toInt())
 					)
 				}
 				"법인명" -> {
