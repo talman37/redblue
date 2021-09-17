@@ -402,11 +402,12 @@
                 let modifiedEndDate = $('#modifiedEndDate').val();
                 let searchType = $('#searchType').val();
                 let positionTarget = $('#positionTarget').val();
+                let searchRange = $('#searchRange').val();
                 let state = [];
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
@@ -418,6 +419,7 @@
                 let modifiedEndDate = $('#modifiedEndDate').val();
                 let searchType = $('#searchType').val();
                 let positionTarget = $('#positionTarget').val();
+                let searchRange = $('#searchRange').val();
                 if(startDate == '' || endDate == '') {
                     alert('DM 다운로드 시 임기만료일 검색값은 필수 입니다.');
                     return false;
@@ -427,7 +429,7 @@
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
