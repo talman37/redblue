@@ -144,9 +144,10 @@ class CompanyRestController(
 	@GetMapping("/duplicate-check")
 	fun duplicateCheck(
 		@RequestParam("registerNumber") registerNumber: Int,
-		@RequestParam("registerOffice") registerOffice: String
+		@RequestParam("registerOffice") registerOffice: String,
+		@RequestParam("companyDivision") companyDivision: String
 	): ResponseEntity<Boolean> {
-		return ResponseEntity.ok(companyService.duplicateCheck(registerNumber, registerOffice))
+		return ResponseEntity.ok(companyService.duplicateCheck(registerNumber, registerOffice, companyDivision))
 	}
 
 	@DeleteMapping("/{id}")

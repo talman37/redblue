@@ -1058,7 +1058,7 @@
                 }
 
                 $.ajax({
-                    url: "/v1/companies/duplicate-check?registerNumber="+$('#registerNumber').val()+"&registerOffice="+$('#registerOffice').val(),
+                    url: "/v1/companies/duplicate-check?registerNumber="+$('#registerNumber').val()+"&registerOffice="+$('#registerOffice').val()+"&companyDivision="+$('#companyDivision').val(),
                     method: "GET",
                     dataType: "json"
                 }).done(function(data){

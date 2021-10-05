@@ -127,8 +127,8 @@ class CompanyServiceImpl(
 		)
 	}
 
-	override fun duplicateCheck(registerNumber: Int, registerOffice: String): Boolean {
-		return companyRepository.existsByRegisterNumberAndRegisterOffice(registerNumber, registerOffice)
+	override fun duplicateCheck(registerNumber: Int, registerOffice: String, companyDivision: String): Boolean {
+		return companyRepository.existsByRegisterNumberAndRegisterOfficeAndCompanyDivision(registerNumber, registerOffice, companyDivision)
 	}
 
 	@Transactional

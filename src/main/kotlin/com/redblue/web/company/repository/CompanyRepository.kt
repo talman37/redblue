@@ -12,7 +12,7 @@ interface CompanyRepository : CompanyQueryDslRepository, JpaRepository<Company, 
 
 	fun countBylawFirmIdAndCompanyState(lawFirmId: String, state: String): Int
 
-	fun existsByRegisterNumberAndRegisterOffice(registerNumber: Int, registerOffice: String): Boolean
+	fun existsByRegisterNumberAndRegisterOfficeAndCompanyDivision(registerNumber: Int, registerOffice: String, companyDivision: String): Boolean
 
 	@Modifying
 	@Query("UPDATE Company c SET c.updatedAt = :updatedAt WHERE c.id = :id")
