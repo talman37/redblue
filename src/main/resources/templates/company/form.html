@@ -199,7 +199,7 @@
                                     <th>설립일</th>
                                     <td>
                                         <input type="text" class="form-control form-control-sm" id="companyFormationAt"`
-                                               name="companyFormationAt"
+                                               name="companyFormationAt" onkeyup="inputDateFormat(this)"
                                                value="">
                                     </td>
 <!--                                    <th>추천인</th>-->
@@ -415,6 +415,9 @@
                                             <option value="일본">일본</option>
                                             <option value="호주">호주</option>
                                             <option value="홍콩">홍콩</option>
+                                            <option value="영국">영국</option>
+                                            <option value="프랑스">프랑스</option>
+                                            <option value="독일">독일</option>
                                             <option value="기타">기타</option>
 
                                         </select>
@@ -489,6 +492,9 @@
                                             <option value="일본">일본</option>
                                             <option value="호주">호주</option>
                                             <option value="홍콩">홍콩</option>
+                                            <option value="영국">영국</option>
+                                            <option value="프랑스">프랑스</option>
+                                            <option value="독일">독일</option>
                                             <option value="기타">기타</option>
 
                                         </select>
@@ -563,6 +569,9 @@
                                             <option value="일본">일본</option>
                                             <option value="호주">호주</option>
                                             <option value="홍콩">홍콩</option>
+                                            <option value="영국">영국</option>
+                                            <option value="프랑스">프랑스</option>
+                                            <option value="독일">독일</option>
                                             <option value="기타">기타</option>
 
                                         </select>
@@ -711,6 +720,9 @@
                                             <option value="일본">일본</option>
                                             <option value="호주">호주</option>
                                             <option value="홍콩">홍콩</option>
+                                            <option value="영국">영국</option>
+                                            <option value="프랑스">프랑스</option>
+                                            <option value="독일">독일</option>
                                             <option value="기타">기타</option>
 
                                         </select>
@@ -1502,6 +1514,9 @@
                         <option value="일본">일본</option>
                         <option value="호주">호주</option>
                         <option value="홍콩">홍콩</option>
+                        <option value="영국">영국</option>
+                        <option value="프랑스">프랑스</option>
+                        <option value="독일">독일</option>
                         <option value="기타">기타</option>
                     </select>
                     <input type="text" class="form-control form-control-sm mt-1"  style="display:none" readonly name="executives[{{= index}}][countryValue]">

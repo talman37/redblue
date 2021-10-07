@@ -40,7 +40,7 @@ class ConsultQueryDslRepositoryImpl(
 					qc.consultant,
 					qc.companyClerk,
 					qc.content,
-					qc.memo,
+					qc.scheduledAt,
 					qc.progress,
 					qc.updatedAt,
 					qc.createdAt
@@ -48,6 +48,7 @@ class ConsultQueryDslRepositoryImpl(
 			)
 			.from(qc)
 			.innerJoin(qp).on(qc.companyId.eq(qp.id))
+			.orderBy(qc.scheduledAt.desc())
 			.orderBy(qc.createdAt.desc())
 
 		predicate.and(qc.lawFirmId.eq(lawFirmId))
@@ -89,7 +90,7 @@ class ConsultQueryDslRepositoryImpl(
 					qc.consultant,
 					qc.companyClerk,
 					qc.content,
-					qc.memo,
+					qc.scheduledAt,
 					qc.progress,
 					qc.updatedAt,
 					qc.createdAt

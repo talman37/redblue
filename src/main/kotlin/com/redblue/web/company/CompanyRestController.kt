@@ -180,7 +180,7 @@ class CompanyRestController(
 			}
 		}
 
-		val start = startDate?.let {
+		var start = startDate?.let {
 			if (it.isEmpty()) {
 				null
 			} else {
@@ -194,6 +194,13 @@ class CompanyRestController(
 			} else {
 				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
 			}
+		}
+
+		if(start != null) {
+			val startCal = Calendar.getInstance()
+			startCal.time = start
+			startCal.add(Calendar.DATE, 1)
+			start = startCal.time
 		}
 
 		if(end != null) {
@@ -252,7 +259,7 @@ class CompanyRestController(
 			}
 		}
 
-		val start = startDate?.let {
+		var start = startDate?.let {
 			if (it.isEmpty()) {
 				null
 			} else {
@@ -266,6 +273,13 @@ class CompanyRestController(
 			} else {
 				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
 			}
+		}
+
+		if(start != null) {
+			val startCal = Calendar.getInstance()
+			startCal.time = start
+			startCal.add(Calendar.DATE, 1)
+			start = startCal.time
 		}
 
 		if(end != null) {

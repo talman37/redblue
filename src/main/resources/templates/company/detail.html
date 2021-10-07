@@ -441,12 +441,18 @@
                                                 <option th:value="일본" th:selected="${executive.nationality == '일본'}">일본</option>
                                                 <option th:value="호주" th:selected="${executive.nationality == '호주'}">호주</option>
                                                 <option th:value="홍콩" th:selected="${executive.nationality == '홍콩'}">홍콩</option>
+                                                <option th:value="영국" th:selected="${executive.nationality == '영국'}">영국</option>
+                                                <option th:value="프랑스" th:selected="${executive.nationality == '프랑스'}">프랑스</option>
+                                                <option th:value="독일" th:selected="${executive.nationality == '독일'}">독일</option>
                                                 <option th:value="기타" th:selected="${executive.nationality != '대한민국'
                                                     && executive.nationality != '미합중국'
                                                     && executive.nationality != '중화인민공화국'
                                                     && executive.nationality != '캐나다'
                                                     && executive.nationality != '일본'
                                                     && executive.nationality != '호주'
+                                                    && executive.nationality != '영국'
+                                                    && executive.nationality != '프랑스'
+                                                    && executive.nationality != '독일'
                                                     && executive.nationality != '홍콩'}">기타</option>
                                             </select>
 
@@ -456,6 +462,9 @@
                                                     && executive.nationality != '캐나다'
                                                     && executive.nationality != '일본'
                                                     && executive.nationality != '호주'
+                                                    && executive.nationality != '영국'
+                                                    && executive.nationality != '프랑스'
+                                                    && executive.nationality != '독일'
                                                     && executive.nationality != '홍콩'}"
                                                    th:name="'executives['+${index.index}+'][countryValue]'" th:value="${executive.nationality}">
                                             <input type="text" class="form-control form-control-sm mt-1" th:unless="${executive.nationality != '대한민국'
@@ -464,6 +473,9 @@
                                                     && executive.nationality != '캐나다'
                                                     && executive.nationality != '일본'
                                                     && executive.nationality != '호주'
+                                                    && executive.nationality != '영국'
+                                                    && executive.nationality != '프랑스'
+                                                    && executive.nationality != '독일'
                                                     && executive.nationality != '홍콩'}"
                                                    style="display:none" th:readonly="true"
                                                    th:name="'executives['+${index.index}+'][countryValue]'">
@@ -1454,6 +1466,9 @@
                         <option value="일본">일본</option>
                         <option value="호주">호주</option>
                         <option value="홍콩">홍콩</option>
+                        <option value="영국">영국</option>
+                        <option value="프랑스">프랑스</option>
+                        <option value="독일">독일</option>
                         <option value="기타">기타</option>
                     </select>
                     <input type="text" class="form-control form-control-sm mt-1" readonly name="executives[{{= index}}][countryValue]" style="display:none">

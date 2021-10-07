@@ -22,7 +22,7 @@
             <input type="hidden" name="lawFirmId" th:value="${consult.lawFirmId}"/>
             <input type="hidden" name="companyId" th:value="${consult.companyId}"/>
             <input type="hidden" id="id" name="id" th:value="${consult.id}"/>
-            <input type="hidden" name="memo" th:value="${consult.memo}"/>
+            <input type="hidden" name="scheduledAt" th:value="${#dates.format(consult.scheduledAt, 'yyyy-MM-dd')}"/>
             <div class="add-item border p-3 mb-3">
                 <div class="row">
                     <div class="col-md-4 mb-3">

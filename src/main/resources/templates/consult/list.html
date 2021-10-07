@@ -71,7 +71,7 @@
                             <div class="search-area">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" name="q" placeholder="법인명 / 상담자">
+                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인명 / 상담자" th:value="${q}">
                                     </div>
                                     <div class="col">
                                         <div class="input-group input-daterange">
@@ -80,9 +80,9 @@
                                                     상담일자
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" id="startDate" name="start">
+                                            <input type="text" class="form-control" id="startDate" name="start" th:value="${startDate}">
                                             <div class="input-group-addon">~</div>
-                                            <input type="text" class="form-control" id="endDate" name="end">
+                                            <input type="text" class="form-control" id="endDate" name="end" th:value="${endDate}">
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                             <col style="width: 100px">
                             <col style="width: 60px">
                             <col>
-                            <col style="width: 100px">
+                            <col style="width: 80px">
                             <col style="width: 80px">
                             <col style="width: 80px">
                         </colgroup>
@@ -162,7 +162,7 @@
                             <th>상담일시</th>
                             <th>상담자</th>
                             <th>상담내용</th>
-                            <th>메모</th>
+                            <th>진행예정일</th>
                             <th>임기만료일</th>
                             <th>진행정도</th>
                         </tr>
@@ -176,10 +176,12 @@
                                 <a th:href="'/consult/' + ${consult.id} + '/edit'" class="ellipsis" th:text="${consult.content}" th:title="${consult.content}"></a>
                             </td>
                             <td>
-                                <div class="ellipsis" th:text="${consult.memo}" th:title="${consult.memo}"></div>
+                                <div class="ellipsis" th:text="${#dates.format(consult.scheduledAt, 'yyyy-MM-dd')}" th:title="${#dates.format(consult.scheduledAt, 'yyyy-MM-dd')}"></div>
                             </td>
                             <td th:text="${consult.expiredAt}"></td>
                             <td th:switch="${consult.progress}">
+
+
                                 <span th:case="${consult.progress.CANCEL}"
                                       class="badge badge-pill badge-danger">취소</span>
                                 <span th:case="${consult.progress.ONGOING}"
@@ -201,7 +203,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer" th:if="${consults.totalElements > 0}">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <nav th:with="start=${T(Math).floor(consults.number/10)*10 + 1}, last=(${start + 9 < consults.totalPages ? start + 9 : consults.totalPages})">
@@ -221,10 +223,12 @@
                                             <i class="fas fa-angle-left"></i>
                                         </a>
                                     </li>
-
+                                    <th:block th:if="${last == 0}">
+                                        <th:block th:with="last=${last + 1}"></th:block>
+                                    </th:block>
                                     <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
                                         th:classappend="${page == consults.number + 1} ? 'active'">
-                                        <a class="page-link" th:href="@{${'/consult'}(page=${page})}"
+                                        <a class="page-link" href="javascript:void(0);" th:onclick="'movePage(' + ${page  - 1} + ');'"
                                            th:text="${page}"></a>
                                     </li>
                                     <li class="page-item" th:class="${consults.last} ? 'disabled'">
@@ -266,6 +270,37 @@
             language: "ko",
             todayHighlight: true
         });
+
+        function movePage(page) {
+            var param = '';
+            if($('#q').val() != '') {
+                param += '&q=' + $('#q').val();
+            }
+
+            if($('#startDate').val() != '' && $('#endDate').val() != '') {
+                param += '&startDate=' + $('#startDate').val();
+                param += '&endDate=' + $('#endDate').val();
+            }
+
+            var checkedProgress = '';
+            $('input[name="progress"]').each(function(){
+                if($(this).is(":checked")) {
+                    if(checkedProgress == '') {
+                        checkedProgress += $(this).val();
+                    } else {
+                        checkedProgress += ',' + $(this).val();
+                    }
+                }
+            });
+
+            if(checkedProgress != '') {
+                param += '&progress=' + checkedProgress;
+            }
+
+            location.href = '/consult?page=' + page + param;
+
+        }
+
     </script>
 </th:block>
 </html>

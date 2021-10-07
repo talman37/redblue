@@ -63,7 +63,7 @@ class CompanyController(
 			}
 		}
 
-		val start = startDate?.let {
+		var start = startDate?.let {
 			if (it.isEmpty()) {
 				null
 			} else {
@@ -77,6 +77,13 @@ class CompanyController(
 			} else {
 				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
 			}
+		}
+
+		if(start != null) {
+			val startCal = Calendar.getInstance()
+			startCal.time = start
+			startCal.add(Calendar.DATE, 1)
+			start = startCal.time
 		}
 		if(end != null) {
 			val cal = Calendar.getInstance()

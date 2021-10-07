@@ -1,6 +1,7 @@
 package com.redblue.web.consult.model
 
 import net.bytebuddy.utility.RandomString
+import org.springframework.format.annotation.DateTimeFormat
 import java.util.*
 import javax.persistence.*
 
@@ -27,7 +28,9 @@ data class Consult(
 
 	val content: String,
 
-	val memo: String? = null,
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	val scheduledAt: Date? = null,
 
 	@Enumerated(EnumType.STRING)
 	val progress: Progress,

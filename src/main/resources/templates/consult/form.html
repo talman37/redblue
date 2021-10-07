@@ -102,8 +102,8 @@
                                 <input type="text" class="form-control" id="expiredAt">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="memo">메모</label>
-                                <input type="text" class="form-control" id="memo" name="memo">
+                                <label for="scheduledAt">진행예정일</label>
+                                <input type="text" class="form-control" id="scheduledAt" name="scheduledAt">
                             </div>
                         </div>
                         <div class="row">
@@ -156,7 +156,7 @@
         });
 
 
-        $('.input-daterange').datepicker({
+        $('input[name="scheduledAt"]').datepicker({
             language: "ko",
             todayHighlight: true
         });
