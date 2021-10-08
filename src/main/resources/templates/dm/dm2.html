@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <title>DM2</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    @font-face {
+      font-family: NanumMyeongjo;
+      src: url('../../static/font/NanumMyeongjo-Regular.ttf');
+    }
+
+    @font-face {
+      font-family: NanumBarunGothic;
+      src: url('../../static/font/NanumBarunGothic.ttf');
+    }
+
+    @font-face {
+      font-family: EastSeaDokdo;
+      src: url('../../static/font/EastSeaDokdo-Regular.ttf');
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        padding: 0;
+      }
+
+      .dm {
+        margin: 0;
+        border: initial;
+        width: 210mm;
+        height: 297mm;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+      }
+    }
+
+    body {
+      font-family: "NanumBarunGothic"
+    }
+
+    .dm {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      margin: 0;
+      padding: 0;
+      table-layout: fixed;
+      font-size: 14px;
+      word-break: keep-all;
+      border-spacing: 0;
+      font-family: "NanumMyeongjo";
+    }
+    .dm:before,
+    .dm:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      border-top: 1px dashed #eee;
+    }
+
+    .dm:before {
+      top: 9.9cm;
+    }
+
+    .dm:after {
+      top: 19.8cm;
+    }
+
+    .dm .td-top {
+      vertical-align: top;
+      height: 295px;
+    }
+
+    .dm .td-middle {
+      vertical-align: top;
+      height: 100%;
+      height: 650px;
+    }
+
+    .dm .td-bottom {
+      vertical-align: bottom;
+      height: 150px;
+    }
+
+    .dm *,
+    .dm ol,
+    .dm ul,
+    .dm li,
+    .dm p {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .dm .top {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      font-weight: bold;
+      padding: 40px 90px 0 60px;
+      line-height: 1.4;
+    }
+
+    .dm .top .sender {
+      text-align: left;
+      margin-bottom: 50px;
+      font-size: 13px;
+    }
+
+    .dm .top .sender .logo {
+      display: inline-block;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+    }
+
+    .dm .top .sender .logo img {
+      width: 100%;
+    }
+
+    .dm .top .sender .name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .dm .top .sender .name span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .dm .top .sender > div {
+      margin-left: 35px;
+    }
+
+
+    .dm .top .sender ul {
+      overflow: hidden;
+    }
+
+    .dm .top .sender li {
+      list-style: none;
+      display: inline-block;
+      min-width: 20%;
+    }
+
+    .dm .top .sender .number {
+      font-size: 12px;
+    }
+
+    .dm .top .recipient {
+      text-align: right;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .dm .top .recipient .address {
+      text-align: left;
+      max-width: 60%;
+      margin-left: auto;
+      margin-bottom: 10px;
+    }
+    .dm .top .recipient .post {
+      font-size: 14px;
+    }
+
+    .dm .top .post {
+      letter-spacing: 3px;
+    }
+
+    .dm .middle {
+      padding: 50px 70px 0;
+      position: relative;
+      line-height: 1.4;
+      z-index: 1;
+    }
+    .dm .middle .content .title {
+      text-align: center;
+      font-size: 20px;
+    }
+    .dm .middle .content .recipient {
+      margin-top: 10px;
+    }
+    .dm .middle .content .recipient .name,
+    .dm .middle .content .recipient .box {
+      display: inline-block;
+      vertical-align: middle;
+      width: 49%;
+      box-sizing: border-box;
+    }
+    .dm .middle .content .recipient .name {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .dm .middle .content .recipient .name span {
+      font-weight: normal;
+    }
+    .dm .middle .content .recipient .box {
+      padding: 4px;
+      text-align: center;
+      border: 2px solid #000;
+    }
+    .dm .middle .content .recipient .box strong {
+      font-size: 18px;
+    }
+
+    .dm .middle .content > ol {
+      counter-reset: list;
+    }
+
+    .dm .middle .content > ol > li {
+      counter-increment: list;
+      margin-top: 5px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .dm .middle .content > ol > li:before {
+      content: counters(list, "") ".";
+      position: absolute;
+      left: 0;
+    }
+    .dm .middle .content > ol > li em {
+      text-decoration: underline;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .dm .middle .content > ol > li > div p {
+      margin-top: 5px;
+      word-break: break-word;
+    }
+    .dm .middle .table table {
+      width: 100%;
+      margin: 20px 0 5px;
+      table-layout: fixed;
+      border: 1px solid #999;
+      font-family: "NanumMyeongjo";
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    .dm .middle .table th,
+    .dm .middle .table td {
+      color: #000;
+      border-color: #999;
+      text-align: center;
+      border-left: 1px solid #999;
+      padding: 2px 10px;
+    }
+    .dm .middle .table td {
+      border-top: 1px solid #999;
+    }
+
+    .dm .middle .notice {
+      position: relative;
+      z-index: 1;
+      margin-top: 20px;
+      font-family: "NanumMyeongjo";
+    }
+    .dm .middle .notice ol {
+      border: 1px solid #000;
+      margin: 10px 20px;
+      padding: 5px;
+      font-family:  "NanumBarunGothic";
+    }
+    .dm .middle .notice ol li {
+      margin: 3px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .dm .bottom {
+      text-align: center;
+      line-height: 1.4;
+      padding: 0 30px 30px;
+    }
+
+    .dm .bottom .name {
+      font-weight: bold;
+      font-size: 22px;
+      font-family: "EastSeaDokdo";
+      letter-spacing: 1px;
+    }
+
+    .dm .bottom .contact {
+
+      font-family: "NanumBarunGothic";
+    }
+
+    .dm .bottom .desc {
+      margin-top: 15px;
+
+      word-break: break-word;
+      font-family: "NanumBarunGothic";
+    }
+
+  </style>
+</head>
+<body>
+<table class="dm" cellpadding="0">
+  <tr>
+    <td class="td-top">
+      <div class="top">
+        <div class="sender">
+          <p class="name">
+                        <span class="logo">
+                            <img src="../resources/images/logo2.jpg" alt="">
+                        </span>
+            <span>로앤법무사 사무소</span>
+          </p>
+          <div>
+            <p class="address">고양시 일산동구 중앙로 1305-30, 216호</p>
+            <ul>
+              <li>
+                <span>TEL :</span>
+                <strong>(대표) 895-4522</strong>
+              </li>
+              <li>
+                <span>FAX :</span>
+                <strong>895-4523</strong>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <span>우)</span>
+                <strong class="post">16972</strong>
+              </li>
+              <li class="number">
+                <span>문서번호 :</span>
+                <strong>7248 <span>[1806]</span></strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="recipient">
+          <p class="address">
+            경기도 용인시 기흥구 보정로 117 (보정동)
+          </p>
+          <p class="company">주식회사 씨에이치산업개발</p>
+          <p class="name">대표이사 <strong>최철규</strong>님 귀하</p>
+          <p class="post">16898</p>
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="td-middle">
+      <div class="middle">
+        <div class="content">
+          <p class="title"><strong>임/기/만/료 안/내/문</strong></p>
+          <div class="recipient">
+            <p class="name"><strong>레드블루 이상훈</strong> 대표님 <span>귀하</span></p>
+            <p class="box">
+              <strong>코로나19 대응</strong>을 위한 <br/>준비서류 <strong>방문수령, 등기우편&middot;온라인<br/>전자신청</strong><span>(공인인증서 사용)</span> 가능합니다.
+            </p>
+          </div>
+
+          <ol>
+            <li>
+              귀사의 무궁한 발전을 기원합니다.
+            </li>
+            <li>
+              당월에 아래와 같이 귀사의 임원임기가 만료되었음을 안내해 드립니다.
+            </li>
+            <li>
+              <strong>임기만료, 대표님의 주소변경</strong>으로 인한 변경등기는 <strong>2주</strong> 이내에 하셔야 하며, 등기를 늦게 할 경우
+              상법상 과태료(<em>최고 500만원까지</em>)가 <em>대표님 개인에게 부과</em>될 수 있습니다.
+              <div class="table">
+                <table>
+                  <thead>
+                  <tr>
+                    <th>직위</th>
+                    <th>성명</th>
+                    <th>만기일자</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <small>※위 정보는 일반에 공개된 법인등기부에 의해 작성된 것이며, 개인정보침해가 전혀 없음을 밝혀드립니다.</small>
+            </li>
+          </ol>
+
+          <div class="notice">
+            <p>▣ 준비서류 (구체적인 준비서류는 달라질 수 있습니다)</p>
+            <ol>
+              <li>① 법인등기부등본 1부, 사업자등록증사본 1부 </li>
+              <li>② 법인인감증명서 1부, 법인인감도장, 법인인감카드, 정관사본 2부, 주주명부 1부</li>
+              <li>③ 위 주주명부에 의거하여 총주식수의 1/3에 달하도록 주주님의 인감증명서 1부, 인감도장</li>
+              <li>④ 임기만료 된 임원님의 인감증명서 2부, 주민등록등(초)본 1부, 인감도장</li>
+              <li>⑤ 대표이사님의 임기가 만료된 경우 이사님 과반수 인감증명서 1부, 인감도장</li>
+            </ol>
+            <ul>
+              <li>※인감증명서, 준비서류는 3개월 이내에 발급된 것이어야 합니다. </li>
+              <li>※위 서류는 전원 연임할 경우입니다. 자세한 안내는 전화를 주시면 바로 안내해 드리겠습니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="td-bottom">
+      <div class="bottom">
+        <div>
+          <p class="name">이론에 능하고 실무에 강한 로앤 www.lawand.co.kr</p>
+          <p class="contact">전문화된 이론과 다양한 실무경험을 겸비한 로앤은 2,000개사 지역 법인과 함께 성장해 오고 있습니다.</p>
+        </div>
+        <p class="desc">기업법무 / 출자전환 / 현물출자 / 가수금증자 / 자기주식취득 / 부동산등기(취득세) <br/> 개인회생&middot;파산 / 채권관리&middot;추심 / 압류&middot;추심 / 성년후견 / 유언(상속)대용신탁
+        </p>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
