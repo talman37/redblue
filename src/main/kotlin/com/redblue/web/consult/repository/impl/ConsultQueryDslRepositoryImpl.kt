@@ -35,21 +35,19 @@ class ConsultQueryDslRepositoryImpl(
 					qc.lawFirmId,
 					qc.companyId,
 					qp.companyName,
-					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
-						.from(qe).where(qe.companyId.eq(qc.companyId)).limit(1), "expiredAt"),
 					qc.consultant,
 					qc.companyClerk,
 					qc.content,
 					qc.scheduledAt,
 					qc.progress,
+					qc.expiredAt,
 					qc.updatedAt,
 					qc.createdAt
 				)
 			)
 			.from(qc)
 			.innerJoin(qp).on(qc.companyId.eq(qp.id))
-			.orderBy(qc.scheduledAt.desc())
-			.orderBy(qc.createdAt.desc())
+			.orderBy(qc.progress.asc(), qc.scheduledAt.desc(), qc.expiredAt.asc(), qc.createdAt.desc())
 
 		predicate.and(qc.lawFirmId.eq(lawFirmId))
 
@@ -85,13 +83,12 @@ class ConsultQueryDslRepositoryImpl(
 					qc.lawFirmId,
 					qc.companyId,
 					qp.companyName,
-					ExpressionUtils.`as`(JPAExpressions.select(qe.expiredAt.min())
-						.from(qe).where(qe.companyId.eq(qc.companyId)).limit(1), "expiredAt"),
 					qc.consultant,
 					qc.companyClerk,
 					qc.content,
 					qc.scheduledAt,
 					qc.progress,
+					qc.expiredAt,
 					qc.updatedAt,
 					qc.createdAt
 				)

@@ -23,7 +23,8 @@ data class Consult(
 	@Transient
 	val companyName: String? = null,
 
-	@Transient
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	val expiredAt: Date? = null,
 
 	val content: String,
@@ -33,7 +34,7 @@ data class Consult(
 	val scheduledAt: Date? = null,
 
 	@Enumerated(EnumType.STRING)
-	val progress: Progress,
+	var progress: Progress,
 
 	@Temporal(TemporalType.TIMESTAMP)
 	var createdAt: Date = Date(),

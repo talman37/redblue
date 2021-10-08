@@ -2,6 +2,7 @@ package com.redblue.web.consult
 
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.consult.model.Consult
+import com.redblue.web.consult.model.ProgressUpdateRequestDto
 import com.redblue.web.consult.service.ConsultService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.http.HttpStatus
@@ -30,6 +31,16 @@ class ConsultRestController(
 		@PathVariable("id") id: String
 	): ResponseEntity<Void> {
 		consultService.delete(id)
+		return ResponseEntity(HttpStatus.OK)
+	}
+
+	@PatchMapping("/{id}/progress")
+	fun updateProgress(
+		@PathVariable("id") id: String,
+		@RequestBody requestDto: ProgressUpdateRequestDto,
+		@CurrentUser user: LawFirmUser
+	): ResponseEntity<Void> {
+		consultService.updateProgress(id, requestDto.progress)
 		return ResponseEntity(HttpStatus.OK)
 	}
 

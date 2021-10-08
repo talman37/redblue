@@ -154,7 +154,7 @@
                             <col>
                             <col style="width: 80px">
                             <col style="width: 80px">
-                            <col style="width: 80px">
+                            <col style="width: 100px">
                         </colgroup>
                         <thead class="thead-light">
                         <tr>
@@ -179,31 +179,14 @@
                                 <div class="ellipsis" th:text="${#dates.format(consult.scheduledAt, 'yyyy-MM-dd')}" th:title="${#dates.format(consult.scheduledAt, 'yyyy-MM-dd')}"></div>
                             </td>
                             <td th:text="${consult.expiredAt}"></td>
-                            <td th:switch="${consult.progress}">
-<!--                                <select class="form-control form-select form-select-sm" name="" id="">-->
-<!--                                    <option value="취소">취소</option>-->
-<!--                                    <option value="진행중">진행중</option>-->
-<!--                                    <option value="완료">완료</option>-->
-<!--                                    <option value="보류">보류</option>-->
-<!--                                </select>-->
-
-                                <span th:case="${consult.progress.CANCEL}"
-                                      class="badge badge-pill badge-danger">취소</span>
-                                <span th:case="${consult.progress.ONGOING}"
-                                      class="badge badge-pill badge-primary">진행중</span>
-                                <span th:case="${consult.progress.COMPLETE}"
-                                      class="badge badge-pill badge-success">완료</span>
-                                <span th:case="${consult.progress.HOLD}"
-                                      class="badge badge-pill badge-warning">보류</span>
+                            <td>
+                                <select class="form-control form-select form-select-sm" name="progress" th:attr="data-id=${consult.id}">
+                                    <option value="ONGOING" th:selected="${consult.progress == consult.progress.ONGOING}">진행중</option>
+                                    <option value="COMPLETE" th:selected="${consult.progress == consult.progress.COMPLETE}">완료</option>
+                                    <option value="CANCEL" th:selected="${consult.progress == consult.progress.CANCEL}">취소</option>
+                                    <option value="HOLD" th:selected="${consult.progress == consult.progress.HOLD}">보류</option>
+                                </select>
                             </td>
-<!--                            <td>-->
-<!--                                <select class="form-control form-select form-select-sm">-->
-<!--                                    <option th:value="${consult.progress.CANCEL}">취소</option>-->
-<!--                                    <option th:value="${consult.progress.ONGOING}">진행중</option>-->
-<!--                                    <option th:value="${consult.progress.COMPLETE}">완료</option>-->
-<!--                                    <option th:value="${consult.progress.HOLD}">보류</option>-->
-<!--                                </select>-->
-<!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -265,6 +248,22 @@
             $('#search-btn').on('click', function () {
                 $('#searchForm').submit()
             });
+
+            $('select[name="progress"]').on('change', function(){
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/v1/consults/' + $(this).data('id') + '/progress',
+                    contentType: 'application/json',
+                    data: JSON.stringify({progress:$(this).val()}),
+                    statusCode: {
+                        200: function () {
+                            alert('진행사항이 변경 되었습니다.');
+                        }
+                    }
+                });
+
+            });
+
         });
 
         $('a[name="companyTitle"]').on('click', function () {

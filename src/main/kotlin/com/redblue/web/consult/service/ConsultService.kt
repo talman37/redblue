@@ -17,6 +17,8 @@ interface ConsultService {
 
 	fun update(consult: Consult)
 
-	fun delete(id: String);
+	fun delete(id: String)
+
+	fun updateProgress(id: String, progress: Consult.Progress)
 
 }

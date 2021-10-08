@@ -39,4 +39,12 @@ class ConsultServiceImpl(
 	override fun delete(id: String) {
 		consultRepository.deleteById(id);
 	}
+
+	override fun updateProgress(id: String, progress: Consult.Progress) {
+		val consult = this.detail(id)
+		consult.progress = progress
+		consult.updatedAt = Date()
+		consultRepository.save(consult)
+	}
+
 }

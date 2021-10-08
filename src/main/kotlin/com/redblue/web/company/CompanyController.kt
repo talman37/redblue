@@ -79,19 +79,6 @@ class CompanyController(
 			}
 		}
 
-		if(start != null) {
-			val startCal = Calendar.getInstance()
-			startCal.time = start
-			startCal.add(Calendar.DATE, 1)
-			start = startCal.time
-		}
-		if(end != null) {
-			val cal = Calendar.getInstance()
-			cal.time = end
-			cal.add(Calendar.DATE, 1)
-			end = cal.time
-		}
-
 		val updatedStart = modifiedStartDate?.let {
 			if (it.isEmpty()) {
 				null
