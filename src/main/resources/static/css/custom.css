@@ -31,6 +31,17 @@ textarea.form-control {
   text-overflow: ellipsis;
   overflow: hidden; }
 
+hr.inline {
+  display: inline-block;
+  width: 1px;
+  height: 30px;
+  margin: 0 5px;
+  vertical-align: middle;
+  background-color: rgba(0, 0, 0, 0.125); }
+hr.inline + .form-select {
+  display: inline-block;
+  width: auto; }
+
 /*
 * login
 */
