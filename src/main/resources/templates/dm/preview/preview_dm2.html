@@ -329,31 +329,39 @@
                         <span class="logo">
                             <img src="http://redblue81.ipdisk.co.kr:80/publist/VOL1/static/images/logo2.jpg" alt="">
                         </span>
-            <span th:text="${lawFirm.name}"></span>
+            <span>로앤법무사 사무소</span>
           </p>
           <div>
-            <p class="address" th:text="${lawFirm.address}"></p>
+            <p class="address">고양시 일산동구 중앙로 1305-30, 216호</p>
             <ul>
               <li>
                 <span>TEL :</span>
-                <strong th:text="${tel}"></strong>
+                <strong>(대표) 895-4522</strong>
               </li>
               <li>
                 <span>FAX :</span>
-                <strong th:text="${lawFirm.fax}"></strong>
+                <strong>895-4523</strong>
               </li>
             </ul>
             <ul>
-              <li class="post"  th:utext="${postalCode}"></li>
-              <li class="number" th:utext="${regNum}"></li>
+              <li>
+                <span>우)</span>
+                <strong class="post">16972</strong>
+              </li>
+              <li class="number">
+                <span>등기번호 :</span>
+                <strong>7248 <span>[1806]</span></strong>
+              </li>
             </ul>
           </div>
         </div>
         <div class="recipient">
-          <p class="address" th:text="${exAddress}"></p>
-          <p class="company" th:text="${exCompany}"></p>
-          <p class="name" th:utext="${exName}"></p>
-          <p class="post" th:text="${exPost}"></p>
+          <p class="address">
+            경기도 용인시 기흥구 보정로 117 (보정동)
+          </p>
+          <p class="company">주식회사 씨에이치산업개발</p>
+          <p class="name">대표이사 <strong>최철규</strong>님 귀하</p>
+          <p class="post">16898</p>
         </div>
       </div>
     </td>
@@ -362,33 +370,58 @@
     <td class="td-middle">
       <div class="middle">
         <div class="content">
-          <p class="title" th:utext="${conTitle}"></p>
+          <p class="title"><strong>임/기/만/료 안/내/문</strong></p>
           <div class="recipient">
-            <p class="name" th:utext="${conTitleName}"></p>
-            <p class="box" th:utext="${box}"></p>
+            <p class="name"><strong>레드블루 이상훈</strong> 대표님 <span>귀하</span></p>
+            <p class="box">
+              <strong>코로나19 대응</strong>을 위한 <br/>준비서류 <strong>방문수령, 등기우편&middot;온라인<br/>전자신청</strong><span>(공인인증서 사용)</span> 가능합니다.
+            </p>
           </div>
 
           <ol>
-            <li th:text="${content0}"></li>
-            <li th:text="${content1}"></li>
             <li>
-              <th:block th:utext="${warning}"></th:block>
+              귀사의 무궁한 발전을 기원합니다.
+            </li>
+            <li>
+              당월에 아래와 같이 귀사의 임원임기가 만료되었음을 안내해 드립니다.
+            </li>
+            <li>
+              <strong>임기만료, 대표님의 주소변경</strong>으로 인한 변경등기는 <strong>2주</strong> 이내에 하셔야 하며, 등기를 늦게 할 경우
+              상법상 과태료(<em>최고 500만원까지</em>)가 <em>대표님 개인에게 부과</em>될 수 있습니다.
               <div class="table">
                 <table>
                   <thead>
                   <tr>
-                    <th th:text="${tableTitle1}"></th>
-                    <th th:text="${tableTitle2}"></th>
-                    <th th:text="${tableTitle3}"></th>
+                    <th>직위</th>
+                    <th>성명</th>
+                    <th>만기일자</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr th:each="executive, index: ${executives}">
-                    <th:block th:if="${executive.expiredAt != null && index.index < 4}">
-                      <td th:text="${executive.position}"></td>
-                      <td th:text="${executive.name}"></td>
-                      <td th:text="${#dates.format(executive.expiredAt, 'yyyy년 MM월 dd일')}"></td>
-                    </th:block>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
+                  </tr>
+                  <tr>
+                    <td>대표이사</td>
+                    <td>최철규</td>
+                    <td>2018년 08년 08일</td>
                   </tr>
                   </tbody>
                 </table>

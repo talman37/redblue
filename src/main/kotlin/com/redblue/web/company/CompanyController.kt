@@ -7,6 +7,7 @@ import com.redblue.web.company.model.Stock
 import com.redblue.web.company.model.dto.CompanyListDto
 import com.redblue.web.company.service.CompanyService
 import com.redblue.web.consult.service.ConsultService
+import com.redblue.web.dm.service.DmService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import net.bytebuddy.utility.RandomString
 import org.springframework.data.domain.Pageable
@@ -26,7 +27,8 @@ import java.util.*
 @RequestMapping("/company")
 class CompanyController(
 	private val companyService: CompanyService,
-	private val consultService: ConsultService
+	private val consultService: ConsultService,
+	private val dmService: DmService
 ) {
 
 	@GetMapping
@@ -46,6 +48,7 @@ class CompanyController(
 
 		model.addAttribute("totalCount", companyService.totalCount(user.lawFirmId))
 		model.addAttribute("manageCount", companyService.manageCount(user.lawFirmId))
+		model.addAttribute("dmList", dmService.findByLawFirmId(user.lawFirmId))
 
 		val companyState: MutableList<String> = state ?: mutableListOf()
 

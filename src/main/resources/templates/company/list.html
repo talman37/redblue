@@ -296,8 +296,10 @@
                             <button type="button" class="btn btn-dark btn-sm" id="excel-down-btn">엑셀 다운</button>
                             <button type="button" class="btn btn-dark btn-sm" id="pdf-down-btn">PDF 다운</button>
                             <hr class="inline"/>
-                            <select class="form-control form-select form-select-sm" name="" id="">
-                                <option th:selected="" th:value="ALL">DM 선택</option>
+                            <select class="form-control form-select form-select-sm" name="dm_template" id="dm_template">
+                                <th:block th:each="dm: ${dmList}">
+                                    <option th:value="${dm.id}" th:text="${dm.name}"></option>
+                                </th:block>
                             </select>
                         </div>
                     </div>
@@ -436,6 +438,7 @@
             });
 
             $('#pdf-down-btn').on('click', function () {
+                let templateId = $('#dm_template').val();
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
                 let endDate = $('#endDate').val();
@@ -453,7 +456,7 @@
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange+ '&templateId=' + templateId;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 

@@ -360,6 +360,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="executive, index: ${executives}">
+
                                         <th:block th:if="${executive.expiredAt != null && index.index < 4}">
                                             <td th:text="${executive.position}"></td>
                                             <td th:text="${executive.name}"></td>
