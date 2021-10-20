@@ -23,6 +23,11 @@
             src: url('../../static/font/NanumBarunGothic.ttf');
         }
 
+        @font-face {
+            font-family: Hahmlet;
+            src: url('../../static/font/Hahmlet-VariableFont_wght.ttf');
+        }
+
         @page {
             size: A4;
             margin: 0;
@@ -48,21 +53,22 @@
         }
 
         body {
-            font-family: "NanumBarunGothic"
+            /* font-family: "NanumBarunGothic" */
         }
 
         .dm {
+            position: relative;
             width: 210mm;
             height: 297mm;
             margin: 0;
             padding: 0;
             table-layout: fixed;
-            font-size: 16px;
+            font-size: 14px;
+            line-height: 1.4;
             word-break: keep-all;
             border-spacing: 0;
             font-family: "NanumMyeongjo";
         }
-
         .dm:before,
         .dm:after {
             content: '';
@@ -105,6 +111,10 @@
             padding: 0;
             list-style: none;
         }
+        .dm strong {
+            font-weight: bold;
+            font-weight: 700;
+        }
 
         .dm .top {
             display: -webkit-box;
@@ -121,7 +131,7 @@
 
         .dm .top .sender {
             text-align: left;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             font-size: 13px;
         }
 
@@ -161,15 +171,18 @@
 
         .dm .top .recipient {
             text-align: right;
-            font-size: 20px;
+            font-size: 16px;
         }
 
         .dm .top .recipient .address,
         .dm .top .recipient .company {
             text-align: left;
-            width: 60%;
+            max-width: 63%;
             margin-left: auto;
             margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .dm .top .recipient .company {
             font-size: 18px;
         }
         .dm .top .recipient .post {
@@ -181,38 +194,49 @@
         }
 
         .dm .middle {
-            padding: 50px 100px;
+            padding: 20px 100px;
             position: relative;
             z-index: 1;
+            font-family: "gulim";
         }
 
         .dm .middle .content > ol {
             counter-reset: list;
-            font-family: "NanumBarunGothic";
         }
 
         .dm .middle .content > ol > li {
+            position: relative;
             counter-increment: list;
-            margin-top: 5px;
+            margin-top: 10px;
+            padding-left: 15px;
         }
 
         .dm .middle .content > ol > li:before {
             content: counters(list, "") ".";
+            position: absolute;
+            left: 0;
         }
 
         .dm .middle .content > ol > li > div {
-            padding-left: 20px;
+            /* padding-left: 20px; */
         }
 
         .dm .middle .content > ol > li > div p {
             margin-top: 5px;
             word-break: break-word;
+            line-height: 1.5;
         }
+
+        .dm .middle em {
+            text-decoration: underline;
+            font-style: normal;
+        }
+
 
         .dm .middle .table .line {
             position: relative;
             text-align: center;
-            margin: 20px 0 5px;
+            margin: 10px 0 0px;
         }
 
         .dm .middle .table .line:before {
@@ -236,10 +260,9 @@
 
         .dm .middle .table table {
             width: 100%;
-            margin: 20px 0;
+            margin: 10px 0 20px;
             table-layout: fixed;
             border: 1px solid #999;
-            font-family: "NanumMyeongjo";
             border-spacing: 0;
             border-collapse: collapse;
         }
@@ -250,7 +273,8 @@
             border-color: #999;
             text-align: center;
             border-left: 1px solid #999;
-            padding: 5px 10px;
+            padding: 3px 10px;
+            font-size: 13px;
         }
         .dm .middle .table td {
             border-top: 1px solid #999;
@@ -277,14 +301,23 @@
             left: 0;
         }
 
+        .dm .middle .font-other {
+            font-family: Hahmlet;
+        }
+
+        .dm .middle .vertical-top {
+            margin-top: -1px;
+            display: inline-block;
+        }
         .dm .bottom {
             text-align: center;
-            padding: 30px 30px 0;
+            padding: 30px 30px 30px;
         }
 
         .dm .bottom .name {
             font-weight: bold;
             font-size: 22px;
+            letter-spacing: 10px;
         }
 
         .dm .bottom .contact {
@@ -295,9 +328,8 @@
             margin-top: 15px;
             font-size: 14px;
             word-break: break-word;
-            font-family: "NanumBarunGothic";
+            font-family: "gulim";
         }
-
 
     </style>
 </head>
@@ -380,6 +412,9 @@
                                     </li>
                                 </ol>
                             </div>
+                        </li>
+                        <li>
+                            <strong class="vertical-top"><span class="font-other">법인등기사항증명서(법인등기부등본)와 주주명부를 미리 이메일이나 팩스로 보내고 전화 주시면, 보다 신속하고 원활한 상담이 가능합니다.</span>【 담당자 이메일 : dkdltm2468@naver.com 】</strong>
                         </li>
                     </ol>
                 </div>
