@@ -12,4 +12,6 @@ interface DmService {
 
 	fun saveHistory(dmHistories: List<DmHistory>)
 
+	fun details(id: Int): Dm
+
 }

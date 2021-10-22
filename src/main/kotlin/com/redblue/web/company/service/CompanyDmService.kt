@@ -41,11 +41,19 @@ class CompanyDmService(
 			val renderer = ITextRenderer()
 			renderer.fontResolver.addFont("static/font/NanumMyeongjo-Regular.ttf",
 				BaseFont.IDENTITY_H,
-				BaseFont.EMBEDDED
+				BaseFont.NOT_EMBEDDED
 			)
 			renderer.fontResolver.addFont("static/font/NanumBarunGothic.ttf",
 				BaseFont.IDENTITY_H,
-				BaseFont.EMBEDDED
+				BaseFont.NOT_EMBEDDED
+			)
+			renderer.fontResolver.addFont("static/font/EastSeaDokdo-Regular.ttf",
+				BaseFont.IDENTITY_H,
+				BaseFont.NOT_EMBEDDED
+			)
+			renderer.fontResolver.addFont("static/font/Hahmlet-VariableFont_wght.ttf",
+				BaseFont.IDENTITY_H,
+				BaseFont.NOT_EMBEDDED
 			)
 			val executives = company.executives?.filter {
 				it.expiredAt != null
@@ -131,7 +139,10 @@ class CompanyDmService(
 			}
 		}
 		templateEngine.clearTemplateCache()
-		return templateEngine.process("templates/dm/dm", context)
+
+		val dm = dmService.details(templateId);
+
+		return templateEngine.process(dm.resourcePath, context)
 	}
 
 }

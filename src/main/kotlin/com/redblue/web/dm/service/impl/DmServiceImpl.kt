@@ -7,6 +7,7 @@ import com.redblue.web.dm.model.DmHistory
 import com.redblue.web.dm.repository.DmHistoryRepository
 import com.redblue.web.dm.repository.DmRepository
 import com.redblue.web.dm.service.DmService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -35,5 +36,9 @@ class DmServiceImpl(
 
 	override fun saveHistory(dmHistories: List<DmHistory>) {
 		historyRepo.saveAll(dmHistories)
+	}
+
+	override fun details(id: Int): Dm {
+		return dmRepo.findById(id).get()
 	}
 }
