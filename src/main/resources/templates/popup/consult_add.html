@@ -41,6 +41,11 @@
                             <option value="CANCEL">취소</option>
                         </select>
                     </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="companyClerk">임기만료일</label>
+                        <input  th:if="${expiredAt == ''}"type="text" class="form-control" name="expiredAt">
+                        <input  th:unless="${expiredAt == ''}"type="text" class="form-control" name="expiredAt" th:value="${#dates.format(expiredAt, 'yyyy-MM-dd')}">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">

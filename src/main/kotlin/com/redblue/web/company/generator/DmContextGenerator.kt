@@ -76,6 +76,7 @@ class DmContextGenerator {
 			this.setVariable("etcContent0", "법정기간(2주)내에 임원변경등기를 하지 않으면 500만원 이하의 과태료가 부과될 수 있음을 각별히 유의하시기 바랍니다.")
 			this.setVariable("etcContent1", "위 정보는 일반에게 공개되는 법인등기부에 의해 확인된 사실을 기초로 작성된 것이므로, 개인정보침해는 전혀 없음을 밝혀 드립니다.")
 			this.setVariable("etcContent2", "대표이사(1인 이사인 경우는 이사)의 경우는 그 주소가 변경된 경우에도 2주이내에 변경등기하셔야 과태료부과를 피하실 수 있음을 특별히 기억하시기 바랍니다.")
+			this.setVariable("content3", "<span class=\"font-other\">법인등기사항증명서(법인등기부등본)와 주주명부를 미리 이메일이나 팩스로 보내고 전화 주시면, 보다 신속하고 원활한 상담이 가능합니다.</span>( 담당자 이메일 : dkdltm2468@naver.com )")
 			this.setVariable("desc", "\"법인등기 이외에도 귀사의 채권채무문제, 가압류 가처분 및 부동산취득 등 각종 법률문제에 대해서도 문의하시면 정성과 책임을 다해 상담하여 드리겠습니다.\"")
 		}
 	}

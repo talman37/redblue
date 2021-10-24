@@ -108,6 +108,8 @@ class CompanyQueryDslRepositoryImpl(
 			predicate.and(qe.expiredAt.between(it, endDate))
 			if(StringUtils.hasText(positionTarget)) {
 				predicate.and(qe.position.eq("감사"))
+			} else {
+				predicate.and(qe.position.ne("감사"))
 			}
 		}
 

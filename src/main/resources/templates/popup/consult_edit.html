@@ -44,6 +44,10 @@
                             <option th:value="CANCEL">취소</option>
                         </select>
                     </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="expiredAt">임기만료일</label>
+                        <input type="text" class="form-control" id="expiredAt" name="expiredAt" th:value="${consult.expiredAt}">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">

@@ -12,6 +12,7 @@ import com.redblue.web.company.model.Executive
 import com.redblue.web.dm.model.DmHistory
 import com.redblue.web.dm.service.DmService
 import com.redblue.web.lawfirm.model.LawFirmUser
+import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils
@@ -39,26 +40,30 @@ class CompanyDmService(
 		for (company in companies) {
 			val outputStream = ByteArrayOutputStream()
 			val renderer = ITextRenderer()
-			renderer.fontResolver.addFont("static/font/NanumMyeongjo-Regular.ttf",
-				BaseFont.IDENTITY_H,
-				BaseFont.NOT_EMBEDDED
-			)
-			renderer.fontResolver.addFont("static/font/NanumBarunGothic.ttf",
-				BaseFont.IDENTITY_H,
-				BaseFont.NOT_EMBEDDED
-			)
-			renderer.fontResolver.addFont("static/font/EastSeaDokdo-Regular.ttf",
-				BaseFont.IDENTITY_H,
-				BaseFont.NOT_EMBEDDED
-			)
-			renderer.fontResolver.addFont("static/font/Hahmlet-VariableFont_wght.ttf",
-				BaseFont.IDENTITY_H,
-				BaseFont.NOT_EMBEDDED
-			)
 			val executives = company.executives?.filter {
 				it.expiredAt != null
 			}
 			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user, templateId))
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumMyeongjo-Regular.ttf").url.toString(),
+				BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED
+			)
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumBarunGothic.ttf").url.toString(),
+				BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED
+			)
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/EastSeaDokdo-Regular.ttf").url.toString(),
+				BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED
+			)
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/Hahmlet-VariableFont_wght.ttf").url.toString(),
+				BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED
+			)
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/gulim.ttf").url.toString(),
+				BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED
+			)
 			renderer.layout()
 			renderer.createPDF(outputStream)
 			outputStream.close()

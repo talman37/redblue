@@ -224,6 +224,10 @@ class CompanyController(
 		model.addAttribute("companyId", id)
 		model.addAttribute("consultant", user.name)
 		model.addAttribute("lawFirmId", user.lawFirmId)
+		val executive = companyService.findExecutivesByCompanyId(id)
+			.first()
+		model.addAttribute("expiredAt", executive.expiredAt ?: "")
+
 		return "/popup/consult_add"
 	}
 
