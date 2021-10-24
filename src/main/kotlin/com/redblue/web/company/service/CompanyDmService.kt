@@ -13,17 +13,14 @@ import com.redblue.web.dm.model.DmHistory
 import com.redblue.web.dm.service.DmService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.core.io.ClassPathResource
-import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils
 import org.thymeleaf.TemplateEngine
-import org.thymeleaf.context.Context
 import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.xhtmlrenderer.pdf.ITextRenderer
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
-import java.util.*
 
 
 @Service
@@ -44,7 +41,7 @@ class CompanyDmService(
 				it.expiredAt != null
 			}
 			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user, templateId))
-			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumMyeongjo-Regular.ttf").url.toString(),
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumMyeongjo.ttf").url.toString(),
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
 			)
@@ -52,11 +49,11 @@ class CompanyDmService(
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
 			)
-			renderer.fontResolver.addFont(ClassPathResource("/static/font/EastSeaDokdo-Regular.ttf").url.toString(),
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/EastSeaDokdo.ttf").url.toString(),
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
 			)
-			renderer.fontResolver.addFont(ClassPathResource("/static/font/Hahmlet-VariableFont_wght.ttf").url.toString(),
+			renderer.fontResolver.addFont(ClassPathResource("/static/font/Hahmlet.ttf").url.toString(),
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
 			)

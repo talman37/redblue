@@ -15,17 +15,14 @@
 
         @font-face {
             font-family: NanumMyeongjo;
-            src: url('../../static/font/NanumMyeongjo-Regular.ttf');
         }
 
         @font-face {
             font-family: NanumBarunGothic;
-            src: url('../../static/font/NanumBarunGothic.ttf');
         }
 
         @font-face {
             font-family: Hahmlet;
-            src: url('../../static/font/Hahmlet-VariableFont_wght.ttf');
         }
 
         @font-face {
@@ -348,7 +345,7 @@
                         <span class="logo">
                             <img src="http://redblue81.ipdisk.co.kr:80/publist/VOL1/static/images/logo.jpg" alt=""/>
                         </span>
-                        <span th:text="${lawFirm.name}">법무사이상훈사무소</span>
+                        <span th:text="${lawFirm.name}"></span>
                     </p>
                     <p class="address" th:text="${lawFirm.address}"></p>
                     <ul>
@@ -379,7 +376,7 @@
         <td class="td-middle">
             <div class="middle">
                 <div class="content">
-                    <p class="title">제목 : <strong>임기만료 안내문</strong></p>
+                    <p class="title" th:utext="${conTitle}"></p>
                     <ol>
                         <li th:text="${content0}"></li>
                         <li>
@@ -397,10 +394,10 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="executive, index: ${executives}">
-                                        <th:block th:if="${executive.expiredAt != null && index.index < 4}">
+                                        <th:block th:if="${executive.expiredAt != null}">
                                             <td th:text="${executive.position}"></td>
                                             <td th:text="${executive.name}"></td>
-                                            <td th:text="${#dates.format(executive.expiredAt, 'yyyy년 MM월 dd일')}"></td>
+                                            <td th:text="${executive.expiredAtString}"></td>
                                         </th:block>
                                     </tr>
                                     </tbody>

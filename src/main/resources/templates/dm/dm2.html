@@ -15,17 +15,14 @@
 
     @font-face {
       font-family: NanumMyeongjo;
-      src: url('../../static/font/NanumMyeongjo-Regular.ttf');
     }
 
     @font-face {
       font-family: NanumBarunGothic;
-      src: url('../../static/font/NanumBarunGothic.ttf');
     }
 
     @font-face {
       font-family: EastSeaDokdo;
-      src: url('../../static/font/EastSeaDokdo-Regular.ttf');
     }
 
     @page {
@@ -387,31 +384,31 @@
                   </thead>
                   <tbody>
                   <tr th:each="executive, index: ${executives}">
-                    <th:block th:if="${executive.expiredAt != null && index.index < 4}">
+                    <th:block th:if="${executive.expiredAt != null}">
                       <td th:text="${executive.position}"></td>
                       <td th:text="${executive.name}"></td>
-                      <td th:text="${#dates.format(executive.expiredAt, 'yyyy년 MM월 dd일')}"></td>
+                      <td th:text="${executive.expiredAtString}"></td>
                     </th:block>
                   </tr>
                   </tbody>
                 </table>
               </div>
-              <small>※위 정보는 일반에 공개된 법인등기부에 의해 작성된 것이며, 개인정보침해가 전혀 없음을 밝혀드립니다.</small>
+              <small th:text="${content2}"></small>
             </li>
           </ol>
 
           <div class="notice">
-            <p>▣ 준비서류 (구체적인 준비서류는 달라질 수 있습니다)</p>
+            <p th:text="${etc}">▣ 준비서류 (구체적인 준비서류는 달라질 수 있습니다)</p>
             <ol>
-              <li>① 법인등기부등본 1부, 사업자등록증사본 1부 </li>
-              <li>② 법인인감증명서 1부, 법인인감도장, 법인인감카드, 정관사본 2부, 주주명부 1부</li>
-              <li>③ 위 주주명부에 의거하여 총주식수의 1/3에 달하도록 주주님의 인감증명서 1부, 인감도장</li>
-              <li>④ 임기만료 된 임원님의 인감증명서 2부, 주민등록등(초)본 1부, 인감도장</li>
-              <li>⑤ 대표이사님의 임기가 만료된 경우 이사님 과반수 인감증명서 1부, 인감도장</li>
+              <li th:text="${etc1}"></li>
+              <li th:text="${etc2}"></li>
+              <li th:text="${etc3}"></li>
+              <li th:text="${etc4}"></li>
+              <li th:text="${etc5}"></li>
             </ol>
             <ul>
-              <li>※인감증명서, 준비서류는 3개월 이내에 발급된 것이어야 합니다. </li>
-              <li>※위 서류는 전원 연임할 경우입니다. 자세한 안내는 전화를 주시면 바로 안내해 드리겠습니다.</li>
+              <li th:text="${etc6}"></li>
+              <li th:text="${etc7}"></li>
             </ul>
           </div>
         </div>
@@ -422,11 +419,10 @@
     <td class="td-bottom">
       <div class="bottom">
         <div>
-          <p class="name">이론에 능하고 실무에 강한 로앤 www.lawand.co.kr</p>
-          <p class="contact">전문화된 이론과 다양한 실무경험을 겸비한 로앤은 2,000개사 지역 법인과 함께 성장해 오고 있습니다.</p>
+          <p class="name" th:text="${bottom1}"></p>
+          <p class="contact" th:text="${bottom2}"></p>
         </div>
-        <p class="desc">기업법무 / 출자전환 / 현물출자 / 가수금증자 / 자기주식취득 / 부동산등기(취득세) <br/> 개인회생&middot;파산 / 채권관리&middot;추심 / 압류&middot;추심 / 성년후견 / 유언(상속)대용신탁
-        </p>
+        <p class="desc" th:utext="${bottom3}"></p>
       </div>
     </td>
   </tr>

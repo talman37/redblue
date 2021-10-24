@@ -41,6 +41,9 @@ data class Executive(
 	@Temporal(TemporalType.DATE)
 	val expiredAt: Date? = null,
 
+	@Transient
+	var expiredAtString: String? = null,
+
 	val stockRatio: Double? = 0.0,
 
 	val stockCount: Int? = 0,
