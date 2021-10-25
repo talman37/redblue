@@ -26,7 +26,7 @@
         }
 
         @font-face {
-            font-family: gulim;
+            /*font-family: gulim;*/
         }
 
         @page {
@@ -70,8 +70,7 @@
             border-spacing: 0;
             font-family: "NanumMyeongjo";
         }
-        .dm:before,
-        .dm:after {
+        .dm:before{
             content: '';
             position: absolute;
             left: 0;
@@ -80,11 +79,7 @@
         }
 
         .dm:before {
-            top: 9.9cm;
-        }
-
-        .dm:after {
-            top: 19.8cm;
+            top: 10.1cm;
         }
 
         .dm .td-top {
@@ -181,8 +176,11 @@
             width: 63%;
             max-width: 63%;
             margin-left: auto;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-size: 16px;
+        }
+        .dm .top .recipient .address {
+            height: 44px;
         }
         .dm .top .recipient .company {
             font-size: 18px;
@@ -196,7 +194,7 @@
         }
 
         .dm .middle {
-            padding: 20px 100px;
+            padding: 20px 100px 10px;
             position: relative;
             z-index: 1;
             /*font-family: gulim;*/
@@ -313,7 +311,7 @@
         }
         .dm .bottom {
             text-align: center;
-            padding: 30px 30px 30px;
+            padding: 0px 30px 30px;
         }
 
         .dm .bottom .name {
