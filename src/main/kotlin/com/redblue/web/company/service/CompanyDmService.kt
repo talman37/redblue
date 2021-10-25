@@ -21,6 +21,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.xhtmlrenderer.pdf.ITextRenderer
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 @Service
@@ -30,7 +31,7 @@ class CompanyDmService(
 	private val contextGenerator: DmContextGenerator
 ) {
 
-	fun generate(companies: List<Company>, user: LawFirmUser, templateId: Int): ByteArrayInputStream {
+	fun generate(companies: List<Company>, user: LawFirmUser, templateId: Int, startDate: Date?, endDate: Date?): ByteArrayInputStream {
 
 		val readers = mutableListOf<PdfReader>()
 		val histories = mutableListOf<DmHistory>()
@@ -38,9 +39,12 @@ class CompanyDmService(
 			val outputStream = ByteArrayOutputStream()
 			val renderer = ITextRenderer()
 			val executives = company.executives?.filter {
-				it.expiredAt != null
+				it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= endDate)
 			}
-			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user, templateId))
+			val master = company.executives?.filter {
+				it.expiredAt != null && (it.position.equals("대표이사") || it.position.equals("사내이사"))
+			}
+			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user, templateId, master))
 			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumMyeongjo.ttf").url.toString(),
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
@@ -126,7 +130,7 @@ class CompanyDmService(
 		return ByteArrayInputStream(out.toByteArray())
 	}
 
-	private fun parseThymeleafTemplate(company: Company, executives: List<Executive>?, user: LawFirmUser, templateId: Int): String {
+	private fun parseThymeleafTemplate(company: Company, executives: List<Executive>?, user: LawFirmUser, templateId: Int, master: List<Executive>?): String {
 		val templateResolver = ClassLoaderTemplateResolver()
 		templateResolver.suffix = ".html"
 		templateResolver.templateMode = TemplateMode.HTML
@@ -135,9 +139,9 @@ class CompanyDmService(
 		templateEngine.setTemplateResolver(templateResolver)
 		val context = templateId.let {
 			if(it == 2) {
-				contextGenerator.lawAndOfficeExecutiveExpireDmGenerate(company, executives, user)
+				contextGenerator.lawAndOfficeExecutiveExpireDmGenerate(company, executives, user, master)
 			} else {
-				contextGenerator.defaultExecutiveExpireDmGenerate(company, executives, user)
+				contextGenerator.defaultExecutiveExpireDmGenerate(company, executives, user, master)
 			}
 		}
 		templateEngine.clearTemplateCache()

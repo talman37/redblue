@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 
 @Component
 class DmContextGenerator {
-	fun defaultExecutiveExpireDmGenerate(company: Company, executives: List<Executive>?, user: LawFirmUser): Context {
+	fun defaultExecutiveExpireDmGenerate(company: Company, executives: List<Executive>?, user: LawFirmUser, master: List<Executive>?): Context {
 		val address = if (StringUtils.hasText(company.deliveryPlace)) {
 			company.deliveryPlace
 		} else {
@@ -39,15 +39,21 @@ class DmContextGenerator {
 				}
 			}
 
-			var masterInfo = executives?.filter {
+			var masterInfo = master?.filter {
 				it.position!!.contains("대표이사")
 			}
 
 			if (masterInfo != null) {
 				if (masterInfo.isEmpty()) {
-					masterInfo = executives?.filter {
+					masterInfo = master?.filter {
 						it.position!!.contains("사내이사")
 					}
+				}
+			}
+
+			if (masterInfo != null) {
+				if (masterInfo.isEmpty()) {
+					masterInfo = master
 				}
 			}
 
@@ -89,7 +95,7 @@ class DmContextGenerator {
 	}
 
 
-	fun lawAndOfficeExecutiveExpireDmGenerate(company: Company, executives: List<Executive>?, user: LawFirmUser): Context {
+	fun lawAndOfficeExecutiveExpireDmGenerate(company: Company, executives: List<Executive>?, user: LawFirmUser, master: List<Executive>?): Context {
 		val address = if (StringUtils.hasText(company.deliveryPlace)) {
 			company.deliveryPlace
 		} else {
@@ -118,15 +124,21 @@ class DmContextGenerator {
 				}
 			}
 
-			var masterInfo = executives?.filter {
+			var masterInfo = master?.filter {
 				it.position!!.contains("대표이사")
 			}
 
 			if (masterInfo != null) {
 				if (masterInfo.isEmpty()) {
-					masterInfo = executives?.filter {
+					masterInfo = master?.filter {
 						it.position!!.contains("사내이사")
 					}
+				}
+			}
+
+			if (masterInfo != null) {
+				if (masterInfo.isEmpty()) {
+					masterInfo = master
 				}
 			}
 
