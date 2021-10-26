@@ -2,6 +2,7 @@ package com.redblue.web.admin.office
 
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.admin.office.model.dto.LawFirmCreateRequestDto
+import com.redblue.web.admin.office.model.dto.LawFirmUpdateRequestDto
 import com.redblue.web.admin.office.service.OfficeService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.stereotype.Controller
@@ -26,13 +27,19 @@ class OfficeController(
 		return "/admin/office/detail"
 	}
 
+	@PostMapping("/{id}")
+	fun update(@CurrentUser user: LawFirmUser, @PathVariable("id") id: String, @ModelAttribute request: LawFirmUpdateRequestDto): String {
+		officeService.update(request)
+		return "redirect: /admin/office"
+	}
+
 	@GetMapping("/form")
 	fun form(@CurrentUser user: LawFirmUser): String {
 		return "/admin/office/form"
 	}
 
 	@PostMapping("/form")
-	fun save(@RequestBody request: LawFirmCreateRequestDto): String {
+	fun save(@ModelAttribute request: LawFirmCreateRequestDto): String {
 		officeService.save(request.to())
 		return "redirect: /admin/office"
 	}

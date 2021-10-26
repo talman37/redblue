@@ -108,7 +108,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="lawFirm: ${lawFirms}">
-                            <td><a href="" th:text="${lawFirm.name}"></a></td>
+                            <td><a th:href="'/admin/office/' + ${lawFirm.id}" th:text="${lawFirm.name}"></a></td>
                             <td th:text="${lawFirm.representative}"></td>
                             <td th:text="${lawFirm.address}"></td>
                             <td th:text="${lawFirm.tel}"></td>

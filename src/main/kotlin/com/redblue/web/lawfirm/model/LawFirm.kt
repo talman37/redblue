@@ -10,23 +10,23 @@ data class LawFirm(
 	@Id
 	val id: String,
 
-	val name: String,
+	var name: String,
 
-	val address: String,
+	var address: String,
 
-	val postalCode: String,
+	var postalCode: String,
 
-	val tel: String,
+	var tel: String,
 
-	val fax: String,
+	var fax: String?,
 
-	val description: String,
+	var description: String?,
 
-	val etc: String,
+	var etc: String?,
 
 	@Temporal(TemporalType.DATE)
 	val createdAt: Date,
 
-	val representative: String
+	var representative: String
 
 )

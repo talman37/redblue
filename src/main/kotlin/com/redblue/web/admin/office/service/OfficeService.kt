@@ -1,5 +1,6 @@
 package com.redblue.web.admin.office.service
 
+import com.redblue.web.admin.office.model.dto.LawFirmUpdateRequestDto
 import com.redblue.web.lawfirm.model.LawFirm
 
 interface OfficeService {
@@ -9,5 +10,7 @@ interface OfficeService {
 	fun save(lawFirm: LawFirm)
 
 	fun details(id: String): LawFirm
+
+	fun update(request: LawFirmUpdateRequestDto)
 
 }
