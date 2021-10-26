@@ -477,5 +477,8 @@ class CompanyServiceImpl(
 		companyRepository.save(updateCompany)
 	}
 
-
+	@Transactional
+	override fun initExecutives(id: String) {
+		executiveRepository.deleteByCompanyId(id)
+	}
 }

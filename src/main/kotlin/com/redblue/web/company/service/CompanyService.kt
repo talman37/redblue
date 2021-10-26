@@ -55,4 +55,6 @@ interface CompanyService {
 
 	fun delete(id: String)
 
+	fun initExecutives(id: String)
+
 }

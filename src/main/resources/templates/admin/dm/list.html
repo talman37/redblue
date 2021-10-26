@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout/main_layout">
+<th:block layout:fragment="content_body">
+    <!-- container -->
+    <div class="container-fluid">
+        <!-- sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사용자 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/users">
+                                    <i class="fas fa-search"></i>
+                                    사용자 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/admin/users/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사용자 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">사무소 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link " href="/admin/office">
+                                    <i class="fas fa-search"></i>
+                                    사무소 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/office/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    사무소 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">법인 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link " href="/admin/company">
+                                    <i class="fas fa-search"></i>
+                                    법인 검색
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/company/form">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    법인 등록
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <p class="sidebar-heading">DM 관리</p>
+                        <ul class="nav flex-column">
+                            <li class="nav-item active">
+                                <a class="nav-link " href="/admin/dm">
+                                    <i class="fas fa-search"></i>
+                                    DM 검색
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- //sidebar -->
+
+        <!-- contents -->
+        <main role="main" class="main">
+            <div class="page-header">
+                <div>
+                    <h1>DM 관리</h1>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>템플릿 이름</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dm: ${dmList}">
+                            <td><a th:href="'/admin/dm/' + ${dm.id}" th:text="${dm.name}"></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+        <!-- //contents -->
+
+    </div>
+    <!-- //container -->
+    <script>
+
+        $(document).ready(function () {
+
+
+        });
+    </script>
+</th:block>
+</html>

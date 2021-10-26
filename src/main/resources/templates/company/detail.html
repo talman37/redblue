@@ -13,7 +13,7 @@
                         <span class="badge badge-danger" th:if="${company.stock.capital >= 1000000000}">
                                 10억
                             </span>
-                        <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions)}">주의</span>
+                        <span class="badge badge-warning" th:if="${not #strings.isEmpty(company.precautions) or term != 3 } ">주의</span>
                     </h1>
                 </div>
                 <div>
@@ -358,6 +358,9 @@
                         <div>
                             <strong>임원</strong>
                             <strong class="text-primary" th:text="${#lists.size(company.executives)}"></strong>
+                            <button type='button' class='btn btn-sm btn-outline-secondary' id="init-executive-btn">
+                                임원 초기화
+                            </button>
                         </div>
                         <div class="form-inline">
                             <span id="executiveUpdatedAt" th:text="|최근 수정일 : ${#dates.format(company.executiveUpdatedAt, 'yyyy-MM-dd')}|"></span>
@@ -1130,6 +1133,26 @@
                 $("input[name$='[inauguratedAt]']").each(function(i, el){
                     expireCalculate(el, i);
                 });
+
+            });
+
+            $('#init-executive-btn').on('click', function(){
+
+                var check = confirm("임원을 초기화하시면 임원 데이터가 전부 삭제되고 현재페이지가 새로고침 됩니다. 초기화 하시겠습니끼?(확인을 누르면 초기화가 진행됩니다.)");
+                if(check) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/v1/companies/' + $('#companyId').val() + '/executives',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        statusCode: {
+                            200: function () {
+                                alert('임원이 초기화 되었습니다.');
+                                document.location.reload();
+                            }
+                        }
+                    });
+                }
 
             });
 

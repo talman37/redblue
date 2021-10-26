@@ -9,7 +9,7 @@
                 <li class="nav-item text-light">
                     <strong sec:authentication="name"></strong> 님이 로그인 하셨습니다.
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item " sec:authorize="hasRole('ADMIN')">
                     <a class="text-light" href="/me">
                         <i class="fas fa-address-card"></i>
                         마이페이지

@@ -20,7 +20,7 @@ class DmContextGenerator {
 			this.setVariable("lawFirm", user.lawFirm)
 			this.setVariable("tel", "(대표), ${user.lawFirm!!.tel}")
 			this.setVariable("postalCode", "<span>우)</span> <strong>${user.lawFirm!!.postalCode}</strong>")
-			this.setVariable("docNum", "<span>문서번호 :</span> <strong>${company.companyNumber1} <span>[${company.companyNumber2}]</span></strong>")
+			this.setVariable("docNum", "<span>문서번호 :</span> <strong>${company.registerNumber}</strong>")
 			this.setVariable("exAddress", address)
 
 			var companyNamePrefix = ""

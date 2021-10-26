@@ -158,6 +158,14 @@ class CompanyRestController(
 		return ResponseEntity(HttpStatus.OK)
 	}
 
+	@DeleteMapping("/{id}/executives")
+	fun initExecutives(
+		@PathVariable("id") id: String
+	): ResponseEntity<Void> {
+		companyService.initExecutives(id)
+		return ResponseEntity(HttpStatus.OK)
+	}
+
 	@GetMapping("/download/corporations.xlsx")
 	fun downloadExcel(
 		@RequestParam(value = "q", required = false) searchValue: String?,

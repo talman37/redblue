@@ -40,6 +40,11 @@ class CompanyQueryDslRepositoryImpl(
 		if(companyState.isNotEmpty()) {
 			predicate.and(qc.companyManageState.`in`(companyState))
 		}
+		if(searchRange == "기타임기법인") {
+			predicate.and(
+				qe.term.ne(3)
+			)
+		}
 
 		q?.let {
 			when (searchRange) {
