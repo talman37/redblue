@@ -10,7 +10,7 @@ data class LawFirmUser(
 	@Id
 	val id: String,
 
-	val lawFirmId: String,
+	var lawFirmId: String,
 
 	val email: String,
 

@@ -3,6 +3,7 @@ package com.redblue.web.admin.user
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.admin.office.service.OfficeService
 import com.redblue.web.admin.user.model.dto.UserCreateRequestDto
+import com.redblue.web.admin.user.model.dto.UserUpdateRequestDto
 import com.redblue.web.admin.user.service.UserService
 import com.redblue.web.lawfirm.model.LawFirmUser
 import org.springframework.security.access.prepost.PreAuthorize
@@ -30,6 +31,7 @@ class UserController(
 	            @PathVariable("id") id: String,
 	         model: Model
 	): String {
+		model.addAttribute("lawFirms", officeService.findAll())
 		model.addAttribute("user", service.detail(id))
 		return "/admin/user/detail"
 	}
@@ -40,9 +42,17 @@ class UserController(
 		return "/admin/user/form"
 	}
 
-	@PostMapping("/form")
-	fun save(@CurrentUser user: LawFirmUser, @RequestBody requestBody: UserCreateRequestDto): String {
-		service.save(requestBody.to())
-		return "redirect: /admin/user/list"
+	@PostMapping("/{id}")
+	fun update(@CurrentUser user: LawFirmUser,
+	           @ModelAttribute requestBody: UserUpdateRequestDto): String {
+		service.update(requestBody)
+		return "redirect:/admin/users"
 	}
+
+	@PostMapping("/form")
+	fun save(@CurrentUser user: LawFirmUser, @ModelAttribute requestBody: UserCreateRequestDto): String {
+		service.save(requestBody.to())
+		return "redirect:/admin/users"
+	}
+
 }
