@@ -64,7 +64,7 @@ class DmContextGenerator {
 			}
 			this.setVariable("exName", "대표이사 <strong>${masterInfo?.get(0)?.name}</strong>님 귀하")
 			this.setVariable("exPost", postalCode)
-			this.setVariable("conTitle", "제목 : <strong>임기만료 안내문</strong>")
+			this.setVariable("conTitle", "[제목 : <strong>임기만료 안내문</strong>]")
 			var content0 = "귀사의 무궁한 발전을 기원합니다."
 			var content1 = "임기만료안내"
 			var content2 = "<div>" +

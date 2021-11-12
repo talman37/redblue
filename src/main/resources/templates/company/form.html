@@ -356,115 +356,110 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-scroll">
-                            <table class="table table-bordered mb-2 table-form">
-                                <colgroup>
-                                    <col style="width: 70px">
-                                    <col style="width: 80px">
-                                    <col style="width: 70px;">
-                                    <col style="width: 120px;">
-                                    <col>
-                                    <col style="width: 60px;">
-                                    <col style="width: 80px;">
-                                    <col style="width: 95px">
-                                    <col style="width: 95px">
-                                    <col style="width: 40px">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>국적</th>
-                                    <th>직위</th>
-                                    <th>성명</th>
-                                    <th>주민등록번호</th>
-                                    <th>주소</th>
-                                    <th>주식비율(%)</th>
-                                    <th>주식수</th>
-                                    <th>취임일자</th>
-                                    <th>임기만료일</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody id="">
-                                <tr id="">
-                                    <td>
-                                        <div class="d-flex flex-column">
-                                            <select class="form-control form-select form-select-sm"
-                                                    th:name="'executives[0][nationality]'" th:onchange="changeCountry(0)">
-                                                <option value="대한민국" selected></option>
-                                                <option value="미합중국">미합중국</option>
-                                                <option value="중화인민공화국">중화인민공화국</option>
-                                                <option value="캐나다">캐나다</option>
-                                                <option value="일본">일본</option>
-                                                <option value="호주">호주</option>
-                                                <option value="홍콩">홍콩</option>
-                                                <option value="영국">영국</option>
-                                                <option value="프랑스">프랑스</option>
-                                                <option value="독일">독일</option>
-                                                <option value="기타">기타</option>
+<!--                        <div class="table-scroll">-->
+<!--                            <table class="table table-bordered mb-2 table-form">-->
+<!--                                <colgroup>-->
+<!--                                    <col style="width: 70px">-->
+<!--                                    <col style="width: 80px">-->
+<!--                                    <col style="width: 70px;">-->
+<!--                                    <col style="width: 120px;">-->
+<!--                                    <col>-->
+<!--                                    <col style="width: 60px;">-->
+<!--                                    <col style="width: 80px;">-->
+<!--                                    <col style="width: 95px">-->
+<!--                                    <col style="width: 95px">-->
+<!--                                    <col style="width: 40px">-->
+<!--                                </colgroup>-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>국적</th>-->
+<!--                                    <th>직위</th>-->
+<!--                                    <th>성명</th>-->
+<!--                                    <th>주민등록번호</th>-->
+<!--                                    <th>주소</th>-->
+<!--                                    <th>주식비율(%)</th>-->
+<!--                                    <th>주식수</th>-->
+<!--                                    <th>취임일자</th>-->
+<!--                                    <th>임기만료일</th>-->
+<!--                                    <th></th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <div class="d-flex flex-column">-->
+<!--                                            <select class="form-control form-select form-select-sm"-->
+<!--                                                    th:name="nationality" th:onchange="changeCountry(0)">-->
+<!--                                                <option value="대한민국" selected></option>-->
+<!--                                                <option value="미합중국">미합중국</option>-->
+<!--                                                <option value="중화인민공화국">중화인민공화국</option>-->
+<!--                                                <option value="캐나다">캐나다</option>-->
+<!--                                                <option value="일본">일본</option>-->
+<!--                                                <option value="호주">호주</option>-->
+<!--                                                <option value="홍콩">홍콩</option>-->
+<!--                                                <option value="영국">영국</option>-->
+<!--                                                <option value="프랑스">프랑스</option>-->
+<!--                                                <option value="독일">독일</option>-->
+<!--                                                <option value="기타">기타</option>-->
 
-                                            </select>
-                                            <input type="text" class="form-control form-control-sm mt-1"  style="display:none" th:readonly="true"
-                                                   th:name="'executives[0][countryValue]'">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <select class="form-control form-select form-select-sm"
-                                                name="executives[0][position]" th:onchange="changePosition(0)">
-                                            <option selected value="사내이사">사내이사</option>
-                                            <option value="감사">감사</option>
-                                            <option value="대표이사">대표이사</option>
-                                            <option value="사외이사">사외이사</option>
-                                            <option value="기타비상무이사">기타비상무이사</option>
-                                            <option value="공동대표이사">공동대표이사</option>
-                                            <option value="이사">이사</option>
-                                            <option value="집행임원">집행임원</option>
-                                            <option value="대표집행임원">대표집행임원</option>
-                                            <option value="감사위원">감사위원</option>
-                                            <option value="주주">주주</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm" name="executives[0][name]" onblur="expireCopy(this, 0)">
-                                    </td>
-                                    <td>
-                                        <input type="hidden" class="form-control form-control-sm"
-                                               name="executives[0][registrationNumber1]">
-                                        <input type="hidden" class="form-control form-control-sm"
-                                               name="executives[0][registrationNumber2]">
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][registrationNumber]">
-                                    </td>
-                                    <td>
-                                    <textarea type="text" class="form-control form-control-sm"
-                                              name="executives[0][address]"></textarea>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][stockRatio]" value="0" onblur="countCalculate(this, 0)">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][stockCount]" value="0" onkeyup="inputNumberFormat(this)" onblur="ratioCalculate(this, 0)">
-                                    </td>
-                                    <td class="input-daterange">
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][inauguratedAt]" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, 0)">
-                                        <input type="hidden" name="executives[0][term]" value = "3"/>
-                                    </td>
-                                    <td class="input-daterange">
-                                        <input type="text" class="form-control form-control-sm"
-                                               name="executives[0][expiredAt]" onkeyup="inputDateFormat(this)">
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
-                                                onClick="remove_executive(0)">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+<!--                                            </select>-->
+<!--                                            <input type="text" class="form-control form-control-sm mt-1"  style="display:none" th:readonly="true"-->
+<!--                                                   th:name="countryValue">-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <select class="form-control form-select form-select-sm"-->
+<!--                                                name="position" th:onchange="changePosition(0)">-->
+<!--                                            <option selected value="사내이사">사내이사</option>-->
+<!--                                            <option value="감사">감사</option>-->
+<!--                                            <option value="대표이사">대표이사</option>-->
+<!--                                            <option value="사외이사">사외이사</option>-->
+<!--                                            <option value="기타비상무이사">기타비상무이사</option>-->
+<!--                                            <option value="공동대표이사">공동대표이사</option>-->
+<!--                                            <option value="이사">이사</option>-->
+<!--                                            <option value="집행임원">집행임원</option>-->
+<!--                                            <option value="대표집행임원">대표집행임원</option>-->
+<!--                                            <option value="감사위원">감사위원</option>-->
+<!--                                            <option value="주주">주주</option>-->
+<!--                                        </select>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <input type="text" class="form-control form-control-sm" name="executives_name" onblur="expireCopy(this, 0)">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <input type="text" class="form-control form-control-sm"-->
+<!--                                               name="executives_registrationNumber">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                    <textarea type="text" class="form-control form-control-sm"-->
+<!--                                              name="executives_address"></textarea>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <input type="text" class="form-control form-control-sm"-->
+<!--                                               name="executives_stockRatio" value="0" onblur="countCalculate(this, 0)">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <input type="text" class="form-control form-control-sm"-->
+<!--                                               name="executives_stockCount" value="0" onkeyup="inputNumberFormat(this)" onblur="ratioCalculate(this, 0)">-->
+<!--                                    </td>-->
+<!--                                    <td class="input-daterange">-->
+<!--                                        <input type="text" class="form-control form-control-sm"-->
+<!--                                               name="executives_inauguratedAt" onkeyup="inputDateFormat(this)" onblur="expireCalculate(this, 0)">-->
+<!--                                    </td>-->
+<!--                                    <td class="input-daterange">-->
+<!--                                        <input type="text" class="form-control form-control-sm"-->
+<!--                                               name="executives_expiredAt" onkeyup="inputDateFormat(this)">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"-->
+<!--                                                onClick="add_executive()">-->
+<!--                                            <i class="fas fa-plus"></i>-->
+<!--                                        </button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
                         <div class="box-status mt-2 mb-2">
                             <div class="item">
                                 <div class="item-header">

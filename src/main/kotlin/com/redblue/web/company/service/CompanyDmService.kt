@@ -42,7 +42,7 @@ class CompanyDmService(
 				it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= endDate)
 			}
 			val master = company.executives?.filter {
-				it.expiredAt != null && (it.position.equals("대표이사") || it.position.equals("사내이사"))
+				it.expiredAt != null && (it.position.equals("대표이사") || it.position.equals("사내이사") || it.position.equals("공동대표이사"))
 			}
 			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user, templateId, master))
 			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumMyeongjo.ttf").url.toString(),
