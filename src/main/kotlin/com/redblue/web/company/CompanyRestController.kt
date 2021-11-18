@@ -177,6 +177,7 @@ class CompanyRestController(
 		@RequestParam(value = "modifiedStartDate", required = false) modifiedStartDate: String?,
 		@RequestParam(value = "modifiedEndDate", required = false) modifiedEndDate: String?,
 		@RequestParam(value = "searchRange", required = false) searchRange: String?,
+		@RequestParam(value = "registerOffice", required = false) registerOffice: String?,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
@@ -222,7 +223,7 @@ class CompanyRestController(
 
 		val companyState: MutableList<String> = state ?: mutableListOf()
 
-		val companies = companyService.listExcel(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd, searchRange)
+		val companies = companyService.listExcel(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd, searchRange, registerOffice)
 		val resource = companyExcelService.generate(companies)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=corporations.xlsx")
@@ -243,6 +244,7 @@ class CompanyRestController(
 		@RequestParam(value = "modifiedEndDate", required = false) modifiedEndDate: String?,
 		@RequestParam(value = "searchRange", required = false) searchRange: String?,
 		@RequestParam(value = "templateId") templateId: Int,
+		@RequestParam(value = "registerOffice", required = false) registerOffice: String?,
 		@CurrentUser user: LawFirmUser
 	): ResponseEntity<InputStreamResource> {
 
@@ -288,7 +290,7 @@ class CompanyRestController(
 
 		val companyState: MutableList<String> = state ?: mutableListOf()
 
-		val companies = companyService.listDm(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd, searchRange)
+		val companies = companyService.listDm(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd, searchRange, registerOffice)
 		val resource = companyDmService.generate(companies, user, templateId, start, end)
 		val headers = HttpHeaders()
 		headers.add("Content-Disposition", "attachment; filename=dm.pdf")

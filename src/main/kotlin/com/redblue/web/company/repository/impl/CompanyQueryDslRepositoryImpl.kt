@@ -21,7 +21,7 @@ class CompanyQueryDslRepositoryImpl(
 	private val jpaQueryFactory: JPAQueryFactory
 ) : CompanyQueryDslRepository, QuerydslRepositorySupport(Company::class.java) {
 
-	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?, searchRange: String?): List<Company> {
+	override fun findByLawFirmId(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?, searchRange: String?, registerOffice: String?): List<Company> {
 		val qc = QCompany.company
 		val qe = QExecutive.executive
 		val qct = QContact.contact
@@ -120,6 +120,12 @@ class CompanyQueryDslRepositoryImpl(
 
 		modifiedStartDate?.let {
 			predicate.and(qc.updatedAt.between(it, modifiedEndDate))
+		}
+
+		registerOffice?.let {
+			if(StringUtils.hasText(it)) {
+				predicate.and(qc.registerOffice.eq(it))
+			}
 		}
 
 		query.where(predicate)

@@ -43,6 +43,7 @@ class CompanyController(
 		@RequestParam(value = "modifiedStartDate", required = false) modifiedStartDate: String?,
 		@RequestParam(value = "modifiedEndDate", required = false) modifiedEndDate: String?,
 		@RequestParam(value = "searchRange", required = false) searchRange: String?,
+		@RequestParam(value = "registerOffice", required = false) registerOffice: String?,
 		@CurrentUser user: LawFirmUser
 	): String {
 
@@ -98,7 +99,7 @@ class CompanyController(
 			}
 		}
 
-		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd, searchRange)
+		val companies = companyService.list(user.lawFirmId, searchValue, start, end, companyState, searchType, positionTarget, updatedStart, updatedEnd, searchRange, registerOffice)
 
 		model.addAttribute("companies", CompanyListDto.of(companies))
 		model.addAttribute("q", searchValue)
@@ -111,6 +112,7 @@ class CompanyController(
 		model.addAttribute("modifiedEndDate", modifiedEndDate)
 		model.addAttribute("name", user.name)
 		model.addAttribute("searchRange", searchRange)
+		model.addAttribute("registerOffice", registerOffice)
 
 		return "/company/list"
 	}

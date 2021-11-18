@@ -190,39 +190,61 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리종결(장기미등기)')}"
+                                                        <input type="checkbox" id="state-3" name="state" th:checked="${#strings.contains(state, '관리법인(특수)')}"
+                                                               th:value="|관리법인(특수)|"><i></i>
+                                                    </span>
+                                                        <label for="state-3">관리법인(특수)</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-input">
+                                                    <span class="input">
+                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결(장기미등기)')}"
                                                                th:value="|관리종결(장기미등기)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결(장기)</label>
+                                                        <label for="state-4">관리종결(장기)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-4" name="state" th:checked="${#strings.contains(state, '관리종결(DM반송)')}"
+                                                        <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '관리종결(DM반송)')}"
                                                                th:value="|관리종결(DM반송)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결(반송)</label>
+                                                        <label for="state-5">관리종결(반송)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-5" name="state" th:checked="${#strings.contains(state, '관리종결(폐업)')}"
+                                                        <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '관리종결(폐업)')}"
                                                                th:value="|관리종결(폐업)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결(폐업)</label>
+                                                        <label for="state-6">관리종결(폐업)</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <div class="form-input">
                                                     <span class="input">
-                                                        <input type="checkbox" id="state-6" name="state" th:checked="${#strings.contains(state, '관리종결(기타)')}"
+                                                        <input type="checkbox" id="state-7" name="state" th:checked="${#strings.contains(state, '관리종결(기타)')}"
                                                                th:value="|관리종결(기타)|"><i></i>
                                                     </span>
-                                                        <label for="state-3">관리종결(기타)</label>
+                                                        <label for="state-7">관리종결(기타)</label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col ml-2">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control form-control-sm" id="registerOffice"
+                                                   name="registerOffice" placeholder="검색하실 관할등기소를 검색해 주세요."
+                                                   th:readonly="true" th:value="${registerOffice}">
+                                            <div class="input-group-append">
+                                                <button type='button' id="office_search_btn"
+                                                        class="btn btn-sm btn-outline-secondary">
+                                                    검색
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -421,6 +443,10 @@
                 });
             });
 
+            $('#office_search_btn').on('click', function () {
+                window.open('/office_search', '등기소검색', 'width=600px,height=800px,scrollbars=yes');
+            });
+
             $('#excel-down-btn').on('click', function () {
                 let q = $('#q').val();
                 let startDate = $('#startDate').val();
@@ -430,11 +456,12 @@
                 let searchType = $('#searchType').val();
                 let positionTarget = $('#positionTarget').val();
                 let searchRange = $('#searchRange').val();
+                let registerOffice = $('#registerOffice').val();
                 let state = [];
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange + '&registerOffice=' + registerOffice;;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
@@ -448,6 +475,7 @@
                 let searchType = $('#searchType').val();
                 let positionTarget = $('#positionTarget').val();
                 let searchRange = $('#searchRange').val();
+                let registerOffice = $('#registerOffice').val();
                 if(startDate == '' || endDate == '') {
                     alert('DM 다운로드 시 임기만료일 검색값은 필수 입니다.');
                     return false;
@@ -457,7 +485,7 @@
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange+ '&templateId=' + templateId;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange+ '&templateId=' + templateId + '&registerOffice=' + registerOffice;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
