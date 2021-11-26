@@ -1199,7 +1199,8 @@
                         $('input[name$="[stockCount]"]').each(function(i, el){
                             var count = uncomma($(this).val())
                             if(count > 0) {
-                                $('input[name="executives[' + i + '][stockCount]"]').val(count);
+                                $(this).val(count);
+                                //$('input[name="executives[' + i + '][stockCount]"]').val(count);
                             }
                         });
 
@@ -1405,7 +1406,7 @@
                 }
                 let expiredAt = new Date(obj.value);
                 let term = $('#select-term').val();
-                let position = $('select[name="executives_position"]').val();
+                let position = $('select[name="position"]').val();
 
                 if(position === '감사') {
                     let settlementMonth = $('#settlementMonth').val();
