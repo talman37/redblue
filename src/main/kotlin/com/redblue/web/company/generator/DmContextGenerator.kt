@@ -62,7 +62,13 @@ class DmContextGenerator {
 			} else {
 				company.companyPostalCode
 			}
-			this.setVariable("exName", "대표이사 <strong>${masterInfo?.get(0)?.name}</strong>님 귀하")
+
+			val masterName = if(masterInfo == null || masterInfo.isEmpty()) {
+				""
+			} else {
+				masterInfo[0].name ?: ""
+			}
+			this.setVariable("exName", "대표이사 <strong>${masterName}</strong>님 귀하")
 			this.setVariable("exPost", postalCode)
 			this.setVariable("conTitle", "[제목 : <strong>임기만료 안내문</strong>]")
 			var content0 = "귀사의 무궁한 발전을 기원합니다."
