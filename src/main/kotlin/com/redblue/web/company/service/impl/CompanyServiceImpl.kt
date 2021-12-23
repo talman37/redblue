@@ -36,12 +36,26 @@ class CompanyServiceImpl(
 	override fun listExcel(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, companyState: MutableList<String>, searchType: String?, positionTarget: String?, modifiedStartDate: Date?, modifiedEndDate: Date?, searchRange: String?, registerOffice: String?): List<Company> {
 		val companies = companyRepository.findByLawFirmId(lawFirmId, q, startDate, endDate, companyState, searchType, positionTarget, modifiedStartDate, modifiedEndDate, searchRange, registerOffice)
 		val companyIds = companies.map { it.id }
-		val stocks = stockRepository.findByCompanyIdIn(companyIds)
-		val executives = executiveRepository.findByCompanyIdIn(companyIds)
+
+		val companyIdList = companyIds.chunked(3000)
+
+		val stocks = mutableListOf<Stock>()
+		val executives = mutableListOf<Executive>()
+		val contacts = mutableListOf<Contact>()
+		val purposeDetails = mutableListOf<PurposeDetail>()
+		for (ids in companyIdList) {
+			stocks.addAll(stockRepository.findByCompanyIdIn(ids))
+			executives.addAll(executiveRepository.findByCompanyIdIn(ids))
+			contacts.addAll(contactRepository.findByCompanyIdIn(ids))
+			purposeDetails.addAll(purposeDetailRepository.findByCompanyIdIn(ids))
+		}
+
+		//val stocks = stockRepository.findByCompanyIdIn(companyIds)
+		//val executives = executiveRepository.findByCompanyIdIn(companyIds)
 		val executiveMap = executives.groupBy { it.companyId }
-		val contacts = contactRepository.findByCompanyIdIn(companyIds)
+		//val contacts = contactRepository.findByCompanyIdIn(companyIds)
 		val contactMap = contacts.groupBy { it.companyId }
-		val purposeDetails = purposeDetailRepository.findByCompanyIdIn(companyIds)
+		//val purposeDetails = purposeDetailRepository.findByCompanyIdIn(companyIds)
 		val purposeMap = purposeDetails.groupBy { it.companyId }
 		for (company in companies) {
 			loop1@ for (stock in stocks) {

@@ -454,14 +454,18 @@
                 let modifiedStartDate = $('#modifiedStartDate').val();
                 let modifiedEndDate = $('#modifiedEndDate').val();
                 let searchType = $('#searchType').val();
-                let positionTarget = $('#positionTarget').val();
+                let positionTarget = '';
+                if($('#positionTarget').is(':checked')) {
+                    positionTarget = $('#positionTarget').val();
+                }
+
                 let searchRange = $('#searchRange').val();
                 let registerOffice = $('#registerOffice').val();
                 let state = [];
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange + '&registerOffice=' + registerOffice;;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget=' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange + '&registerOffice=' + registerOffice;;
                 location.href = '/v1/companies/download/corporations.xlsx' + param;
             });
 
@@ -473,7 +477,10 @@
                 let modifiedStartDate = $('#modifiedStartDate').val();
                 let modifiedEndDate = $('#modifiedEndDate').val();
                 let searchType = $('#searchType').val();
-                let positionTarget = $('#positionTarget').val();
+                let positionTarget = '';
+                if($('#positionTarget').is(':checked')) {
+                    positionTarget = $('#positionTarget').val();
+                }
                 let searchRange = $('#searchRange').val();
                 let registerOffice = $('#registerOffice').val();
                 if(startDate == '' || endDate == '') {
@@ -485,7 +492,7 @@
                 $("input:checkbox[name='state']:checked").each(function(){
                     state.push($(this).val())
                 });
-                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange+ '&templateId=' + templateId + '&registerOffice=' + registerOffice;
+                let param = '?q=' + encodeURI(q) + '&start=' + startDate + '&end=' + endDate + '&searchType=' + searchType + '&state=' + state + '&positionTarget=' + positionTarget + '&modifiedStartDate=' + modifiedStartDate + '&modifiedEndDate=' + modifiedEndDate + '&searchRange=' + searchRange+ '&templateId=' + templateId + '&registerOffice=' + registerOffice;
                 location.href = '/v1/companies/download/dm.pdf' + param;
             });
 
