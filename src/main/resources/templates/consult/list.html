@@ -168,7 +168,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="consult: ${consults.content}">
+                        <tr th:if="${#lists.isEmpty(consults.content)}">
+                            <td colspan="7" class="text-center">검색 결과가 없습니다.</td>
+                        </tr>
+                        <tr th:if="${!#lists.isEmpty(consults.content)}" th:each="consult: ${consults.content}">
                             <td><a class="nowrap" href="#none" th:attr="data-id=${consult.companyId}" th:name="companyTitle" th:text="${consult.companyName}" th:title="${consult.companyName}"></a></td>
                             <td class="nowrap" th:text="${#dates.format(consult.createdAt, 'yyyy-MM-dd HH:mm:ss')}" th:title="${#dates.format(consult.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${consult.consultant}">@mdo</td>
@@ -235,6 +238,8 @@
                             </nav>
                         </div>
                     </div>
+                </div>
+                <div class="card-footer" th:if="${consults.totalElements == 0}">
                 </div>
             </div>
 

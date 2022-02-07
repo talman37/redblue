@@ -25,7 +25,6 @@ class ConsultQueryDslRepositoryImpl(
 	override fun findByLawFirmId(lawFirmId: String, searchValue:String?, startDate: Date?, endDate: Date?, progress: List<Consult.Progress>?, pageable: Pageable): Page<Consult> {
 		val qc = QConsult.consult
 		val qp = QCompany.company
-		val qe = QExecutive.executive
 		val predicate = BooleanBuilder()
 		val query = jpaQueryFactory
 			.select(
@@ -56,7 +55,7 @@ class ConsultQueryDslRepositoryImpl(
 		}
 
 		startDate?.let {
-			predicate.and(qe.expiredAt.between(it, endDate))
+			predicate.and(qc.createdAt.between(it, endDate))
 		}
 
 		progress?.let {
@@ -73,7 +72,6 @@ class ConsultQueryDslRepositoryImpl(
 	override fun details(id: String): Consult {
 		val qc = QConsult.consult
 		val qp = QCompany.company
-		val qe = QExecutive.executive
 		val predicate = BooleanBuilder()
 		val query = jpaQueryFactory
 			.select(
