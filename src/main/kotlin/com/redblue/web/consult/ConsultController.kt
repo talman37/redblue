@@ -40,7 +40,7 @@ class ConsultController(
 			if (it.isEmpty()) {
 				null
 			} else {
-				SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+				SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("$endDate 23:59:59")
 			}
 		}
 		var pro = mutableListOf<Consult.Progress>()
