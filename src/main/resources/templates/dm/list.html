@@ -61,7 +61,7 @@
                             <div class="search-area">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" name="q" placeholder="법인검색" th:value="${q}">
+                                        <input type="text" class="form-control" id="q" name="q" placeholder="법인검색" th:value="${q}">
                                     </div>
                                     <div class="col">
                                         <div class="input-group input-daterange">
@@ -82,6 +82,11 @@
                             </div>
                         </div>
                     </form>
+                    <div class="search-status">
+                        <div>
+                            <p><span>Total : </span><strong th:text="${histories.totalElements}"></strong>개</p>
+                        </div>
+                    </div>
                     <table class="table table-bordered">
                         <colgroup>
                             <col style="width: 200px">
@@ -102,7 +107,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="history: ${histories}">
+                        <tr th:if="${#lists.isEmpty(histories.content)}">
+                            <td colspan="6" class="text-center">검색 결과가 없습니다.</td>
+                        </tr>
+                        <tr th:if="${!#lists.isEmpty(histories.content)}" th:each="history: ${histories.content}">
                             <td th:text="${history.companyName}"></td>
                             <td th:text="${history.address}"></td>
                             <td>
@@ -129,6 +137,53 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="card-footer" th:if="${histories.totalElements > 0}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <nav th:with="start=${T(Math).floor(histories.number/10)*10 + 1}, last=(${start + 9 < histories.totalPages ? start + 9 : histories.totalPages})">
+                                <th:block
+                                        th:with="firstAddr=@{/dm(page=1)}, prevAddr=@{/dm(page=${histories.number})}, nextAddr=@{/dm(page=${histories.number + 2})}, lastAddr=@{/dm(page=${histories.totalPages})}"/>
+                                <ul class="pagination pagination-sm">
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           th:href="${firstAddr}">
+                                            <i class="fas fa-angle-left"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="page-item" th:class="${histories.first} ? 'disabled'">
+                                        <a class="page-link"
+                                           th:href="${histories.first} ? '#' :${prevAddr}">
+                                            <i class="fas fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    <th:block th:if="${last == 0}">
+                                        <th:block th:with="last=${last + 1}"></th:block>
+                                    </th:block>
+                                    <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+                                        th:classappend="${page == histories.number + 1} ? 'active'">
+                                        <a class="page-link" href="javascript:void(0);" th:onclick="'movePage(' + ${page  - 1} + ');'"
+                                           th:text="${page}"></a>
+                                    </li>
+                                    <li class="page-item" th:class="${histories.last} ? 'disabled'">
+                                        <a class="page-link"
+                                           th:href="${histories.last} ? '#' :${nextAddr}">
+                                            <i class="fas fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           th:href="${lastAddr}">
+                                            <i class="fas fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer" th:if="${histories.totalElements == 0}">
+                </div>
             </div>
 
         </main>
@@ -136,10 +191,33 @@
     </div>
     <!-- //container -->
     <script>
-        $('.input-daterange').datepicker({
-            language: "ko",
-            todayHighlight: true
+        $(document).ready(function () {
+
+            $('.input-daterange').datepicker({
+                language: "ko",
+                todayHighlight: true
+            });
+
+            $('#search-btn').on('click', function () {
+                $('#searchForm').submit()
+            });
+
+
         });
+
+        function movePage(page) {
+            var param = '';
+            if($('#q').val() != '') {
+                param += '&q=' + $('#q').val();
+            }
+
+            if($('#startDate').val() != '' && $('#endDate').val() != '') {
+                param += '&start=' + $('#startDate').val();
+                param += '&end=' + $('#endDate').val();
+            }
+            location.href = '/dm?page=' + page + param;
+        }
+
     </script>
 </th:block>
 </html>

@@ -7,6 +7,8 @@ import com.redblue.web.dm.model.DmHistory
 import com.redblue.web.dm.repository.DmHistoryRepository
 import com.redblue.web.dm.repository.DmRepository
 import com.redblue.web.dm.service.DmService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
@@ -17,8 +19,8 @@ class DmServiceImpl(
 	private val dmRepo: DmRepository
 ) : DmService {
 
-	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?): List<DmHistory> {
-		val histories = historyRepo.findHistory(lawFirmId, q, startDate, endDate)
+	override fun list(lawFirmId: String, q: String?, startDate: Date?, endDate: Date?, pageable: Pageable): Page<DmHistory> {
+		val histories = historyRepo.findHistory(lawFirmId, q, startDate, endDate, pageable)
 		for (history in histories) {
 			val executives = mutableListOf<Executive>()
 			history.content.let {

@@ -3,6 +3,7 @@ package com.redblue.web.dm
 import com.redblue.security.core.annotation.CurrentUser
 import com.redblue.web.dm.service.DmService
 import com.redblue.web.lawfirm.model.LawFirmUser
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,6 +23,7 @@ class DmController(
 		@RequestParam(value = "q", required = false) searchValue: String?,
 		@RequestParam(value = "start", required = false) startDate: String?,
 		@RequestParam(value = "end", required = false) endDate: String?,
+		pageable: Pageable,
 		@CurrentUser user: LawFirmUser,
 		model: Model
 	): String {
@@ -50,7 +52,7 @@ class DmController(
 			}
 		}
 
-		model.addAttribute("histories", dmService.list(user.lawFirmId, searchValue, start, end))
+		model.addAttribute("histories", dmService.list(user.lawFirmId, searchValue, start, end, pageable))
 		model.addAttribute("q", searchValue)
 		model.addAttribute("startDate", startDate)
 		model.addAttribute("endDate", endDate)
