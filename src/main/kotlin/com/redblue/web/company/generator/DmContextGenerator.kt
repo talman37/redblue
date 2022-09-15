@@ -179,8 +179,8 @@ class DmContextGenerator {
 			}
 			this.setVariable("executives", executives)
 			this.setVariable("etc", "▣ 준비서류 (구체적인 준비서류는 달라질 수 있습니다)")
-			this.setVariable("etc1", "① 법인등기부등본 1부, 사업자등록증사본 1부 ")
-			this.setVariable("etc2", "② 법인인감증명서 1부, 법인인감도장, 법인인감카드, 정관사본 2부, 주주명부 1부")
+			this.setVariable("etc1", "① 법인등기부등본 1부, 사업자등록증사본 1부, 정관사본 2부, 주주명부 1부")
+			this.setVariable("etc2", "② 법인인감증명서 1부, 법인인감도장, 법인인감카드, 대표자인감도장, 인감증명서 1부")
 			this.setVariable("etc3", "③ 위 주주명부에 의거하여 총주식수의 1/3에 달하도록 주주님의 인감증명서 1부, 인감도장")
 			this.setVariable("etc4", "④ 임기만료 된 임원님의 인감증명서 2부, 주민등록등(초)본 1부, 인감도장")
 			this.setVariable("etc5", "⑤ 대표이사님의 임기가 만료된 경우 이사님 과반수 인감증명서 1부, 인감도장")

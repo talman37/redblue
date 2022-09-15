@@ -345,7 +345,6 @@
             </ul>
             <ul>
               <li class="post"  th:utext="${postalCode}"></li>
-              <li class="number" th:utext="${regNum}"></li>
             </ul>
           </div>
         </div>
@@ -353,7 +352,10 @@
           <p class="address" th:text="${exAddress}"></p>
           <p class="company" th:text="${exCompany}"></p>
           <p class="name" th:utext="${exName}"></p>
-          <p class="post" th:text="${exPost}"></p>
+          <ul style="list-style: none;">
+            <li class="post" style="float: right;" th:text="${exPost}"></li>
+            <li class="post" style="float: right; margin-right: 30%;" th:utext="${regNum}"></li>
+          </ul>
         </div>
       </div>
     </td>
