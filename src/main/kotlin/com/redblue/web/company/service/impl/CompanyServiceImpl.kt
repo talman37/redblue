@@ -416,10 +416,10 @@ class CompanyServiceImpl(
 
 	override fun getHistories(id: String): CompanyHistory {
 		return CompanyHistory(
-			master = masterHistoryRepository.findByCompanyId(id),
-			sub = subHistoryRepository.findByCompanyId(id),
-			stock = stockHistoryRepository.findByCompanyId(id),
-			executives = executiveHistoryRepository.findByCompanyId(id)
+			master = masterHistoryRepository.findByCompanyIdOrderByIssuedAtDesc(id),
+			sub = subHistoryRepository.findByCompanyIdOrderByIssuedAtDesc(id),
+			stock = stockHistoryRepository.findByCompanyIdOrderByIssuedAtDesc(id),
+			executives = executiveHistoryRepository.findByCompanyIdOrderByIssuedAtDesc(id)
 		)
 	}
 
