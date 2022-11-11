@@ -326,9 +326,9 @@
       <div class="top">
         <div class="sender">
           <p class="name">
-                        <span class="logo">
-                            <img src="http://redblue80.ipdisk.co.kr:80/publist/VOL1/static/images/logo2.jpg" alt=""/>
-                        </span>
+            <span class="logo">
+                <img th:src="@{classpath:static/images/logo2.jpg}" alt=""/>
+            </span>
             <span th:text="${lawFirm.name}"></span>
           </p>
           <div>
@@ -351,11 +351,13 @@
         <div class="recipient">
           <p class="address" th:text="${exAddress}"></p>
           <p class="company" th:text="${exCompany}"></p>
-          <p class="name" th:utext="${exName}"></p>
-          <ul style="list-style: none;">
-            <li class="post" style="float: right;" th:text="${exPost}"></li>
-            <li class="post" style="float: right; margin-right: 30%;" th:utext="${regNum}"></li>
-          </ul>
+          <div>
+            <ul style="float: right; width: 100%">
+              <li class="name" style="float: right;"  th:utext="${exName}"></li>
+              <li class="post" style="margin-left: 40%; float: left;" th:utext="${regNum}"></li>
+            </ul>
+          </div>
+          <p class="post" th:text="${exPost}"></p>
         </div>
       </div>
     </td>
