@@ -399,7 +399,7 @@
                                         <th:block th:if="${executive.expiredAt != null}">
                                             <td th:text="${executive.position}"></td>
                                             <td th:text="${executive.name}"></td>
-                                            <td th:text="${executive.expiredAtString}"></td>
+                                            <td th:utext="${executive.expiredAtString}"></td>
                                         </th:block>
                                     </tr>
                                     </tbody>

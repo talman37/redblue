@@ -86,7 +86,9 @@ class DmContextGenerator {
 			this.setVariable("tableTitle3", "만기일자")
 			val formatter = SimpleDateFormat("yyyy년 MM월 dd일")
 			executives?.forEach {
-				if(it.expiredAt != null) {
+				if(it.position == "감사") {
+					it.expiredAtString =  "정기주주총회종결일<br />(" + formatter.format(it.expiredAt) + "까지)"
+				} else {
 					it.expiredAtString = formatter.format(it.expiredAt)
 				}
 			}
@@ -174,7 +176,11 @@ class DmContextGenerator {
 			val formatter = SimpleDateFormat("yyyy년 MM월 dd일")
 			executives?.forEach {
 				if(it.expiredAt != null) {
-					it.expiredAtString = formatter.format(it.expiredAt)
+					if(it.position == "감사") {
+						it.expiredAtString =  "정기주주총회종결일<br />(" + formatter.format(it.expiredAt) + "까지)"
+					} else {
+						it.expiredAtString = formatter.format(it.expiredAt)
+					}
 				}
 			}
 			this.setVariable("executives", executives)
