@@ -44,7 +44,45 @@ class CompanyDmService(
 			val master = company.executives?.filter {
 				it.expiredAt != null && (it.position.equals("대표이사") || it.position.equals("사내이사") || it.position.equals("공동대표이사"))
 			}
-			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, executives, user, templateId, master))
+
+			val sortedExecutives = mutableListOf<Executive>()
+			executives?.forEach {
+				if(it.position.equals("대표이사")) {
+					sortedExecutives.add(it)
+				}
+			}
+
+			executives?.forEach {
+				if(it.position.equals("사내이사")) {
+					sortedExecutives.add(it)
+				}
+			}
+
+			executives?.forEach {
+				if(it.position.equals("사외이사")) {
+					sortedExecutives.add(it)
+				}
+			}
+
+			executives?.forEach {
+				if(it.position.equals("기타비상무이사")) {
+					sortedExecutives.add(it)
+				}
+			}
+
+			executives?.forEach {
+				if(it.position.equals("감사")) {
+					sortedExecutives.add(it)
+				}
+			}
+			executives?.filter {
+				!it.position.equals("대표이사") && !it.position.equals("사내이사") && !it.position.equals("사외이사") && !it.position.equals("기타비상무이사") && !it.position.equals("감사")
+			}?.forEach {
+				sortedExecutives.add(it)
+			}
+
+
+			renderer.setDocumentFromString(this.parseThymeleafTemplate(company, sortedExecutives, user, templateId, master))
 			renderer.fontResolver.addFont(ClassPathResource("/static/font/NanumMyeongjo.ttf").url.toString(),
 				BaseFont.IDENTITY_H,
 				BaseFont.EMBEDDED
@@ -135,7 +173,7 @@ class CompanyDmService(
 		templateResolver.suffix = ".html"
 		templateResolver.templateMode = TemplateMode.HTML
 
-		val templateEngine = TemplateEngine();
+		val templateEngine = TemplateEngine()
 		templateEngine.setTemplateResolver(templateResolver)
 		val context = templateId.let {
 			if(it == 2) {

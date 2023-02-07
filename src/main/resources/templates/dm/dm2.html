@@ -350,7 +350,7 @@
         </div>
         <div class="recipient">
           <p class="address" th:text="${exAddress}"></p>
-          <p class="company" th:text="${exCompany}"></p>
+          <p class="company" th:utext="${exCompany}"></p>
           <div>
             <ul style="float: right; width: 100%">
               <li class="name" style="float: right;"  th:utext="${exName}"></li>
@@ -368,7 +368,12 @@
         <div class="content">
           <p class="title" th:utext="${conTitle}"></p>
           <div class="recipient">
-            <p class="name" th:utext="${conTitleName}"></p>
+            <p class="name">
+              <strong th:text="${conTitleName}">
+
+              </strong>
+              대표님 <span>귀하</span>
+            </p>
             <p class="box" th:utext="${box}"></p>
           </div>
 

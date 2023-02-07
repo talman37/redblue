@@ -75,7 +75,7 @@ class DmContextGenerator {
 			var content1 = "임기만료안내"
 			var content2 = "<div>" +
 				"<p>안녕하십니까. <span>${user.lawFirm!!.representative}</span>법무사입니다.</p>" +
-				"<p><strong>이번에 아래와 같이 귀사의 임원임기가 만료되었음을 안내해 드리오니, 연락주시면 귀사를 직접 방문하여 성심성의껏 업무처리를 도와드리겠습니다.</strong></p>" +
+				"<p><strong>귀사의 임원임기가 아래와 같이 만료됩니다. 당 사무소에 등기업무를 맡겨 주시면, 성심성의껏 업무처리를 도와드리겠습니다.</strong></p>" +
 				"</div>"
 			this.setVariable("content0", content0)
 			this.setVariable("content1", content1)
@@ -93,12 +93,13 @@ class DmContextGenerator {
 				}
 			}
 			this.setVariable("executives", executives)
-			this.setVariable("etc", "참고사항")
-			this.setVariable("etcContent0", "법정기간(2주)내에 임원변경등기를 하지 않으면 500만원 이하의 과태료가 부과될 수 있음을 각별히 유의하시기 바랍니다.")
-			this.setVariable("etcContent1", "위 정보는 일반에게 공개되는 법인등기부에 의해 확인된 사실을 기초로 작성된 것이므로, 개인정보침해는 전혀 없음을 밝혀 드립니다.")
-			this.setVariable("etcContent2", "대표이사(1인 이사인 경우는 이사)의 경우는 그 주소가 변경된 경우에도 2주이내에 변경등기하셔야 과태료부과를 피하실 수 있음을 특별히 기억하시기 바랍니다.")
-			this.setVariable("content3", "<span class=\"font-other\">법인등기사항증명서(법인등기부등본)와 주주명부를 미리 이메일이나 팩스로 보내고 전화 주시면, 보다 신속하고 원활한 상담이 가능합니다.</span>( 담당자 이메일 : dkdltm2468@naver.com )")
-			this.setVariable("desc", "\"법인등기 이외에도 귀사의 채권채무문제, 가압류 가처분 및 부동산취득 등 각종 법률문제에 대해서도 문의하시면 정성과 책임을 다해 상담하여 드리겠습니다.\"")
+			this.setVariable("etc", "※참고사항")
+			this.setVariable("etcContent0", "<b> 당 사무소에 등기업무를 의뢰할 경우, 직접 방문하여 처리해 드릴 수 있습니다.</b>")
+			this.setVariable("etcContent1", "임기만료일로부터 2주 이내에 <b style=\"text-decoration: underline;\">임원변경등기를 하지 않으면 상법 제635조 제1항에 따라 500만원 이하의 과태료가 부과</b>되오니 각별히 유의하시기 바랍니다.")
+			this.setVariable("etcContent2", "대표자(대표이사 또는 1인 사내이사)의 개인주소가 변경된 경우도 2주 이내에 변경등기를 하여야 합니다. 이를 위반하여 과태료를 부과 받는 회사들이 많으니, 특히 유의하시기 바랍니다.")
+			this.setVariable("etcContent3", "위 정보는 공개된 법인등기부등본을 기초로 작성된 것이므로, 개인정보를 침해한 사실이 전혀 없음을 밝혀 드립니다.")
+			this.setVariable("content3", "<span class=\"font-other\">담당자 이메일(dkdltm2468@naver.com) 또는 팩스로 법인등기부등본, 주주명부, 정관 사본을 미리 보내주시면, 보다 신속하고 정확한 상담 및 서류 안내가 가능합니다.</span>")
+			this.setVariable("desc", "\"당사무소는 법인등기 외 가압류, 가처분, 소송, 부동산등기 업무 등 각종 법률사무를 취급하오니, 이에 대하여 귀사의 문의가 있을 경우 정성과 책임을 다하여 상담하여 드리겠습니다.\"")
 		}
 	}
 
@@ -158,7 +159,7 @@ class DmContextGenerator {
 			this.setVariable("exName", "대표이사 <strong>${masterInfo?.get(0)?.name}</strong>님 귀하")
 			this.setVariable("exPost", postalCode)
 			this.setVariable("conTitle", "<strong>임/기/만/료 안/내/문</strong>")
-			this.setVariable("conTitleName", "<strong>${company.companyName} ${masterInfo?.get(0)?.name}</strong> 대표님 <span>귀하</span>")
+			this.setVariable("conTitleName", company.companyName + " " + masterInfo?.get(0)?.name)
 			var box = "<strong>코로나19 대응</strong>을 위한 <br/>준비서류 <strong>방문수령, 등기우편&middot;온라인<br/>전자신청</strong><span>(공인인증서 사용)</span> 가능합니다."
 			var warning = "<strong>임기만료, 대표님의 주소변경</strong>으로 인한 변경등기는 <strong>2주</strong> 이내에 하셔야 하며, 등기를 늦게 할 경우 상법상 과태료(<em>최고 500만원까지</em>)가 <em>대표님 개인에게 부과</em>될 수 있습니다."
 			var content0 = "귀사의 무궁한 발전을 기원합니다."

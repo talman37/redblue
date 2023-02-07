@@ -137,7 +137,8 @@ class CompanyServiceImpl(
 		return SummaryResponseDto.of(
 			sortedExecutives,
 			contactRepository.findByCompanyId(companyId),
-			company.get().precautions
+			company.get().precautions,
+			company.get().companyManageNumber
 		)
 	}
 

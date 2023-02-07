@@ -397,6 +397,10 @@
                                     <th>주의 사항</th>
                                     <td id="precautions" class="precautions"></td>
                                 </tr>
+                                <tr>
+                                    <th>관리번호</th>
+                                    <td id="companyManageNumber"></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -567,6 +571,7 @@
                         }
                     });
                     $('#masterName').text(data.companyMasterName);
+                    $('#companyManageNumber').text(data.companyManageNumber);
                     var precautions = $('#precautions').text(data.precautions);
                     precautions.html(precautions.html().replace(/\n/g, '<br/>'));
                 }).fail(function(xhr, status, errorThrown) {
