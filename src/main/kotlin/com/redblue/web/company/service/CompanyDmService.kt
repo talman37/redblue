@@ -21,6 +21,9 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.xhtmlrenderer.pdf.ITextRenderer
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.lang.IllegalArgumentException
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 
@@ -38,8 +41,25 @@ class CompanyDmService(
 		for (company in companies) {
 			val outputStream = ByteArrayOutputStream()
 			val renderer = ITextRenderer()
+
+			val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+			val year = LocalDate.parse(dateFormat.format(startDate)).year
+			val auditorEndDate: Date = when(company.settlementMonth) {
+				10 -> dateFormat.parse("$year-01-31")
+				11 -> dateFormat.parse("$year-02-${getDaysInMonth(2, year)}")
+				12 -> dateFormat.parse("$year-03-31")
+				else -> {
+					val m = company.settlementMonth!! + 3
+					dateFormat.parse("$year-$m-${getDaysInMonth(m, year)}")
+				}
+			}
 			val executives = company.executives?.filter {
-				it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= endDate)
+				if(endDate!! > auditorEndDate) {
+					it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= endDate)
+				} else {
+					it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= auditorEndDate)
+				}
+
 			}
 			val master = company.executives?.filter {
 				it.expiredAt != null && (it.position.equals("대표이사") || it.position.equals("사내이사") || it.position.equals("공동대표이사"))
@@ -187,6 +207,15 @@ class CompanyDmService(
 		val dm = dmService.details(templateId);
 
 		return templateEngine.process(dm.resourcePath, context)
+	}
+
+	private fun getDaysInMonth(month: Int, year: Int): Int {
+		return when(month - 1) {
+			Calendar.JANUARY, Calendar.MARCH, Calendar.MAY, Calendar.JULY, Calendar.AUGUST, Calendar.OCTOBER, Calendar.DECEMBER -> 31
+			Calendar.APRIL, Calendar.JUNE, Calendar.SEPTEMBER, Calendar.NOVEMBER -> 30
+			Calendar.FEBRUARY -> if(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) 29 else 28
+			else -> throw IllegalArgumentException("Invalid Month")
+		}
 	}
 
 }

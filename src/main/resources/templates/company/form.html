@@ -1421,6 +1421,8 @@
                     meetingDate = addMonth(meetingDate, 3);
                     $('input[name="executives_expiredAt"]').val(getFormatDate(meetingDate));
                 } else if(position === '대표이사' || position === '공동대표이사') {
+                    expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+                    $('input[name="executives_expiredAt"]').val(getFormatDate(expiredAt));
                     var name = $('input[name="executives_name"]').val();
                     $("input[name$='[name]']").each(function(index, el){
                         var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
@@ -1485,6 +1487,8 @@
                 meetingDate = addMonth(meetingDate, 3);
                 $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(meetingDate));
             } else if(position === '대표이사' || position === '공동대표이사') {
+                expiredAt.setFullYear(expiredAt.getFullYear() + Number(term));
+                $('input[name="executives[' + i + '][expiredAt]"]').val(getFormatDate(expiredAt));
                 var name = $('input[name="executives[' + i + '][name]"]').val();
                 $("input[name$='[name]']").each(function(index, el){
                     var targetPosition = $('select[name="executives[' + index + '][position]"]').val();
