@@ -42,7 +42,7 @@ class CompanyDmService(
 			val outputStream = ByteArrayOutputStream()
 			val renderer = ITextRenderer()
 
-사			val executives = company.executives?.filter {
+			val executives = company.executives?.filter {
 				it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= endDate)
 			}?.toMutableList()
 
