@@ -42,6 +42,10 @@ class CompanyDmService(
 			val outputStream = ByteArrayOutputStream()
 			val renderer = ITextRenderer()
 
+사			val executives = company.executives?.filter {
+				it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= endDate)
+			}?.toMutableList()
+
 			val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 			val year = LocalDate.parse(dateFormat.format(startDate)).year
 			val auditorEndDate: Date = when(company.settlementMonth) {
@@ -53,14 +57,28 @@ class CompanyDmService(
 					dateFormat.parse("$year-$m-${getDaysInMonth(m, year)}")
 				}
 			}
-			val executives = company.executives?.filter {
-				if(endDate!! > auditorEndDate) {
-					it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= endDate)
-				} else {
-					it.expiredAt != null && (it.expiredAt >= startDate && it.expiredAt <= auditorEndDate)
-				}
 
+			val cal = Calendar.getInstance()
+			cal.time = auditorEndDate
+			cal.add(Calendar.MONTH, -3)
+			val startYear = LocalDate.parse(dateFormat.format(cal.time)).year
+			val startMonth = LocalDate.parse(dateFormat.format(cal.time)).month.value.let {
+				if(it < 10) {
+					"0$it"
+				} else {
+					it.toString()
+				}
 			}
+			val auditorStartDate: Date = dateFormat.parse("$startYear-$startMonth-01")
+			val executiveIds = executives?.map { it.id } ?: emptyList()
+			company.executives?.filter {
+				it.expiredAt != null && (it.expiredAt in auditorStartDate..auditorEndDate) && it.position.equals("감사")
+			}?.forEach {
+				if(!executiveIds.contains(it.id)) {
+					executives?.add(it)
+				}
+			}
+
 			val master = company.executives?.filter {
 				it.expiredAt != null && (it.position.equals("대표이사") || it.position.equals("사내이사") || it.position.equals("공동대표이사"))
 			}

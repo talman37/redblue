@@ -282,7 +282,10 @@
                             </tr>
                             </thead>
                             <tbody id="companyListBody">
-                                <th:block th:each="company: ${companies}">
+                                <tr th:if="${#lists.isEmpty(companies)}">
+                                    <td colspan="6" class="text-center">검색 결과가 없습니다.</td>
+                                </tr>
+                                <th:block th:if="${!#lists.isEmpty(companies)}" th:each="company: ${companies}">
                                     <tr name="companyRow" th:attr="data-id=${company.id}">
                                         <td th:text="${company.companyState}"></td>
                                         <td th:text="${company.registerOfficeSlicedName}"></td>
