@@ -10,6 +10,8 @@ spring:
     url: jdbc:mysql://localhost:3306/redblue?serverTimezone=Asia/Seoul
     username: redblue
     password: password
+    hikari:
+      maximum-pool-size: 20
   jpa:
     hibernate:
       naming:
@@ -35,6 +37,8 @@ spring:
     url: jdbc:mysql://applelaw.iptime.org:3306/redblue?serverTimezone=Asia/Seoul
     username: redblue
     password: password
+    hikari:
+      maximum-pool-size: 20
   jpa:
     show-sql: true
     hibernate:
