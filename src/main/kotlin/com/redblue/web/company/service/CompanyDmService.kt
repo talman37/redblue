@@ -72,7 +72,7 @@ class CompanyDmService(
 			val auditorStartDate: Date = dateFormat.parse("$startYear-$startMonth-01")
 			val executiveIds = executives?.map { it.id } ?: emptyList()
 			company.executives?.filter {
-				it.expiredAt != null && (it.expiredAt in auditorStartDate..auditorEndDate) && it.position.equals("감사")
+				it.expiredAt != null && (it.expiredAt in auditorStartDate..auditorEndDate) && it.expiredAt >= Date() && it.position.equals("감사")
 			}?.forEach {
 				if(!executiveIds.contains(it.id)) {
 					executives?.add(it)

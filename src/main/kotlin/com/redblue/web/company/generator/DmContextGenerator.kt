@@ -98,7 +98,7 @@ class DmContextGenerator {
 			this.setVariable("etcContent1", "임기만료일로부터 2주 이내에 <b style=\"text-decoration: underline;\">임원변경등기를 하지 않으면 상법 제635조 제1항에 따라 500만원 이하의 과태료가 부과</b>되오니 각별히 유의하시기 바랍니다.")
 			this.setVariable("etcContent2", "대표자(대표이사 또는 1인 사내이사)의 개인주소가 변경된 경우도 2주 이내에 변경등기를 하여야 합니다. 이를 위반하여 과태료를 부과 받는 회사들이 많으니, 특히 유의하시기 바랍니다.")
 			this.setVariable("etcContent3", "위 정보는 공개된 법인등기부등본을 기초로 작성된 것이므로, 개인정보를 침해한 사실이 전혀 없음을 밝혀 드립니다.")
-			this.setVariable("content3", "<span class=\"font-other\">담당자 이메일(dkdltm2468@naver.com) 또는 팩스로 법인등기부등본, 주주명부, 정관 사본을 미리 보내주시면, 보다 신속하고 정확한 상담 및 서류 안내가 가능합니다.</span>")
+			this.setVariable("content3", "<span class=\"font-other\">담당자 이메일(lawn6616@naver.com) 또는 팩스로 법인등기부등본, 주주명부, 정관 사본을 미리 보내주시면, 보다 신속하고 정확한 상담 및 서류 안내가 가능합니다.</span>")
 			this.setVariable("desc", "\"당사무소는 법인등기 외 가압류, 가처분, 소송, 부동산등기 업무 등 각종 법률사무를 취급하오니, 이에 대하여 귀사의 문의가 있을 경우 정성과 책임을 다하여 상담하여 드리겠습니다.\"")
 		}
 	}
