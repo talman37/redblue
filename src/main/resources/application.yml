@@ -34,7 +34,8 @@ spring:
   profiles: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://applelaw.iptime.org:3306/redblue?serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://applelaw.iptime.org:3306/redblue?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://redblue80.ipdisk.co.kr:3306/redblue?serverTimezone=Asia/Seoul
     username: redblue
     password: password
     hikari:

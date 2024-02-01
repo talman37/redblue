@@ -3,18 +3,18 @@ package com.redblue.web.company.repository.impl
 import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.ExpressionUtils
 import com.querydsl.core.types.Projections
+import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.jpa.JPAExpressions
 import com.querydsl.jpa.impl.JPAQueryFactory
-import com.redblue.web.company.model.*
+import com.redblue.web.company.model.Company
+import com.redblue.web.company.model.QCompany
+import com.redblue.web.company.model.QContact
+import com.redblue.web.company.model.QExecutive
 import com.redblue.web.company.repository.CompanyQueryDslRepository
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
 import org.springframework.util.StringUtils
 import java.util.*
-import kotlin.math.min
 
 @Repository
 class CompanyQueryDslRepositoryImpl(
@@ -83,6 +83,11 @@ class CompanyQueryDslRepositoryImpl(
 				"임원이름" -> {
 					predicate.and(
 						qe.name.like("%$it%")
+					)
+				}
+				"연락처" -> {
+					predicate.and(
+						Expressions.stringTemplate("replace({0}, '-', '')", qct.value).like("%${it.replace("-", "")}%")
 					)
 				}
 				else -> {
