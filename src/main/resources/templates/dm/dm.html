@@ -179,6 +179,15 @@
             margin-bottom: 5px;
             font-size: 16px;
         }
+        .dm .top .recipient .company-chinese {
+            text-align: left;
+            width: 63%;
+            max-width: 63%;
+            margin-left: auto;
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-family: "NanumBarunGothic"
+        }
         .dm .top .recipient .address {
             height: 44px;
             margin-bottom: 0;
@@ -367,7 +376,8 @@
                 </div>
                 <div class="recipient">
                     <p class="address" th:text="${exAddress}"></p>
-                    <p class="company" th:text="${exCompany}"></p>
+                    <p th:if="${isChineseCharacter}" class="company-chinese" th:utext="${exCompany}"></p>
+                    <p th:unless="${isChineseCharacter}"class="company" th:utext="${exCompany}"></p>
                     <p class="name" th:utext="${exName}"></p>
                     <p class="post" th:text="${exPost}"></p>
                 </div>

@@ -172,6 +172,13 @@
       line-height: 1.5;
     }
 
+    .dm .top .recipient .company {
+      text-align: right;
+      font-size: 16px;
+      line-height: 1.5;
+      font-family: "NanumBarunGothic"
+    }
+
     .dm .top .recipient .address {
       text-align: left;
       width: 63%;
@@ -350,7 +357,8 @@
         </div>
         <div class="recipient">
           <p class="address" th:text="${exAddress}"></p>
-          <p class="company" th:utext="${exCompany}"></p>
+          <p th:if="${isChineseCharacter}" class="company" th:utext="${exCompany}"></p>
+          <p th:unless="${isChineseCharacter}" th:utext="${exCompany}"></p>
           <div>
             <ul style="float: right; width: 100%">
               <li class="name" style="float: right;"  th:utext="${exName}"></li>
