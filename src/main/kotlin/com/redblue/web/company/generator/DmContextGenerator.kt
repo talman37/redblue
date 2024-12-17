@@ -216,7 +216,7 @@ class DmContextGenerator {
                 "<strong>" + company.companyName + " " + masterInfo?.get(0)?.name + " 대표님</strong><span> 귀하</span>"
             )
             var box =
-                "<strong>코로나19 대응</strong>을 위한 <br/>준비서류 <strong>방문수령, 등기우편&middot;온라인<br/>전자신청</strong><span>(공인인증서 사용)</span> 가능합니다."
+                "<strong>○<b>인감증명서 창구 발급용</b>만 사용가능</strong><br/><span>(전자 발급용 사용불가)</span><br/><strong>○<b>온라인 전자신청</b> 처리 가능</strong><br/><span>(당사자 인증 필요)</span>"
             var warning =
                 "<strong>임기만료, 대표님의 주소변경</strong>으로 인한 변경등기는 <strong>2주</strong> 이내에 하셔야 하며, 등기를 늦게 할 경우 상법상 과태료(<em>최고 500만원까지</em>)가 <em>대표님 개인에게 부과</em>될 수 있습니다."
             var content0 = "귀사의 무궁한 발전을 기원합니다."
