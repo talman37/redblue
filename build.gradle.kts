@@ -11,7 +11,10 @@ plugins {
 
 group = "com.redblue"
 version = "0.0.1.SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
     mavenCentral()
@@ -63,4 +66,9 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
     }
+}
+
+tasks.wrapper {
+    gradleVersion = "6.8.3"
+    distributionType = Wrapper.DistributionType.BIN
 }
